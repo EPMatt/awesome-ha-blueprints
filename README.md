@@ -10,7 +10,16 @@ For automations, an interesting use-case is described in the [Official Blueprint
 > It is now possible to create two automations that each have their own configuration for this blueprint and that act completely independent, yet are based on the same automation configuration.
 
 One of the major advantages of Blueprints is their ability to be customized by any user, adapting to their needs, **directly from the UI, without ever writing a single YAML line**.
-This project aims to build a curated list of automation blueprints for Home Assistant, maintained by the community, which can then be easily imported and updated in any Home Assistant instance.
+
+This project aims to build a curated list of automation blueprints for Home Assistant, which can then be easily imported and updated in any Home Assistant instance. Each blueprint included in the collection will be:
+
+* Highly customizable and flexible to user needs, but still hiding the complexity of their internal working to the user;
+* Reliable on most situations and corner cases;
+* Fully maintained, collaboratively developed and tested by the community.
+
+One of the main focuses of the project is on **Reliability**. With more and more people looking into home automation every day, its important that our smart homes run on reliable software. This includes not only server OSs, home automation hubs, and general services, but also the automations we use throughout the day.
+
+The ultimate goal of Awesome HA Blueprints is to develop an highly valuable resource for Home Assistant newcomers who would like to include complex automations in their home automation setups with just a few clicks, without even touching a single line of code.
 
 ## Importing a blueprint
 
