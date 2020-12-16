@@ -13,13 +13,13 @@ One of the major advantages of Blueprints is their ability to be customized by a
 
 This project aims to build a curated list of automation blueprints for Home Assistant, which can then be easily imported and updated in any Home Assistant instance. Each blueprint included in the collection will be:
 
-* Highly customizable and flexible to user needs, but still hiding the complexity of their internal working to the user;
-* Reliable on most situations and corner cases;
-* Fully maintained, collaboratively developed and tested by the community.
+* **Highly customizable** and **flexible** to user needs, but still hiding the complexity of their internal working to the user;
+* **Reliable** on most situations and corner cases;
+* **Fully maintained**, collaboratively **developed** and **tested by the community**.
 
-One of the main focuses of the project is on **Reliability**. With more and more people looking into home automation every day, its important that our smart homes run on reliable software. This includes not only server OSs, home automation hubs, and general services, but also the automations we use throughout the day.
+One of the main focuses of the project is on **Reliability**. With more and more people looking into home automation every day, it's important that our smart homes run on reliable software. This includes not only server OSs, home automation hubs, and general services, but also the automations we use throughout the day.
 
-The ultimate goal of Awesome HA Blueprints is to develop an highly valuable resource for Home Assistant newcomers who would like to include complex automations in their home automation setups with just a few clicks, without even touching a single line of code.
+The **ultimate goal** of Awesome HA Blueprints is to **develop an highly valuable resource** for Home Assistant newcomers who would like to include **complex automations** in their home automation setups **with just a few clicks**, without even touching a single line of code.
 
 ## Importing a blueprint
 
