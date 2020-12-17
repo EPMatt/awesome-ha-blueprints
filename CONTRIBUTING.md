@@ -56,7 +56,9 @@ Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-bl
 
 To ensure the delivery of good quality, highly reusable blueprints which can be widely adopted across the community, blueprints must adhere to the following guidelines:
 
-* **Descriptiveness**: don't use ambiguous names and identifiers. Include descriptions for both the blueprint and its inputs.
-* **Flexibility**: your blueprint must be as general as possible, and should be adapt to different use-cases. Consider different conditions and effectively handle corner cases.
-* **Testing**: make sure to conduct proper testing before submitting your contribution.
+* **Clarity and Descriptiveness**: don't use ambiguous names and identifiers. Include clear descriptions for both the blueprint and its inputs.
+* **Flexibility**: your blueprint must be as general as possible, and should adapt to different use-cases. Consider different conditions and effectively handle corner cases.
+* **Effective Testing**: make sure to conduct proper testing before submitting your contribution.
+* **Input Restriction**: use selectors to restrict what users can provide as input to the blueprint.
+* **Code Documentation**: if the blueprint contains a complicated piece of code, consider adding some YAML comments to better explain what the section is trying to achieve.
 * **Consistency**: be consistent within your blueprint, for what regards naming and patterns you use to accomplish certain tasks. Also, adhere to the format of the provided templates.
