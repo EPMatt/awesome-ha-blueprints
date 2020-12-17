@@ -3,8 +3,7 @@ name: New Blueprint Suggestion
 about: Create a bug report for a blueprint included in our collection.
 title: "[SUGGESTION]"
 labels: enhancement
-assignees: ''
-
+assignees: ""
 ---
 
 **Description**
