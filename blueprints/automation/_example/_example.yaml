@@ -7,7 +7,6 @@ blueprint:
     example_input_boolean:
       name: Example Input Boolean
       description: A description for the example input
-      default: "off"
       # make sure only entities from the input_boolean domain can be assigned to this input 
       selector:
         entity:
@@ -15,8 +14,8 @@ blueprint:
     example_text:
       name: Example Text
       description: A description for the example input
-      # whenever possible provide a default value for your inputs
-      default: ''
+      # wherever possible provide a default value for your inputs
+      default: 'Sample Text Message'
       # we want the user to provide a line of text, so we can skip the selector here
       # this is the only situation which doesn't require a proper input selector
 
