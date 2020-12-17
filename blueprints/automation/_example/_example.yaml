@@ -1,0 +1,38 @@
+# Blueprint metadata
+blueprint:
+  name: Example Automation Blueprint
+  description: A description for the blueprint
+  domain: automation
+  input:
+    example_input_boolean:
+      name: Example Input Boolean
+      description: A description for the example input
+      default: off
+      # make sure only entities from the input_boolean domain can be assigned to this input 
+      selector:
+        entity:
+          domain: input_boolean
+    example_text:
+      name: Example Text
+      description: A description for the example input
+      # whenever possible provide a default value for your inputs
+      default: ''
+      # we want the user to provide a line of text, so we can skip the selector here
+      # this is the only situation which doesn't require a proper input selector
+
+
+# Automation schema
+mode: restart
+
+trigger:
+  platform: state
+  entity_id: !input example_input_boolean
+  from: off
+  to: on
+condition: []
+action:
+  # if part of your automations are comaplicated, remember to add comments to better explain what's happening
+  service: persistent_notification.create
+  data:
+    title: This is a title
+    message: !input example_text
