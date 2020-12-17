@@ -1,7 +1,7 @@
 ---
-name: Blueprint Issue
-about: Create an issue report for a blueprint included in our collection.
-title: "[ISSUE]"
+name: Blueprint Bug Report
+about: Create a bug report for a blueprint included in our collection.
+title: "[BUG]"
 labels: bug
 assignees: ''
 
