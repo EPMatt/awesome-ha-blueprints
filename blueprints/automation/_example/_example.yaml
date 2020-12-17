@@ -7,7 +7,7 @@ blueprint:
     example_input_boolean:
       name: Example Input Boolean
       description: A description for the example input
-      default: off
+      default: "off"
       # make sure only entities from the input_boolean domain can be assigned to this input 
       selector:
         entity:
@@ -27,8 +27,8 @@ mode: restart
 trigger:
   platform: state
   entity_id: !input example_input_boolean
-  from: off
-  to: on
+  from: "off"
+  to: "on"
 condition: []
 action:
   # if part of your automations are comaplicated, remember to add comments to better explain what's happening
