@@ -15,7 +15,7 @@ blueprint:
       name: Example Text
       description: A description for the example input
       # wherever possible provide a default value for your inputs
-      default: 'Sample Text Message'
+      default: Sample Text Message
       # we want the user to provide a line of text, so we can skip the selector here
       # this is the only situation which doesn't require a proper input selector
 
