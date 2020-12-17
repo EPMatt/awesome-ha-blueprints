@@ -3,20 +3,21 @@ name: Blueprint Bug Report
 about: Create a bug report for a blueprint included in our collection.
 title: "[BUG]"
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Bug Details**
- - Blueprint name: the name of the blueprint you're opening this issue for
- - Home Assistant Core Version: [e.g. 2020.12.0]
- - Home Assistant Installation Type [e.g. Home Assistant OS, Home Assistant Supervised, etc.]
+
+- Blueprint name: the name of the blueprint you're opening this issue for
+- Home Assistant Core Version: [e.g. 2020.12.0]
+- Home Assistant Installation Type [e.g. Home Assistant OS, Home Assistant Supervised, etc.]
 
 **Description**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Trigger the automation '....'

@@ -5,6 +5,7 @@ The goal of this project is to keep a curated collection of blueprints for Home 
 Please consider that this project is released under the [GPL-3.0 License](LICENSE), and any discussion or interaction must adhere with the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). Make sure to read and agree with those terms before submitting your contribution.
 
 Also, keep in mind that any of the following operations require that you've succesfully created a [GitHub](https://github.com/) account. If you have any troubles working with GitHub please consider taking a look at the [Official GitHub Docs](https://docs.github.com/).
+
 ## How to Contribute
 
 ### 1. I have an issue with a blueprint
@@ -15,34 +16,35 @@ Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-bl
 
 Amazing! The following steps will guide you through the process of adding your contribution to this project:
 
-* Fork this repo on your private GitHub account;
-* Clone the forked repository on your computer;
-* Create a new branch **named as your new blueprint**. This step will ease the operations required for merging your changes into this repository;
-* Make sure to checkout the new branch so you can start to work on your contribution;
-* Copy the example blueprint folder `blueprints/automation/_example` into `blueprints/automation`, renaming the folder with your blueprint name. This is the folder when all files for your blueprint will reside;
-* Inside your blueprint's folder:
-  * rename the `_example.yaml` file with the name of your blueprint;
-  * Add the code for your blueprint in the `.yaml` file you've just renamed. Please make sure to follow the [Blueprint Guidelines](CONTRIBUTING.md#Blueprint-Guidelines);
-  * Write the documentation for your blueprint in the `README.md` file. Make sure to fill in all the required information for the documentation template file;
-* After you've reviewed your work commit;
-* Push the branch with the changes to your fork;
-* Navigate to the webpage for your repo on GitHub, go to the Pull Requests tab and open a new Pull Request. Make sure to select `awesome-ha-blueprints/main` as base branch. Provide a description for the Pull Request, then click on **Open Pull Request**;
-* You're all set! The PR will be reviewed and eventually your contribution will be merged in this repository. Thank you very much for having spent your time and energy to help the Home Assistant community! :fire:
-* You can now safely delete your fork.
+- Fork this repo on your private GitHub account;
+- Clone the forked repository on your computer;
+- Create a new branch **named as your new blueprint**. This step will ease the operations required for merging your changes into this repository;
+- Make sure to checkout the new branch so you can start to work on your contribution;
+- Copy the example blueprint folder `blueprints/automation/_example` into `blueprints/automation`, renaming the folder with your blueprint name. This is the folder when all files for your blueprint will reside;
+- Inside your blueprint's folder:
+  - rename the `_example.yaml` file with the name of your blueprint;
+  - Add the code for your blueprint in the `.yaml` file you've just renamed. Please make sure to follow the [Blueprint Guidelines](CONTRIBUTING.md#Blueprint-Guidelines);
+  - Write the documentation for your blueprint in the `README.md` file. Make sure to fill in all the required information for the documentation template file;
+- After you've reviewed your work commit;
+- Push the branch with the changes to your fork;
+- Navigate to the webpage for your repo on GitHub, go to the Pull Requests tab and open a new Pull Request. Make sure to select `awesome-ha-blueprints/main` as base branch. Provide a description for the Pull Request, then click on **Open Pull Request**;
+- You're all set! The PR will be reviewed and eventually your contribution will be merged in this repository. Thank you very much for having spent your time and energy to help the Home Assistant community! :fire:
+- You can now safely delete your fork.
 
 ### 3. I want to improve an existing blueprint
+
 Amazing! The following steps will guide you through the process of adding your contribution to this project:
 
-* Fork this repo on your private GitHub account;
-* Clone the forked repository on your computer;
-* Create a new branch **named as the blueprint you want to edit**. This step will ease the operations required for merging your changes into this repository;
-* Make sure to checkout the new branch so you can start to work on your contribution;
-* Make your edits to the blueprint. Please make sure to follow the [Blueprint Guidelines](CONTRIBUTING.md#Blueprint-Guidelines);
-* Make your edits to the blueprint `README.md` documentation file. Make sure to fill in all the required information for the documentation template file;
-* Push your branch with the changes to your fork;
-* Navigate to the webpage for your repo on GitHub, go to the Pull Requests tab and open a new Pull Request. Make sure to select `awesome-ha-blueprints/main` as base branch. Provide a description for the Pull Request, then click on **Open Pull Request**;
-* You're all set! The PR will be reviewed and eventually your contribution will be merged in this repository. Thank you very much for having spent your time and energy to help the Home Assistant community! :fire:
-* You can now safely delete your fork.
+- Fork this repo on your private GitHub account;
+- Clone the forked repository on your computer;
+- Create a new branch **named as the blueprint you want to edit**. This step will ease the operations required for merging your changes into this repository;
+- Make sure to checkout the new branch so you can start to work on your contribution;
+- Make your edits to the blueprint. Please make sure to follow the [Blueprint Guidelines](CONTRIBUTING.md#Blueprint-Guidelines);
+- Make your edits to the blueprint `README.md` documentation file. Make sure to fill in all the required information for the documentation template file;
+- Push your branch with the changes to your fork;
+- Navigate to the webpage for your repo on GitHub, go to the Pull Requests tab and open a new Pull Request. Make sure to select `awesome-ha-blueprints/main` as base branch. Provide a description for the Pull Request, then click on **Open Pull Request**;
+- You're all set! The PR will be reviewed and eventually your contribution will be merged in this repository. Thank you very much for having spent your time and energy to help the Home Assistant community! :fire:
+- You can now safely delete your fork.
 
 ### 4. I've a question regarding a blueprint / this project
 
@@ -56,9 +58,9 @@ Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-bl
 
 To ensure the delivery of good quality, highly reusable blueprints which can be widely adopted across the community, blueprints must adhere to the following guidelines:
 
-* **Clarity and Descriptiveness**: don't use ambiguous names and identifiers. Include clear descriptions for both the blueprint and its inputs.
-* **Flexibility**: your blueprint must be as general as possible, and should adapt to different use-cases. Consider different conditions and effectively handle corner cases.
-* **Effective Testing**: make sure to conduct proper testing before submitting your contribution.
-* **Input Restriction**: use selectors to restrict what users can provide as input to the blueprint.
-* **Code Documentation**: if the blueprint contains a complicated piece of code, consider adding some YAML comments to better explain what the section is trying to achieve.
-* **Consistency**: be consistent within your blueprint, for what regards naming and patterns you use to accomplish certain tasks. Also, adhere to the format of the provided templates.
+- **Clarity and Descriptiveness**: don't use ambiguous names and identifiers. Include clear descriptions for both the blueprint and its inputs.
+- **Flexibility**: your blueprint must be as general as possible, and should adapt to different use-cases. Consider different conditions and effectively handle corner cases.
+- **Effective Testing**: make sure to conduct proper testing before submitting your contribution.
+- **Input Restriction**: use selectors to restrict what users can provide as input to the blueprint.
+- **Code Documentation**: if the blueprint contains a complicated piece of code, consider adding some YAML comments to better explain what the section is trying to achieve.
+- **Consistency**: be consistent within your blueprint, for what regards naming and patterns you use to accomplish certain tasks. Also, adhere to the format of the provided templates.

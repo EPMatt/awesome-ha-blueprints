@@ -7,7 +7,7 @@ blueprint:
     example_input_boolean:
       name: Example Input Boolean
       description: A description for the example input
-      # make sure only entities from the input_boolean domain can be assigned to this input 
+      # make sure only entities from the input_boolean domain can be assigned to this input
       selector:
         entity:
           domain: input_boolean
@@ -18,7 +18,6 @@ blueprint:
       default: Sample Text Message
       # we want the user to provide a line of text, so we can skip the selector here
       # this is the only situation which doesn't require a proper input selector
-
 
 # Automation schema
 mode: restart
