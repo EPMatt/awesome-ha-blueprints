@@ -9,7 +9,7 @@ Also, keep in mind that any of the following operations require that you've succ
 
 ### 1. I have an issue with a blueprint
 
-Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-blueprints/issues) using the **Blueprint Issue** template and fill in all the requested fields in the template before submitting the issue.
+Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-blueprints/issues) using the **Blueprint Bug Report** template and fill in all the requested fields in the template before submitting the issue.
 
 ### 2. I want to add a blueprint to the project
 
@@ -50,7 +50,7 @@ Please open a discussion in the [Discussions tab](https://github.com/EPMatt/awes
 
 ### 5. I've an idea for a new blueprint but I need help to develop it
 
-Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-blueprints/discussions) using the **New Blueprint** template and fill in all the requested fields in the template before submitting the issue.
+Please open an issue in the [Issues tab](https://github.com/EPMatt/awesome-ha-blueprints/discussions) using the **New Blueprint Suggestion** template and fill in all the requested fields in the template before submitting the issue.
 
 ## Blueprint Guidelines
 
