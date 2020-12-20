@@ -16,9 +16,7 @@ function Home(props) {
 }
 
 function getStaticProps() {
-  const doc = fs
-    .readFileSync(`README.md`)
-    .toString()
+  const doc = fs.readFileSync(`README.md`).toString()
   const { data, content } = matter(doc)
   return {
     props: { data, content },
