@@ -8,7 +8,7 @@ function Home(props) {
     <div>
       <Head>
         <title>Awesome HA Blueprints</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/awesome-ha-blueprints/favicon.ico' />
       </Head>
       <Markdown>{props.content}</Markdown>
     </div>

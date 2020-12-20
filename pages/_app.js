@@ -5,15 +5,16 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import { Container } from 'react-bootstrap'
+import Link from 'next/link'
 
 function MyApp({ Component, pageProps }) {
   return (
     <div id='root' className='d-flex flex-column'>
       <Navbar bg='primary' variant='dark'>
-        <Navbar.Brand href='/'>Awesome HA Blueprints</Navbar.Brand>
+        <Navbar.Brand><Link href='/'>Awesome HA Blueprints</Link></Navbar.Brand>
         <Nav className='mr-auto'>
-          <Nav.Link href='/'>Home</Nav.Link>
-          <Nav.Link href='/blueprints'>Blueprints</Nav.Link>
+          <Nav.Link><Link href='/'>Home</Link></Nav.Link>
+          <Nav.Link><Link href='/blueprints'>Blueprints</Link></Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
