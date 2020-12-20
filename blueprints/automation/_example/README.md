@@ -1,3 +1,7 @@
+---
+name: Example Automation Blueprint
+description: A description for the blueprint
+---
 # Example Automation Blueprint
 
 ## Description
