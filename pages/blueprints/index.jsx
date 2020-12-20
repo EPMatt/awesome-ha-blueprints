@@ -48,12 +48,5 @@ async function getStaticProps() {
   }
 }
 
-async function getStaticPaths() {
-  return {
-    paths: [{ params: { category: '/' } }],
-    fallback: false,
-  }
-}
-
-export { getStaticProps, getStaticPaths }
+export { getStaticProps }
 export default Blueprints
