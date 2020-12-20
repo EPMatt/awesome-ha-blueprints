@@ -47,7 +47,8 @@ function MyApp({ Component, pageProps }) {
         </Container>
       </main>
       <footer className='text-center mt-auto'>
-        © 2020 Matteo Agnoletto. Licensed under the{' '}
+        Maintained by <a href='https://github.com/EPMatt/'>Matteo Agnoletto</a>.
+        Licensed under the{' '}
         <a href='https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE'>
           GPL-3.0 License
         </a>
