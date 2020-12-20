@@ -26,12 +26,12 @@ The **ultimate goal** of Awesome HA Blueprints is to **develop an highly valuabl
 
 You can import blueprints directly from the Home Assistant UI.
 
-1. look for the blueprint you'd like to import;
-2. copy the URL for the blueprint `yaml` file (e.g. `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/_example/_example.yaml`);
-3. on your Home Assistant instance go to **Configuration** and then **Blueprints**
-4. click on the _Import Blueprint_ buttom in the bottom right corner. A new dialog will pop-up;
-5. paste the URL for the blueprint and click on _Preview Blueprint_;
-6. if desided change the name of the blueprint and finish the import;
+1. Look for the blueprint you'd like to import [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints);
+2. In the page of the blueprint you'd like to import, click on the **Copy Link** button on the top of the page. The URL for the blueprint is now in your clipboard;
+3. On your Home Assistant instance go to **Configuration** and then **Blueprints**
+4. Click on the **Import Blueprint** button in the bottom right corner. A new dialog will pop-up;
+5. Paste the URL for the blueprint and click on **Preview Blueprint**;
+6. If desided change the name of the blueprint and finish the import;
 7. You're good to go! Now your blueprint can be used for generating automations.
 
 Check out the [Official documentation on Using Automation Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/) for the detailed process of importing blueprints into Home Assistant and using them for automations.
