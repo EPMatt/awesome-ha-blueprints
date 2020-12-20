@@ -1,1 +1,20 @@
+$primary: #002082;
+$secondary: #CED8F7;
+
 @import "~bootstrap/scss/bootstrap";
+
+footer{
+  width:100%;
+  padding-top:2rem;
+  padding-bottom:2rem;
+  background-color: $secondary;
+}
+
+#root{
+  min-height: 100vh;
+}
+
+main{
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
