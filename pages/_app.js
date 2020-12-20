@@ -11,10 +11,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <div id='root' className='d-flex flex-column'>
       <Navbar bg='primary' variant='dark'>
-        <Navbar.Brand><Link href='/'>Awesome HA Blueprints</Link></Navbar.Brand>
+        <Navbar.Brand>
+          <Link href='/'>Awesome HA Blueprints</Link>
+        </Navbar.Brand>
         <Nav className='mr-auto'>
-          <Nav.Link><Link href='/'>Home</Link></Nav.Link>
-          <Nav.Link><Link href='/blueprints'>Blueprints</Link></Nav.Link>
+          <Nav.Link>
+            <Link href='/'>Home</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link href='/blueprints'>Blueprints</Link>
+          </Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
