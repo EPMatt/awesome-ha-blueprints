@@ -37,6 +37,8 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build
+    - name: Create .nojekyll file
+      run: touch out/.nojekyll
     - name: Deploy to GitHub Pages
       uses: s0/git-publish-subdir-action@v2.4.0
       env:
