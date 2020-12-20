@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   prettier:
@@ -24,3 +21,28 @@ jobs:
           commit_message: 🤖 Enforce Code Style
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  gh-pages:
+    needs: prettier
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Setup Node.JS
+      uses: actions/setup-node@v2
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build
+    - name: Deploy to GitHub Pages
+      uses: s0/git-publish-subdir-action@v2.4.0
+      env:
+        REPO: self
+        BRANCH: gh-pages
+        FOLDER: out
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MESSAGE: '🤖 Deploy static site for change: {msg}'
+        SKIP_EMPTY_COMMITS: true
