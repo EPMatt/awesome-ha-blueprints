@@ -1,8 +1,10 @@
 import fs from 'fs'
 import matter from 'gray-matter'
-import { Table } from 'react-bootstrap'
+import { Table, Breadcrumb } from 'react-bootstrap'
 import Head from 'next/head'
 import Link from 'next/link'
+import TextIcon from '../../components/TextIcon'
+import { ArrowLeft } from 'react-bootstrap-icons'
 
 function BlueprintCategory(props) {
   const rows = props.blueprints.map((b) => (
@@ -20,6 +22,15 @@ function BlueprintCategory(props) {
           Blueprints for domain {props.category} - Awesome HA Blueprints{' '}
         </title>
       </Head>
+      <div className='mb-3'>
+        <TextIcon
+          as={Link}
+          left
+          href='/blueprints'
+          icon={<ArrowLeft />}
+          text='Go back to Blueprints page'
+        />
+      </div>
       <h1 className='mb-5'>
         Blueprints for domain <code>{props.category}</code>
       </h1>
