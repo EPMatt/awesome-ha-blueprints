@@ -4,32 +4,42 @@ import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
-import { Container } from 'react-bootstrap'
-import Link from 'next/link'
+import { Container, Row, Col } from 'react-bootstrap'
 
 function MyApp({ Component, pageProps }) {
   return (
     <div id='root' className='d-flex flex-column'>
-      <Navbar bg='primary' variant='dark'>
-        <Navbar.Brand>
-          <Link href='/'>Awesome HA Blueprints</Link>
+      <Navbar
+        fixed='top'
+        collapseOnSelect
+        expand='lg'
+        bg='primary'
+        variant='dark'
+      >
+        <Navbar.Brand href='/awesome-ha-blueprints/'>
+          Awesome HA Blueprints
         </Navbar.Brand>
-        <Nav className='mr-auto'>
-          <Nav.Link>
-            <Link href='/'>Home</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link href='/blueprints'>Blueprints</Link>
-          </Nav.Link>
-        </Nav>
-        <Form inline>
-          <FormControl
-            type='text'
-            placeholder='Search Blueprints...'
-            className='mr-sm-2'
-          />
-          <Button variant='outline-secondary'>Search</Button>
-        </Form>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='mr-auto'>
+            <Nav.Link href='/awesome-ha-blueprints/'>Home</Nav.Link>
+            <Nav.Link href='/awesome-ha-blueprints/blueprints'>
+              Blueprints
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Form inline className='my-2 my-lg-0'>
+              <Row>
+                <Col>
+                  <FormControl type='text' placeholder='Search Blueprints...' />
+                </Col>
+                <Col xs='auto'>
+                  <Button variant='outline-secondary'>Search</Button>
+                </Col>
+              </Row>
+            </Form>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
       <main>
         <Container>
