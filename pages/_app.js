@@ -27,18 +27,6 @@ function MyApp({ Component, pageProps }) {
               Blueprints
             </Nav.Link>
           </Nav>
-          <Nav>
-            <Form inline className='my-2 my-lg-0'>
-              <Row>
-                <Col>
-                  <FormControl type='text' placeholder='Search Blueprints...' />
-                </Col>
-                <Col xs='auto'>
-                  <Button variant='outline-secondary'>Search</Button>
-                </Col>
-              </Row>
-            </Form>
-          </Nav>
         </Navbar.Collapse>
       </Navbar>
       <main>
