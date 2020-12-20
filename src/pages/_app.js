@@ -1,11 +1,15 @@
 import '../styles/globals.scss'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
   return (
     <div id='root' className='d-flex flex-column'>
+      <Head>
+        <link rel='icon' href='/awesome-ha-blueprints/favicon.ico' />
+      </Head>
       <Navbar
         fixed='top'
         collapseOnSelect
