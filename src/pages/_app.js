@@ -29,7 +29,9 @@ function MyApp({ Component, pageProps }) {
             </Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
-            <Nav.Link href='https://github.com/EPMatt/awesome-ha-blueprints'>See on GitHub</Nav.Link>
+            <Nav.Link href='https://github.com/EPMatt/awesome-ha-blueprints'>
+              See on GitHub
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -39,7 +41,8 @@ function MyApp({ Component, pageProps }) {
         </Container>
       </main>
       <footer className='text-center mt-auto px-3'>
-        Awesome HA Blueprints is maintained by <a href='https://github.com/EPMatt/'>Matteo Agnoletto</a>.<br></br>
+        Awesome HA Blueprints is maintained by{' '}
+        <a href='https://github.com/EPMatt/'>Matteo Agnoletto</a>.<br></br>
         Licensed under the{' '}
         <a href='https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE'>
           GPL-3.0 License
