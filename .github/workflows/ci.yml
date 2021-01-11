@@ -15,7 +15,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name: Prettify code
-        uses: creyD/prettier_action@v3.2
+        uses: creyD/prettier_action@v3.3
         with:
           prettier_options: --write **/*.{yml,yaml,md,js,jsx,json}
           commit_message: 🤖 Enforce Code Style
