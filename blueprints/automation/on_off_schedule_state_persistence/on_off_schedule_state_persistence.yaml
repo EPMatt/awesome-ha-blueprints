@@ -33,7 +33,6 @@ blueprint:
       selector:
         boolean:
 
-
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
@@ -43,37 +42,37 @@ variables:
   # time format used by strptime
   time_fmt: '%H:%M:%S'
   # first define whether on_time or off_time is the first event to occur during a specific day
-  first_event:  '{{ on_time if strptime(on_time,time_fmt).time() < strptime(off_time,time_fmt).time() else off_time }}'
+  first_event: '{{ on_time if strptime(on_time,time_fmt).time() < strptime(off_time,time_fmt).time() else off_time }}'
   second_event: '{{ on_time if strptime(on_time,time_fmt).time() >= strptime(off_time,time_fmt).time() else off_time }}'
 mode: single
 max_exceeded: silent
 
 # trigger at specified time, home assistant startup or when the custom event is fired
 trigger:
-- platform: time
-  at: 
-  - !input on_time
-  - !input off_time
-- platform: homeassistant
-  event: start
-- platform: event
-  event_type: !input custom_trigger_event
+  - platform: time
+    at:
+      - !input on_time
+      - !input off_time
+  - platform: homeassistant
+    event: start
+  - platform: event
+    event_type: !input custom_trigger_event
 # if triggered by the homeassistant platform check if the automation should be run, as specified by the user
 # if triggered by something else, just continue
 condition:
-- condition: template
-  value_template: '{{ trigger.platform=="homeassistant" and trigger_at_homeassistant_startup or trigger.platform!="homeassistant"}}'
+  - condition: template
+    value_template: '{{ trigger.platform=="homeassistant" and trigger_at_homeassistant_startup or trigger.platform!="homeassistant"}}'
 action:
   - choose:
-          # if current time is in the range first_event...second_event the target must be in the first_event state
-          - conditions:
-              - condition: template
-                value_template: '{{ now().time() >= strptime(first_event,time_fmt).time() and now().time() < strptime(second_event,time_fmt).time() }}'
-            sequence:
-              - service: 'homeassistant.{{ "turn_on" if first_event == on_time else "turn_off"}}'
-                target: !input automation_target
+      # if current time is in the range first_event...second_event the target must be in the first_event state
+      - conditions:
+          - condition: template
+            value_template: '{{ now().time() >= strptime(first_event,time_fmt).time() and now().time() < strptime(second_event,time_fmt).time() }}'
+        sequence:
+          - service: 'homeassistant.{{ "turn_on" if first_event == on_time else "turn_off"}}'
+            target: !input automation_target
     # else current time is in the range second_event...23:59:59 or 00:00:00...first_event
-    # the target must be in the second_event state             
+    # the target must be in the second_event state
     default:
       - service: 'homeassistant.{{ "turn_on" if second_event == on_time else "turn_off"}}'
         target: !input automation_target

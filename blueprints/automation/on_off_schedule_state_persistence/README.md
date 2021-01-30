@@ -9,9 +9,9 @@ description: A simple on-off schedule, with the addition of state persistence ac
 
 This blueprint provides a simple on-off schedule, with the addition of state persistence across server reboots, powercuts, or other disruptive events which could potentially alter the expected state of the targeted entities. The automation makes sure the target is always in the expected state, even in these situations, but always leaving the freedom to manually toggle the target state as desired. It can be used on critical targets which require a simple on-off schedule during every single day.
 
-One common scenario where this could be useful is in the case of a server reboot or shutdown. For example, let's assume you've an automation *A* set to turn on light *L* at 12:00. If for whatever reason Home Assistant goes offline at 11:59 and turns back on at 12:01, automation *A* scheduled for 12:00 is not executed, with the result of *L* not being in the state you'd expect to be, after 12:00.
+One common scenario where this could be useful is in the case of a server reboot or shutdown. For example, let's assume you've an automation _A_ set to turn on light _L_ at 12:00. If for whatever reason Home Assistant goes offline at 11:59 and turns back on at 12:01, automation _A_ scheduled for 12:00 is not executed, with the result of _L_ not being in the state you'd expect to be, after 12:00.
 
-Using this blueprint in the above example would have guaranteed the expected behaviour, with the automation *A* being run at Home Assistant startup, and setting the *L* state as described by the schedule.
+Using this blueprint in the above example would have guaranteed the expected behaviour, with the automation _A_ being run at Home Assistant startup, and setting the _L_ state as described by the schedule.
 
 Examples of disruptive scenarios could include server reboots, network outages or powercuts. Since every installation could be influenced by many different events and check for them in many different ways, the blueprints includes the flexibility to optionally supply a custom event type which the automation will listen to. When such event is fired, the automation is run.
 
