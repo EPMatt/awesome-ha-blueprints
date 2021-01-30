@@ -1,0 +1,79 @@
+# Blueprint metadata
+blueprint:
+  name: On-Off schedule with state persistence
+  description: A simple on-off schedule, with the addition of state persistence across disruptive events, making sure the target device is always in the expected state.
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/on_off_schedule_state_persistence/on_off_schedule_state_persistence.yaml
+  domain: automation
+  input:
+    automation_target:
+      name: Automation target
+      description: The target which the automation will turn on and off based on the provided schedule.
+      selector:
+        target:
+    on_time:
+      name: On Time
+      description: Time when the target should be placed in the on state.
+      default: '00:00'
+      selector:
+        time:
+    off_time:
+      name: Off Time
+      description: Time when the target should be placed in the off state.
+      default: '00:00'
+      selector:
+        time:
+    custom_trigger_event:
+      name: Custom Trigger Event
+      description: (Optional) A custom event which can trigger the state check (eg. a powercut event reported by external integrations).
+      default: ''
+    trigger_at_homeassistant_startup:
+      name: Trigger at Home Assistant startup
+      description: Trigger the target state check and enforcement at Home Assistant startup.
+      default: false
+      selector:
+        boolean:
+
+
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  off_time: !input off_time
+  on_time: !input on_time
+  trigger_at_homeassistant_startup: !input trigger_at_homeassistant_startup
+  # time format used by strptime
+  time_fmt: '%H:%M:%S'
+  # first define whether on_time or off_time is the first event to occur during a specific day
+  first_event:  '{{ on_time if strptime(on_time,time_fmt).time() < strptime(off_time,time_fmt).time() else off_time }}'
+  second_event: '{{ on_time if strptime(on_time,time_fmt).time() >= strptime(off_time,time_fmt).time() else off_time }}'
+mode: single
+max_exceeded: silent
+
+# trigger at specified time, home assistant startup or when the custom event is fired
+trigger:
+- platform: time
+  at: 
+  - !input on_time
+  - !input off_time
+- platform: homeassistant
+  event: start
+- platform: event
+  event_type: !input custom_trigger_event
+# if triggered by the homeassistant platform check if the automation should be run, as specified by the user
+# if triggered by something else, just continue
+condition:
+- condition: template
+  value_template: '{{ trigger.platform=="homeassistant" and trigger_at_homeassistant_startup or trigger.platform!="homeassistant"}}'
+action:
+  - choose:
+          # if current time is in the range first_event...second_event the target must be in the first_event state
+          - conditions:
+              - condition: template
+                value_template: '{{ now().time() >= strptime(first_event,time_fmt).time() and now().time() < strptime(second_event,time_fmt).time() }}'
+            sequence:
+              - service: 'homeassistant.{{ "turn_on" if first_event == on_time else "turn_off"}}'
+                target: !input automation_target
+    # else current time is in the range second_event...23:59:59 or 00:00:00...first_event
+    # the target must be in the second_event state             
+    default:
+      - service: 'homeassistant.{{ "turn_on" if second_event == on_time else "turn_off"}}'
+        target: !input automation_target
