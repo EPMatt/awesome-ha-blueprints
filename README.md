@@ -38,7 +38,7 @@ Check out the [Official documentation on Using Automation Blueprints](https://ww
 
 ## Contributing to the project
 
-Please check our [Contribution Guidelines](CONTRIBUTING.md) for additional information on how to contribute. From issues to new blueprints submissions, everything is described in detail to make sure the community can benefit the most from your contribution.
+Please check our [Contribution Guidelines](https://github.com/EPMatt/awesome-ha-blueprints/blob/main/CONTRIBUTING.md) for additional information on how to contribute. From issues to new blueprints submissions, everything is described in detail to make sure the community can benefit the most from your contribution.
 
 ## Further Developments
 

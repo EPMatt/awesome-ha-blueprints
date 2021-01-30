@@ -2,7 +2,7 @@
 
 The goal of this project is to keep a curated collection of blueprints for Home Assistant entirely maintained by the community. Therefore, any contribution to this project is highly appreciated and welcomed! :rocket:
 
-Please consider that this project is released under the [GPL-3.0 License](LICENSE), and any discussion or interaction must adhere with the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). Make sure to read and agree with those terms before submitting your contribution.
+Please consider that this project is released under the [GPL-3.0 License](https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE), and any discussion or interaction must adhere with the [Contributor Covenant Code of Conduct](https://github.com/EPMatt/awesome-ha-blueprints/blob/main/CODE_OF_CONDUCT.md). Make sure to read and agree with those terms before submitting your contribution.
 
 Also, keep in mind that any of the following operations require that you've succesfully created a [GitHub](https://github.com/) account. If you have any troubles working with GitHub please consider taking a look at the [Official GitHub Docs](https://docs.github.com/).
 
