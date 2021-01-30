@@ -1,0 +1,70 @@
+# Blueprint metadata
+blueprint:
+  name: Send Web UI persistent notifications to Mobile Devices
+  description: Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/persistent_notification_to_mobile/persistent_notification_to_mobile.yaml
+  domain: automation
+  input:
+    notification_id:
+      name: Notification ID
+      description: The notification ID of persistent notifications which must be sent to mobile devices. Empty for all notifications.
+      default: ''
+    mobile_notify_service:
+      name: Mobile devices notification service
+      description: The notification service for mobile devices. You can provide both a notify group or a single notify device here. 
+      default: 'service.mobile_app_<your_device_id_here>'
+    replace_notifications:
+      name: Replace notifications with same ID
+      description: Replace existing notifications with the same notification ID.
+      default: false
+      selector:
+        boolean:
+    android_notification_channel:
+      name: Android notification channel
+      description: Android notification channel. Allows to group notifications to then apply custom settings for sound, vibration, etc. Leave blank if you do not want to use this feature.
+      default: ''
+    notification_group:
+      name: Notification group
+      description: Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.
+      default: ''    
+
+
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  notification_id: !input notification_id
+  replace_notifications: !input replace_notifications
+mode: queued
+max: 10
+max_exceeded: silent
+
+# trigger when a persistent notification has been created
+trigger:
+  platform: event
+  event_type: call_service
+  event_data:
+    domain: persistent_notification
+    service: create
+condition:
+  # check whether the persistent notification id matches the one provided by the user
+  # skip the check if the field is blank.
+  condition: template
+  value_template: '{{ trigger.event.data.service_data.notification_id == notification_id or notification_id == "" }}'
+action:
+  # send a notification to mobile devices with the content of the persistent notification
+  - service: !input mobile_notify_service
+    data:
+      title: '{{ trigger.event.data.service_data.title }}'
+      message: '{{ trigger.event.data.service_data.message }}'
+      data:
+        # Android replace notifications, notification group and notification channel
+        tag: '{{ trigger.event.data.service_data.notification_id if replace_notifications else "" }}'
+        group: !input notification_group
+        channel: !input android_notification_channel
+        # iOS notification group
+        push:
+            thread-id: !input notification_group
+        # iOS replace notifications
+        apns_headers:
+            apns-collapse-id: '{{ trigger.event.data.service_data.notification_id if replace_notifications else "" }}'
+        
