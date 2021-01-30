@@ -11,7 +11,7 @@ blueprint:
       default: ''
     mobile_notify_service:
       name: Mobile devices notification service
-      description: The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>). You can provide both a notify group or a single notify device here. 
+      description: The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>). You can provide both a notify group or a single notify device here.
     replace_notifications:
       name: Replace notifications with same ID
       description: Replace existing notifications with the same notification ID.
