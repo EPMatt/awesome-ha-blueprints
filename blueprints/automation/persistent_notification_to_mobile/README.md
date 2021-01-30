@@ -1,6 +1,6 @@
 ---
 name: Send Web UI persistent notifications to Mobile Devices
-description:  Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+description: Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
 ---
 
 # Send Web UI persistent notifications to Mobile Devices

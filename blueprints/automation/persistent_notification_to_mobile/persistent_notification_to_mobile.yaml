@@ -11,7 +11,7 @@ blueprint:
       default: ''
     mobile_notify_service:
       name: Mobile devices notification service
-      description: The notification service for mobile devices. You can provide both a notify group or a single notify device here. 
+      description: The notification service for mobile devices. You can provide both a notify group or a single notify device here.
       default: 'service.mobile_app_<your_device_id_here>'
     replace_notifications:
       name: Replace notifications with same ID
@@ -26,8 +26,7 @@ blueprint:
     notification_group:
       name: Notification group
       description: Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.
-      default: ''    
-
+      default: ''
 
 # Automation schema
 variables:
@@ -63,8 +62,7 @@ action:
         channel: !input android_notification_channel
         # iOS notification group
         push:
-            thread-id: !input notification_group
+          thread-id: !input notification_group
         # iOS replace notifications
         apns_headers:
-            apns-collapse-id: '{{ trigger.event.data.service_data.notification_id if replace_notifications else "" }}'
-        
+          apns-collapse-id: '{{ trigger.event.data.service_data.notification_id if replace_notifications else "" }}'
