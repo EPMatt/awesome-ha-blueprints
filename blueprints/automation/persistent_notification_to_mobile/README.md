@@ -53,7 +53,7 @@ This allows to filter notifications based on their ID before it gets created on 
 
 ### Mobile devices notification service
 
-The notification service for mobile devices. You can provide both a notify group or a single notify device here.
+The notification service for mobile devices (eg. `service.mobile_app_<your_device_id_here>`). You can provide both a notify group or a single notify device here.
 
 ### Replace notifications with same ID
 
