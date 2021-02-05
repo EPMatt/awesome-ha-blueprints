@@ -16,7 +16,6 @@ In addition of being able to provide custom actions for every kind of button pre
 ### Light control with brightness and color temperature control
 
 ```yaml
-
 alias: IKEA E1524/E1810 5-button Remote - Light Control
 description: Control a Light with an IKEA E1524/E1810 remote
 use_blueprint:
@@ -143,7 +142,7 @@ Action to run on long left button press.
 
 Action to run on left button release after a long press.
 
-### (Optional)  Right button - short press
+### (Optional) Right button - short press
 
 Action to run on short right button press.
 
