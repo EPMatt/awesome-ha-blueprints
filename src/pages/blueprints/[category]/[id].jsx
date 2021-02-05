@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'react-bootstrap-icons'
 import { Row, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import React from 'react'
-import Highlight from 'react-highlight.js';
+import Highlight from 'react-highlight.js'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -47,17 +47,19 @@ function Blueprint(props) {
         </Col>
       </Row>
       <Markdown
-      options={{
-        overrides: {
+        options={{
+          overrides: {
             code: {
-                component: Highlight,
-                props: {
-                    language: 'yaml',
-                },
+              component: Highlight,
+              props: {
+                language: 'yaml',
+              },
             },
-        },
-    }}
-      >{props.content}</Markdown>
+          },
+        }}
+      >
+        {props.content}
+      </Markdown>
     </>
   )
 }
