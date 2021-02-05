@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { Container } from 'react-bootstrap'
 import Head from 'next/head'
-import {GitHub} from '../components/Icons'
+import { GitHub } from '../components/Icons'
 import TextIcon from '../components/TextIcon'
 
 function MyApp({ Component, pageProps }) {
@@ -31,16 +31,16 @@ function MyApp({ Component, pageProps }) {
             </Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
-          <Nav.Link >
-            <TextIcon
-            as='span'
-            right
-            icon={<GitHub width="24" height="24" />}
-            href='https://github.com/EPMatt/awesome-ha-blueprints'
-            text={`See on`}
-            style={{color: "inherit"}}
-          />
-          </Nav.Link>
+            <Nav.Link>
+              <TextIcon
+                as='span'
+                right
+                icon={<GitHub width='24' height='24' />}
+                href='https://github.com/EPMatt/awesome-ha-blueprints'
+                text={`See on`}
+                style={{ color: 'inherit' }}
+              />
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
