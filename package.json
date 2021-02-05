@@ -10,12 +10,14 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "gray-matter": "^4.0.2",
+    "highlight.js": "^10.5.0",
     "markdown-to-jsx": "^7.1.0",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-icons": "^1.1.0",
     "react-dom": "17.0.1",
+    "react-highlight.js": "^1.0.7",
     "sass": "^1.30.0"
   }
 }
