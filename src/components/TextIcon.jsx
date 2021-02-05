@@ -1,21 +1,18 @@
 import React from 'react'
 
 function TextIcon(props) {
-  const styles = { verticalAlign: 'middle', display: 'inline-block' }
+  const styles = { verticalAlign: 'middle'}
   const Element = props.as
   return (
-    <span>
+    <>
       {props.left && props.icon}
-      <Element href={props.href}>
-        <a
-          className={(props.left && 'ml-2') || (props.right && 'mr-2')}
-          style={styles}
-        >
+      <span style={styles} className= {props.left && 'ml-2' || props.right && 'mr-2' }>
+      <Element href = {props.href} >
           {props.text}
-        </a>
       </Element>
+      </span>
       {props.right && props.icon}
-    </span>
+    </>
   )
 }
 
