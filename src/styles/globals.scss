@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://highlightjs.org/static/demo/styles/ocean.css');
+
 $primary: #002082;
 $secondary: #CED8F7;
+$font-family-sans-serif: 'Roboto', sans-serif;
+$headings-font-weight: 700;
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -17,4 +22,16 @@ footer{
 main{
   padding-top: 7rem;
   padding-bottom: 4rem;
+}
+
+h1{
+  padding-bottom: 2rem;
+}
+
+h2{
+  padding-bottom: 1rem;
+}
+
+h3{
+  padding-bottom: 0.8rem;
 }
