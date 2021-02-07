@@ -234,9 +234,10 @@ max_exceeded: silent
 
 trigger: 
 # trigger for zigbee2mqtt
-- platform: state
-  from: ''
-  entity_id: !input zigbee2mqtt_remote
+- platform: event
+  event_type: state_changed
+  event_data:
+    entity_id: !input zigbee2mqtt_remote
 # trigger for other integrations
 - platform: event
   event_type: '{{ event_type }}'
@@ -249,13 +250,16 @@ action:
 - variables:
     trigger_action: '
     {% if integration_id == "zigbee2mqtt" %}
-    {{ trigger.to_state.attributes.action }}
+    {{ trigger.event.data.new_state.state }}
     {% elif integration_id == "deconz" %}
     {{ trigger.event.data.event }}
     {% elif integration_id == "zha" %}
     {{ trigger.event.data.command }}_{{ trigger.event.data.args|join("_") }}
     {% endif %}
     '
+# if the action is empty end execution here
+- condition: template
+  value_template: "{{ trigger_action != '' }}"
 # choose the sequence to run based on the received button event
 - choose:
   - conditions: "{{ trigger_action in button_left_short }}"
@@ -360,4 +364,3 @@ action:
     # run the hold action once, since the remote doesn't provide a release event on the center button
     # moreover, the short center button press event is always triggered before this event
     sequence: !input action_center_hold
-  default:
