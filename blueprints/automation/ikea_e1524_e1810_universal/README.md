@@ -26,13 +26,13 @@ use_blueprint:
     action_left_short:
       - service: light.turn_on
         data:
-          color_temp: '{{ state_attr("light.your_light","color_temp")|int - 50 }}'
+          color_temp: '{{ [state_attr("light.your_light","color_temp")|int - 50, 1]|max }}'
           transition: 0.25
         entity_id: light.your_light
     action_left_long:
       - service: light.turn_on
         data:
-          color_temp: '{{ state_attr("light.your_light","color_temp")|int - 50 }}'
+          color_temp: '{{ [state_attr("light.your_light","color_temp")|int - 50, 1]|max }}'
           transition: 0.25
         entity_id: light.your_light
       - delay:
