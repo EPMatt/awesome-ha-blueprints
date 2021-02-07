@@ -143,6 +143,7 @@ max_exceeded: silent
 trigger: 
 # trigger for zigbee2mqtt
 - platform: state
+  from: ''
   entity_id: !input zigbee2mqtt_remote
 # trigger for other integrations
 - platform: event
