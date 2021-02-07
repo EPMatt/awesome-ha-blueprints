@@ -124,15 +124,6 @@ variables:
   button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
   button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
-  # pre-choose trigger event type based on configured integration (blank for zigbee2mqtt since it uses a different trigger)
-  # no need to perform this task at automation runtime
-  event_type: '
-  {% if integration_id == "zha" %}
-  zha_event
-  {% elif integration_id == "deconz" %}
-  deconz_event
-  {% endif %}
-  '
   # integrations which need to store the previous long press event to determine which button was released
   integrations_with_prev_event_storage: [zha, zigbee2mqtt]
 
@@ -142,12 +133,15 @@ max_exceeded: silent
 
 trigger: 
 # trigger for zigbee2mqtt
-- platform: state
-  from: ''
-  entity_id: !input zigbee2mqtt_remote
+- platform: event
+  event_type: state_changed
+  event_data:
+    entity_id: !input zigbee2mqtt_remote
 # trigger for other integrations
 - platform: event
-  event_type: '{{ event_type }}'
+  event_type:
+  - zha_event
+  - deconz_event
   event_data:
     device_id: !input remote
 condition:
@@ -157,11 +151,11 @@ action:
 - variables:
     trigger_action: '
     {% if integration_id == "zigbee2mqtt" %}
-    {{ trigger.to_state.attributes.action }}
+    {{ trigger.event.data.new_state.state }}
     {% elif integration_id == "deconz" %}
     {{ trigger.event.data.event }}
     {% elif integration_id == "zha" %}
-    {{ trigger.event.data.command }}_{{ trigger.event.data.args|join("_") }}
+    {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
     {% endif %}
     '
 # choose the sequence to run based on the received button event
