@@ -220,13 +220,6 @@ variables:
   button_center_hold: '{{ actions_mapping[integration_id]["button_center_hold"] }}'
   # pre-choose trigger event type based on configured integration (blank for zigbee2mqtt since it uses a different trigger)
   # no need to perform this task at automation runtime
-  event_type: '
-  {% if integration_id == "zha" %}
-  zha_event
-  {% elif integration_id == "deconz" %}
-  deconz_event
-  {% endif %}
-  '
 
 # mode restart ensures hold actions are interrupted when a the corresponding release action is received
 mode: restart
@@ -240,7 +233,9 @@ trigger:
     entity_id: !input zigbee2mqtt_remote
 # trigger for other integrations
 - platform: event
-  event_type: '{{ event_type }}'
+  event_type:
+  - zha_event
+  - deconz_event
   event_data:
     device_id: !input remote
 condition:
