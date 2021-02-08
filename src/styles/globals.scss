@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 @import url('https://highlightjs.org/static/demo/styles/ocean.css');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 
 $primary: #002082;
 $secondary: #CED8F7;
@@ -34,4 +35,8 @@ h2{
 
 h3{
   padding-bottom: 0.8rem;
+}
+
+.navbar-brand{
+  font-family: 'Architects Daughter', cursive;
 }
