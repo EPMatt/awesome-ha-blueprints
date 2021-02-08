@@ -158,6 +158,13 @@ action:
     {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
     {% endif %}
     '
+- condition: and
+  conditions:
+  # check that the button event is not empty
+  - '{{ trigger_action != "" }}'
+  # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
+  # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
+  - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 # choose the sequence to run based on the received button event
 - choose:
   - conditions: "{{ trigger_action in button_up_short }}"
@@ -208,4 +215,3 @@ action:
     # for zha and zigbee2mqtt integrations, need to check the previous button event, stored in the provided input_text
     - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_loop_event_input) in button_down_long }}'
     sequence: !input action_down_release
-  default:
