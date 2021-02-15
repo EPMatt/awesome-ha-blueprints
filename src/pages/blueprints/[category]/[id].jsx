@@ -8,6 +8,7 @@ import { ArrowLeft } from 'react-bootstrap-icons'
 import { Row, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import React from 'react'
 import Highlight from 'react-highlight.js'
+import FragmentWrapper from '../../../components/FragmentWrapper'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -49,6 +50,7 @@ function Blueprint(props) {
       <Markdown
         options={{
           overrides: {
+            pre: FragmentWrapper,
             code: {
               component: Highlight,
               props: {
