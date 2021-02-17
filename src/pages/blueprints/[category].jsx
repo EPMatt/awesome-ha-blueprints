@@ -1,6 +1,6 @@
 import fs from 'fs'
 import matter from 'gray-matter'
-import { Table, Breadcrumb } from 'react-bootstrap'
+import { Table, Container } from 'react-bootstrap'
 import Head from 'next/head'
 import Link from 'next/link'
 import TextIcon from '../../components/TextIcon'
@@ -16,7 +16,7 @@ function BlueprintCategory(props) {
     </tr>
   ))
   return (
-    <>
+    <Container>
       <Head>
         <title>
           Blueprints for domain {props.category} - Awesome HA Blueprints{' '}
@@ -46,7 +46,7 @@ function BlueprintCategory(props) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-    </>
+    </Container>
   )
 }
 

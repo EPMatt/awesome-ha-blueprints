@@ -45,9 +45,7 @@ function MyApp({ Component, pageProps }) {
         </Navbar.Collapse>
       </Navbar>
       <main>
-        <Container>
           <Component {...pageProps} />
-        </Container>
       </main>
       <footer className='text-center mt-auto px-3'>
         Awesome HA Blueprints is maintained by{' '}

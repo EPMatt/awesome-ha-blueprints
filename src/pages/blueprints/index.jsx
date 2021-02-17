@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { Table } from 'react-bootstrap'
+import { Table, Container } from 'react-bootstrap'
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -14,7 +14,7 @@ function Blueprints(props) {
     </tr>
   ))
   return (
-    <>
+    <Container>
       <Head>
         <title>Blueprints - Awesome HA Blueprints </title>
       </Head>
@@ -32,7 +32,7 @@ function Blueprints(props) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-    </>
+    </Container>
   )
 }
 
