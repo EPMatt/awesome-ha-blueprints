@@ -9,6 +9,10 @@ $headings-font-weight: 700;
 
 @import "~bootstrap/scss/bootstrap";
 
+html {
+  scroll-behavior: smooth;
+}
+
 footer{
   width:100%;
   padding-top:2rem;
