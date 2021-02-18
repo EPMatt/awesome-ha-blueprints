@@ -17,7 +17,9 @@ import React from 'react'
 import Highlight from 'react-highlight.js'
 import FragmentWrapper from '../../../components/FragmentWrapper'
 import Toc from '../../../components/Toc'
+import TitleToc from '../../../components/TitleToc'
 import toc from 'markdown-toc'
+import { useMediaQuery } from 'react-responsive'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -25,13 +27,17 @@ function Blueprint(props) {
       `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${props.category}/${props.id}/${props.id}.yaml`
     )
   }
+
+  const md = useMediaQuery({ query: '(min-width: 768px)' })
   return (
     <Container fluid className='m-md-3'>
       <Row className=''>
-      <Col xs={12} md={2} className='position-fixed'>
-      <Toc data={props.tocData}></Toc>
-      </Col>
-        <Col xs={12} md={10} lg={8} className='offset-md-2'>
+        {md && (
+          <Col xs={12} md={3} lg={2} className='position-fixed'>
+            <Toc data={props.tocData}></Toc>
+          </Col>
+        )}
+        <Col xs={12} md={8} className='offset-md-3 offset-lg-2'>
           <Head>
             <title>{props.data.name} - Awesome HA Blueprints </title>
           </Head>
@@ -65,6 +71,12 @@ function Blueprint(props) {
             options={{
               overrides: {
                 pre: FragmentWrapper,
+                h1: !md && {
+                  component: TitleToc,
+                  props: {
+                    data: props.tocData,
+                  },
+                },
                 code: {
                   component: Highlight,
                   props: {
