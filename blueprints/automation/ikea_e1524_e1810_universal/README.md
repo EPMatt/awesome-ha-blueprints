@@ -15,6 +15,8 @@ In addition of being able to provide custom actions for every kind of button pre
 
 ### Light control with brightness and color temperature control
 
+The following example allows to toggle on or off, control brightness and set color temperature on a generic light with variable white spectrum.
+
 ```yaml
 alias: IKEA E1524/E1810 5-button Remote - Light Control
 description: Control a Light with an IKEA E1524/E1810 remote
@@ -47,6 +49,105 @@ use_blueprint:
       - service: light.turn_on
         data:
           color_temp: '{{ state_attr("light.your_light","color_temp")|int + 50 }}'
+          transition: 0.25
+        entity_id: light.your_light
+      - delay:
+          milliseconds: 250
+    action_up_short:
+      - service: light.turn_on
+        data:
+          brightness_step_pct: 10
+          transition: 0.25
+        entity_id: light.your_light
+    action_up_long:
+      - service: light.turn_on
+        data:
+          brightness_step_pct: 10
+          transition: 0.25
+        entity_id: light.your_light
+      - delay:
+          milliseconds: 250
+    action_down_short:
+      - service: light.turn_on
+        data:
+          brightness_step_pct: -10
+          transition: 0.25
+        entity_id: light.your_light
+    action_down_long:
+      - service: light.turn_on
+        data:
+          brightness_step_pct: -10
+          transition: 0.25
+        entity_id: light.your_light
+      - delay:
+          milliseconds: 250
+    action_center_short:
+      - type: toggle
+        device_id: <your_light_device_id>
+        entity_id: light.your_light
+        domain: light
+    button_left_long_loop: true
+    button_right_long_loop: true
+    button_up_long_loop: true
+    button_down_long_loop: true
+```
+
+### RGB Light control with brightness and color setting
+
+The following example allows to toggle on or off, control brightness and set color on a generic RGB light. Clicking or holding down the left or right arrow allows to cycle through 24 different colors.
+
+```yaml
+alias: IKEA E1524/E1810 5-button Remote - RGB Light Control
+description: Control a RGB Light with an IKEA E1524/E1810 remote
+use_blueprint:
+  path: EPMatt/ikea_e1524_e1810_universal.yaml
+  input:
+    integration: deCONZ
+    remote: <your_remote_device_id>
+    action_left_short:
+      - service: light.turn_on
+        data:
+          hs_color:
+            - >-
+              {{ (
+              ((state_attr('light.your_light',
+              'hs_color')[0] or 0) - 15)) % 360 }}
+            - 100
+          transition: 0.25
+        entity_id: light.your_light
+    action_left_long:
+      - service: light.turn_on
+        data:
+          hs_color:
+            - >-
+              {{ (
+              ((state_attr('light.your_light',
+              'hs_color')[0] or 0) - 15)) % 360 }}
+            - 100
+          transition: 0.25
+        entity_id: light.your_light
+      - delay:
+          milliseconds: 250
+    action_right_short:
+      - service: light.turn_on
+        data:
+          hs_color:
+            - >-
+              {{ (
+              ((state_attr('light.your_light',
+              'hs_color')[0] or 0) + 15)) % 360 }}
+            - 100
+          transition: 0.25
+        entity_id: light.your_light
+    action_right_long:
+      - service: light.turn_on
+        data:
+          hs_color:
+            - >-
+              {{ (
+              ((state_attr('light.your_light',
+              'hs_color')[0] or 0) + 15)) % 360 }}
+            - 100
           transition: 0.25
         entity_id: light.your_light
       - delay:
