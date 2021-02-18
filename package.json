@@ -19,6 +19,7 @@
     "react-bootstrap-icons": "^1.1.0",
     "react-dom": "17.0.1",
     "react-highlight.js": "^1.0.7",
+    "react-responsive": "^8.2.0",
     "sass": "^1.30.0"
   }
 }
