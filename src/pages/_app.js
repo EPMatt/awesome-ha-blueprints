@@ -31,12 +31,11 @@ function MyApp({ Component, pageProps }) {
             </Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
-            <Nav.Link>
+            <Nav.Link href='https://github.com/EPMatt/awesome-ha-blueprints'>
               <TextIcon
                 as='span'
                 right
                 icon={<GitHub width='24' height='24' />}
-                href='https://github.com/EPMatt/awesome-ha-blueprints'
                 text={`See on`}
                 style={{ color: 'inherit' }}
               />
