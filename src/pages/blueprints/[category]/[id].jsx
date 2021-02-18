@@ -20,6 +20,7 @@ import Toc from '../../../components/Toc'
 import TitleToc from '../../../components/TitleToc'
 import toc from 'markdown-toc'
 import { useMediaQuery } from 'react-responsive'
+import { withInvisibleAnchor } from '../../../utils'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -30,7 +31,7 @@ function Blueprint(props) {
 
   const md = useMediaQuery({ query: '(min-width: 768px)' })
   return (
-    <Container fluid className='m-md-3'>
+    <Container fluid className='px-md-4'>
       <Row className=''>
         {md && (
           <Col xs={12} md={3} lg={2} className='position-fixed'>
@@ -77,6 +78,7 @@ function Blueprint(props) {
                     data: props.tocData,
                   },
                 },
+                h2: withInvisibleAnchor('h2'),
                 code: {
                   component: Highlight,
                   props: {
