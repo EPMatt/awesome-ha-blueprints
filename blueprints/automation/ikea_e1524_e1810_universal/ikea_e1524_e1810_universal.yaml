@@ -153,6 +153,10 @@ variables:
   button_up_long_loop: !input button_up_long_loop
   button_down_long_loop: !input button_down_long_loop
   helper_last_loop_event_input: !input helper_last_loop_event_input
+  action_left_release: !input action_left_release
+  action_right_release: !input action_right_release
+  action_up_release: !input action_up_release
+  action_down_release: !input action_down_release
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
   # mapping between actions and integrations
