@@ -235,6 +235,10 @@ The action sensor of the IKEA remote to use for the automation. Choose a value o
 
 Action to run on short left button press.
 
+### (Optional) Left button - double press
+
+Action to run on double left button press.
+
 ### (Optional) Left button - long press
 
 Action to run on long left button press.
@@ -246,6 +250,10 @@ Action to run on left button release after a long press.
 ### (Optional) Right button - short press
 
 Action to run on short right button press.
+
+### (Optional) Right button - double press
+
+Action to run on double right button press.
 
 ### (Optional) Right button - long press
 
@@ -259,6 +267,10 @@ Action to run on right button release after a long press.
 
 Action to run on short up button press.
 
+### (Optional) Up button - double press
+
+Action to run on double up button press.
+
 ### (Optional) Up button - long press
 
 Action to run on long up button press.
@@ -271,6 +283,10 @@ Action to run on up button release after a long press.
 
 Action to run on short down button press.
 
+### (Optional) Down button - double press
+
+Action to run on double down button press.
+
 ### (Optional) Down button - long press
 
 Action to run on long down button press.
@@ -282,6 +298,10 @@ Action to run on down button release after a long press.
 ### (Optional) Center button - short press
 
 Action to run on short center button press.
+
+### (Optional) Center button - double press
+
+Action to run on double center button press.
 
 ### (Optional) Center button - long press
 
@@ -303,10 +323,20 @@ Boolean to indicate whether to loop the action until the button is released.
 
 Boolean to indicate whether to loop the action until the button is released.
 
-### (ZHA) Helper - Last Long Press Event
+### (ZHA Required, Optional) Helper - Last Press Event
 
-Input Text used to store the last long press event. Provide an entity only if the remote is integrated with ZHA.
+Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA or if you're using a double press action.
+
+### (Optional) Helper - Double Press delay
+
+Max delay between the first and the second button press for the double press event. Provide a value only if you're using a double press action. Increase this value if you notice that the double press action is not triggered properly.
 
 ## Additional Notes
 
 The reason why a text input is required to store the last long press event when using a remote with ZHA is because of the actions mapping for the controller in ZHA. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
+
+It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
+
+When a double press action is defined for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
+
+If a double press action is not set for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
