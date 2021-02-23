@@ -180,7 +180,7 @@ action:
     - choose:
       - conditions:
         - '{{ integration_id in integrations_with_prev_event_storage }}'
-        - '{{ action_up_release != "" }}'
+        - '{{ action_up_release | length > 0 }}'
         sequence: 
         - service: 'input_text.set_value'
           data:
@@ -204,7 +204,7 @@ action:
     - choose:
       - conditions:
         - '{{ integration_id in integrations_with_prev_event_storage }}'
-        - '{{ action_down_release != "" }}'
+        - '{{ action_down_release | length > 0 }}'
         sequence: 
         - service: 'input_text.set_value'
           data:
