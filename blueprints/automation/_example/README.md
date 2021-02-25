@@ -27,17 +27,26 @@ You must have this integration enabled on your system to run the automation. Thi
 
 _List here and describe the inputs used by the blueprint._
 
-### Example Input Boolean
-
 _Add here the description for what the input is used for and its type/constraints._
-
-The boolean input which will activate the automation.
-
-### Example Text
-
+<Input
+ name='Example Input Boolean'
+ description='The boolean input which will activate the automation. This input is required.'
+ selector='boolean'
+ required
+ />
+ _Add here the description for what the input is used for and its type/constraints._
+<Input
+ name='Example Text'
+ description='The text which will be displayed as message in the persistent notification. This input is optional.'
+ selector='text'
+ />
 _Add here the description for what the input is used for and its type/constraints._
-
-The text which will be displayed as message in the persistent notification.
+<Input
+ name='Example Input Device'
+ description='A device input which demonstrates how to document an input with a specific requirement. As a bare example, this input is required only if using the MQTT Integration.'
+ selector='device'
+ required='MQTT Integration'
+ />
 
 ## Additional Notes
 
