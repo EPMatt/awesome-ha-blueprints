@@ -21,6 +21,7 @@ import TitleToc from '../../../components/TitleToc'
 import toc from 'markdown-toc'
 import { useMediaQuery } from 'react-responsive'
 import { withInvisibleAnchor } from '../../../utils'
+import Input from '../../../components/Input'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -85,6 +86,9 @@ function Blueprint(props) {
                     language: 'yaml',
                   },
                 },
+                Input:{
+                  component: Input
+                }
               },
             }}
           >
