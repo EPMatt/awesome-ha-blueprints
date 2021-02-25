@@ -86,9 +86,9 @@ function Blueprint(props) {
                     language: 'yaml',
                   },
                 },
-                Input:{
-                  component: Input
-                }
+                Input: {
+                  component: Input,
+                },
               },
             }}
           >

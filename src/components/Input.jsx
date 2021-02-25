@@ -51,9 +51,7 @@ function Input(props) {
   return (
     <div>
       <span style={styles.inputName}>
-        {props.name}
-        {' '}
-        <Badge variant='primary'>{selector.type}</Badge>{' '}
+        {props.name} <Badge variant='primary'>{selector.type}</Badge>{' '}
         {props.required ? (
           <Badge variant='warning'>{props.required} Required</Badge>
         ) : (

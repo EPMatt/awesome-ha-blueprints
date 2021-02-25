@@ -34,7 +34,7 @@ _Add here the description for what the input is used for and its type/constraint
  selector='boolean'
  required
  />
- _Add here the description for what the input is used for and its type/constraints._
+_Add here the description for what the input is used for and its type/constraints._
 <Input
  name='Example Text'
  description='The text which will be displayed as message in the persistent notification. This input is optional.'
