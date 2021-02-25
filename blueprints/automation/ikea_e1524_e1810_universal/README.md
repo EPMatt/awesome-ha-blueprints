@@ -219,117 +219,154 @@ This integration provides the entity to store the last button event, which is ne
 
 ## Inputs
 
-### Integration
-
-Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".
-
-### (ZHA, deCONZ) Remote
-
-The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.
-
-### (Zigbee2MQTT) Remote Action Sensor
-
-The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
-
-### (Optional) Left button - short press
-
-Action to run on short left button press.
-
-### (Optional) Left button - double press
-
-Action to run on double left button press.
-
-### (Optional) Left button - long press
-
-Action to run on long left button press.
-
-### (Optional) Left button - release after long press
-
-Action to run on left button release after a long press.
-
-### (Optional) Right button - short press
-
-Action to run on short right button press.
-
-### (Optional) Right button - double press
-
-Action to run on double right button press.
-
-### (Optional) Right button - long press
-
-Action to run on long right button press.
-
-### (Optional) Right button - release after long press
-
-Action to run on right button release after a long press.
-
-### (Optional) Up button - short press
-
-Action to run on short up button press.
-
-### (Optional) Up button - double press
-
-Action to run on double up button press.
-
-### (Optional) Up button - long press
-
-Action to run on long up button press.
-
-### (Optional) Up button - release after long press
-
-Action to run on up button release after a long press.
-
-### (Optional) Down button - short press
-
-Action to run on short down button press.
-
-### (Optional) Down button - double press
-
-Action to run on double down button press.
-
-### (Optional) Down button - long press
-
-Action to run on long down button press.
-
-### (Optional) Down button - release after long press
-
-Action to run on down button release after a long press.
-
-### (Optional) Center button - short press
-
-Action to run on short center button press.
-
-### (Optional) Center button - double press
-
-Action to run on double center button press.
-
-### (Optional) Center button - long press
-
-Action to run on long center button press.
-
-### Long left button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### Long right button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### Long up button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### Long down button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### (ZHA Required, Optional) Helper - Last Press Event
-
-Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA or if you're using a double press action.
-
-### (Optional) Helper - Double Press delay
-
-Max delay between the first and the second button press for the double press event. Provide a value only if you're using a double press action. Increase this value if you notice that the double press action is not triggered properly.
+<Input
+ name='Integration'
+ description='Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".'
+ required
+ />
+<Input
+ name='Remote'
+ description='The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.'
+ selector='device'
+ required='ZHA, deCONZ'
+ />
+<Input
+ name='Remote Action Sensor'
+ description='The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+ selector='entity'
+ required='Zigbee2MQTT'
+ />
+<Input
+ name='Left button - short press'
+ description='Action to run on short left button press.'
+ selector='action'
+ />
+<Input
+ name='Left button - double press'
+ description='Action to run on double left button press.'
+ selector='action'
+ />
+<Input
+ name='Left button - short press'
+ description='Action to run on short left button press.'
+ selector='action'
+ />
+<Input
+ name='Left button - long press'
+ description='Action to run on long left button press.'
+ selector='action'
+ />
+<Input
+ name='Left button - release after long press'
+ description='Action to run on left button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Right button - short press'
+ description='Action to run on short right button press.'
+ selector='action'
+ />
+<Input
+ name='Right button - double press'
+ description='Action to run on double right button press.'
+ selector='action'
+ />
+<Input
+ name='Right button - long press'
+ description='Action to run on long right button press.'
+ selector='action'
+ />
+<Input
+ name='Right button - release after long press'
+ description='Action to run on right button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Up button - short press'
+ description='Action to run on short up button press.'
+ selector='action'
+ />
+<Input
+ name='Up button - double press'
+ description='Action to run on double up button press.'
+ selector='action'
+ />
+<Input
+ name='Up button - long press'
+ description='Action to run on long up button press.'
+ selector='action'
+ />
+<Input
+ name='Up button - release after long press'
+ description='Action to run on up button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Down button - short press'
+ description='Action to run on short down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - double press'
+ description='Action to run on double down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - long press'
+ description='Action to run on long down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - release after long press'
+ description='Action to run on down button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Center button - short press'
+ description='Action to run on short center button press.'
+ selector='action'
+ />
+<Input
+ name='Center button - double press'
+ description='Action to run on double center button press.'
+ selector='action'
+ />
+<Input
+ name='Center button - long press'
+ description='Action to run on long center button press.'
+ selector='action'
+ />
+<Input
+ name='Long left button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Long right button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Long up button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Long down button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Helper - Last Press Event'
+ description='Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA or if you are using a double press action.'
+ selector='entity'
+ required='ZHA, double press action'
+ />
+<Input
+ name='Helper - Double Press delay'
+ description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
+ selector='boolean'
+ />
 
 ## Additional Notes
 
