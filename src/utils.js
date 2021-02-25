@@ -1,7 +1,6 @@
 import React from 'react'
 
 export function slugify(str) {
-  console.log(str)
   return str
     .replace(/[ÀÁÂÃÄÅàáâãäåæÆ]/g, 'a')
     .replace(/[çÇ]/g, 'c')
