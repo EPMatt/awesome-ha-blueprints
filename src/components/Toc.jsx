@@ -15,7 +15,7 @@ const styles = {
 
 function Toc(props) {
   const titles = props.data
-    .filter((e) => e.lvl == 2)
+    .filter((e) => e.lvl > 1 && e.lvl < 4)
     .map((e) => (
       <span style={{ ...styles.tocLink, ...styles['level' + e.lvl] }}>
         <a href={`#${e.slug}`}>{e.content}</a>
