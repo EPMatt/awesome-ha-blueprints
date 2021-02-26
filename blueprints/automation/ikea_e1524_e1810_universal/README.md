@@ -365,7 +365,7 @@ This integration provides the entity to store the last button event, which is ne
 <Input
  name='Helper - Double Press delay'
  description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
- selector='boolean'
+ selector='number'
  />
 
 ## Additional Notes

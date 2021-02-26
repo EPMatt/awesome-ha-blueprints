@@ -45,27 +45,29 @@ If you want to simultaneously send the notification to multiple devices, you can
 
 ## Inputs
 
-### Notification ID
-
-The notification ID of persistent notifications which must be sent to mobile devices. Empty for forwarding all web UI persistent notifications.
-
-This allows to filter notifications based on their ID before it gets created on the mobile device. For example, if you want to receive notifications on your mobile device for all invalid login attempts, you could set this input to `http-login`, the ID of such persistent notifications.
-
-### Mobile devices notification service
-
-The notification service for mobile devices (eg. `service.mobile_app_<your_device_id_here>`). You can provide both a notify group or a single notify device here.
-
-### Replace notifications with same ID
-
-Choose whether to replace existing notifications with the same notification ID.
-
-### Android notification channel
-
-Android notification channel. Allows to group notifications to then apply custom settings for sound, vibration, etc. Leave blank if you do not want to use this feature.
-
-### Notification group
-
-Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.
+<Input
+ name='Notification ID'
+ description='The notification ID of persistent notifications which must be sent to mobile devices. Empty for forwarding all web UI persistent notifications.
+This allows to filter notifications based on their ID before it gets created on the mobile device. For example, if you want to receive notifications on your mobile device for all invalid login attempts, you could set this input to `http-login`, the ID of such persistent notifications.'
+ />
+<Input
+ name='Mobile devices notification service'
+ description='The notification service for mobile devices (eg. `service.mobile_app_<your_device_id_here>`). You can provide both a notify group or a single notify device here.'
+ required
+ />
+<Input
+ name='Replace notifications with same ID'
+ description='Choose whether to replace existing notifications with the same notification ID.'
+ selector='boolean'
+ />
+<Input
+ name='Android notification channel'
+ description='Android notification channel. Allows to group notifications to then apply custom settings for sound, vibration, etc. Leave blank if you do not want to use this feature.'
+ />
+<Input
+ name='Notification group'
+ description='Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.'
+ />
 
 ## Additional Notes
 

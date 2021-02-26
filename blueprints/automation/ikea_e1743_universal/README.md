@@ -81,65 +81,84 @@ This integration provides the entity to store the last button event, which is ne
 
 ## Inputs
 
-### Integration
-
-Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".
-
-### (ZHA, deCONZ) Remote
-
-The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.
-
-### (Zigbee2MQTT) Remote Action Sensor
-
-The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
-
-### (Optional) Up button - short press
-
-Action to run on short up button press.
-
-### (Optional) Up button - double press
-
-Action to run on double up button press.
-
-### (Optional) Up button - long press
-
-Action to run on long up button press.
-
-### (Optional) Up button - release after long press
-
-Action to run on up button release after a long press.
-
-### (Optional) Down button - short press
-
-Action to run on short down button press.
-
-### (Optional) Down button - double press
-
-Action to run on double down button press.
-
-### (Optional) Down button - long press
-
-Action to run on long down button press.
-
-### (Optional) Down button - release after long press
-
-Action to run on down button release after a long press.
-
-### Long up button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### Long down button press - loop until release
-
-Boolean to indicate whether to loop the action until the button is released.
-
-### (ZHA, Zigbee2MQTT Required, Optional) Helper - Last Press Event
-
-Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA, Zigbee2MQTT or if you're using a double press action.
-
-### (Optional) Helper - Double Press delay
-
-Max delay between the first and the second button press for the double press event. Provide a value only if you're using a double press action. Increase this value if you notice that the double press action is not triggered properly.
+<Input
+ name='Integration'
+ description='Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".'
+ required
+ />
+<Input
+ name='Remote'
+ description='The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.'
+ selector='device'
+ required='ZHA, deCONZ'
+ />
+<Input
+ name='Remote Action Sensor'
+ description='The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+ selector='entity'
+ required='Zigbee2MQTT'
+ />
+<Input
+name='Up button - short press'
+description='Action to run on short up button press.'
+selector='action'
+/>
+<Input
+ name='Up button - double press'
+ description='Action to run on double up button press.'
+ selector='action'
+ />
+<Input
+ name='Up button - long press'
+ description='Action to run on long up button press.'
+ selector='action'
+ />
+<Input
+ name='Up button - release after long press'
+ description='Action to run on up button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Down button - short press'
+ description='Action to run on short down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - double press'
+ description='Action to run on double down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - long press'
+ description='Action to run on long down button press.'
+ selector='action'
+ />
+<Input
+ name='Down button - release after long press'
+ description='Action to run on down button release after a long press.'
+ selector='action'
+ />
+<Input
+ name='Long up button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Long down button press - loop until release'
+ description='Boolean to indicate whether to loop the action until the button is released.'
+ selector='boolean'
+ />
+<Input
+ name='Helper - Last Press Event'
+ description='Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA, Zigbee2MQTT or if you are using a double press action.'
+ required='ZHA, Zigbee2MQTT, double press action'
+ selector='entity'
+ />
+<Input
+ name='Helper - Double Press delay'
+ description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
+ selector='number'
+ />
 
 ## Additional Notes
 

@@ -27,25 +27,33 @@ If you optionally want to supply a custom event type to the blueprint, you shoul
 
 ## Inputs
 
-### Automation Target
-
-The target which the automation will turn on and off based on the provided schedule. This include whatever can be specified as a target.
-
-### On Time
-
-Time when the target should be placed in the on state.
-
-### Off Time
-
-Time when the target should be placed in the off state.
-
-### Custom Trigger Event
-
-(Optional) A custom event which can trigger the state check (eg. a powercut event reported by external integrations). If you don't want to provide a custom event, simply leave this input blank.
-
-### Trigger at Home Assistant startup
-
-Trigger the target state check and enforcement at Home Assistant startup. Disabled by default.
+<Input
+ name='Automation Target'
+ description='The target which the automation will turn on and off based on the provided schedule. This include whatever can be specified as a target.'
+ selector='target'
+ required
+ />
+<Input
+ name='On Time'
+ description='Time when the target should be placed in the on state.'
+ selector='time'
+ required
+ />
+<Input
+ name='Off Time'
+ description='Time when the target should be placed in the off state.'
+ selector='time'
+ required
+ />
+<Input
+ name='Custom Trigger Event'
+ description='A custom event which can trigger the state check (eg. a powercut event reported by external integrations). If you do not want to provide a custom event, simply leave this input blank.'
+ />
+<Input
+ name='Trigger at Home Assistant startup'
+ description='Trigger the target state check and enforcement at Home Assistant startup. Disabled by default.'
+ selector='boolean'
+ />
 
 ## Additional Notes
 
