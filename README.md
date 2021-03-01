@@ -1,5 +1,7 @@
 # Awesome HA Blueprints
 
+![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen) ![GPL-3.0 License](https://img.shields.io/github/license/EPMatt/awesome-ha-blueprints)
+
 With the recent **Home Assistant 2020.12 Release**, a new exciting feature was introduced: _Blueprints_.
 
 Blueprints, which currently are available only for the `automation` domain, are highly reusable configurations for the home automation hub.
