@@ -161,13 +161,12 @@ Please enable double press events for the Up and Down button to use all the avai
 
 [Media Player Hook docs](../hooks/media_player)
 
-
 ## Additional Notes
 
 The reason why a text input is required to store the last long press event when using a remote with ZHA or Zigbee2MQTT is because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
 
 It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
 
-When a double press action is defined for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
+When double press events are enabled for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
 
-If a double press action is not set for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
+If double press events are disabled for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
