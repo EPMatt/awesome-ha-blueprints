@@ -27,7 +27,7 @@ function Blueprints(props) {
             <Card.Text>{e.description}</Card.Text>
           </Card.Body>
           <Card.Footer style={{ backgroundColor: 'unset', border: 'unset' }}>
-            <Button variant='primary' href={`./blueprints/${key}`}>
+            <Button variant='primary' href={`./blueprints/${e.id}`}>
               Explore
             </Button>
           </Card.Footer>

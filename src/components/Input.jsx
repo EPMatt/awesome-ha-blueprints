@@ -23,6 +23,9 @@ const selectors = {
   object: {
     type: 'Object',
   },
+  select: {
+    type: 'Select',
+  },
   target: {
     type: 'Target',
   },
