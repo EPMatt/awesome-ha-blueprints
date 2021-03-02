@@ -177,6 +177,10 @@ variables:
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   # integrations which need to store the previous long press event to determine which button was released
   integrations_with_prev_event_storage: [zha, zigbee2mqtt]
+  # build data to send within a controller event
+  zigbee2mqtt_remote: !input zigbee2mqtt_remote
+  remote: !input remote
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{zigbee2mqtt_remote}}{% else %}{{remote}}{% endif %}'
 
 # mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
