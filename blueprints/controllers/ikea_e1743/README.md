@@ -45,7 +45,8 @@ This integration provides the entity to store the last button event, which is ne
 
 <Input
  name='Integration'
- description='Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".'
+ description='Integration used for connecting the remote with Home Assistant. Select "Zigbee2MQTT", "deCONZ" or "ZHA".'
+ selector='select'
  required
  />
 <Input
