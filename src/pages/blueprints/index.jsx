@@ -1,18 +1,41 @@
 import fs from 'fs'
-import { Table, Container } from 'react-bootstrap'
+import { Container, Card, Row, Col, Button } from 'react-bootstrap'
 import Head from 'next/head'
-import Link from 'next/link'
+import { Joystick, GearWideConnected, PlugFill } from 'react-bootstrap-icons'
+import matter from 'gray-matter'
+
+const categoryIcons = {
+  controllers: Joystick,
+  hooks: PlugFill,
+  automation: GearWideConnected,
+}
 
 function Blueprints(props) {
-  const rows = props.categories.map((c) => (
-    <tr>
-      <td>
-        <code>
-          <Link href={`/blueprints/${c.name}`}>{c.name}</Link>
-        </code>
-      </td>
-    </tr>
-  ))
+  const cards = props.categories.map((e, key) => {
+    const Element = categoryIcons[e.id]
+    return (
+      <Col xs={'auto'} key={key} className='py-3'>
+        <Card style={{ maxWidth: '18rem', height: '100%' }}>
+          <Card.Header
+            className='text-center py-5'
+            style={{ backgroundColor: e.color, border: 'unset' }}
+          >
+            <Element size={48} />
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>{e.name}</Card.Title>
+            <Card.Text>{e.description}</Card.Text>
+          </Card.Body>
+          <Card.Footer style={{ backgroundColor: 'unset', border: 'unset' }}>
+            <Button variant='primary' href={`./blueprints/${key}`}>
+              Explore
+            </Button>
+          </Card.Footer>
+        </Card>
+      </Col>
+    )
+  })
+
   return (
     <Container>
       <Head>
@@ -21,17 +44,10 @@ function Blueprints(props) {
       <h1 className='mb-5'>Blueprints</h1>
       <p className='mb-5'>
         Select from the blueprint categories listed below. Please note that
-        currently Home Assistant only provides supports <code>automation</code>{' '}
-        blueprints.
+        currently Home Assistant only supports blueprints for the{' '}
+        <code>automation</code> domain.
       </p>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <Row className='align-items-stretch'>{cards}</Row>
     </Container>
   )
 }
@@ -40,9 +56,13 @@ async function getStaticProps() {
   const categories = fs
     .readdirSync('blueprints', { withFileTypes: true })
     .filter((f) => f.isDirectory())
-    .map((f) => ({
-      name: f.name,
-    }))
+    .map((f) => {
+      const { data } = matter(fs.readFileSync(`blueprints/${f.name}/README.md`))
+      return {
+        id: f.name,
+        ...data,
+      }
+    })
   return {
     props: { categories },
   }
