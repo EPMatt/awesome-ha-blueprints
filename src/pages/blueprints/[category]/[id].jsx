@@ -50,7 +50,7 @@ function Blueprint(props) {
                 left
                 href={`/blueprints/${props.category}`}
                 icon={<ArrowLeft />}
-                text={`Go back to the ${props.category} category`}
+                text={`Go back to ${props.category}`}
               />
             </Col>
             <Col xs='auto'>

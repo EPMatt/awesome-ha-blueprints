@@ -27,7 +27,7 @@ function BlueprintCategory(props) {
           left
           href='/blueprints'
           icon={<ArrowLeft />}
-          text='Go back to Blueprints page'
+          text='Go back to Blueprints'
         />
       </div>
       <Markdown className='mb-3'>{props.category.content}</Markdown>
