@@ -7,7 +7,7 @@ description: Hook automation which allows to control a media player. Supports vo
 
 ## Description
 
-This Hook blueprint allow to build a controller-based automation to control a media player.  Supports volume setting, play/pause and track selection.
+This Hook blueprint allow to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
 
 An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
 
@@ -54,5 +54,6 @@ This integration provides the entity which represents a media player in Home Ass
  />
 
 ## Supported Controllers
-* [IKEA E1524/E1810 5-Button remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810)
-* [IKEA E1743 On/Off Switch & Dimmer](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743)
+
+- [IKEA E1524/E1810 5-Button remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810)
+- [IKEA E1743 On/Off Switch & Dimmer](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743)

@@ -181,7 +181,7 @@ This integration provides the entity to store the last button event, which is ne
  description='Boolean to indicate whether to loop the action until the button is released.'
  selector='boolean'
  />
- <Input
+<Input
  name='Expose left button double press event'
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
@@ -191,7 +191,7 @@ This integration provides the entity to store the last button event, which is ne
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
  />
- <Input
+<Input
  name='Expose up button double press event'
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
@@ -201,7 +201,7 @@ This integration provides the entity to store the last button event, which is ne
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
  />
- <Input
+<Input
  name='Expose center button double press event'
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
@@ -222,28 +222,28 @@ This integration provides the entity to store the last button event, which is ne
 
 ### Light
 
-* Up button short press -> Brightness up
-* Up button long press & hold -> Brightness up (continuous, until release)
-* Down button short press -> Brightness down
-* Down button long pres & hold -> Brightness down (continuous, until release)
-* Left button short press -> Color down
-* Left button long press & hold -> Color down (continuous, until release)
-* Right button short press -> Color up
-* Right button long press & hold -> Color up (continuous, until release)
-* Center button short press -> Toggle
+- Up button short press -> Brightness up
+- Up button long press & hold -> Brightness up (continuous, until release)
+- Down button short press -> Brightness down
+- Down button long pres & hold -> Brightness down (continuous, until release)
+- Left button short press -> Color down
+- Left button long press & hold -> Color down (continuous, until release)
+- Right button short press -> Color up
+- Right button long press & hold -> Color up (continuous, until release)
+- Center button short press -> Toggle
 
 [Light Hook docs](../hooks/light)
 
 ### Media Player
 
-* Up button short press -> Volume up
-* Up button long press & hold -> Volume up (continuous, until release)
-* Down button short press -> Volume down
-* Down button long pres & hold -> Volume down (continuous, until release)
-* Left button short press -> Previous Track
-* Right button short press -> Next Track
-* Center button short press -> Play/Pause
-* Center button hold -> Stop
+- Up button short press -> Volume up
+- Up button long press & hold -> Volume up (continuous, until release)
+- Down button short press -> Volume down
+- Down button long pres & hold -> Volume down (continuous, until release)
+- Left button short press -> Previous Track
+- Right button short press -> Next Track
+- Center button short press -> Play/Pause
+- Center button hold -> Stop
 
 [Media Player Hook docs](../hooks/media_player)
 

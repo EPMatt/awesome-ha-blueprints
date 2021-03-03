@@ -1,6 +1,6 @@
 ---
 name: IKEA E1743 On/Off Switch & Dimmer
-description:  Controller automation for executing any kind of action triggered by an IKEA E1743 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.
+description: Controller automation for executing any kind of action triggered by an IKEA E1743 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.
 ---
 
 # IKEA E1743 On/Off Switch & Dimmer
@@ -111,7 +111,7 @@ selector='action'
  description='Boolean to indicate whether to loop the action until the button is released.'
  selector='boolean'
  />
- <Input
+<Input
  name='Expose up button double press event'
  description='Choose whether or not to expose the virtual double press event.'
  selector='boolean'
@@ -139,12 +139,12 @@ selector='action'
 
 Please enable double press events for the Up and Down button to use all the available actions.
 
-* Up button short press -> Turn on
-* Up button long press & hold -> Brightness up (continuous, until release)
-* Up button double press -> Color Up
-* Down button short press -> Turn off
-* Down button long pres & hold -> Brightness down (continuous, until release)
-* Down button double press -> Color Down
+- Up button short press -> Turn on
+- Up button long press & hold -> Brightness up (continuous, until release)
+- Up button double press -> Color Up
+- Down button short press -> Turn off
+- Down button long pres & hold -> Brightness down (continuous, until release)
+- Down button double press -> Color Down
 
 [Light Hook docs](../hooks/light)
 
@@ -152,12 +152,12 @@ Please enable double press events for the Up and Down button to use all the avai
 
 Please enable double press events for the Up and Down button to use all the available actions.
 
-* Up button short press -> Volume up
-* Up button long press & hold -> Volume up (continuous, until release)
-* Up button double press -> Next track
-* Down button short press -> Volume down
-* Down button long pres & hold -> Volume down (continuous, until release)
-* Down button double press -> Play/Pause
+- Up button short press -> Volume up
+- Up button long press & hold -> Volume up (continuous, until release)
+- Up button double press -> Next track
+- Down button short press -> Volume down
+- Down button long pres & hold -> Volume down (continuous, until release)
+- Down button double press -> Play/Pause
 
 [Media Player Hook docs](../hooks/media_player)
 

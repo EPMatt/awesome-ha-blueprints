@@ -2,8 +2,8 @@
 name: Hooks
 description: Provide common functionality to any of the supported controllers. Build controller-based automations for media players, lights and much more in just a few clicks.
 color: '#c9f3ff'
-
 ---
+
 # Hooks
 
 **Hooks** are blueprints which seamlessly integrate with [Controllers](controllers) to enable control of lights, media players and much more, without you ever writing a single line of code.
