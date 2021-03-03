@@ -122,7 +122,9 @@ async function getStaticPaths() {
     const blueprints = fs
       .readdirSync(`blueprints/${c}`, { withFileTypes: true })
       .filter((f) => f.isDirectory())
-    blueprints.forEach((b) => paths.push({ params: { category: c, id: b.name } }))
+    blueprints.forEach((b) =>
+      paths.push({ params: { category: c, id: b.name } })
+    )
   })
   return {
     paths,
