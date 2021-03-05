@@ -1,2 +1,9 @@
 # ignore workflows files
-.github/workflows
+/.github/workflows
+
+# next.js
+/.next/
+/out/
+
+# node modules
+/node_modules
