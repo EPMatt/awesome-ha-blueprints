@@ -21,6 +21,8 @@ jobs:
           commit_message: 🤖 Enforce Code Style
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: YamlLint
+        run: yamllint .
 
   gh-pages:
     needs: prettier
