@@ -111,13 +111,12 @@ variables:
   turn_on: '{{controller_mapping[controller_model_id]["turn_on"]}}'
   turn_off: '{{controller_mapping[controller_model_id]["turn_off"]}}'
   # extract light color mode id
-  light_color_mode_id: '
-  {% if light_color_mode == "Auto" %}
-  {{ supported_color_modes["Hue - Saturation"] if state_attr(light, "hs_color") != None else supported_color_modes["Color Temperature"] }}
-  {% else %}
-  {{ supported_color_modes[light_color_mode] }}
-  {% endif %}
-  '
+  light_color_mode_id: >-
+    {% if light_color_mode == "Auto" %}
+    {{ supported_color_modes["Hue - Saturation"] if state_attr(light, "hs_color") != None else supported_color_modes["Color Temperature"] }}
+    {% else %}
+    {{ supported_color_modes[light_color_mode] }}
+    {% endif %}
 
 # mode restart ensures long actions are interrupted when the release action is received
 mode: restart
