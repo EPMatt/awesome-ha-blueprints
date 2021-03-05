@@ -1,7 +1,7 @@
 # Blueprint metadata
 blueprint:
   name: Hook - Light
-  description: '
+  description: |
     Hook automation which allows to control a light. Supports brightness and color control both for white temperature and rgb lights. Features may vary depending on the selected Controller.
 
     An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
@@ -9,7 +9,6 @@ blueprint:
     They expose an abstract interface used by Hooks to create controller-based automations.
 
     Full documentation and a list of Controllers supported by this Hook are available [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light).
-    '
   domain: automation
   input:
     controller_device:

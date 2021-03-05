@@ -1,7 +1,7 @@
 # Blueprint metadata
 blueprint:
   name: Hook - Media Player
-  description: '
+  description: |
     Hook automation which allows to control a media player. Supports volume setting, play/pause and track selection. Features may vary depending on the selected Controller.
 
     An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
@@ -9,7 +9,6 @@ blueprint:
     They expose an abstract interface used by Hooks to create controller-based automations.
 
     Full documentation and a list of Controllers supported by this Hook are available [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player).
-    '
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:

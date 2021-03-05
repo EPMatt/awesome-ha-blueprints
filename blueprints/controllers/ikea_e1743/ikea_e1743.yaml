@@ -1,7 +1,7 @@
 # Blueprint metadata
 blueprint:
   name: Controller - IKEA E1743 On/Off Switch & Dimmer
-  description: '
+  description: |
     Controller automation for executing any kind of action triggered by an IKEA E1743 remote controller. Allows to optionally loop an action on a button long press.
     Supports Zigbee2MQTT, deCONZ, ZHA.
 
@@ -9,7 +9,6 @@ blueprint:
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
 
     Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743).
-    '
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1743/ikea_e1743.yaml
   domain: automation
   input:
