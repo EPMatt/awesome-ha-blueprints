@@ -100,19 +100,19 @@ blueprint:
     # inputs for enabling double press events
     button_up_double_press:
       name: Expose up button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
       default: false
       selector:
         boolean:
     button_down_double_press:
       name: Expose down button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.
       default: false
       selector:
         boolean:
     # helpers used to properly recognize the remote button events
     helper_last_loop_event_input:
-      name: (ZHA, Zigbee2MQTT Required, Optional) Helper - Last Press Event
+      name: (ZHA, Zigbee2MQTT, double press action Required) Helper - Last Press Event
       description: Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA, Zigbee2MQTT or if you're using a double press action.
       default: ''
       selector:

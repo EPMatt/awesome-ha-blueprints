@@ -178,37 +178,37 @@ blueprint:
     # inputs for enabling double press events
     button_left_double_press:
       name: Expose left button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the left button. Turn this on if you are providing an action for the left button double press event.
       default: false
       selector:
         boolean:
     button_right_double_press:
       name: Expose right button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the right button. Turn this on if you are providing an action for the right button double press event.
       default: false
       selector:
         boolean:
     button_up_double_press:
       name: Expose up button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
       default: false
       selector:
         boolean:
     button_down_double_press:
       name: Expose down button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.
       default: false
       selector:
         boolean:
     button_center_double_press:
       name: Expose center button double press event
-      description: Choose whether or not to expose the virtual double press event.
+      description: Choose whether or not to expose the virtual double press event for the center button. Turn this on if you are providing an action for the center button double press event.
       default: false
       selector:
         boolean:
     # helpers used to properly recognize the remote button events
     helper_last_loop_event_input:
-      name: (ZHA Required, Optional) Helper - Last Press Event
+      name: (ZHA, double press action Required) Helper - Last Press Event
       description: Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA or if you're using a double press action.
       default: ''
       selector:
