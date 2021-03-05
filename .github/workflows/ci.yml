@@ -1,12 +1,12 @@
 name: Continuous Integration
 
-on:
+'on':
   push:
     branches:
       - main
 
 jobs:
-  prettier:
+  prettify-lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v3.3
         with:
-          prettier_options: --write **/*.{yml,yaml,md,js,jsx,json}
+          prettier_options: --write **/*.{yml,yaml,md,js,jsx,json,css,scss}
           commit_message: 🤖 Enforce Code Style
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
