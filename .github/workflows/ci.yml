@@ -27,24 +27,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out Git repository
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
-    - name: Setup Node.JS
-      uses: actions/setup-node@v2
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Create .nojekyll file
-      run: touch out/.nojekyll
-    - name: Deploy to GitHub Pages
-      uses: s0/git-publish-subdir-action@v2.4.0
-      env:
-        REPO: self
-        BRANCH: gh-pages
-        FOLDER: out
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MESSAGE: '🤖 Deploy static site for change: {msg}'
-        SKIP_EMPTY_COMMITS: true
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Create .nojekyll file
+        run: touch out/.nojekyll
+      - name: Deploy to GitHub Pages
+        uses: s0/git-publish-subdir-action@v2.4.0
+        env:
+          REPO: self
+          BRANCH: gh-pages
+          FOLDER: out
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: '🤖 Deploy static site for change: {msg}'
+          SKIP_EMPTY_COMMITS: true
