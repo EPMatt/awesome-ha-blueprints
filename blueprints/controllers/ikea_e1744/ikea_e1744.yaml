@@ -80,13 +80,13 @@ blueprint:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     rotate_left_loop:
       name: Rotate Left - loop until stop
-      description: Loop the action until the remote stops rotating left.
+      description: Loop the rotate left action until the remote stops rotating left.
       default: false
       selector:
         boolean:
     rotate_right_loop:
       name: Rotate Right - loop until stop
-      description: Loop the action until the remote stops rotating right.
+      description: Loop the rotate right action until the remote stops rotating right.
       default: false
       selector:
         boolean:
