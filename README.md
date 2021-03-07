@@ -1,6 +1,6 @@
 # Awesome HA Blueprints
 
-![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen) ![GPL-3.0 License](https://img.shields.io/github/license/EPMatt/awesome-ha-blueprints) ![GitHub branch checks state](https://img.shields.io/github/checks-status/EPMatt/awesome-ha-blueprints/main) [![Community Topic here](https://img.shields.io/badge/discussion-here-blue)](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687)
+![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen) ![GPL-3.0 License](https://img.shields.io/github/license/EPMatt/awesome-ha-blueprints) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/epmatt/awesome-ha-blueprints/Continuous%20Integration?label=checks%20and%20build) [![Community Topic here](https://img.shields.io/badge/discussion-here-blue)](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687)
 
 With the recent **Home Assistant 2020.12 Release**, a new exciting feature was introduced: _Blueprints_.
 
