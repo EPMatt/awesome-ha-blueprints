@@ -26,13 +26,13 @@ When configuring the remote with Zigbee2MQTT make sure to disable the legacy int
 
 ### (Optional) ZHA Integration
 
-If you plan to integrate the E1743 2-button remote with ZHA, you must have this integration set up. The integration can be setup from the Home Assistant UI. Check the documentation for this integration for full details on the required hardware.
+If you plan to integrate the E1744 SYMFONISK Rotary Remote with ZHA, you must have this integration set up. The integration can be setup from the Home Assistant UI. Check the documentation for this integration for full details on the required hardware.
 
 [ZHA Integration Docs](https://www.home-assistant.io/integrations/zha/)
 
 ### (Optional) deCONZ Integration
 
-If you plan to integrate the E1743 2-button remote with deCONZ, you must have this integration set up. The integration can be setup from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for this integration for full details on the required hardware and how to set up deCONZ on your system.
+If you plan to integrate the E1744 SYMFONISK Rotary Remote with deCONZ, you must have this integration set up. The integration can be setup from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for this integration for full details on the required hardware and how to set up deCONZ on your system.
 
 [deCONZ Integration Docs](https://www.home-assistant.io/integrations/deconz/)
 
