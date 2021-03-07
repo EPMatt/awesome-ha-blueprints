@@ -3,45 +3,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 
 $primary: #002082;
-$secondary: #CED8F7;
+$secondary: #ced8f7;
 $font-family-sans-serif: 'Roboto', sans-serif;
 $headings-font-weight: 700;
 
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 html {
   scroll-behavior: smooth;
 }
 
-footer{
-  width:100%;
-  padding-top:2rem;
-  padding-bottom:2rem;
+footer {
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   background-color: $secondary;
 }
 
-#root{
+#root {
   min-height: 100vh;
 }
 
-main{
+main {
   padding-top: 7rem;
   padding-bottom: 4rem;
 }
 
-h1{
+h1 {
   padding-bottom: 1rem;
 }
 
-h2{
+h2 {
   padding-top: 4rem;
   padding-bottom: 1rem;
 }
 
-h3{
+h3 {
   padding-bottom: 0.8rem;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-family: 'Architects Daughter', cursive;
 }
