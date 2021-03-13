@@ -111,7 +111,7 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     zigbee2mqtt:
-      rotate_left: [brightness_mode_down]
+      rotate_left: [brightness_move_down]
       rotate_left_stop: [brightness_stop]
       rotate_right: [brightness_move_up]
       rotate_right_stop: [brightness_stop]
