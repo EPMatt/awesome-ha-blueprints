@@ -11,7 +11,7 @@ This Hook blueprint allow to build a controller-based automation to control a li
 
 An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
 
-See the list of [Controllers supported by this Hook](#supported-controllers) for additional details.
+See the list of [Controllers supported by this Hook](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light#supported-controllers) for additional details.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ See the list of [Controllers supported by this Hook](#supported-controllers) for
 
 To use this blueprint you need to first create an automation with a Controller blueprint. You can then create an automation with this Hook, **making sure that you provide the same controller device or entity used in the corresponding Controller blueprint**. This key step will link the two automations and ensure the Hook will respond to events fired by the Controller.
 
-[List of Supported Controllers](#supported-controllers)
+[List of Supported Controllers](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light#supported-controllers)
 [Controllers Docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers)
 
 ### Light Integration

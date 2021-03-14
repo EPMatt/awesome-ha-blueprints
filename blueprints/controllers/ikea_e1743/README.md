@@ -13,7 +13,7 @@ In addition of being able to provide custom actions for every kind of button pre
 The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
 
 Moreover, automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks) supported by this controller.
-Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](#available-hooks) for additional details.
+Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743#available-hooks) for additional details.
 
 ## Requirements
 
@@ -146,7 +146,7 @@ Please enable double press events for the Up and Down button to use all the avai
 - Down button long pres & hold -> Brightness down (continuous, until release)
 - Down button double press -> Color Down
 
-[Light Hook docs](../hooks/light)
+[Light Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light)
 
 ### Media Player
 
@@ -159,7 +159,7 @@ Please enable double press events for the Up and Down button to use all the avai
 - Down button long pres & hold -> Volume down (continuous, until release)
 - Down button double press -> Play/Pause
 
-[Media Player Hook docs](../hooks/media_player)
+[Media Player Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player)
 
 ## Additional Notes
 

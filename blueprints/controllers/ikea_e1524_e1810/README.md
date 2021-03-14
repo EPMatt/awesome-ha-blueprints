@@ -13,7 +13,7 @@ In addition of being able to provide custom actions for every kind of button pre
 The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
 
 Moreover, automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks) supported by this controller.
-Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](#available-hooks) for additional details.
+Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810#available-hooks) for additional details.
 
 ## Requirements
 
@@ -232,7 +232,7 @@ This integration provides the entity to store the last button event, which is ne
 - Right button long press & hold -> Color up (continuous, until release)
 - Center button short press -> Toggle
 
-[Light Hook docs](../hooks/light)
+[Light Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light)
 
 ### Media Player
 
@@ -245,7 +245,7 @@ This integration provides the entity to store the last button event, which is ne
 - Center button short press -> Play/Pause
 - Center button hold -> Stop
 
-[Media Player Hook docs](../hooks/media_player)
+[Media Player Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player)
 
 ## Additional Notes
 
