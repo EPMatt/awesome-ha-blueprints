@@ -236,7 +236,7 @@ action:
           # if looping is enabled, loop the action indefinitely
           # repeat until the automation is restarted ie. when the corresponding release message is received
           - repeat:
-              sequence: !input action_up_long
+              sequence: !input action_button_long
               until: '{{ not button_long_loop }}'
       - conditions: '{{ trigger_action in button_release }}'
         sequence:
