@@ -21,10 +21,10 @@ See the list of [Controllers supported by this Hook](https://epmatt.github.io/aw
  />
 
 <Requirement
- name='Light Integration'
- required
->
-This integration provides the entity which represents a light in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
+name='Light Integration'
+required
+
+> This integration provides the entity which represents a light in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Light Integration Docs](https://www.home-assistant.io/integrations/light/)
 </Requirement>

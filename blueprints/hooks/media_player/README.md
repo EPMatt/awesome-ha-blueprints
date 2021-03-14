@@ -20,10 +20,10 @@ See the list of [Controllers supported by this Hook](https://epmatt.github.io/aw
  required
  />
 <Requirement
- name='Media Player Integration'
- required
->
-This integration provides the entity which represents a media player in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
+name='Media Player Integration'
+required
+
+> This integration provides the entity which represents a media player in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Media Player Integration Docs](https://www.home-assistant.io/integrations/media_player/)
 </Requirement>
