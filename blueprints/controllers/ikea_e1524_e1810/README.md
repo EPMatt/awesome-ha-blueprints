@@ -29,7 +29,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 <Requirement
  name='Input Text Integration'
  required='ZHA, double press action'>
- This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
+This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
 </Requirement>

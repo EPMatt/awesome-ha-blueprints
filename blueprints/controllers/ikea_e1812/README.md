@@ -29,9 +29,9 @@ Hooks allow to easily create controller-based automations for interacting with m
 <Requirement
  name='Input Text Integration'
  required='Double press action'>
- This integration provides the entity to store the last button event, which is needed when using virtual double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
+This integration provides the entity to store the last button event, which is needed when using virtual double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
- [Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
+[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
 </Requirement>
 
 ## Inputs
