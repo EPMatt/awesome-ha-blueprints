@@ -11,6 +11,7 @@ function Zigbee2MQTTRequirement(props) {
         details on the required hardware and how to set up Zigbee2MQTT on your
         system.
       </p>
+      <p>{props.children}</p>
       <a href='https://www.zigbee2mqtt.io/'>Zigbee2MQTT Docs</a>
     </CustomRequirement>
   )

@@ -11,6 +11,7 @@ function DeCONZRequirement(props) {
         on. Head over to the documentation for full details on the required
         hardware and how to set up deCONZ on your system.
       </p>
+      <p>{props.children}</p>
       <a href='https://www.home-assistant.io/integrations/deconz/'>
         deCONZ Integration Docs
       </a>
