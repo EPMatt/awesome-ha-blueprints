@@ -15,18 +15,19 @@ See the list of [Controllers supported by this Hook](https://epmatt.github.io/aw
 
 ## Requirements
 
-### Controller Automation
+<Requirement
+ id='controller'
+ required
+ />
 
-To use this blueprint you need to first create an automation with a Controller blueprint. You can then create an automation with this Hook, **making sure that you provide the same controller device or entity used in the corresponding Controller blueprint**. This key step will link the two automations and ensure the Hook will respond to events fired by the Controller.
-
-[List of Supported Controllers](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light#supported-controllers)
-[Controllers Docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers)
-
-### Light Integration
-
+<Requirement
+ name='Light Integration'
+ required
+>
 This integration provides the entity which represents a light in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Light Integration Docs](https://www.home-assistant.io/integrations/light/)
+</Requirement>
 
 ## Inputs
 
