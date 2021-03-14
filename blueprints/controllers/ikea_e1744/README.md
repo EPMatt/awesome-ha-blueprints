@@ -18,7 +18,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ### (Optional) Zigbee2MQTT
 
-If you plan to integrate the E1744 SYMFONISK Rotary Remote with Zigbee2MQTT, you must have this integration set up. Installation methods differ between different installation types. Check the documentation for this integration for full details on the required hardware and how to set up Zigbee2MQTT on your system.
+If you plan to integrate the E1744 SYMFONISK Rotary Remote with Zigbee2MQTT, you must have this integration set up. Installation methods differ between different installation types. Check out the documentation for full details on the required hardware and how to set up Zigbee2MQTT on your system.
 
 When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/E1744.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
 
@@ -26,13 +26,13 @@ When configuring the remote with Zigbee2MQTT make sure to disable the legacy int
 
 ### (Optional) ZHA Integration
 
-If you plan to integrate the E1744 SYMFONISK Rotary Remote with ZHA, you must have this integration set up. The integration can be setup from the Home Assistant UI. Check the documentation for this integration for full details on the required hardware.
+If you plan to integrate the E1744 SYMFONISK Rotary Remote with ZHA, you must have this integration set up. The ZHA integration can be configured from the Home Assistant UI. Check the documentation for full details on the required hardware and how to set up ZHA on your system.
 
 [ZHA Integration Docs](https://www.home-assistant.io/integrations/zha/)
 
 ### (Optional) deCONZ Integration
 
-If you plan to integrate the E1744 SYMFONISK Rotary Remote with deCONZ, you must have this integration set up. The integration can be setup from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for this integration for full details on the required hardware and how to set up deCONZ on your system.
+If you plan to integrate the E1744 SYMFONISK Rotary Remote with deCONZ, you must have this integration set up. The deCONZ integration can be configured from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for full details on the required hardware and how to set up deCONZ on your system.
 
 [deCONZ Integration Docs](https://www.home-assistant.io/integrations/deconz/)
 

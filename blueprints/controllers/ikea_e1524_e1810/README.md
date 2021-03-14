@@ -19,19 +19,19 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ### (Optional) Zigbee2MQTT
 
-If you plan to integrate the 5-button remote with Zigbee2MQTT, you must have this integration set up. Installation methods differ between different installation types. Check the documentation for this integration for full details on the required hardware and how to set up Zigbee2MQTT on your system.
+If you plan to integrate the 5-button remote with Zigbee2MQTT, you must have this integration set up. Installation methods differ between different installation types. Check out the documentation for full details on the required hardware and how to set up Zigbee2MQTT on your system.
 
 [Zigbee2MQTT Docs](https://www.zigbee2mqtt.io/)
 
 ### (Optional) ZHA Integration
 
-If you plan to integrate the 5-button remote with ZHA, you must have this integration set up. The integration can be setup from the Home Assistant UI. Check the documentation for this integration for full details on the required hardware.
+If you plan to integrate the 5-button remote with ZHA, you must have this integration set up. The ZHA integration can be configured from the Home Assistant UI. Check the documentation for full details on the required hardware and how to set up ZHA on your system.
 
 [ZHA Integration Docs](https://www.home-assistant.io/integrations/zha/)
 
 ### (Optional) deCONZ Integration
 
-If you plan to integrate the 5-button remote with deCONZ, you must have this integration set up. The integration can be setup from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for this integration for full details on the required hardware and how to set up deCONZ on your system.
+If you plan to integrate the 5-button remote with deCONZ, you must have this integration set up. The deCONZ integration can be configured from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for full details on the required hardware and how to set up deCONZ on your system.
 
 [deCONZ Integration Docs](https://www.home-assistant.io/integrations/deconz/)
 
