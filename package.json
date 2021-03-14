@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
@@ -21,5 +22,8 @@
     "react-highlight.js": "^1.0.7",
     "react-responsive": "^8.2.0",
     "sass": "^1.30.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }
