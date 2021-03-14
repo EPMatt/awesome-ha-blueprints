@@ -21,7 +21,8 @@ import TitleToc from '../../../components/TitleToc'
 import toc from 'markdown-toc'
 import { useMediaQuery } from 'react-responsive'
 import { withInvisibleAnchor } from '../../../utils'
-import Input from '../../../components/Input'
+import Input from '../../../components/blueprints_docs/Input'
+import Requirement from '../../../components/blueprints_docs/Requirement'
 
 function Blueprint(props) {
   const copyToClipboard = async (e) => {
@@ -88,6 +89,12 @@ function Blueprint(props) {
                 },
                 Input: {
                   component: Input,
+                },
+                Requirement: {
+                  component: Requirement,
+                  props: {
+                    refers: props.data.name,
+                  },
                 },
               },
             }}
