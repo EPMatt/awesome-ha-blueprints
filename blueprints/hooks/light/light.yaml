@@ -31,7 +31,7 @@ blueprint:
         select:
           options:
             - IKEA E1524/E1810 5-Button remote
-            - IKEA E1743 On/Off Switch
+            - IKEA E1743 On/Off Switch & Dimmer
             - IKEA E1744 SYMFONISK rotary remote
             - IKEA E1812 Shortcut button
     light:
