@@ -58,3 +58,4 @@ This integration provides the entity which represents a media player in Home Ass
 - [IKEA E1524/E1810 5-Button remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810)
 - [IKEA E1743 On/Off Switch & Dimmer](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743)
 - [IKEA E1744 SYMFONISK rotary remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1744)
+- [IKEA E1812 Shortcut button](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1812)

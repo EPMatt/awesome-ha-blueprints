@@ -105,6 +105,15 @@ selector='action'
 
 ## Available Hooks
 
+### Media Player
+
+Please enable double button press events to use all the available actions.
+
+- Button short press -> Play/Pause
+- Button long press -> Stop
+- Button double press -> Next track
+
+[Media Player Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player)
 
 ## Additional Notes
 
