@@ -17,29 +17,22 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-### (Optional) Zigbee2MQTT
-
-If you plan to integrate the E1743 2-button remote with Zigbee2MQTT, you must have this integration set up. Installation methods differ between different installation types. Check out the documentation for full details on the required hardware and how to set up Zigbee2MQTT on your system.
-
-[Zigbee2MQTT Docs](https://www.zigbee2mqtt.io/)
-
-### (Optional) ZHA Integration
-
-If you plan to integrate the E1743 2-button remote with ZHA, you must have this integration set up. The ZHA integration can be configured from the Home Assistant UI. Check the documentation for full details on the required hardware and how to set up ZHA on your system.
-
-[ZHA Integration Docs](https://www.home-assistant.io/integrations/zha/)
-
-### (Optional) deCONZ Integration
-
-If you plan to integrate the E1743 2-button remote with deCONZ, you must have this integration set up. The deCONZ integration can be configured from the Home Assistant UI and requires an additional container to run deCONZ on. Head over to the documentation for full details on the required hardware and how to set up deCONZ on your system.
-
-[deCONZ Integration Docs](https://www.home-assistant.io/integrations/deconz/)
-
-### (Optional) Input Text Integration
-
-This integration provides the entity to store the last button event, which is needed when using ZHA or Zigbee2MQTT to integrate the remote and determining which button has been released. This should be activated by default so unless you tweaked the default configuration you're good to go.
+<Requirement
+ id='zigbee2mqtt'
+ />
+<Requirement
+ id='zha'
+ />
+<Requirement
+ id='deconz'
+ />
+<Requirement
+ name='Input Text Integration'
+ required='ZHA, Zigbee2MQTT, double press action'>
+ This integration provides the entity which will be used to store the last button event. It's required when using ZHA or Zigbee2MQTT to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
+</Requirement>
 
 ## Inputs
 
