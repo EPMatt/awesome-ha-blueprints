@@ -214,7 +214,7 @@ action:
               until: '{{ not rotate_left_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_left_stop }}'
-            # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
+          # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
         sequence:
           # fire the event
@@ -248,7 +248,7 @@ action:
               until: '{{ not rotate_right_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_right_stop }}'
-            # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
+          # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
         sequence:
           # fire the event
