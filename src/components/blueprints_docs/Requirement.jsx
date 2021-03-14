@@ -4,6 +4,12 @@ import ZHARequirement from './requirements/controllers/ZHARequirement'
 import DeCONZRequirement from './requirements/controllers/DeCONZRequirement'
 import CustomRequirement from './requirements/CustomRequirement'
 
+const requirements = {
+  zigbee2mqtt: Zigbee2MQTTRequirement,
+  zha: ZHARequirement,
+  deconz: DeCONZRequirement,
+}
+
 function Requirement(props) {
   const Component = props.id ? requirements[props.id] : CustomRequirement
   return (
