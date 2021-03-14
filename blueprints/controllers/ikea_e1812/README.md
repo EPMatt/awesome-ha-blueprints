@@ -105,6 +105,15 @@ selector='action'
 
 ## Available Hooks
 
+### Light
+
+Please enable double button press events to use all the available actions.
+
+- Button short press -> Toggle
+- Button double press -> Color up
+
+[Light Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light)
+
 ### Media Player
 
 Please enable double button press events to use all the available actions.
