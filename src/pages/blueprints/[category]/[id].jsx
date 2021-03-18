@@ -23,7 +23,11 @@ function Blueprint(props) {
   return (
     <Container fluid className='px-md-4'>
       <Row>
-        <Col xs={12} lg={3} className={styles.sidebar+ ' position-fixed left pr-5'}>
+        <Col
+          xs={12}
+          lg={3}
+          className={styles.sidebar + ' position-fixed left pr-5'}
+        >
           <BlueprintImportCard
             className='mb-4'
             category={props.category}
