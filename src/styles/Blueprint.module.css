@@ -1,0 +1,21 @@
+/* left sidebar */
+.sidebar {
+  display: none;
+}
+
+@media all and (min-width: 992px) {
+  .sidebar {
+    display: block;
+  }
+}
+
+/* mobile toc */
+.mobile-toc {
+  display: block;
+}
+
+@media all and (min-width: 992px) {
+  .mobile-toc {
+    display: none;
+  }
+}

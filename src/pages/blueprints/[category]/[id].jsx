@@ -18,12 +18,15 @@ import Input from '../../../components/blueprints_docs/Input'
 import Requirement from '../../../components/blueprints_docs/Requirement'
 import BlueprintImportCard from '../../../components/BlueprintImportCard'
 
+import styles from '../../../styles/Blueprint.module.css'
+
 function Blueprint(props) {
+  console.log(styles)
   const lg = useMediaQuery({ query: '(min-width: 992px)' })
   return (
     <Container fluid className='px-md-4'>
-      <Row className=''>
-        <Col xs={12} lg={3} className='position-fixed sidebar left pr-5'>
+      <Row>
+        <Col xs={12} lg={3} className={styles.sidebar+ ' position-fixed left pr-5'}>
           <BlueprintImportCard
             className='mb-4'
             category={props.category}
@@ -51,10 +54,11 @@ function Blueprint(props) {
             options={{
               overrides: {
                 pre: FragmentWrapper,
-                h1: !lg && {
+                h1: {
                   component: TitleToc,
                   props: {
                     data: props.tocData,
+                    className: styles['mobile-toc'],
                     between: (
                       <BlueprintImportCard
                         className='mb-4'

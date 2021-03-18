@@ -45,15 +45,3 @@ h3 {
 .navbar-brand {
   font-family: 'Architects Daughter', cursive;
 }
-
-/* left sidebar */
-
-.sidebar.left {
-  display: none;
-}
-
-@media all and (min-width: 992px) {
-  .sidebar.left {
-    display: block;
-  }
-}
