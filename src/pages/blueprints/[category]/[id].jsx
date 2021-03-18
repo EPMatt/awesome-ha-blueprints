@@ -35,11 +35,9 @@ function Blueprint(props) {
   return (
     <Container fluid className='px-md-4'>
       <Row className=''>
-        {md && (
-          <Col xs={12} md={3} lg={2} className='position-fixed'>
-            <Toc data={props.tocData}></Toc>
-          </Col>
-        )}
+        <Col xs={12} md={3} lg={2} className='position-fixed sidebar left'>
+          <Toc data={props.tocData}></Toc>
+        </Col>
         <Col xs={12} md={8} className='offset-md-3 offset-lg-2'>
           <Head>
             <title>{props.data.name} - Awesome HA Blueprints </title>
