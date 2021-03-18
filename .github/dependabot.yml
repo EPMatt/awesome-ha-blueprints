@@ -7,3 +7,10 @@ updates:
     commit-message:
       prefix: 'github-actions'
     open-pull-requests-limit: 10
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    commit-message:
+      prefix: 'npm'
+    open-pull-requests-limit: 10
