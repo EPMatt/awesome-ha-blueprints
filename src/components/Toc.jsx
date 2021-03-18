@@ -3,7 +3,8 @@ import React from 'react'
 const styles = {
   tocLink: {
     display: 'block',
-    marginBottom: '0.5rem',
+    paddingBottom: '0.5rem',
+    borderLeft: '1px solid black',
   },
   level2: {
     paddingLeft: '1rem',
@@ -23,7 +24,7 @@ function Toc(props) {
     ))
   return (
     <>
-      <p>Table of Contents</p>
+      <h5 className='pb-4'>Table of Contents</h5>
       {titles}
     </>
   )
