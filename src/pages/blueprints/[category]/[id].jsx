@@ -5,14 +5,7 @@ import Head from 'next/head'
 import TextIcon from '../../../components/TextIcon'
 import Link from 'next/link'
 import { ArrowLeft } from 'react-bootstrap-icons'
-import {
-  Row,
-  Col,
-  Button,
-  OverlayTrigger,
-  Tooltip,
-  Container,
-} from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import React from 'react'
 import Highlight from 'react-highlight.js'
 import FragmentWrapper from '../../../components/FragmentWrapper'
@@ -23,22 +16,23 @@ import { useMediaQuery } from 'react-responsive'
 import { withInvisibleAnchor } from '../../../utils'
 import Input from '../../../components/blueprints_docs/Input'
 import Requirement from '../../../components/blueprints_docs/Requirement'
+import BlueprintImportCard from '../../../components/BlueprintImportCard'
 
 function Blueprint(props) {
-  const copyToClipboard = async (e) => {
-    await navigator.clipboard.writeText(
-      `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${props.category}/${props.id}/${props.id}.yaml`
-    )
-  }
-
-  const md = useMediaQuery({ query: '(min-width: 768px)' })
+  const lg = useMediaQuery({ query: '(min-width: 992px)' })
   return (
     <Container fluid className='px-md-4'>
       <Row className=''>
-        <Col xs={12} md={3} lg={2} className='position-fixed sidebar left'>
+        <Col xs={12} lg={3} className='position-fixed sidebar left pr-5'>
+          <BlueprintImportCard
+            className='mb-4'
+            category={props.category}
+            id={props.id}
+            style={{ maxWidth: 300 }}
+          />
           <Toc data={props.tocData}></Toc>
         </Col>
-        <Col xs={12} md={8} className='offset-md-3 offset-lg-2'>
+        <Col xs={12} lg={8} className='offset-lg-3'>
           <Head>
             <title>{props.data.name} - Awesome HA Blueprints </title>
           </Head>
@@ -52,30 +46,23 @@ function Blueprint(props) {
                 text={`Go back to ${props.category}`}
               />
             </Col>
-            <Col xs='auto'>
-              <OverlayTrigger
-                trigger='click'
-                placement='top'
-                overlay={(props) => (
-                  <Tooltip id='overlay-example' {...props}>
-                    Link Copied!
-                  </Tooltip>
-                )}
-              >
-                <Button onClick={copyToClipboard} variant='success'>
-                  Copy Link
-                </Button>
-              </OverlayTrigger>
-            </Col>
           </Row>
           <Markdown
             options={{
               overrides: {
                 pre: FragmentWrapper,
-                h1: !md && {
+                h1: !lg && {
                   component: TitleToc,
                   props: {
                     data: props.tocData,
+                    between: (
+                      <BlueprintImportCard
+                        className='mb-4'
+                        category={props.category}
+                        id={props.id}
+                        style={{ maxWidth: 600 }}
+                      />
+                    ),
                   },
                 },
                 h2: withInvisibleAnchor('h2'),
