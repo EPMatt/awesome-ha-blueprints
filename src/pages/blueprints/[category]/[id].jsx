@@ -12,7 +12,6 @@ import FragmentWrapper from '../../../components/FragmentWrapper'
 import Toc from '../../../components/Toc'
 import TitleToc from '../../../components/TitleToc'
 import toc from 'markdown-toc'
-import { useMediaQuery } from 'react-responsive'
 import { withInvisibleAnchor } from '../../../utils'
 import Input from '../../../components/blueprints_docs/Input'
 import Requirement from '../../../components/blueprints_docs/Requirement'
@@ -21,8 +20,6 @@ import BlueprintImportCard from '../../../components/BlueprintImportCard'
 import styles from '../../../styles/Blueprint.module.css'
 
 function Blueprint(props) {
-  console.log(styles)
-  const lg = useMediaQuery({ query: '(min-width: 992px)' })
   return (
     <Container fluid className='px-md-4'>
       <Row>
