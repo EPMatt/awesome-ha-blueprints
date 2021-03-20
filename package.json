@@ -9,7 +9,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^4.6.0",
     "gray-matter": "^4.0.2",
     "highlight.js": "^10.6.0",
     "markdown-to-jsx": "^7.1.2",
