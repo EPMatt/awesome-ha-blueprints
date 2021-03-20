@@ -3,7 +3,9 @@ title: IKEA E1812 Shortcut button
 description: Controller automation for executing any kind of action triggered by an IKEA E1812 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.
 ---
 
-import { Input, Requirement } from '/src/components/blueprints_docs'
+import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+
+<ImportCard id='ikea_e1812' category='controllers'/>
 
 ## Description
 
@@ -105,7 +107,7 @@ Please enable double button press events to use all the available actions.
 - Button short press -> Toggle
 - Button double press -> Color up
 
-[Light Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light)
+[Light Hook docs](/docs/blueprints/hooks/light)
 
 ### Media Player
 
@@ -115,7 +117,7 @@ Please enable double button press events to use all the available actions.
 - Button long press -> Stop
 - Button double press -> Next track
 
-[Media Player Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player)
+[Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
 ## Additional Notes
 

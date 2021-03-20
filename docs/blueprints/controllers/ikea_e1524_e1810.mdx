@@ -3,7 +3,9 @@ title: IKEA E1524/E1810 5-Button Remote
 description: Controller automation for executing any kind of action triggered by an IKEA E1524/E1810 5-Button remote remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.
 ---
 
-import { Input, Requirement } from '/src/components/blueprints_docs'
+import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+
+<ImportCard id='ikea_e1524_e1810' category='controllers'/>
 
 ## Description
 
@@ -225,7 +227,7 @@ This integration provides the entity which will be used to store the last button
 - Right button long press & hold -> Color up (continuous, until release)
 - Center button short press -> Toggle
 
-[Light Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light)
+[Light Hook docs](/docs/blueprints/hooks/light)
 
 ### Media Player
 
@@ -238,7 +240,7 @@ This integration provides the entity which will be used to store the last button
 - Center button short press -> Play/Pause
 - Center button hold -> Stop
 
-[Media Player Hook docs](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player)
+[Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
 ## Additional Notes
 
