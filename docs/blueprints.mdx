@@ -1,0 +1,32 @@
+---
+title: Blueprints Overview
+sidebar_label: Overview
+---
+
+import BlueprintCategoryCard from '/src/components/blueprints_docs/BlueprintCategoryCard'
+
+Select from the blueprint categories listed below. Please note that currently Home Assistant only supports blueprints for the `automation` domain.
+
+<div class='row'>
+  <BlueprintCategoryCard
+    id='controllers'
+    name='Controllers'
+    description='Integrate a wide set of controllers in Home Assistant and provide an easy to use interface to run custom actions on a controller event.'
+    color='#b5ffba'
+    icon='Joystick'
+  />
+  <BlueprintCategoryCard
+    id='hooks'
+    name='Hooks'
+    description='Provide common functionality to any of the supported controllers. Build controller-based automations for media players, lights and much more in just a few clicks.'
+    color='#c9f3ff'
+    icon='PlugFill'
+  />
+  <BlueprintCategoryCard
+    id='automation'
+    name='Automations'
+    description='Generic automation blueprints which cover different use-cases.'
+    color='#ffe7c9'
+    icon='GearWideConnected'
+  />
+</div>
