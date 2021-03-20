@@ -3,24 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start",
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "bootstrap": "^4.5.3",
-    "gray-matter": "^4.0.2",
-    "highlight.js": "^10.5.0",
-    "markdown-to-jsx": "^7.1.0",
-    "markdown-toc": "^1.2.0",
-    "next": "10.0.3",
-    "react": "17.0.1",
-    "react-bootstrap": "^1.4.0",
-    "react-bootstrap-icons": "^1.1.0",
-    "react-dom": "17.0.1",
-    "react-highlight.js": "^1.0.7",
-    "sass": "^1.30.0"
+    "@docusaurus/core": "2.0.0-alpha.72",
+    "@docusaurus/preset-classic": "2.0.0-alpha.72",
+    "@mdx-js/react": "^1.6.21",
+    "clsx": "^1.1.1",
+    "react": "^17.0.1",
+    "react-bootstrap-icons": "^1.4.0",
+    "react-dom": "^17.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "prettier": "^2.2.1"
