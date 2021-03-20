@@ -16,15 +16,18 @@ export default function Home() {
         style={{ minHeight: '70vh' }}
       >
         <div className='container'>
-          <img src={useBaseUrl('img/logo.svg')} className='margin-bottom--lg' style={{width:80}}/>
+          <img
+            src={useBaseUrl('img/logo.svg')}
+            className='margin-bottom--lg'
+            style={{ width: 80 }}
+          />
           <h1 className='hero__title' style={{ color: 'white' }}>
             {siteConfig.title}
           </h1>
           <p className='hero__subtitle' style={{ color: 'white' }}>
             A curated collection of blueprints for Home Assistant.
             <br />
-            Reliable, customizable, fully tested  by
-            the community.
+            Reliable, customizable, fully tested by the community.
           </p>
           <div className={`row margin-top--xl ${styles.buttons}`}>
             <div className='col margin-bottom--lg'>
