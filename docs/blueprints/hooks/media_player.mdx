@@ -1,17 +1,16 @@
 ---
-name: Light
-description: Hook automation which allows to control a light. Supports brightness and color control both for white temperature and rgb lights.
+title: Media Player
+description: Hook automation which allows to control a media player. Supports volume setting, play/pause and track selection.
 ---
 
-# Light
 
 ## Description
 
-This Hook blueprint allow to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+This Hook blueprint allow to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
 
 An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
 
-See the list of [Controllers supported by this Hook](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light#supported-controllers) for additional details.
+See the list of [Controllers supported by this Hook](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player#supported-controllers) for additional details.
 
 ## Requirements
 
@@ -19,14 +18,13 @@ See the list of [Controllers supported by this Hook](https://epmatt.github.io/aw
  id='controller'
  required
  />
-
 <Requirement
-name='Light Integration'
-required
+name='Media Player Integration'
+required>
 
-> This integration provides the entity which represents a light in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
+This integration provides the entity which represents a media player in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
-[Light Integration Docs](https://www.home-assistant.io/integrations/light/)
+[Media Player Integration Docs](https://www.home-assistant.io/integrations/media_player/)
 </Requirement>
 
 ## Inputs
@@ -48,20 +46,10 @@ required
  required
  />
 <Input
- name='Light'
- description='Light which will be controlled with this automation.'
+ name='Media Player'
+ description='Media player which will be controlled with this automation.'
  selector='entity'
  required
- />
-<Input
- name='Light Color Mode'
- description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto"'
- selector='select'
- />
-<Input
- name='Light Transition'
- description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
- selector='number'
  />
 
 ## Supported Controllers
@@ -70,7 +58,3 @@ required
 - [IKEA E1743 On/Off Switch & Dimmer](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743)
 - [IKEA E1744 SYMFONISK rotary remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1744)
 - [IKEA E1812 Shortcut button](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1812)
-
-## Additional Notes
-
-If you want to link multiple lights to the same controller you can either use [Light Groups](https://www.home-assistant.io/integrations/light.group/) or build multiple Hooks linked to the same Controller.
