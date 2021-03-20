@@ -40,13 +40,13 @@ jobs:
       - name: Build
         run: npm run build
       - name: Create .nojekyll file
-        run: touch out/.nojekyll
+        run: touch build/.nojekyll
       - name: Deploy to GitHub Pages
         uses: s0/git-publish-subdir-action@v2.4.0
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: out
+          FOLDER: build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: '🤖 Deploy static site for change: {msg}'
           SKIP_EMPTY_COMMITS: true
