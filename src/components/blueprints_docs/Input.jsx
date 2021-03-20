@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge } from 'react-bootstrap'
+import Badge from '../Badge'
 
 const selectors = {
   action: {
@@ -62,7 +62,7 @@ function Input(props) {
         )}
       </span>
       <br />
-      <p style={styles.inputDescription} className='mt-1'>
+      <p style={styles.inputDescription} className='margin-top--sm'>
         {props.description}
       </p>
       <hr />

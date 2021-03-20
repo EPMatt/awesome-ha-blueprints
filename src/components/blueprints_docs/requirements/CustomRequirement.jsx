@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge } from 'react-bootstrap'
+import Badge from '../../Badge'
 
 const styles = {
   requirementNameContainer: {
@@ -12,7 +12,7 @@ const styles = {
 
 function Requirement(props) {
   return (
-    <div className='mb-3'>
+    <div className='margin-bottom--lg'>
       <div style={styles.requirementNameContainer}>
         <h3 style={styles.requirementName}>{props.name} </h3>
         {props.required ? (
