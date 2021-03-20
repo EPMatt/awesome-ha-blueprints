@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 122.88 110.81"
+   version="1.1"
+   sodipodi:docname="awesome-ha-blueprints.svg"
+   inkscape:version="1.0.2 (1.0.2+r75+1)">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1021"
+     id="namedview7"
+     showgrid="false"
+     inkscape:zoom="3.5285625"
+     inkscape:cx="-20.258687"
+     inkscape:cy="59.064671"
+     inkscape:window-x="900"
+     inkscape:window-y="290"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <title
+     id="title2">floor-plan</title>
+  <path
+     d="M94.67,91.86a2.49,2.49,0,0,1,0-5h4.79V68H94.82a2.49,2.49,0,0,1,0-5h4.64V36.52H79.84V63.05h4.65a2.49,2.49,0,0,1,0,5H79.84v5.18a2.49,2.49,0,1,1-5,0V36.52H41.33V54.35H57.75a2.48,2.48,0,0,1,2.49,2.48V86.88H74.78V82.24a2.49,2.49,0,1,1,5,0v4.64h5.89a2.49,2.49,0,0,1,0,5H38.84a2.49,2.49,0,0,1-2.49-2.49V34a2.5,2.5,0,0,1,2.49-2.49H102A2.5,2.5,0,0,1,104.44,34V89.37A2.49,2.49,0,0,1,102,91.86ZM5.31,82.2,5.59,82a14.5,14.5,0,0,1,1.62-1.24,16.59,16.59,0,0,1,3.71-1.82A24.82,24.82,0,0,1,14.44,78V5.1C5.18,6.52,5.24,15.82,5.29,24.48c.24,12-.54,43.62,0,57.72Zm14-2.06a2.53,2.53,0,0,1-.59,1.45,2.43,2.43,0,0,1-1.5.82h0a28,28,0,0,0-4,.87,12.51,12.51,0,0,0-3.29,1.5,10.62,10.62,0,0,0-2.56,2.43A16.58,16.58,0,0,0,5.27,91a21.74,21.74,0,0,0,.41,5.48,11.91,11.91,0,0,0,1.83,4.35l0,0a10.39,10.39,0,0,0,3.53,3.1,17.49,17.49,0,0,0,5.67,1.86h101.2V19H19.36V80.14Zm0-66h100a3.61,3.61,0,0,1,1.35.27,3.6,3.6,0,0,1,1.93,1.93,3.62,3.62,0,0,1,.27,1.36v89.59a3.61,3.61,0,0,1-.27,1.35,3.74,3.74,0,0,1-.77,1.15h0a3.74,3.74,0,0,1-1.15.77,3.43,3.43,0,0,1-1.35.27H16.58a15.94,15.94,0,0,1-7.15-2.12,17.62,17.62,0,0,1-5.92-5,16.81,16.81,0,0,1-2.6-6,27.37,27.37,0,0,1-.52-7.2c0-21.49-.88-44.78,0-66,0-5.7-.07-11.63,1.92-16.24S8.45.16,16.64,0h.26a2.46,2.46,0,0,1,2.46,2.46V14.11Zm22,45.21V86.88H55.26V59.32Z"
+     id="path4"
+     style="fill:#ffffff;fill-opacity:1" />
+</svg>
