@@ -4,7 +4,7 @@ module.exports = {
       type: 'category',
       label: 'Getting Started',
       collapsed: false,
-      items: ['introduction','importing-a-blueprint','contributing'],
+      items: ['introduction','importing-a-blueprint','controllers-hooks-ecosystem','contributing'],
     },
     {
       type: 'category',
