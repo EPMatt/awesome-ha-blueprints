@@ -35,7 +35,7 @@ html[data-theme='dark'] {
   color: white;
 }
 
-@media all and (max-width:996px) {
+@media all and (max-width: 996px) {
   .navbar__brand {
     margin-right: 3rem;
   }

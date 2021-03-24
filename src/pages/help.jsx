@@ -73,8 +73,11 @@ function Help() {
             <div className='col col--4' style={{ maxWidth: 300 }}>
               <h3>Donate!</h3>
               <p>
-                If you love the project and want to help its future developments,
-                consider showing your support by <a href='https://www.buymeacoffee.com/epmatt'>making a donation</a>
+                If you love the project and want to help its future
+                developments, consider showing your support by{' '}
+                <a href='https://www.buymeacoffee.com/epmatt'>
+                  making a donation
+                </a>
                 . ☕
               </p>
             </div>
