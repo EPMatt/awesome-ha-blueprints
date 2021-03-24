@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="350mm"
+   height="300mm"
+   viewBox="0 0 350 300"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="awesome-ha-blueprints-02.svg"
+   inkscape:version="1.0.2 (1.0.2+r75+1)">
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path1437" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1316" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1298" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1295" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Lend-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1316-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Lend-4-1"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1316-0-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Lend-1"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1316-4" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="144.51275"
+     inkscape:cy="1017.696"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1021"
+     inkscape:window-x="900"
+     inkscape:window-y="290"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#faffff;fill-opacity:1;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2381"
+       width="607.78571"
+       height="551.08929"
+       x="-128.95091"
+       y="-97.984695" />
+    <rect
+       style="fill:#ffffe6;fill-opacity:1;stroke:#000000;stroke-width:0.475649;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1220-4"
+       width="76.202263"
+       height="29.352203"
+       x="255.31403"
+       y="239.11174" />
+    <rect
+       style="fill:#b5ffba;fill-opacity:1;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect869"
+       width="81.453857"
+       height="37.230652"
+       x="12.737948"
+       y="134.02614"
+       rx="7.9999948"
+       ry="7.9999948" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="53.232353"
+       y="150.65117"
+       id="text873"><tspan
+         sodipodi:role="line"
+         id="tspan871"
+         x="53.232353"
+         y="150.65117"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583">IKEA E1743</tspan><tspan
+         sodipodi:role="line"
+         x="53.232353"
+         y="159.60303"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1149">Controller</tspan><tspan
+         sodipodi:role="line"
+         x="53.232353"
+         y="168.42247"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1101" /></text>
+    <g
+       style="fill:currentColor"
+       id="g1099"
+       transform="matrix(0.79309876,0,0,0.79309876,15.497197,136.45701)">
+      <path
+         d="M 10,2 A 2,2 0 0 1 8.5,3.937 V 9.024 C 9.363,9.107 10,9.401 10,9.75 10,10.164 9.105,10.5 8,10.5 6.895,10.5 6,10.164 6,9.75 6,9.4 6.637,9.107 7.5,9.024 V 3.937 A 2,2 0 1 1 10,2 Z"
+         id="path1085" />
+      <path
+         d="m 0,9.665 v 1.717 a 1,1 0 0 0 0.553,0.894 l 6.553,3.277 a 2,2 0 0 0 1.788,0 l 6.553,-3.277 A 1,1 0 0 0 16,11.382 V 9.665 c 0,-0.1 -0.06,-0.19 -0.152,-0.23 L 9.5,6.715 v 0.993 l 5.227,2.178 a 0.125,0.125 0 0 1 10e-4,0.23 l -5.94,2.546 a 2,2 0 0 1 -1.576,0 L 1.272,10.116 A 0.125,0.125 0 0 1 1.273,9.886 L 6.5,7.708 6.487,6.72 0.152,9.435 A 0.25,0.25 0 0 0 0,9.665 Z"
+         id="path1087" />
+    </g>
+    <rect
+       style="fill:#c9f3ff;fill-opacity:1;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect869-0"
+       width="81.453857"
+       height="37.230652"
+       x="252.68823"
+       y="134.02614"
+       rx="7.9999948"
+       ry="7.9999948" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="293.17429"
+       y="150.77692"
+       id="text873-4"><tspan
+         sodipodi:role="line"
+         x="293.17429"
+         y="150.77692"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1101-2">Media Player</tspan><tspan
+         sodipodi:role="line"
+         x="293.17429"
+         y="159.72878"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1157">Hook</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="213.55655"
+       y="36.285713"
+       id="text1153"><tspan
+         sodipodi:role="line"
+         id="tspan1151"
+         x="213.55655"
+         y="36.285713"
+         style="stroke-width:0.264583" /><tspan
+         sodipodi:role="line"
+         x="213.55655"
+         y="49.514839"
+         style="stroke-width:0.264583"
+         id="tspan1155" /></text>
+    <g
+       style="fill:currentColor"
+       id="g1216"
+       transform="matrix(0.94110932,0,0,0.94110932,255.60606,135.97562)">
+      <path
+         d="M 6,0 A 0.5,0.5 0 0 1 6.5,0.5 V 3 h 3 V 0.5 a 0.5,0.5 0 0 1 1,0 V 3 h 1 A 0.5,0.5 0 0 1 12,3.5 v 3 A 3.5,3.5 0 0 1 8.5,10 c -0.002,0.434 -0.01,0.845 -0.04,1.22 -0.041,0.514 -0.126,1.003 -0.317,1.424 a 2.083,2.083 0 0 1 -0.97,1.028 C 6.725,13.9 6.169,14 5.5,14 4.502,14 3.89,14.33 3.526,14.718 A 1.922,1.922 0 0 0 3,16 H 2 C 2,15.384 2.232,14.633 2.797,14.032 3.374,13.42 4.261,13 5.5,13 c 0.581,0 0.962,-0.088 1.218,-0.219 0.241,-0.123 0.4,-0.3 0.514,-0.55 0.121,-0.266 0.193,-0.621 0.23,-1.09 C 7.489,10.801 7.497,10.423 7.499,10 A 3.5,3.5 0 0 1 4,6.5 v -3 A 0.5,0.5 0 0 1 4.5,3 h 1 V 0.5 A 0.5,0.5 0 0 1 6,0 Z"
+         id="path1205" />
+    </g>
+    <rect
+       style="fill:#ffffe6;fill-opacity:1;stroke:#000000;stroke-width:0.475649;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1220"
+       width="76.202263"
+       height="29.352203"
+       x="13.00046"
+       y="33.077522" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="293.17429"
+       y="255.96736"
+       id="text873-4-0"><tspan
+         sodipodi:role="line"
+         x="293.17429"
+         y="255.96736"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1157-8">media_player.kitchen</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="50.85183"
+       y="49.958733"
+       id="text873-4-3"><tspan
+         sodipodi:role="line"
+         x="50.85183"
+         y="49.958733"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1287">sensor.e1743_action</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.316673px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="m 185.84686,153.59182 h 60.45713"
+       id="path1293"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.316673px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend-4)"
+       d="M 51.892739,68.169246 V 126.94449"
+       id="path1293-9"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.316673px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend-4-1)"
+       d="m 293.40928,175.14967 v 58.77529"
+       id="path1293-9-6"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="77.122154"
+       y="99.283936"
+       id="text873-4-3-2"><tspan
+         sodipodi:role="line"
+         x="77.122154"
+         y="99.283936"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1287-4">Send RAW event</tspan><tspan
+         sodipodi:role="line"
+         x="77.122154"
+         y="106.33949"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2899">off</tspan><tspan
+         sodipodi:role="line"
+         x="77.122154"
+         y="113.64633"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2897" /><tspan
+         sodipodi:role="line"
+         x="77.122154"
+         y="120.70188"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2895" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="316.74875"
+       y="204.95442"
+       id="text873-4-3-2-4"><tspan
+         sodipodi:role="line"
+         x="316.74875"
+         y="204.95442"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1287-4-9">Pause media</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="53.409782"
+       y="180.67586"
+       id="text873-4-3-2-9"><tspan
+         sodipodi:role="line"
+         x="53.409782"
+         y="180.67586"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2455">Convert the RAW event into</tspan><tspan
+         sodipodi:role="line"
+         x="53.409782"
+         y="186.94215"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2934">the standard event</tspan><tspan
+         sodipodi:role="line"
+         x="53.409782"
+         y="193.20845"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2944" /><tspan
+         sodipodi:role="line"
+         x="53.409782"
+         y="199.47475"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2936"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono'"
+   id="tspan2940">off</tspan> --&gt; <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono'"
+   id="tspan2938">button_down short</tspan> </tspan><tspan
+         sodipodi:role="line"
+         x="53.409782"
+         y="205.77556"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2932" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="100.89902"
+       y="161.25702"
+       id="text873-4-3-2-9-6"><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="161.25702"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2112-5">Fire </tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="167.43063"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2715">ahb_controller_event</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="173.82413"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2729"><tspan
+   style="text-align:start;text-anchor:start"
+   id="tspan2735">with data</tspan>:</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="180.09042"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2737" /><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="186.26404"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2731">controller_id:</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="192.56485"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2926">sensor.e1743_action</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="198.86566"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2930" /><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="205.16647"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2901">action:</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="211.46729"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:start;text-anchor:start;stroke-width:0.264583"
+         id="tspan2920">button_down_short</tspan><tspan
+         sodipodi:role="line"
+         x="100.89902"
+         y="217.76808"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2717" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="293.32175"
+       y="110.42826"
+       id="text873-4-3-2-9-6-0"><tspan
+         sodipodi:role="line"
+         x="293.32175"
+         y="110.42826"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2218">Map the received event,</tspan><tspan
+         sodipodi:role="line"
+         x="293.32175"
+         y="116.69456"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2911">based on the mapping for an IKEA E1743</tspan><tspan
+         sodipodi:role="line"
+         x="293.32175"
+         y="122.96085"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2946" /><tspan
+         sodipodi:role="line"
+         x="293.9343"
+         y="129.22714"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2905"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono'"
+   id="tspan2913">off</tspan> --&gt; Pause media </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="51.108498"
+       y="19.219442"
+       id="text873-4-3-2-9-3"><tspan
+         sodipodi:role="line"
+         x="51.108498"
+         y="19.219442"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2332">IKEA E1743</tspan><tspan
+         sodipodi:role="line"
+         x="51.108498"
+         y="26.380917"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2893">integrated with Zigbee2MQTT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="540.12799"
+       y="79.375"
+       id="text2338"><tspan
+         sodipodi:role="line"
+         id="tspan2336"
+         x="540.12799"
+         y="79.375"
+         style="stroke-width:0.264583" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="293.42233"
+       y="278.96457"
+       id="text873-4-3-2-9-7"><tspan
+         sodipodi:role="line"
+         x="293.42233"
+         y="278.96457"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2357">The media player entity</tspan><tspan
+         sodipodi:role="line"
+         x="293.42233"
+         y="286.12604"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2361"> controlled by the IKEA E1743</tspan></text>
+    <rect
+       style="fill:#ffffe6;fill-opacity:1;stroke:#000000;stroke-width:0.162688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2477"
+       width="8.2222567"
+       height="96.851707"
+       x="168.98013"
+       y="128.02811" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.316673px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend-1)"
+       d="M 99.228339,153.59182 H 159.68552"
+       id="path1293-6"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="172.75858"
+       y="109.57743"
+       id="text873-4-9"><tspan
+         sodipodi:role="line"
+         x="172.75858"
+         y="109.57743"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1157-2">Home Assistant</tspan><tspan
+         sodipodi:role="line"
+         x="172.75858"
+         y="118.52929"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan2711">Event Bus</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="245.08951"
+       y="161.45277"
+       id="text873-4-3-2-9-6-8"><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="161.45277"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2112-5-8">Listen for </tspan><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="167.62639"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2715-6">ahb_controller_event</tspan><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="174.01988"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2729-8">with data:</tspan><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="180.28618"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2737-8" /><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="186.45979"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2731-3">controller_id:</tspan><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="192.7606"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2733-3">sensor.e1743_action</tspan><tspan
+         sodipodi:role="line"
+         x="245.08951"
+         y="199.06142"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:end;text-anchor:end;stroke-width:0.264583"
+         id="tspan2717-3" /></text>
+  </g>
+</svg>
