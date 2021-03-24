@@ -31,6 +31,16 @@ module.exports = {
           position: 'left',
         },
         {
+          href: '/help',
+          label: 'Help',
+          position: 'right',
+        },
+        {
+          href: 'https://www.buymeacoffee.com/epmatt',
+          label: 'Donate',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/EPMatt/awesome-ha-blueprints',
           label: 'GitHub',
           position: 'right',
