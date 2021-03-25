@@ -1,221 +1,230 @@
 ---
 title: IKEA E1524/E1810 5-Button Remote
-description: Controller automation for executing any kind of action triggered by an IKEA E1524/E1810 5-Button remote remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.
+description: Controller automation for executing any kind of action triggered by the provided IKEA E1524/E1810 5-Button Remote. Supports deCONZ, ZHA, Zigbee2MQTT.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
 
-<ImportCard id='ikea_e1524_e1810' category='controllers'/>
+<ImportCard id='ikea_e1524_e1810' category='controllers' />
+
+<br />
+
+:::tip
+This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
+:::
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1524/E1810 remote controller. Supports remotes integrated with either Zigbee2MQTT, deCONZ or ZHA. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1524/E1810 5-Button Remote. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
+
 The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
 
-Moreover, automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks) supported by this controller.
-Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810#available-hooks) for additional details.
+:::tip
+Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
+Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](/docs/blueprints/controllers/ikea_e1524_e1810#available-hooks) for additional details.
+:::
 
 ## Requirements
 
-<Requirement
- id='zigbee2mqtt'
- />
-<Requirement
- id='zha'
- />
-<Requirement
- id='deconz'
- />
-<Requirement
- name='Input Text Integration'
- required='ZHA, double press action'>
+<Requirement id='deconz'  />
+<Requirement id='zha'  />
+<Requirement id='zigbee2mqtt'  />
+<Requirement  name='Input Text Integration' required='ZHA, Double press action'>
+
 This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
+
 </Requirement>
 
 ## Inputs
 
 <Input
- name='Integration'
- description='Integration used for connecting the remote with Home Assistant. Type "Zigbee2MQTT", "deCONZ" or "ZHA".'
- selector='select'
- required
- />
+  name='Integration'
+  description='Integration used for connecting the remote with Home Assistant. Select one of the available values.'
+  selector='select'
+  required
+/>
 <Input
- name='Remote'
- description='The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.'
- selector='device'
- required='ZHA, deCONZ'
- />
+  name='Controller Device'
+  description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
+  selector='device'
+  required='(deCONZ, ZHA)'
+/>
 <Input
- name='Remote Action Sensor'
- description='The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
- selector='entity'
- required='Zigbee2MQTT'
- />
+  name='Controller Entity'
+  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+  selector='entity'
+  required='(Zigbee2MQTT)'
+/>
 <Input
- name='Left button - short press'
- description='Action to run on short left button press.'
- selector='action'
- />
+  name='Left button - short press'
+  description='Action to run on short left button press.'
+  selector='action'
+/>
 <Input
- name='Left button - double press'
- description='Action to run on double left button press.'
- selector='action'
- />
+  name='Left button - long press'
+  description='Action to run on long left button press.'
+  selector='action'
+/>
 <Input
- name='Left button - short press'
- description='Action to run on short left button press.'
- selector='action'
- />
+  name='Left button - release after long press'
+  description='Action to run on left button release after a long press.'
+  selector='action'
+/>
 <Input
- name='Left button - long press'
- description='Action to run on long left button press.'
- selector='action'
- />
+  name='Left button - double press'
+  description='Action to run on double left button press.'
+  selector='action'
+/>
 <Input
- name='Left button - release after long press'
- description='Action to run on left button release after a long press.'
- selector='action'
- />
+  name='Right button - short press'
+  description='Action to run on short right button press.'
+  selector='action'
+/>
 <Input
- name='Right button - short press'
- description='Action to run on short right button press.'
- selector='action'
- />
+  name='Right button - long press'
+  description='Action to run on long right button press.'
+  selector='action'
+/>
 <Input
- name='Right button - double press'
- description='Action to run on double right button press.'
- selector='action'
- />
+  name='Right button - release after long press'
+  description='Action to run on right button release after a long press.'
+  selector='action'
+/>
 <Input
- name='Right button - long press'
- description='Action to run on long right button press.'
- selector='action'
- />
+  name='Right button - double press'
+  description='Action to run on double right button press.'
+  selector='action'
+/>
 <Input
- name='Right button - release after long press'
- description='Action to run on right button release after a long press.'
- selector='action'
- />
+  name='Up button - short press'
+  description='Action to run on short up button press.'
+  selector='action'
+/>
 <Input
- name='Up button - short press'
- description='Action to run on short up button press.'
- selector='action'
- />
+  name='Up button - long press'
+  description='Action to run on long up button press.'
+  selector='action'
+/>
 <Input
- name='Up button - double press'
- description='Action to run on double up button press.'
- selector='action'
- />
+  name='Up button - release after long press'
+  description='Action to run on up button release after a long press.'
+  selector='action'
+/>
 <Input
- name='Up button - long press'
- description='Action to run on long up button press.'
- selector='action'
- />
+  name='Up button - double press'
+  description='Action to run on double up button press.'
+  selector='action'
+/>
 <Input
- name='Up button - release after long press'
- description='Action to run on up button release after a long press.'
- selector='action'
- />
+  name='Down button - short press'
+  description='Action to run on short down button press.'
+  selector='action'
+/>
 <Input
- name='Down button - short press'
- description='Action to run on short down button press.'
- selector='action'
- />
+  name='Down button - long press'
+  description='Action to run on long down button press.'
+  selector='action'
+/>
 <Input
- name='Down button - double press'
- description='Action to run on double down button press.'
- selector='action'
- />
+  name='Down button - release after long press'
+  description='Action to run on down button release after a long press.'
+  selector='action'
+/>
 <Input
- name='Down button - long press'
- description='Action to run on long down button press.'
- selector='action'
- />
+  name='Down button - double press'
+  description='Action to run on double down button press.'
+  selector='action'
+/>
 <Input
- name='Down button - release after long press'
- description='Action to run on down button release after a long press.'
- selector='action'
- />
+  name='Center button - short press'
+  description='Action to run on short center button press.'
+  selector='action'
+/>
 <Input
- name='Center button - short press'
- description='Action to run on short center button press.'
- selector='action'
- />
+  name='Center button - long press'
+  description='Action to run on long center button press.'
+  selector='action'
+/>
 <Input
- name='Center button - double press'
- description='Action to run on double center button press.'
- selector='action'
- />
+  name='Center button - double press'
+  description='Action to run on double center button press.'
+  selector='action'
+/>
 <Input
- name='Center button - long press'
- description='Action to run on long center button press.'
- selector='action'
- />
+  name='Long left button press - loop until release'
+  description='Loop the action until the left button is released.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Long left button press - loop until release'
- description='Boolean to indicate whether to loop the action until the button is released.'
- selector='boolean'
- />
+  name='Long right button press - loop until release'
+  description='Loop the action until the right button is released.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Long right button press - loop until release'
- description='Boolean to indicate whether to loop the action until the button is released.'
- selector='boolean'
- />
+  name='Long up button press - loop until release'
+  description='Loop the action until the up button is released.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Long up button press - loop until release'
- description='Boolean to indicate whether to loop the action until the button is released.'
- selector='boolean'
- />
+  name='Long down button press - loop until release'
+  description='Loop the action until the down button is released.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Long down button press - loop until release'
- description='Boolean to indicate whether to loop the action until the button is released.'
- selector='boolean'
- />
+  name='Expose left button double press event'
+  description='Choose whether or not to expose the virtual double press event for the left button. Turn this on if you are providing an action for the left button double press event.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Expose left button double press event'
- description='Choose whether or not to expose the virtual double press event.'
- selector='boolean'
- />
+  name='Expose right button double press event'
+  description='Choose whether or not to expose the virtual double press event for the right button. Turn this on if you are providing an action for the right button double press event.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Expose right button double press event'
- description='Choose whether or not to expose the virtual double press event.'
- selector='boolean'
- />
+  name='Expose up button double press event'
+  description='Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Expose up button double press event'
- description='Choose whether or not to expose the virtual double press event.'
- selector='boolean'
- />
+  name='Expose down button double press event'
+  description='Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Expose down button double press event'
- description='Choose whether or not to expose the virtual double press event.'
- selector='boolean'
- />
+  name='Expose center button double press event'
+  description='Choose whether or not to expose the virtual double press event for the center button. Turn this on if you are providing an action for the center button double press event.'
+  selector='boolean'
+  required
+/>
 <Input
- name='Expose center button double press event'
- description='Choose whether or not to expose the virtual double press event.'
- selector='boolean'
- />
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. See docs for more.'
+  selector='entity'
+  required='(ZHA, Double press action Required)'
+/>
 <Input
- name='Helper - Last Press Event'
- description='Input Text used to store the last press event. See docs for more. Provide an entity only if the remote is integrated with ZHA or if you are using a double press action.'
- selector='entity'
- required='ZHA, double press action'
- />
-<Input
- name='Helper - Double Press delay'
- description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
- selector='number'
- />
+  name='Helper - Double Press delay'
+  description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
+  selector='number'
+/>
 
 ## Available Hooks
 
 ### Light
+
+This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 
 - Up button short press -> Brightness up
 - Up button long press & hold -> Brightness up (continuous, until release)
@@ -231,6 +240,8 @@ This integration provides the entity which will be used to store the last button
 
 ### Media Player
 
+This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
+
 - Up button short press -> Volume up
 - Up button long press & hold -> Volume up (continuous, until release)
 - Down button short press -> Volume down
@@ -244,10 +255,28 @@ This integration provides the entity which will be used to store the last button
 
 ## Additional Notes
 
-The reason why a text input is required to store the last long press event when using a remote with ZHA is because of the actions mapping for the controller in ZHA. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
+The reason why a text input is required to store the last long press event when using a remote with ZHA is because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
 
 It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
 
 When double press events are enabled for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
 
 If double press events are disabled for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
+
+## Changelog
+
+- **2021-02-05**: first blueprint version :tada:
+- **2021-02-07**: fix an issue which prevented to create automations for ZHA or deCONZ.
+- **2021-02-08**: update example, fixed an issue which executed actions twice when the remote was connected via Zigbee2MQTT.
+- **2021-03-18**: added example for fully controlling a RGB light (thanks @kks36!)
+- **2021-02-21**:
+  - add support for virtual double press events
+  - block automation runs for empty and repeated messages
+  - reduce `input_text helper` writes
+- **2021-03-03**: move the blueprint in the Controllers-Hooks Ecosystem. See announcement [here](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687/7). :tada:
+- **2021-03-25**: :warning: **Breaking Change**: standardize input names across all the Controller blueprints.
+  If you plan to update this blueprint, please update the inputs in your automations as follows:
+  - `remote` -> `controller_device`
+  - `zigbee2mqtt_remote` -> `controller_entity`
+  - `action_*` inputs -> `action_button_*`
+  - `helper_last_loop_event_input` -> `helper_last_controller_event`

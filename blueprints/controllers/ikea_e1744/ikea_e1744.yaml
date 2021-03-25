@@ -1,35 +1,35 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - IKEA E1744 SYMFONISK rotary remote
+  name: Controller - IKEA E1744 SYMFONISK Rotary Remote
   description: |
-    Controller automation for executing any kind of action triggered by an IKEA E1744 remote controller. Allows to optionally loop a custom action during controller rotation.
-    Supports Zigbee2MQTT, deCONZ, ZHA.
+    Controller automation for executing any kind of action triggered by an IKEA E1744 SYMFONISK Rotary Remote. Allows to optionally loop a custom action during controller rotation.
+    Supports deCONZ, ZHA, Zigbee2MQTT.
 
-    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks) supported by this controller.
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
 
-    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1744).
+    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1744).
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1744/ikea_e1744.yaml
   domain: automation
   input:
     integration:
       name: Integration
-      description: Integration used for connecting the remote with Home Assistant. Select "Zigbee2MQTT", "deCONZ" or "ZHA"
+      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
       selector:
         select:
           options:
-            - Zigbee2MQTT
             - deCONZ
             - ZHA
-    remote:
-      name: (ZHA, deCONZ) Remote
-      description: The IKEA remote to use for the automation. Choose a value only if the remote is integrated with deCONZ or ZHA.
+            - Zigbee2MQTT
+    controller_device:
+      name: (deCONZ, ZHA) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
       default: ''
       selector:
         device:
-    zigbee2mqtt_remote:
-      name: (Zigbee2MQTT) Remote Action Sensor
-      description: The action sensor of the IKEA remote to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+    controller_entity:
+      name: (Zigbee2MQTT) Controller Entity
+      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
       default: ''
       selector:
         entity:
@@ -43,7 +43,7 @@ blueprint:
         action:
     action_rotate_left_stop:
       name: (Optional) Rotate left stop
-      description: Action to run when stopping to rotate left the remote.
+      description: Action to run on when stopping to rotate left the remote.
       default: []
       selector:
         action:
@@ -55,50 +55,49 @@ blueprint:
         action:
     action_rotate_right_stop:
       name: (Optional) Rotate right stop
-      description: Action to run when stopping to rotate right the remote.
+      description: Action to run on when stopping to rotate right the remote.
       default: []
       selector:
         action:
-    action_click:
-      name: (Optional) Click
-      description: Action to run on remote single click.
+    action_click_short:
+      name: (Optional) Remote - short press
+      description: Action to run on short remote press.
       default: []
       selector:
         action:
     action_click_double:
-      name: (Optional) Double click
-      description: Action to run on remote double click.
+      name: (Optional) Remote - double press
+      description: Action to run on double remote press.
       default: []
       selector:
         action:
     action_click_triple:
-      name: (Optional) Triple click
-      description: Action to run on remote triple click.
+      name: (Optional) Remote - triple press
+      description: Action to run on triple remote press.
       default: []
       selector:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     rotate_left_loop:
-      name: Rotate Left - loop until stop
-      description: Loop the rotate left action until the remote stops rotating left.
+      name: Rotate left - loop until stop
+      description: Loop the rotate left action until the rotation is stopped.
       default: false
       selector:
         boolean:
     rotate_right_loop:
-      name: Rotate Right - loop until stop
-      description: Loop the rotate right action until the remote stops rotating right.
+      name: Rotate right - loop until stop
+      description: Loop the rotate right action until the rotation is stopped.
       default: false
       selector:
         boolean:
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
       name: (ZHA, Zigbee2MQTT Required) Helper - Last Controller Event
-      description: Input Text used to store the last event fired by the controller. See docs for more. Provide an entity only if the remote is integrated with ZHA or Zigbee2MQTT.
+      description: Input Text used to store the last event fired by the controller. See docs for more.
       default: ''
       selector:
         entity:
           domain: input_text
-
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
@@ -110,20 +109,12 @@ variables:
   integration_id: '{{ integration | lower }}'
   # mapping between actions and integrations
   actions_mapping:
-    zigbee2mqtt:
-      rotate_left: [brightness_move_down]
-      rotate_left_stop: [brightness_stop]
-      rotate_right: [brightness_move_up]
-      rotate_right_stop: [brightness_stop]
-      click: [toggle]
-      click_double: [brightness_step_up]
-      click_triple: [brightness_step_down]
     deconz:
       rotate_left: [3001]
       rotate_left_stop: [3003]
       rotate_right: [2001]
       rotate_right_stop: [2003]
-      click: [1002]
+      click_short: [1002]
       click_double: [1004]
       click_triple: [1005]
     zha:
@@ -131,48 +122,64 @@ variables:
       rotate_left_stop: [stop]
       rotate_right: [move_0_195]
       rotate_right_stop: [stop]
-      click: [toggle]
+      click_short: [toggle]
       click_double: [step_0_1_0]
       click_triple: [step_1_1_0]
+    zigbee2mqtt:
+      rotate_left: [brightness_move_down]
+      rotate_left_stop: [brightness_stop]
+      rotate_right: [brightness_move_up]
+      rotate_right_stop: [brightness_stop]
+      click_short: [toggle]
+      click_double: [brightness_step_up]
+      click_triple: [brightness_step_down]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
   rotate_left_stop: '{{ actions_mapping[integration_id]["rotate_left_stop"] }}'
   rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
   rotate_right_stop: '{{ actions_mapping[integration_id]["rotate_right_stop"] }}'
-  click: '{{ actions_mapping[integration_id]["click"] }}'
+  click_short: '{{ actions_mapping[integration_id]["click_short"] }}'
   click_double: '{{ actions_mapping[integration_id]["click_double"] }}'
   click_triple: '{{ actions_mapping[integration_id]["click_triple"] }}'
   # integrations which need to store the previous long press event to determine which button was released
   integrations_with_prev_event_storage: [zha, zigbee2mqtt]
   # build data to send within a controller event
-  zigbee2mqtt_remote: !input zigbee2mqtt_remote
-  remote: !input remote
-  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{zigbee2mqtt_remote}}{% else %}{{remote}}{% endif %}'
-
+  controller_entity: !input controller_entity
+  controller_device: !input controller_device
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
 # mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
-
 trigger:
   # trigger for zigbee2mqtt
   - platform: event
     event_type: state_changed
     event_data:
-      entity_id: !input zigbee2mqtt_remote
+      entity_id: !input controller_entity
   # trigger for other integrations
   - platform: event
     event_type:
       - zha_event
       - deconz_event
     event_data:
-      device_id: !input remote
+      device_id: !input controller_device
 condition:
   - condition: and
     conditions:
       # check that the button event is not empty
       - >-
-        {% set trigger_action %}{% if integration_id == "zigbee2mqtt" %}{{ trigger.event.data.new_state.state }}{% elif integration_id == "deconz" %}{{ trigger.event.data.event }}{% elif integration_id == "zha" %}{{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}{% endif %}{% endset %}
+        {%- set trigger_action -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}
+        {{"_" if trigger.event.data.args|length > 0}}
+        {{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+        {%- endset -%}
         {{ trigger_action != "" }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
@@ -182,99 +189,97 @@ action:
   # provide a single string value to check against
   - variables:
       trigger_action: >-
-        {% if integration_id == "zigbee2mqtt" %}
+        {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.event.data.new_state.state }}
-        {% elif integration_id == "deconz" %}
+        {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
-        {% elif integration_id == "zha" %}
+        {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {% endif %}
+        {%- endif -%}
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action in rotate_left }}'
         sequence:
-          # for zha and zigbee2mqtt integrations, store the button event
+          # for integrations which need to save the last controller event, store the button event
           - choose:
-              - conditions:
-                  - '{{ integration_id in integrations_with_prev_event_storage }}'
+              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
                 sequence:
-                  - service: 'input_text.set_value'
+                  - service: input_text.set_value
                     data:
                       entity_id: !input helper_last_controller_event
                       value: '{{ trigger_action }}'
           # fire the event only once before looping the action
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: rotate_left
           # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding release message is received
+          # repeat until the automation is restarted ie. when the corresponding stop message is received
           - repeat:
               sequence: !input action_rotate_left
               until: '{{ not rotate_left_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_left_stop }}'
-          # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
         sequence:
           # fire the event
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: rotate_left_stop
           # run the custom action
           - choose:
             default: !input action_rotate_left_stop
       - conditions: '{{ trigger_action in rotate_right }}'
         sequence:
-          # for zha and zigbee2mqtt integrations, store the button event
+          # for integrations which need to save the last controller event, store the button event
           - choose:
-              - conditions:
-                  - '{{ integration_id in integrations_with_prev_event_storage }}'
+              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
                 sequence:
-                  - service: 'input_text.set_value'
+                  - service: input_text.set_value
                     data:
                       entity_id: !input helper_last_controller_event
                       value: '{{ trigger_action }}'
           # fire the event only once before looping the action
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: rotate_right
           # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding release message is received
+          # repeat until the automation is restarted ie. when the corresponding stop message is received
           - repeat:
               sequence: !input action_rotate_right
               until: '{{ not rotate_right_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_right_stop }}'
-          # for the zha and zigbee2mqtt integrations, need to check the previous event, stored in the provided input_text
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
         sequence:
           # fire the event
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: rotate_right_stop
           # run the custom action
           - choose:
             default: !input action_rotate_right_stop
-      - conditions: '{{ trigger_action in click }}'
+      - conditions: '{{ trigger_action in click_short }}'
         sequence:
           # fire the event
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
-              action: click
+              controller: '{{ controller_id }}'
+              action: click_short
           # run the custom action
           - choose:
-            default: !input action_click
+            default: !input action_click_short
       - conditions: '{{ trigger_action in click_double }}'
         sequence:
           # fire the event
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: click_double
           # run the custom action
           - choose:
@@ -282,9 +287,9 @@ action:
       - conditions: '{{ trigger_action in click_triple }}'
         sequence:
           # fire the event
-          - event: 'ahb_controller_event'
+          - event: ahb_controller_event
             event_data:
-              controller: '{{controller_id}}'
+              controller: '{{ controller_id }}'
               action: click_triple
           # run the custom action
           - choose:
