@@ -74,7 +74,7 @@ variables:
       volume_down_repeat: rotate_left
       next_track: click_double
       prev_track: click_triple
-      play_pause: click
+      play_pause: click_short
     ikea_e1812:
       next_track: button_double
       stop: button_long

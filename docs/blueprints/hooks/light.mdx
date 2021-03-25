@@ -1,78 +1,92 @@
 ---
 title: Light
-description: Hook automation which allows to control a light. Supports brightness and color control both for white temperature and rgb lights.
+description: This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
 
-<ImportCard id='light' category='hooks'/>
+<ImportCard id='light' category='hooks' />
+
+<br />
+
+:::tip
+This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
+:::
 
 ## Description
 
-This Hook blueprint allow to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
-
-An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
+This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+:::info
+An automation created with this blueprint must be linked to a [Controller](/docs/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
 
 See the list of [Controllers supported by this Hook](/docs/blueprints/hooks/light#supported-controllers) for additional details.
+:::
 
 ## Requirements
 
 <Requirement
- id='controller'
- required
- />
-
-<Requirement
-name='Light Integration'
-required>
+id='controller'
+required
+/>
+<Requirement  name='Light Integration' required>
 
 This integration provides the entity which represents a light in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Light Integration Docs](https://www.home-assistant.io/integrations/light/)
+
 </Requirement>
 
 ## Inputs
 
 <Input
- name='Controller device'
- description='The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.'
- selector='device'
- />
+  name='Controller Device'
+  description='The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.'
+  selector='device'
+  required
+/>
 <Input
- name='Controller entity'
- description='The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.'
- selector='entity'
- />
+  name='Controller Entity'
+  description='The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.'
+  selector='entity'
+  required
+/>
 <Input
- name='Controller model'
- description='The model for the controller used in this automation. Choose a value from the list of supported controllers.'
- selector='select'
- required
- />
+  name='Controller model'
+  description='The model for the controller used in this automation.'
+  selector='select'
+  required
+/>
 <Input
- name='Light'
- description='Light which will be controlled with this automation.'
- selector='entity'
- required
- />
+  name='Light'
+  description='Light which will be controlled with this automation.'
+  selector='entity'
+  required
+/>
 <Input
- name='Light Color Mode'
- description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto"'
- selector='select'
- />
+  name='Light color mode'
+  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".'
+  selector='select'
+/>
 <Input
- name='Light Transition'
- description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
- selector='number'
- />
+  name='Light Transition'
+  description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
+  selector='number'
+/>
 
 ## Supported Controllers
 
-- [IKEA E1524/E1810 5-Button remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1524_e1810)
-- [IKEA E1743 On/Off Switch & Dimmer](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1743)
-- [IKEA E1744 SYMFONISK rotary remote](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1744)
-- [IKEA E1812 Shortcut button](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers/ikea_e1812)
+- [IKEA E1524/E1810 5-Button Remote](/docs/blueprints/controllers/ikea_e1524_e1810)
+- [IKEA E1743 On/Off Switch & Dimmer](/docs/blueprints/controllers/ikea_e1743)
+- [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)
+- [IKEA E1812 Shortcut button](/docs/blueprints/controllers/ikea_e1812)
 
 ## Additional Notes
 
 If you want to link multiple lights to the same controller you can either use [Light Groups](https://www.home-assistant.io/integrations/light.group/) or build multiple Hooks linked to the same Controller.
+
+## Changelog
+
+- **2021-03-04**: first blueprint version :tada:
+- **2021-03-07**: add support for IKEA E1744 SYMFONISK rotary remote
+- **2021-03-14**: add support for IKEA E1812 Shortcut button, fix E1743 naming
+- **2021-03-25**: update action mapping for IKEA E1744. If you're using this Hook with an IKEA E1744, please update also the corresponding Controller blueprint

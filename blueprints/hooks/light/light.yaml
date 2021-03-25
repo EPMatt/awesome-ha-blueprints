@@ -41,7 +41,7 @@ blueprint:
         entity:
           domain: light
     light_color_mode:
-      name: Light color mode
+      name: (Optional) Light color mode
       description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".
       default: 'Auto'
       selector:
@@ -51,7 +51,7 @@ blueprint:
             - 'Hue - Saturation'
             - 'RGB'
     light_transition:
-      name: Light Transition
+      name: (Optional) Light Transition
       description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.
       default: 250
       selector:
@@ -98,7 +98,7 @@ variables:
       color_up: button_up_double
       color_down: button_down_double
     ikea_e1744:
-      toggle: click
+      toggle: click_short
       brightness_up_repeat: rotate_right
       brightness_down_repeat: rotate_left
       color_up: click_double
