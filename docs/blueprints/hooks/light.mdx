@@ -72,6 +72,38 @@ This integration provides the entity which represents a light in Home Assistant.
   description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
   selector='number'
 />
+<Input
+  name='Light minimum brightness'
+  description='The minimum brightness the light can be set with this automation.'
+  selector='number'
+/>
+<Input
+  name='Light maximum brightness'
+  description='The maximum brightness the light can be set with this automation.'
+  selector='number'
+/>
+<Input
+  name='Light brightness steps - short actions'
+  description='Number of steps from min to max brightness when controlling brightness with short actions (eg. button press).'
+  selector='number'
+/>
+<Input
+  name='Light brightness steps - long actions'
+  description='Number of steps from min to max brightness when controlling brightness with long actions (eg. button hold or controller rotation).'
+  selector='number'
+/>
+<Input
+  name='Force brightness value at turn on'
+  description='Force brightness to the "On brightness" input value, when the light is being turned on.'
+  selector='boolean'
+  required
+/>
+<Input
+  name='On brightness'
+  description='Brightness value to force when turning on the light'
+  selector='number'
+  required
+/>
 
 ## Supported Controllers
 
@@ -90,3 +122,7 @@ If you want to link multiple lights to the same controller you can either use [L
 - **2021-03-07**: add support for IKEA E1744 SYMFONISK rotary remote
 - **2021-03-14**: add support for IKEA E1812 Shortcut button, fix E1743 naming
 - **2021-03-25**: update action mapping for IKEA E1744. If you're using this Hook with an IKEA E1744, please update also the corresponding Controller blueprint
+- **2021-03-26**:
+  - set minimum and maximum light brightness
+  - specify number of steps from min to max brightness, both for short and long actions, when controlling the light
+  - allow to force brightness to a specific value when turning on the light

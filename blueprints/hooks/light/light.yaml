@@ -61,6 +61,67 @@ blueprint:
           step: 1
           unit_of_measurement: milliseconds
           mode: box
+    min_brightness:
+      name: (Optional) Light minimum brightness
+      description: The minimum brightness the light can be set with this automation.
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 255
+          step: 1
+          unit_of_measurement: brightness
+          mode: slider
+    max_brightness:
+      name: (Optional) Light maximum brightness
+      description: The maximum brightness the light can be set with this automation.
+      default: 255
+      selector:
+        number:
+          min: 0
+          max: 255
+          step: 1
+          unit_of_measurement: brightness
+          mode: slider
+    brightness_steps_short:
+      name: (Optional) Light brightness steps - short actions
+      description: Number of steps from min to max brightness when controlling brightness with short actions (eg. button press).
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 255
+          step: 1
+          unit_of_measurement: steps
+          mode: box
+    brightness_steps_long:
+      name: (Optional) Light brightness steps - long actions
+      description: Number of steps from min to max brightness when controlling brightness with long actions (eg. button hold or controller rotation).
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 255
+          step: 1
+          unit_of_measurement: steps
+          mode: box
+    force_brightness:
+      name: Force brightness value at turn on
+      description: Force brightness to the "On brightness" input value, when the light is being turned on.
+      default: false
+      selector:
+        boolean:
+    on_brightness:
+      name: On brightness
+      description: Brightness value to force when turning on the light
+      default: 1
+      selector:
+        number:
+          min: 0
+          max: 255
+          step: 1
+          unit_of_measurement: brightness
+          mode: slider
 
 # Automation schema
 variables:
@@ -69,6 +130,12 @@ variables:
   light_color_mode: !input light_color_mode
   light: !input light
   light_transition: !input light_transition
+  min_brightness: !input min_brightness
+  max_brightness: !input max_brightness
+  brightness_steps_short: !input brightness_steps_short
+  brightness_steps_long: !input brightness_steps_long
+  force_brightness: !input force_brightness
+  on_brightness: !input on_brightness
   # Blueprint data
   supported_color_modes:
     'Auto': auto
@@ -129,6 +196,8 @@ variables:
     {% else %}
     {{ supported_color_modes[light_color_mode] }}
     {% endif %}
+  step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
+  step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
 
 # mode restart ensures long actions are interrupted when the release action is received
 mode: restart
@@ -146,20 +215,38 @@ trigger:
 condition:
 action:
   - variables:
-      action: '{{trigger.event.data.action}}'
+      action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == toggle }}'
         sequence:
-          - service: light.toggle
-            entity_id: !input light
-            data:
-              transition: '{{ light_transition / 1000 }}'
+          - choose:
+              - conditions: '{{ force_brightness }}'
+                sequence:
+                  - service: light.toggle
+                    entity_id: !input light
+                    data:
+                      brightness: !input on_brightness
+                      transition: '{{ light_transition / 1000 }}'
+            default:
+              - service: light.toggle
+                entity_id: !input light
+                data:
+                  transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == turn_on }}'
         sequence:
-          - service: light.turn_on
-            entity_id: !input light
-            data:
-              transition: '{{ light_transition / 1000 }}'
+          - choose:
+              - conditions: '{{ force_brightness }}'
+                sequence:
+                  - service: light.turn_on
+                    entity_id: !input light
+                    data:
+                      brightness: !input on_brightness
+                      transition: '{{ light_transition / 1000 }}'
+            default:
+              - service: light.turn_on
+                entity_id: !input light
+                data:
+                  transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == turn_off }}'
         sequence:
           - service: light.turn_off
@@ -170,14 +257,14 @@ action:
         sequence:
           - service: light.turn_on
             data:
-              brightness_step_pct: 10
+              brightness: '{{ [ [state_attr(light,"brightness")+step_short, min_brightness] | max, max_brightness] | min }}'
               transition: 0.25
               entity_id: !input light
       - conditions: '{{ action == brightness_down }}'
         sequence:
           - service: light.turn_on
             data:
-              brightness_step_pct: -10
+              brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
               transition: 0.25
               entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
@@ -187,7 +274,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    brightness_step_pct: 10
+                    brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
                     transition: 0.25
                     entity_id: !input light
                 - delay:
@@ -199,7 +286,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    brightness_step_pct: -10
+                    brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
                     transition: 0.25
                     entity_id: !input light
                 - delay:
