@@ -42,7 +42,9 @@ html[data-theme='dark'] {
 }
 
 .admonition-tip *,
-.admonition-info * {
+.admonition-info *,
+.admonition-tip a,
+.admonition-info a {
   color: white;
 }
 
@@ -57,7 +59,8 @@ html[data-theme='dark'] {
   stroke: white;
 }
 
-.admonition-caution * {
+.admonition-caution *,
+.admonition-caution a {
   color: black;
 }
 
