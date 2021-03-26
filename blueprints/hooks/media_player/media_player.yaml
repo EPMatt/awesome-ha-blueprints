@@ -41,11 +41,36 @@ blueprint:
       selector:
         entity:
           domain: media_player
+    volume_steps_short:
+      name: (Optional) Volume steps - short actions
+      description: Number of steps from min to max volume when controlling volume with short actions (eg. button press), if the media player supports it.
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: steps
+          mode: box
+    volume_steps_long:
+      name: (Optional) Volume steps - long actions
+      description: Number of steps from min to max volume when controlling volume with long actions (eg. button hold or controller rotation), if the media player supports it.
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: steps
+          mode: box
 
 # Automation schema
 variables:
   # convert blueprint inputs into variables to be used in templates
   controller_model: !input controller_model
+  volume_steps_short: !input  volume_steps_short
+  volume_steps_long: !input volume_steps_long
+  media_player: !input media_player
   # Blueprint data
   supported_controllers:
     IKEA E1524/E1810 5-Button remote: ikea_e1524_e1810
@@ -92,6 +117,8 @@ variables:
   prev_track: '{{controller_mapping[controller_model_id]["prev_track"]}}'
   stop: '{{controller_mapping[controller_model_id]["stop"]}}'
   play_pause: '{{controller_mapping[controller_model_id]["play_pause"]}}'
+  volume_step_value_short: '{{ 1/volume_steps_short }}'
+  volume_step_value_long: '{{ 1/volume_steps_long }}'
 
 # mode restart ensures long actions are interrupted when the release action is received
 mode: restart
@@ -129,19 +156,49 @@ action:
             entity_id: !input media_player
       - conditions: '{{ action == volume_up }}'
         sequence:
-          - service: media_player.volume_up
-            entity_id: !input media_player
+          - choose:
+              # if the volume level can be read from the media player, increase the volume by the custom step value
+              - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
+                sequence:
+                  - service: media_player.volume_set
+                    entity_id: !input media_player
+                    data:
+                      volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_short, 1 ] | min  }}'
+            # if the volume level is not available, fallback to the media_player.volume_up service
+            default:
+              - service: media_player.volume_up
+                entity_id: !input media_player
       - conditions: '{{ action == volume_down }}'
         sequence:
-          - service: media_player.volume_down
-            entity_id: !input media_player
+          - choose:
+              # if the volume level can be read from the media player, decrease the volume by the custom step value
+              - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
+                sequence:
+                  - service: media_player.volume_set
+                    entity_id: !input media_player
+                    data:
+                      volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_short, 0 ] | max }}'
+            # if the volume level is not available, fallback to the media_player.volume_down service
+            default:
+              - service: media_player.volume_down
+                entity_id: !input media_player
       - conditions: '{{ action == volume_up_repeat }}'
         sequence:
           - repeat:
               while: '{{ true }}'
               sequence:
-                - service: media_player.volume_up
-                  entity_id: !input media_player
+                - choose:
+                    # if the volume level can be read from the media player, increase the volume by the custom step value
+                    - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
+                      sequence:
+                        - service: media_player.volume_set
+                          entity_id: !input media_player
+                          data:
+                            volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_long, 1 ] | min  }}'
+                  # if the volume level is not available, fallback to the media_player.volume_up service
+                  default:
+                    - service: media_player.volume_up
+                      entity_id: !input media_player
                 - delay:
                     milliseconds: 250
       - conditions: '{{ action == volume_down_repeat }}'
@@ -149,7 +206,17 @@ action:
           - repeat:
               while: '{{ true }}'
               sequence:
-                - service: media_player.volume_down
-                  entity_id: !input media_player
+                - choose:
+                    # if the volume level can be read from the media player, decrease the volume by the custom step value
+                    - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
+                      sequence:
+                        - service: media_player.volume_set
+                          entity_id: !input media_player
+                          data:
+                            volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_long, 0 ] | max }}'
+                  # if the volume level is not available, fallback to the media_player.volume_down service
+                  default:
+                    - service: media_player.volume_down
+                      entity_id: !input media_player
                 - delay:
                     milliseconds: 250

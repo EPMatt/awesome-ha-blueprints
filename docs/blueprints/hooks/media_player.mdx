@@ -62,6 +62,16 @@ This integration provides the entity which represents a media player in Home Ass
   selector='entity'
   required
 />
+<Input
+  name='Volume steps - short actions'
+  description='Number of steps from min to max volume when controlling volume with short actions (eg. button press), if the media player supports it.'
+  selector='number'
+/>
+<Input
+  name='Volume steps - long actions'
+  description='Number of steps from min to max volume when controlling volume with long actions (eg. button hold or controller rotation), if the media player supports it.'
+  selector='number'
+/>
 
 ## Supported Controllers
 
@@ -70,9 +80,14 @@ This integration provides the entity which represents a media player in Home Ass
 - [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)
 - [IKEA E1812 Shortcut button](/docs/blueprints/controllers/ikea_e1812)
 
+## Additional Notes
+
+Not all media players support the customization of the number of steps for volume control, due to the fact that some of them do not expose their current volume level to Home Assistant. In these situations, the automation will fallback to the `media_player.volume_up` and `media_player.volume_down` services.
+
 ## Changelog
 
 - **2021-03-04**: first blueprint version :tada:
 - **2021-03-07**: add support for IKEA E1744 SYMFONISK rotary remote
 - **2021-03-14**: add support for IKEA E1812 Shortcut button, fix E1743 naming
 - **2021-03-25**: update action mapping for IKEA E1744. If you're using this Hook with an IKEA E1744, please update also the corresponding Controller blueprint
+- **2021-03-26**: add the ability to specify number of steps from min to max volume, both for short and long actions, when controlling the media player
