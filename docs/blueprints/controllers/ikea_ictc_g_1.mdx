@@ -1,0 +1,132 @@
+---
+title: IKEA ICTC-G-1 TRADFRI wireless dimmer
+description: Controller automation for executing any kind of action triggered by the provided IKEA ICTC-G-1 TRADFRI wireless dimmer. Supports deCONZ, ZHA, Zigbee2MQTT.
+---
+
+import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+
+<ImportCard id='ikea_ictc_g_1' category='controllers' />
+
+<br />
+
+:::tip
+This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
+:::
+
+## Description
+
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA ICTC-G-1 TRADFRI wireless dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+
+In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
+
+In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to optionally loop the rotate actions while the remote is rotating either left or right. Once the remote stops rotating, the loop stops as well. This is useful when rotating the controller should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
+
+:::tip
+Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
+Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](/docs/blueprints/controllers/ikea_ictc_g_1#available-hooks) for additional details.
+:::
+
+## Requirements
+
+<Requirement id='deconz'  />
+<Requirement id='zha'  />
+<Requirement id='zigbee2mqtt'  >
+
+When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/ICTC-G-1.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
+
+</Requirement>
+<Requirement  name='Input Text Integration' required='ZHA, Zigbee2MQTT'>
+
+This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
+
+[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
+
+</Requirement>
+
+## Inputs
+
+<Input
+  name='Integration'
+  description='Integration used for connecting the remote with Home Assistant. Select one of the available values.'
+  selector='select'
+  required
+/>
+<Input
+  name='Controller Device'
+  description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
+  selector='device'
+  required='(deCONZ, ZHA)'
+/>
+<Input
+  name='Controller Entity'
+  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+  selector='entity'
+  required='(Zigbee2MQTT)'
+/>
+<Input
+  name='Rotate left'
+  description='Action to run on rotate left.'
+  selector='action'
+/>
+<Input
+  name='Rotate left stop'
+  description='Action to run on when stopping to rotate left the remote.'
+  selector='action'
+/>
+<Input
+  name='Rotate right'
+  description='Action to run on rotate right.'
+  selector='action'
+/>
+<Input
+  name='Rotate right stop'
+  description='Action to run on when stopping to rotate right the remote.'
+  selector='action'
+/>
+<Input
+  name='Rotate left - loop until stop'
+  description='Loop the rotate left action until the rotation is stopped.'
+  selector='boolean'
+  required
+/>
+<Input
+  name='Rotate right - loop until stop'
+  description='Loop the rotate right action until the rotation is stopped.'
+  selector='boolean'
+  required
+/>
+<Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. See docs for more.'
+  selector='entity'
+  required='(ZHA, Zigbee2MQTT Required)'
+/>
+
+## Available Hooks
+
+### Light
+
+This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+
+- Rotate left -> Brightness down (continuous, until stop)
+- Rotate right -> Brightness up (continuous, until stop)
+  [Light Hook docs](/docs/blueprints/hooks/light)
+
+### Media Player
+
+This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
+
+- Rotate left -> Volume down (continuous, until stop)
+- Rotate right -> Volume up (continuous, until stop)
+
+[Media Player Hook docs](/docs/blueprints/hooks/media_player)
+
+## Additional Notes
+
+The reason why a text input is required to store the last long press event when using a remote with ZHA, Zigbee2MQTT is because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
+
+This blueprint provides beta support for controllers integrated with deCONZ, since not all the supported events are mapped for this integration. If you are using the IKEA ICTC-G-1 with deCONZ and would like to help, you can reach out [here]().
+
+## Changelog
+
+- **2021-03-26**: first blueprint version :tada:

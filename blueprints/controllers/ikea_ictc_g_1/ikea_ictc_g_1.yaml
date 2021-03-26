@@ -1,0 +1,236 @@
+# Blueprint metadata
+blueprint:
+  name: Controller - IKEA ICTC-G-1 TRADFRI wireless dimmer
+  description: |
+    Controller automation for executing any kind of action triggered by an IKEA ICTC-G-1 TRADFRI wireless dimmer. Allows to optionally loop a custom action during controller rotation.
+    Supports deCONZ, ZHA, Zigbee2MQTT.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+
+    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_ictc_g_1).
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_ictc_g_1/ikea_ictc_g_1.yaml
+  domain: automation
+  input:
+    integration:
+      name: Integration
+      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
+      selector:
+        select:
+          options:
+            - deCONZ
+            - ZHA
+            - Zigbee2MQTT
+    controller_device:
+      name: (deCONZ, ZHA) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
+      default: ''
+      selector:
+        device:
+    controller_entity:
+      name: (Zigbee2MQTT) Controller Entity
+      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      default: ''
+      selector:
+        entity:
+          domain: sensor
+    # inputs for custom actions
+    action_rotate_left:
+      name: (Optional) Rotate left
+      description: Action to run on rotate left.
+      default: []
+      selector:
+        action:
+    action_rotate_left_stop:
+      name: (Optional) Rotate left stop
+      description: Action to run on when stopping to rotate left the remote.
+      default: []
+      selector:
+        action:
+    action_rotate_right:
+      name: (Optional) Rotate right
+      description: Action to run on rotate right.
+      default: []
+      selector:
+        action:
+    action_rotate_right_stop:
+      name: (Optional) Rotate right stop
+      description: Action to run on when stopping to rotate right the remote.
+      default: []
+      selector:
+        action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
+    rotate_left_loop:
+      name: Rotate left - loop until stop
+      description: Loop the rotate left action until the rotation is stopped.
+      default: false
+      selector:
+        boolean:
+    rotate_right_loop:
+      name: Rotate right - loop until stop
+      description: Loop the rotate right action until the rotation is stopped.
+      default: false
+      selector:
+        boolean:
+    # helpers used to properly recognize the remote button events
+    helper_last_controller_event:
+      name: (ZHA, Zigbee2MQTT Required) Helper - Last Controller Event
+      description: Input Text used to store the last event fired by the controller. See docs for more.
+      default: ''
+      selector:
+        entity:
+          domain: input_text
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  integration: !input integration
+  rotate_left_loop: !input rotate_left_loop
+  rotate_right_loop: !input rotate_right_loop
+  helper_last_controller_event: !input helper_last_controller_event
+  # integration id used to select items in the action mapping
+  integration_id: '{{ integration | lower }}'
+  # mapping between actions and integrations
+  actions_mapping:
+    deconz:
+      rotate_left: [3002]
+      rotate_left_stop: []
+      rotate_right: [2002]
+      rotate_right_stop: []
+    zha:
+      rotate_left: [move_1_70, move_1_195]
+      rotate_left_stop: [stop]
+      rotate_right: [move_with_on_off_0_70, move_with_on_off_0_195]
+      rotate_right_stop: [stop]
+    zigbee2mqtt:
+      rotate_left: [brightness_move_down]
+      rotate_left_stop: [brightness_stop]
+      rotate_right: [brightness_move_up]
+      rotate_right_stop: [brightness_stop]
+  # pre-choose actions for buttons based on configured integration
+  # no need to perform this task at automation runtime
+  rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
+  rotate_left_stop: '{{ actions_mapping[integration_id]["rotate_left_stop"] }}'
+  rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
+  rotate_right_stop: '{{ actions_mapping[integration_id]["rotate_right_stop"] }}'
+  # integrations which need to store the previous long press event to determine which button was released
+  integrations_with_prev_event_storage: [zha, zigbee2mqtt]
+  # build data to send within a controller event
+  controller_entity: !input controller_entity
+  controller_device: !input controller_device
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
+# mode restart ensures hold actions are interrupted when the corresponding release action is received
+mode: restart
+max_exceeded: silent
+trigger:
+  # trigger for zigbee2mqtt
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: !input controller_entity
+  # trigger for other integrations
+  - platform: event
+    event_type:
+      - zha_event
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+condition:
+  - condition: and
+    conditions:
+      # check that the button event is not empty
+      - >-
+        {%- set trigger_action -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}
+        {{"_" if trigger.event.data.args|length > 0}}
+        {{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+        {%- endset -%}
+        {{ trigger_action != "" }}
+      # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
+      # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
+      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
+action:
+  # extract button event from the trigger
+  # provide a single string value to check against
+  - variables:
+      trigger_action: >-
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+  # choose the sequence to run based on the received button event
+  - choose:
+      - conditions: '{{ trigger_action in rotate_left }}'
+        sequence:
+          # for integrations which need to save the last controller event, store the button event
+          - choose:
+              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
+                sequence:
+                  - service: input_text.set_value
+                    data:
+                      entity_id: !input helper_last_controller_event
+                      value: '{{ trigger_action }}'
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left
+          # if looping is enabled, loop the action indefinitely
+          # repeat until the automation is restarted ie. when the corresponding stop message is received
+          - repeat:
+              sequence: !input action_rotate_left
+              until: '{{ not rotate_left_loop }}'
+      - conditions:
+          - '{{ trigger_action in rotate_left_stop }}'
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left_stop
+          # run the custom action
+          - choose:
+            default: !input action_rotate_left_stop
+      - conditions: '{{ trigger_action in rotate_right }}'
+        sequence:
+          # for integrations which need to save the last controller event, store the button event
+          - choose:
+              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
+                sequence:
+                  - service: input_text.set_value
+                    data:
+                      entity_id: !input helper_last_controller_event
+                      value: '{{ trigger_action }}'
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right
+          # if looping is enabled, loop the action indefinitely
+          # repeat until the automation is restarted ie. when the corresponding stop message is received
+          - repeat:
+              sequence: !input action_rotate_right
+              until: '{{ not rotate_right_loop }}'
+      - conditions:
+          - '{{ trigger_action in rotate_right_stop }}'
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right_stop
+          # run the custom action
+          - choose:
+            default: !input action_rotate_right_stop
