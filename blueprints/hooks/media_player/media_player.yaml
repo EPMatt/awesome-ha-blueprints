@@ -69,7 +69,7 @@ blueprint:
 variables:
   # convert blueprint inputs into variables to be used in templates
   controller_model: !input controller_model
-  volume_steps_short: !input  volume_steps_short
+  volume_steps_short: !input volume_steps_short
   volume_steps_long: !input volume_steps_long
   media_player: !input media_player
   # Blueprint data
