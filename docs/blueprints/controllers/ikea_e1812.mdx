@@ -126,6 +126,17 @@ Please enable double button press events to use all the available actions.
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
+### Cover
+
+This Hook blueprint allows to build a controller-based automation to control a cover. Supports opening, closing and tilting the cover.
+Please enable double button press events to use all the available actions.
+
+- Button short press -> Open Cover
+- Button long press -> Stop cover and cover tilt
+- Button double press -> Close cover
+
+[Cover Hook docs](/docs/blueprints/hooks/cover)
+
 ## Additional Notes
 
 It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
