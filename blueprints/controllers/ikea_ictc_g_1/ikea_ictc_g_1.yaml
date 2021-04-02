@@ -145,9 +145,7 @@ condition:
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}
-        {{"_" if trigger.event.data.args|length > 0}}
-        {{ trigger.event.data.args|join("_") }}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action != "" }}
