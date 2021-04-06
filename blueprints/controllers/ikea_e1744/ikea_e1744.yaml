@@ -1,294 +1,348 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - IKEA E1744 SYMFONISK Rotary Remote
-  description: |
-    Controller automation for executing any kind of action triggered by an IKEA E1744 SYMFONISK Rotary Remote. Allows to optionally loop a custom action during controller rotation.
+  name: Controller - IKEA E1812 Shortcut button
+  description: 'Controller automation for executing any kind of action triggered by
+    an IKEA E1812 Shortcut button. Allows to optionally loop an action on a button
+    long press.
+
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
-    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
-    Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
 
-    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1744).
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1744/ikea_e1744.yaml
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks)
+    supported by this controller.
+
+    Hooks allow to easily create controller-based automations for interacting with
+    media players, lights, covers and more.
+
+
+    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1812).
+
+    '
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/issue-22/blueprints/controllers/ikea_e1812/ikea_e1812.yaml
   domain: automation
   input:
     integration:
       name: Integration
-      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
+      description: Integration used for connecting the remote with Home Assistant.
+        Select one of the available values.
       selector:
         select:
           options:
-            - deCONZ
-            - ZHA
-            - Zigbee2MQTT
+          - deCONZ
+          - ZHA
+          - Zigbee2MQTT
     controller_device:
       name: (deCONZ, ZHA) Controller Device
-      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
+      description: The controller device to use for the automation. Choose a value
+        only if the remote is integrated with deCONZ, ZHA.
       default: ''
       selector:
-        device:
+        device: {}
     controller_entity:
       name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      description: The action sensor of the controller to use for the automation.
+        Choose a value only if the remote is integrated with Zigbee2MQTT.
       default: ''
       selector:
         entity:
           domain: sensor
-    # inputs for custom actions
-    action_rotate_left:
-      name: (Optional) Rotate left
-      description: Action to run on rotate left.
+    action_button_short:
+      name: (Optional) Button - short press
+      description: Action to run on short button press.
       default: []
       selector:
         action:
-    action_rotate_left_stop:
-      name: (Optional) Rotate left stop
-      description: Action to run on when stopping to rotate left the remote.
+    action_button_long:
+      name: (Optional) Button - long press
+      description: Action to run on long button press.
       default: []
       selector:
         action:
-    action_rotate_right:
-      name: (Optional) Rotate right
-      description: Action to run on rotate right.
+    action_button_release:
+      name: (Optional) Button - release after long press
+      description: Action to run on button release after a long press.
       default: []
       selector:
         action:
-    action_rotate_right_stop:
-      name: (Optional) Rotate right stop
-      description: Action to run on when stopping to rotate right the remote.
+    action_button_double:
+      name: (Optional) Button - double press
+      description: Action to run on double button press.
       default: []
       selector:
         action:
-    action_click_short:
-      name: (Optional) Remote - short press
-      description: Action to run on short remote press.
-      default: []
-      selector:
-        action:
-    action_click_double:
-      name: (Optional) Remote - double press
-      description: Action to run on double remote press.
-      default: []
-      selector:
-        action:
-    action_click_triple:
-      name: (Optional) Remote - triple press
-      description: Action to run on triple remote press.
-      default: []
-      selector:
-        action:
-    # inputs for looping custom actions on long button press events until the corresponding release event is received
-    rotate_left_loop:
-      name: Rotate left - loop until stop
-      description: Loop the rotate left action until the rotation is stopped.
+    button_long_loop:
+      name: Long button press - loop until release
+      description: Loop the action until the button is released.
       default: false
       selector:
         boolean:
-    rotate_right_loop:
-      name: Rotate right - loop until stop
-      description: Loop the rotate right action until the rotation is stopped.
+    button_long_max_loops:
+      name: Long Button press - Maximum loops
+      description: Maximum amount of repeats.
+      default: 500
+      selector:
+        number:
+          min: 0
+          max: 5000
+          mode: slider
+          step: 1
+    button_double_press:
+      name: Expose button double press event
+      description: Choose whether or not to expose the virtual double press event
+        for the button. Turn this on if you are providing an action for the button
+        double press event.
       default: false
       selector:
         boolean:
-    # helpers used to properly recognize the remote button events
+    button_double_initial_press:
+      name: Run short press action at once.
+      description: Choose whether or not to run the short press action at once, without waiting for the 2nd press.
+        When a second press is received the double press action will be run at once and the short press action will stop if it's still running.
+      default: false
+      selector:
+        boolean:
+    #Only requiered since it seems impossible to get the automations attribute dynamicly via a blueprint. 
     helper_last_controller_event:
-      name: (ZHA, Zigbee2MQTT Required) Helper - Last Controller Event
-      description: Input Text used to store the last event fired by the controller. See docs for more.
+      name: (Requieded to counter double triggers) Helper - Last Controller Event
+      description: Input Text used to store the last event fired by the controller.
+        See docs for more.
       default: ''
       selector:
         entity:
-          domain: input_text
-# Automation schema
+          domain: input_text            
+    double_press_delay:
+      name: (Optional) Helper - Double Press delay
+      description: Max delay between the first and the second button press for the
+        double press event. Provide a value only if you are using a double press action.
+        Increase this value if you notice that the double press action is not triggered
+        properly.
+      default: 500
+      selector:
+        number:
+          min: 400.0
+          max: 5000.0
+          unit_of_measurement: milliseconds
+          mode: slider
+          step: 10.0
+    debounce_delay:
+      name: Helper - Debounce delay
+      description: Delay used for debouncing RAW controller events, when the device
+        is connected with an integration which needs debounce. Increase this value
+        only if the device is integrated with deCONZ, ZHA and you notice duplicate
+        action runs.
+      default: 200
+      selector:
+        number:
+          min: 0.0
+          max: 1000.0
+          unit_of_measurement: milliseconds
+          mode: slider
+          step: 10.0
 variables:
-  # convert input tags to variables, to be used in templates
-  integration: !input integration
-  rotate_left_loop: !input rotate_left_loop
-  rotate_right_loop: !input rotate_right_loop
-  helper_last_controller_event: !input helper_last_controller_event
-  # integration id used to select items in the action mapping
+  integration: !input 'integration'
+  button_long_loop: !input 'button_long_loop'
+  button_long_max_loops: !input 'button_long_max_loops'
+  button_double_press: !input 'button_double_press'
+  button_double_initial_press: !input 'button_double_initial_press'
+  action_button_long: !input 'action_button_long'
+  helper_last_controller_event: !input 'helper_last_controller_event'
+  double_press_delay: !input 'double_press_delay'
+  debounce_delay: !input 'debounce_delay'
+  # Subtracted debounce delay so that the timeout is really as set in double press delay but never go below minimum delay.
+  adjusted_double_press_delay: '{% if double_press_delay - debounce_delay < 100 %}100{% else %}
+                                {{ (double_press_delay - debounce_delay) | int }} {% endif %}'
   integration_id: '{{ integration | lower }}'
-  # mapping between actions and integrations
   actions_mapping:
     deconz:
-      rotate_left: [3001]
-      rotate_left_stop: [3003]
-      rotate_right: [2001]
-      rotate_right_stop: [2003]
-      click_short: [1002]
-      click_double: [1004]
-      click_triple: [1005]
+      button_short:
+      - 1002
+      button_long:
+      - 1001
+      button_release:
+      - 1003
     zha:
-      rotate_left: [move_1_195]
-      rotate_left_stop: [stop]
-      rotate_right: [move_0_195]
-      rotate_right_stop: [stop]
-      click_short: [toggle]
-      click_double: [step_0_1_0]
-      click_triple: [step_1_1_0]
+      button_short:
+      - 'on'
+      button_long:
+      - move_with_on_off
+      button_release:
+      - stop
     zigbee2mqtt:
-      rotate_left: [brightness_move_down]
-      rotate_left_stop: [brightness_stop]
-      rotate_right: [brightness_move_up]
-      rotate_right_stop: [brightness_stop]
-      click_short: [toggle]
-      click_double: [brightness_step_up]
-      click_triple: [brightness_step_down]
-  # pre-choose actions for buttons based on configured integration
-  # no need to perform this task at automation runtime
-  rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
-  rotate_left_stop: '{{ actions_mapping[integration_id]["rotate_left_stop"] }}'
-  rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
-  rotate_right_stop: '{{ actions_mapping[integration_id]["rotate_right_stop"] }}'
-  click_short: '{{ actions_mapping[integration_id]["click_short"] }}'
-  click_double: '{{ actions_mapping[integration_id]["click_double"] }}'
-  click_triple: '{{ actions_mapping[integration_id]["click_triple"] }}'
-  # integrations which need to store the previous long press event to determine which button was released
-  integrations_with_prev_event_storage: [zha, zigbee2mqtt]
-  # build data to send within a controller event
-  controller_entity: !input controller_entity
-  controller_device: !input controller_device
-  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-# mode restart ensures hold actions are interrupted when the corresponding release action is received
+      button_short:
+      - 'on'
+      button_long:
+      - brightness_move_up
+      button_release:
+      - brightness_stop
+  button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
+  button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
+  button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
+  integrations_with_debounce:
+  - deconz
+  - zha
+  controller_entity: !input 'controller_entity'
+  controller_device: !input 'controller_device'
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else
+    %}{{controller_device}}{% endif %}'
 mode: restart
 max_exceeded: silent
 trigger:
-  # trigger for zigbee2mqtt
-  - platform: event
-    event_type: state_changed
-    event_data:
-      entity_id: !input controller_entity
-  # trigger for other integrations
-  - platform: event
-    event_type:
-      - zha_event
-      - deconz_event
-    event_data:
-      device_id: !input controller_device
+- platform: event
+  event_type: state_changed
+  event_data:
+    entity_id: !input 'controller_entity'
+- platform: event
+  event_type:
+  - zha_event
+  - deconz_event
+  event_data:
+    device_id: !input 'controller_device'
 condition:
-  - condition: and
-    conditions:
-      # check that the button event is not empty
-      - >-
-        {%- set trigger_action -%}
-        {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
-        {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
-        {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {%- endif -%}
-        {%- endset -%}
-        {{ trigger_action != "" }}
-      # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
-      # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
-      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
+- condition: and
+  conditions:
+  - '{%- set trigger_action -%}
+      {%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state }}
+      {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }}
+      {%- elif integration_id == "zha" -%} {{ trigger.event.data.command }}
+      {%- endif -%}
+    {%- endset -%}
+    {{ trigger_action != "" }}'
+  - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
+    # Stop if trigger happend within the defined in the debounce_delay input.
+    # Also stop if trigger happend within the defined double_press_delay, when double press is enabled.
+  - '{%- set trigger_delta -%}
+      {{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
+      default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}
+    {%- endset -%}
+    {%- if button_double_press -%}
+        {{ integration_id not in integrations_with_debounce or trigger_delta | int > double_press_delay | int }}
+    {%- else -%}
+        {{ integration_id not in integrations_with_debounce or trigger_delta | int > debounce_delay | int }}
+    {%- endif -%}'
 action:
-  # extract button event from the trigger
-  # provide a single string value to check against
-  - variables:
-      trigger_action: >-
-        {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
-        {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
-        {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {%- endif -%}
-  # choose the sequence to run based on the received button event
-  - choose:
-      - conditions: '{{ trigger_action in rotate_left }}'
+- variables:
+    trigger_action: '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
+      }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
+      elif integration_id == "zha" -%} {{ trigger.event.data.command }}
+      {%- endif -%}'
+    trigger_delta: '{{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
+      default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}'
+    processing_time: '{%- if trigger.event.time_fired -%}
+                        {{ ((as_timestamp(now()) - as_timestamp(trigger.event.time_fired )) * 1000) | int }}
+                      {%- else -%}
+                        {{ as_timestamp("1970-01-01 01:11:06") }}
+                      {%- endif -%}' 
+- choose:
+  - conditions: '{{ trigger_action in button_short }}'
+    sequence:
+    - choose:
+      # Only run if double press is enabled
+      - conditions: '{{ button_double_press }}'
         sequence:
-          # for integrations which need to save the last controller event, store the button event
-          - choose:
-              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
+            - service: input_text.set_value
+              data:
+                entity_id: !input helper_last_controller_event
+                value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
+            - choose:
+              - conditions: '{{ button_double_initial_press }}'
                 sequence:
-                  - service: input_text.set_value
-                    data:
-                      entity_id: !input helper_last_controller_event
-                      value: '{{ trigger_action }}'
-          # fire the event only once before looping the action
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_left
-          # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding stop message is received
-          - repeat:
-              sequence: !input action_rotate_left
-              until: '{{ not rotate_left_loop }}'
-      - conditions:
-          - '{{ trigger_action in rotate_left_stop }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_left_stop
-          # run the custom action
-          - choose:
-            default: !input action_rotate_left_stop
-      - conditions: '{{ trigger_action in rotate_right }}'
-        sequence:
-          # for integrations which need to save the last controller event, store the button event
-          - choose:
-              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
+                - event: ahb_controller_event
+                  event_data:
+                    controller: '{{ controller_id }}'
+                    action: button_short
+                - choose:
+                  - conditions: []
+                    sequence: !input 'action_button_short'
+              # Delay to prevent double (or more) repeats of events on 1 button press to execute more then once. 
+            - delay:
+                milliseconds: '{{ debounce_delay }}'
+              # Use wait for trigger instead of delay, so that when the 2nd buttonpress happens the action is executed at once.
+              # Also this makes that we don't have to restart the automation and can use single mode
+            - wait_for_trigger:
+              - platform: event
+                event_type: state_changed
+                event_data:
+                  entity_id: !input 'controller_entity'
+              - platform: event
+                event_type:
+                  - zha_event
+                  - deconz_event
+                event_data:
+                  device_id: !input 'controller_device'
+              timeout:
+                milliseconds: '{{ adjusted_double_press_delay }}'
+            - choose:
+                # Execute if wait for trigger is cought.
+              - conditions: '{{ wait.trigger and not "none" in wait.trigger }}'
                 sequence:
-                  - service: input_text.set_value
-                    data:
-                      entity_id: !input helper_last_controller_event
-                      value: '{{ trigger_action }}'
-          # fire the event only once before looping the action
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_right
-          # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding stop message is received
-          - repeat:
-              sequence: !input action_rotate_right
-              until: '{{ not rotate_right_loop }}'
-      - conditions:
-          - '{{ trigger_action in rotate_right_stop }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
+                - service: input_text.set_value
+                  data:
+                    entity_id: !input helper_last_controller_event
+                    value: "{{ {\"trigger_action\":\"button_double\",\"trigger_delta\":trigger_delta,
+                                \"double_press_delta\": ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered)) * 1000) | int,
+                                \"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
+                - event: ahb_controller_event
+                  event_data:
+                    controller: '{{ controller_id }}'
+                    action: button_double
+                - choose:
+                  - conditions: []
+                    sequence: !input 'action_button_double'
+                #Execute after timeout when action on initial butten press is also disabled.
+              - conditions: '{{ not wait.trigger and not button_double_initial_press }}'
+                sequence:
+                - event: ahb_controller_event
+                  event_data:
+                    controller: '{{ controller_id }}'
+                    action: button_short
+                - choose:
+                  - conditions: []
+                    sequence: !input 'action_button_short'
+
+      #Run when double press is disabled
+      default:
+      - service: input_text.set_value
+        data:
+          entity_id: !input helper_last_controller_event
+          value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
+      - event: ahb_controller_event
+        event_data:
+          controller: '{{ controller_id }}'
+          action: button_short
+      - choose:
+        - conditions: []
+          sequence: !input 'action_button_short'
+ 
+    # Make sure that not triggered when button is already hold down (prevent processing multiple events)
+  - conditions: '{{ trigger_action in button_long and ("button_long" not in states(helper_last_controller_event) or trigger_delta > 1000) }}'
+    sequence:
+    - service: input_text.set_value
+      data:
+        entity_id: !input helper_last_controller_event
+        value: "{{ {\"trigger_action\":\"button_long\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
+    - event: ahb_controller_event
+      event_data:
+        controller: '{{ controller_id }}'
+        action: button_long
+    - choose:
+      - conditions: '{{ not button_long_loop }}'
+        sequence: !input 'action_button_long'
+      - conditions: '{{ button_long_loop }}' 
         sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_right_stop
-          # run the custom action
-          - choose:
-            default: !input action_rotate_right_stop
-      - conditions: '{{ trigger_action in click_short }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: click_short
-          # run the custom action
-          - choose:
-            default: !input action_click_short
-      - conditions: '{{ trigger_action in click_double }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: click_double
-          # run the custom action
-          - choose:
-            default: !input action_click_double
-      - conditions: '{{ trigger_action in click_triple }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: click_triple
-          # run the custom action
-          - choose:
-            default: !input action_click_triple
+        - repeat: 
+            sequence: !input 'action_button_long'
+            while: '{{ repeat.index < button_long_max_loops }}'
+
+  - conditions: '{{ trigger_action in button_release }}'
+    sequence:
+    - service: input_text.set_value
+      data:
+        entity_id: !input helper_last_controller_event
+        value: "{{ {\"trigger_action\":\"button_release\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
+    - event: ahb_controller_event
+      event_data:
+        controller: '{{ controller_id }}'
+        action: button_release
+    - choose:
+      - conditions: []
+        sequence: !input 'action_button_release'
