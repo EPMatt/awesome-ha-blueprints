@@ -192,8 +192,6 @@ condition:
       {%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state }}
       {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }}
       {%- elif integration_id == "zha" -%} {{ trigger.event.data.command }}
-        {{"_" if trigger.event.data.args|length > 0}}
-        {{ trigger.event.data.args|join("_") }}
       {%- endif -%}
     {%- endset -%}
     {{ trigger_action != "" }}'
@@ -213,8 +211,7 @@ action:
 - variables:
     trigger_action: '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
       }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
-      elif integration_id == "zha" -%} {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length
-      > 0}}{{ trigger.event.data.args|join("_") }} {%- endif -%}'
+      elif integration_id == "zha" -%} {{ trigger.event.data.command }} {%- endif -%}'
     trigger_delta: '{{ ((as_timestamp(now()) - (states(helper_last_controller_event) | 
        default("{\"last_triggered\":0}",true) | from_json).last_triggered) * 1000) | int }}'
 - choose:
