@@ -45,13 +45,13 @@ blueprint:
     light_color_mode:
       name: (Optional) Light color mode
       description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".
-      default: 'Auto'
+      default: Auto
       selector:
         select:
           options:
-            - 'Auto'
-            - 'Hue - Saturation'
-            - 'RGB'
+            - Auto
+            - Color Temperature
+            - Hue - Saturation
     light_transition:
       name: (Optional) Light Transition
       description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.
@@ -140,9 +140,9 @@ variables:
   on_brightness: !input on_brightness
   # Blueprint data
   supported_color_modes:
-    'Auto': auto
-    'Color Temperature': color_temp
-    'Hue - Saturation': hs_color
+    Auto: auto
+    Color Temperature: color_temp
+    Hue - Saturation: hs_color
   supported_controllers:
     IKEA E1524/E1810 5-Button remote: ikea_e1524_e1810
     IKEA E1743 On/Off Switch & Dimmer: ikea_e1743
