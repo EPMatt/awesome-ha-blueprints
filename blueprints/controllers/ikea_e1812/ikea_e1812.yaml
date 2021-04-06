@@ -226,9 +226,6 @@ action:
       {%- endif -%}'
     trigger_delta: '{{ ((as_timestamp(now()) - (states(helper_last_controller_event) | 
        default("{\"last_triggered\":0}",true) | from_json).last_triggered) * 1000) | int }}'
-- service: system_log.write
-  data:
-    message: '{{ trigger_action }}" "{{ button_long }}'
 - choose:
   - conditions: '{{ trigger_action in button_short }}'
     sequence:
