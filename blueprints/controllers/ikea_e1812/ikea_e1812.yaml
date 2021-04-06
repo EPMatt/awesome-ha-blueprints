@@ -144,6 +144,7 @@ variables:
   button_long_max_loops: !input 'button_long_max_loops'
   button_double_press: !input 'button_double_press'
   button_double_initial_press: !input 'button_double_initial_press'
+  action_button_long: !input 'action_button_long'
   helper_last_controller_event: !input 'helper_last_controller_event'
   double_press_delay: !input 'double_press_delay'
   debounce_delay: !input 'debounce_delay'
@@ -210,8 +211,8 @@ condition:
     # Stop if trigger happend within the defined in the debounce_delay input.
     # Also stop if trigger happend within the defined double_press_delay, when double press is enabled.
   - '{%- set trigger_delta -%}
-      {{ ((as_timestamp(now()) - (states(helper_last_controller_event) | 
-       default("{\"last_triggered\":0}",true) | from_json).last_triggered) * 1000) }}
+      {{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
+      default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}
     {%- endset -%}
     {%- if button_double_press -%}
         {{ integration_id not in integrations_with_debounce or trigger_delta | int > double_press_delay | int }}
@@ -224,8 +225,13 @@ action:
       }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
       elif integration_id == "zha" -%} {{ trigger.event.data.command }}
       {%- endif -%}'
-    trigger_delta: '{{ ((as_timestamp(now()) - (states(helper_last_controller_event) | 
-       default("{\"last_triggered\":0}",true) | from_json).last_triggered) * 1000) | int }}'
+    trigger_delta: '{{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
+      default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}'
+    processing_time: '{%- if trigger.event.time_fired -%}
+                        {{ ((as_timestamp(now()) - as_timestamp(trigger.event.time_fired )) * 1000) | int }}
+                      {%- else -%}
+                        {{ as_timestamp("1970-01-01 01:11:06") }}
+                      {%- endif -%}' 
 - choose:
   - conditions: '{{ trigger_action in button_short }}'
     sequence:
@@ -236,7 +242,7 @@ action:
             - service: input_text.set_value
               data:
                 entity_id: !input helper_last_controller_event
-                value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"last_triggered\":as_timestamp(now())} | to_json }}"
+                value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
             - choose:
               - conditions: '{{ button_double_initial_press }}'
                 sequence:
@@ -273,8 +279,8 @@ action:
                   data:
                     entity_id: !input helper_last_controller_event
                     value: "{{ {\"trigger_action\":\"button_double\",\"trigger_delta\":trigger_delta,
-                                \"double_press_delta\": ((as_timestamp(now()) - (states(helper_last_controller_event) | from_json).last_triggered) * 1000) | int,
-                                \"last_triggered\":as_timestamp(now())} | to_json }}"
+                                \"double_press_delta\": ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered)) * 1000) | int,
+                                \"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
                 - event: ahb_controller_event
                   event_data:
                     controller: '{{ controller_id }}'
@@ -298,7 +304,7 @@ action:
       - service: input_text.set_value
         data:
           entity_id: !input helper_last_controller_event
-          value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"last_triggered\":as_timestamp(now())} | to_json }}"
+          value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
       - event: ahb_controller_event
         event_data:
           controller: '{{ controller_id }}'
@@ -308,12 +314,12 @@ action:
           sequence: !input 'action_button_short'
  
     # Make sure that not triggered when button is already hold down (prevent processing multiple events)
-  - conditions: '{{ trigger_action in button_long and "button_long" not in states(helper_last_controller_event) }}'
+  - conditions: '{{ trigger_action in button_long and ("button_long" not in states(helper_last_controller_event) or trigger_delta > 1000) }}'
     sequence:
     - service: input_text.set_value
       data:
         entity_id: !input helper_last_controller_event
-        value: "{{ {\"trigger_action\":\"button_long\",\"trigger_delta\":trigger_delta,\"last_triggered\":as_timestamp(now())} | to_json }}"
+        value: "{{ {\"trigger_action\":\"button_long\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
     - event: ahb_controller_event
       event_data:
         controller: '{{ controller_id }}'
@@ -325,14 +331,14 @@ action:
         sequence:
         - repeat: 
             sequence: !input 'action_button_long'
-            while: '{{ button_long_loop and repeat.index < button_long_max_loops }}'
+            while: '{{ repeat.index < button_long_max_loops }}'
 
   - conditions: '{{ trigger_action in button_release }}'
     sequence:
     - service: input_text.set_value
       data:
         entity_id: !input helper_last_controller_event
-        value: "{{ {\"trigger_action\":\"button_release\",\"trigger_delta\":trigger_delta,\"last_triggered\":as_timestamp(now())} | to_json }}"
+        value: "{{ {\"trigger_action\":\"button_release\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
     - event: ahb_controller_event
       event_data:
         controller: '{{ controller_id }}'
