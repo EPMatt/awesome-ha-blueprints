@@ -76,6 +76,16 @@ blueprint:
       default: false
       selector:
         boolean:
+    button_long_max_loops:
+      name: Long Button press - Maximum loops
+      description: Maximum amount of repeats.
+      default: 500
+      selector:
+        number:
+          min: 0
+          max: 5000
+          mode: slider
+          step: 1
     button_double_press:
       name: Expose button double press event
       description: Choose whether or not to expose the virtual double press event
@@ -131,6 +141,7 @@ blueprint:
 variables:
   integration: !input 'integration'
   button_long_loop: !input 'button_long_loop'
+  button_long_max_loops: !input 'button_long_max_loops'
   button_double_press: !input 'button_double_press'
   button_double_initial_press: !input 'button_double_initial_press'
   helper_last_controller_event: !input 'helper_last_controller_event'
@@ -211,9 +222,13 @@ action:
 - variables:
     trigger_action: '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
       }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
-      elif integration_id == "zha" -%} {{ trigger.event.data.command }} {%- endif -%}'
+      elif integration_id == "zha" -%} {{ trigger.event.data.command }}
+      {%- endif -%}'
     trigger_delta: '{{ ((as_timestamp(now()) - (states(helper_last_controller_event) | 
        default("{\"last_triggered\":0}",true) | from_json).last_triggered) * 1000) | int }}'
+- service: system_log.write
+  data:
+    message: '{{ trigger_action }}" "{{ button_long }}'
 - choose:
   - conditions: '{{ trigger_action in button_short }}'
     sequence:
@@ -295,7 +310,7 @@ action:
         - conditions: []
           sequence: !input 'action_button_short'
  
-  # Make sure that not triggered when button is already hold down (prevent processing multiple events)
+    # Make sure that not triggered when button is already hold down (prevent processing multiple events)
   - conditions: '{{ trigger_action in button_long and "button_long" not in states(helper_last_controller_event) }}'
     sequence:
     - service: input_text.set_value
@@ -313,8 +328,7 @@ action:
         sequence:
         - repeat: 
             sequence: !input 'action_button_long'
-            # Using while seems to be more constant in repaeting then using "until not".
-            while: '{{ button_long_loop }}'
+            while: '{{ button_long_loop and repeat.index < button_long_max_loops }}'
 
   - conditions: '{{ trigger_action in button_release }}'
     sequence:
