@@ -170,10 +170,12 @@ variables:
 mode: restart
 max_exceeded: silent
 trigger:
+# trigger for zigbee2mqtt
 - platform: event
   event_type: state_changed
   event_data:
     entity_id: !input 'controller_entity'
+# trigger for other integrations
 - platform: event
   event_type:
   - zha_event
