@@ -142,12 +142,9 @@ variables:
   integration_id: '{{ integration | lower }}'
   actions_mapping:
     deconz:
-      button_short:
-      - 1002
-      button_long:
-      - 1001
-      button_release:
-      - 1003
+      button_short: [1002]
+      button_long: [1001]
+      button_release: [1003]
     zha:
       button_short:
       - 'on'
