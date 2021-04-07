@@ -156,6 +156,8 @@ variables:
       - brightness_move_up
       button_release:
       - brightness_stop
+  # pre-choose actions for buttons based on configured integration
+  # no need to perform this task at automation runtime
   button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
   button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
