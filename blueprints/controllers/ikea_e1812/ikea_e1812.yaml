@@ -34,6 +34,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
       selector:
         entity:
           domain: sensor
+    # inputs for custom actions
     action_button_short:
       name: (Optional) Button - short press
       description: Action to run on short button press.
