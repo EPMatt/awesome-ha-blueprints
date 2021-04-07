@@ -1,10 +1,8 @@
 # Blueprint metadata
 blueprint:
   name: Controller - IKEA E1812 Shortcut button
-  description: 'Controller automation for executing any kind of action triggered by
-    an IKEA E1812 Shortcut button. Allows to optionally loop an action on a button
-    long press.
-
+  description: |
+    Controller automation for executing any kind of action triggered by an IKEA E1812 Shortcut button. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
 
