@@ -89,7 +89,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
         boolean:
     #Only requiered since it seems impossible to get the automations attribute dynamicly via a blueprint. 
     helper_last_controller_event:
-      name: (Requieded to counter double triggers) Helper - Last Controller Event
+      name: (Double press action Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. See docs for more.
       default: ''
       selector:
