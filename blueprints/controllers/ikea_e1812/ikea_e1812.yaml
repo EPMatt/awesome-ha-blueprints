@@ -74,6 +74,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
           max: 5000
           mode: slider
           step: 1
+    # inputs for enabling double press events
     button_double_press:
       name: Expose button double press event
       description: Choose whether or not to expose the virtual double press event for the button. Turn this on if you are providing an action for the button double press event.
