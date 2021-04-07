@@ -97,8 +97,8 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
       default: ''
       selector:
         entity:
-          domain: input_text            
-    double_press_delay:
+          domain: input_text
+    helper_double_press_delay:
       name: (Optional) Helper - Double Press delay
       description: Max delay between the first and the second button press for the
         double press event. Provide a value only if you are using a double press action.
