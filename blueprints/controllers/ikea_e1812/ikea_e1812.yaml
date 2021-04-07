@@ -59,6 +59,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
       default: []
       selector:
         action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
     button_long_loop:
       name: Long button press - loop until release
       description: Loop the action until the button is released.
