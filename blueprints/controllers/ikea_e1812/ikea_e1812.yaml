@@ -161,13 +161,12 @@ variables:
   button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
   button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
-  integrations_with_debounce:
-  - deconz
-  - zha
+  integrations_with_debounce: [deconz, zha]
+  # build data to send within a controller event
   controller_entity: !input 'controller_entity'
   controller_device: !input 'controller_device'
-  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else
-    %}{{controller_device}}{% endif %}'
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
+  # mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
 trigger:
