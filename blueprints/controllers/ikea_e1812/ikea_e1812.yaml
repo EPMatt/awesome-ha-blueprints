@@ -29,8 +29,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
         device: {}
     controller_entity:
       name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation.
-        Choose a value only if the remote is integrated with Zigbee2MQTT.
+      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
       default: ''
       selector:
         entity:
