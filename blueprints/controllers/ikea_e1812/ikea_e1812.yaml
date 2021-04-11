@@ -102,7 +102,7 @@ blueprint:
           unit_of_measurement: milliseconds
           mode: box
           step: 10
-    debounce_delay:
+    helper_debounce_delay:
       name: Helper - Debounce delay
       description:
         Delay used for debouncing RAW controller events, when the device
@@ -126,7 +126,7 @@ variables:
   button_double_press: !input button_double_press
   helper_last_controller_event: !input helper_last_controller_event
   helper_double_press_delay: !input helper_double_press_delay
-  debounce_delay: !input debounce_delay
+  helper_debounce_delay: !input helper_debounce_delay
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
   # mapping between actions and integrations
@@ -148,7 +148,6 @@ variables:
   button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
   button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
-  integrations_with_debounce: [deconz, zha]
   # build data to send within a controller event
   controller_entity: !input controller_entity
   controller_device: !input controller_device
@@ -187,17 +186,12 @@ condition:
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
-      # stop if trigger happened within the defined in the debounce_delay input
-      # also stop if trigger happened within the defined double_press_delay, when double press is enabled
+      # debouncing: stop if trigger happened within the defined in the helper_debounce_delay input
       - >-
         {%- set trigger_delta -%}
         {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | default('{"last_triggered":"1970-01-01 01:11:06"}',true) | from_json).last_triggered)) * 1000 }}
         {%- endset -%}
-        {%- if button_double_press -%}
-        {{ integration_id not in integrations_with_debounce or trigger_delta | int > double_press_delay | int }}
-        {%- else -%}
-        {{ integration_id not in integrations_with_debounce or trigger_delta | int > debounce_delay | int }}
-        {%- endif -%}
+        {{ helper_debounce_delay == 0 or trigger_delta | int > helper_debounce_delay | int }}
 action:
   # extract button event from the trigger
   # provide a single string value to check against
