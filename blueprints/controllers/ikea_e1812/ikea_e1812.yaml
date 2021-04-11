@@ -9,7 +9,7 @@ blueprint:
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
 
     Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1812).
-source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1812/ikea_e1812.yaml
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1812/ikea_e1812.yaml
   domain: automation
   input:
     integration:
@@ -127,6 +127,7 @@ source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints
           mode: slider
           step: 10.0
 variables:
+  # convert input tags to variables, to be used in templates
   integration: !input 'integration'
   button_long_loop: !input 'button_long_loop'
   button_long_max_loops: !input 'button_long_max_loops'
@@ -139,7 +140,9 @@ variables:
   # Subtracted debounce delay so that the timeout is really as set in double press delay but never go below minimum delay.
   adjusted_double_press_delay: '{% if double_press_delay - debounce_delay < 100 %}100{% else %}
                                 {{ (double_press_delay - debounce_delay) | int }} {% endif %}'
+  # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
+  # mapping between actions and integrations
   actions_mapping:
     deconz:
       button_short: [1002]
@@ -163,71 +166,87 @@ variables:
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
   integrations_with_debounce: [deconz, zha]
   # build data to send within a controller event
-  controller_entity: !input 'controller_entity'
-  controller_device: !input 'controller_device'
+  controller_entity: !input controller_entity
+  controller_device: !input controller_device
   controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-  # mode restart ensures hold actions are interrupted when the corresponding release action is received
+# mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
 trigger:
-# trigger for zigbee2mqtt
-- platform: event
-  event_type: state_changed
-  event_data:
-    entity_id: !input 'controller_entity'
-# trigger for other integrations
-- platform: event
-  event_type:
-  - zha_event
-  - deconz_event
-  event_data:
-    device_id: !input 'controller_device'
+  # trigger for zigbee2mqtt
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: !input 'controller_entity'
+  # trigger for other integrations
+  - platform: event
+    event_type:
+    - zha_event
+    - deconz_event
+    event_data:
+      device_id: !input 'controller_device'
 condition:
 - condition: and
   conditions:
-  - '{%- set trigger_action -%}
-      {%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state }}
-      {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }}
-      {%- elif integration_id == "zha" -%} {{ trigger.event.data.command }}
-      {%- endif -%}
+  # check that the button event is not empty
+  - >-
+    {%- set trigger_action -%}
+    {%- if integration_id == "zigbee2mqtt" -%}
+    {{ trigger.event.data.new_state.state }}
+    {%- elif integration_id == "deconz" -%}
+    {{ trigger.event.data.event }}
+    {%- elif integration_id == "zha" -%}
+    {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+    {%- endif -%}
     {%- endset -%}
-    {{ trigger_action != "" }}'
+    {{ trigger_action != "" }}
+  # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
+  # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
   - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
-    # Stop if trigger happend within the defined in the debounce_delay input.
-    # Also stop if trigger happend within the defined double_press_delay, when double press is enabled.
-  - '{%- set trigger_delta -%}
-      {{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
-      default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}
+  # Stop if trigger happened within the defined in the debounce_delay input.
+  # Also stop if trigger happened within the defined double_press_delay, when double press is enabled.
+  - >-
+    {%- set trigger_delta -%}
+    {{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}
     {%- endset -%}
     {%- if button_double_press -%}
-        {{ integration_id not in integrations_with_debounce or trigger_delta | int > double_press_delay | int }}
+    {{ integration_id not in integrations_with_debounce or trigger_delta | int > double_press_delay | int }}
     {%- else -%}
-        {{ integration_id not in integrations_with_debounce or trigger_delta | int > debounce_delay | int }}
-    {%- endif -%}'
+    {{ integration_id not in integrations_with_debounce or trigger_delta | int > debounce_delay | int }}
+    {%- endif -%}
 action:
+# extract button event from the trigger
+# provide a single string value to check against
 - variables:
-    trigger_action: '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
-      }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
-      elif integration_id == "zha" -%} {{ trigger.event.data.command }}
-      {%- endif -%}'
+    trigger_action: >-
+      {%- if integration_id == "zigbee2mqtt" -%}
+      {{ trigger.event.data.new_state.state }}
+      {%- elif integration_id == "deconz" -%}
+      {{ trigger.event.data.event }}
+      {%- elif integration_id == "zha" -%}
+      {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+      {%- endif -%}
     trigger_delta: '{{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | 
       default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}'
-    processing_time: '{%- if trigger.event.time_fired -%}
-                        {{ ((as_timestamp(now()) - as_timestamp(trigger.event.time_fired )) * 1000) | int }}
-                      {%- else -%}
-                        {{ as_timestamp("1970-01-01 01:11:06") }}
-                      {%- endif -%}' 
+    processing_time: >-
+      {%- if trigger.event.time_fired -%}
+      {{ ((as_timestamp(now()) - as_timestamp(trigger.event.time_fired )) * 1000) | int }}
+      {%- else -%}
+      {{ as_timestamp("1970-01-01 01:11:06") }}
+      {%- endif -%}
+# store the controller event
+- service: input_text.set_value
+  data:
+    entity_id: !input helper_last_controller_event
+    value: '{{ {"trigger_action":trigger_action,"trigger_delta":trigger_delta,"processing_time": processing_time,"last_triggered":now()|string} | to_json }}'
+# choose the sequence to run based on the received button event
 - choose:
   - conditions: '{{ trigger_action in button_short }}'
     sequence:
     - choose:
-      # Only run if double press is enabled
+      # if double press event is enabled
       - conditions: '{{ button_double_press }}'
         sequence:
-            - service: input_text.set_value
-              data:
-                entity_id: !input helper_last_controller_event
-                value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
             - choose:
               - conditions: '{{ button_double_initial_press }}'
                 sequence:
@@ -237,7 +256,7 @@ action:
                     action: button_short
                 - choose:
                   - conditions: []
-                    sequence: !input 'action_button_short'
+                    sequence: !input action_button_short
               # Delay to prevent double (or more) repeats of events on 1 button press to execute more then once. 
             - delay:
                 milliseconds: '{{ debounce_delay }}'
@@ -247,32 +266,26 @@ action:
               - platform: event
                 event_type: state_changed
                 event_data:
-                  entity_id: !input 'controller_entity'
+                  entity_id: !input controller_entity
               - platform: event
                 event_type:
                   - zha_event
                   - deconz_event
                 event_data:
-                  device_id: !input 'controller_device'
+                  device_id: !input controller_device
               timeout:
                 milliseconds: '{{ adjusted_double_press_delay }}'
             - choose:
                 # Execute if wait for trigger is cought.
               - conditions: '{{ wait.trigger and not "none" in wait.trigger }}'
                 sequence:
-                - service: input_text.set_value
-                  data:
-                    entity_id: !input helper_last_controller_event
-                    value: "{{ {\"trigger_action\":\"button_double\",\"trigger_delta\":trigger_delta,
-                                \"double_press_delta\": ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered)) * 1000) | int,
-                                \"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
                 - event: ahb_controller_event
                   event_data:
                     controller: '{{ controller_id }}'
                     action: button_double
                 - choose:
                   - conditions: []
-                    sequence: !input 'action_button_double'
+                    sequence: !input action_button_double
                 #Execute after timeout when action on initial butten press is also disabled.
               - conditions: '{{ not wait.trigger and not button_double_initial_press }}'
                 sequence:
@@ -282,52 +295,40 @@ action:
                     action: button_short
                 - choose:
                   - conditions: []
-                    sequence: !input 'action_button_short'
+                    sequence: !input action_button_short
 
       #Run when double press is disabled
       default:
-      - service: input_text.set_value
-        data:
-          entity_id: !input helper_last_controller_event
-          value: "{{ {\"trigger_action\":\"button_short\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
       - event: ahb_controller_event
         event_data:
           controller: '{{ controller_id }}'
           action: button_short
       - choose:
         - conditions: []
-          sequence: !input 'action_button_short'
+          sequence: !input action_button_short
  
     # Make sure that not triggered when button is already hold down (prevent processing multiple events)
   - conditions: '{{ trigger_action in button_long and ("button_long" not in states(helper_last_controller_event) or trigger_delta > 1000) }}'
     sequence:
-    - service: input_text.set_value
-      data:
-        entity_id: !input helper_last_controller_event
-        value: "{{ {\"trigger_action\":\"button_long\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
     - event: ahb_controller_event
       event_data:
         controller: '{{ controller_id }}'
         action: button_long
     - choose:
       - conditions: '{{ not button_long_loop }}'
-        sequence: !input 'action_button_long'
+        sequence: !input action_button_long
       - conditions: '{{ button_long_loop }}' 
         sequence:
         - repeat: 
-            sequence: !input 'action_button_long'
+            sequence: !input action_button_long
             while: '{{ repeat.index < button_long_max_loops }}'
 
   - conditions: '{{ trigger_action in button_release }}'
     sequence:
-    - service: input_text.set_value
-      data:
-        entity_id: !input helper_last_controller_event
-        value: "{{ {\"trigger_action\":\"button_release\",\"trigger_delta\":trigger_delta,\"processing_time\": processing_time,\"last_triggered\":now()|string} | to_json }}"
     - event: ahb_controller_event
       event_data:
         controller: '{{ controller_id }}'
         action: button_release
     - choose:
       - conditions: []
-        sequence: !input 'action_button_release'
+        sequence: !input action_button_release
