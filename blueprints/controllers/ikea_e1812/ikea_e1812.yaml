@@ -220,9 +220,6 @@ action:
               # if double press event is enabled
               - conditions: '{{ button_double_press }}'
                 sequence:
-                  # we need to wait a bit for debouncing to work.
-                  - delay:
-                      milliseconds: '{{ debounce_delay }}'
                   - choose:
                       # if previous event was a short press
                       - conditions: 
