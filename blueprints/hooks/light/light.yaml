@@ -54,7 +54,7 @@ blueprint:
             - Hue - Saturation
     light_transition:
       name: (Optional) Light Transition
-      description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it. This will only work when the "Force brightness at turn on" option is enabled. (When using this option on light.turn_on HA will turn on the light at minimum brightness.)
+      description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.
       default: 250
       selector:
         number:
@@ -246,6 +246,8 @@ action:
             default:
               - service: light.toggle
                 entity_id: !input light
+                data:
+                  transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == turn_on }}'
         sequence:
           - choose:
@@ -259,6 +261,8 @@ action:
             default:
               - service: light.turn_on
                 entity_id: !input light
+                data:
+                  transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == turn_off }}'
         sequence:
           - service: light.turn_off
