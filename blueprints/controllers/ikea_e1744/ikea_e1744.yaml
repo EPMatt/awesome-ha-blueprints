@@ -98,6 +98,20 @@ blueprint:
       selector:
         entity:
           domain: input_text
+    helper_debounce_delay:
+      name: Helper - Debounce delay
+      description: Delay used for debouncing RAW controller events, when the device
+        is connected with an integration which needs debounce. Increase this value
+        only if the device is integrated with deCONZ, ZHA and you notice duplicate
+        action runs.
+      default:  
+      selector:
+        number:
+          min: 0.0
+          max: 500.0
+          unit_of_measurement: milliseconds
+          mode: slider
+          step: 5
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
@@ -107,6 +121,7 @@ variables:
   helper_last_controller_event: !input helper_last_controller_event
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
+  helper_debounce_delay: !input 'helper_debounce_delay'
   # mapping between actions and integrations
   actions_mapping:
     deconz:
@@ -142,8 +157,6 @@ variables:
   click_short: '{{ actions_mapping[integration_id]["click_short"] }}'
   click_double: '{{ actions_mapping[integration_id]["click_double"] }}'
   click_triple: '{{ actions_mapping[integration_id]["click_triple"] }}'
-  # integrations which need to store the previous long press event to determine which button was released
-  integrations_with_prev_event_storage: [zha, zigbee2mqtt]
   # build data to send within a controller event
   controller_entity: !input controller_entity
   controller_device: !input controller_device
@@ -168,6 +181,8 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
+      # debouncing: filter events that fire rapidly after one and other
+      # Make sure stop events always go trough.  
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
@@ -178,13 +193,23 @@ condition:
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
         {%- endset -%}
-        {{ trigger_action != "" }}
+        {%- set last_controller_event -%}
+        {%- if "trigger_action" in states(helper_last_controller_event) -%}
+        {{ (states(helper_last_controller_event) | from_json).trigger_action }}
+        {%- endif -%}
+        {%- endset -%}
+        {%- set time_delta -%}
+        {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
+        default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
+        {%- endset -%}
+        {{ trigger_action and time_delta | int > helper_debounce_delay | int or
+        trigger_action in rotate_left_stop or trigger_action in rotate_right_stop }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-  # extract button event from the trigger
-  # provide a single string value to check against
+  # extract button event from the trigger to provide a single string value to check against
+  # extract last controller_event
   - variables:
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
@@ -194,18 +219,21 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
+      last_controller_event: '{%- if "trigger_action" in states(helper_last_controller_event) -%}
+          {{ (states(helper_last_controller_event) | from_json).trigger_action }}
+        {%- endif -%}'
+  # save the last controller event, store the button event
+  - choose:
+    - conditions: '{{trigger_action != last_controller_event}}'
+      sequence:
+      - service: input_text.set_value
+        data:
+          entity_id: !input 'helper_last_controller_event'
+          value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}","last_event":"{{last_controller_event}}" }' 
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action in rotate_left }}'
         sequence:
-          # for integrations which need to save the last controller event, store the button event
-          - choose:
-              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
-                sequence:
-                  - service: input_text.set_value
-                    data:
-                      entity_id: !input helper_last_controller_event
-                      value: '{{ trigger_action }}'
           # fire the event only once before looping the action
           - event: ahb_controller_event
             event_data:
@@ -218,8 +246,6 @@ action:
               until: '{{ not rotate_left_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_left_stop }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -228,17 +254,10 @@ action:
               action: rotate_left_stop
           # run the custom action
           - choose:
-            default: !input action_rotate_left_stop
+              - conditions: []
+                sequence: !input 'action_rotate_left_stop'
       - conditions: '{{ trigger_action in rotate_right }}'
         sequence:
-          # for integrations which need to save the last controller event, store the button event
-          - choose:
-              - conditions: '{{ integration_id in integrations_with_prev_event_storage }}'
-                sequence:
-                  - service: input_text.set_value
-                    data:
-                      entity_id: !input helper_last_controller_event
-                      value: '{{ trigger_action }}'
           # fire the event only once before looping the action
           - event: ahb_controller_event
             event_data:
@@ -251,8 +270,6 @@ action:
               until: '{{ not rotate_right_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_right_stop }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -261,7 +278,8 @@ action:
               action: rotate_right_stop
           # run the custom action
           - choose:
-            default: !input action_rotate_right_stop
+              - conditions: []
+                sequence: !input 'action_rotate_right_stop'
       - conditions: '{{ trigger_action in click_short }}'
         sequence:
           # fire the event
@@ -271,7 +289,8 @@ action:
               action: click_short
           # run the custom action
           - choose:
-            default: !input action_click_short
+              - conditions: []
+                sequence: !input 'action_click_short'
       - conditions: '{{ trigger_action in click_double }}'
         sequence:
           # fire the event
@@ -281,7 +300,8 @@ action:
               action: click_double
           # run the custom action
           - choose:
-            default: !input action_click_double
+              - conditions: []
+                sequence: !input 'action_click_double'
       - conditions: '{{ trigger_action in click_triple }}'
         sequence:
           # fire the event
@@ -291,4 +311,5 @@ action:
               action: click_triple
           # run the custom action
           - choose:
-            default: !input action_click_triple
+              - conditions: []
+                sequence: !input 'action_click_triple'
