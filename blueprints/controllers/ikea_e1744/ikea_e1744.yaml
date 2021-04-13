@@ -181,8 +181,8 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
-      # debouncing: filter events that fire rapidly after one and other
-      # Make sure stop events always go trough.  
+      # debouncing: filter events that fire rapidly after one and other 
+      # Make sure stop events always go trough
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
@@ -191,11 +191,6 @@ condition:
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {%- endif -%}
-        {%- endset -%}
-        {%- set last_controller_event -%}
-        {%- if "trigger_action" in states(helper_last_controller_event) -%}
-        {{ (states(helper_last_controller_event) | from_json).trigger_action }}
         {%- endif -%}
         {%- endset -%}
         {%- set time_delta -%}
@@ -208,6 +203,9 @@ condition:
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
+  # Add short "debounce" to prevent HA from not restarting an automation.
+  - delay:
+      milliseconds: 33
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
@@ -243,7 +241,7 @@ action:
           # repeat until the automation is restarted ie. when the corresponding stop message is received
           - repeat:
               sequence: !input action_rotate_left
-              until: '{{ not rotate_left_loop }}'
+              while: '{{ rotate_left_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_left_stop }}'
         sequence:
@@ -267,7 +265,7 @@ action:
           # repeat until the automation is restarted ie. when the corresponding stop message is received
           - repeat:
               sequence: !input action_rotate_right
-              until: '{{ not rotate_right_loop }}'
+              while: '{{ rotate_right_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_right_stop }}'
         sequence:
