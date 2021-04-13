@@ -257,9 +257,9 @@ action:
                               - conditions: []
                                 sequence: !input action_button_double
                       # If no event cought within the timeout period (single press)
-                      # wait.trigger does not yet exists when triggered, only after timeout or after the trigger is done.
-                      # So we need to check for both if it exists ir contains none.
-                      - conditions: '{{ not wait.trigger or "none" in wait.trigger }}'
+                      # wait.trigger will be filled with "none" if wait_for trigger timeouts, otherwise it will not exist
+                      - conditions:
+                        - '{{ (wait.trigger and "none" in wait.trigger) or trigger_delta > helper_double_press_delay }}'
                         sequence:
                           - event: ahb_controller_event
                             event_data:
