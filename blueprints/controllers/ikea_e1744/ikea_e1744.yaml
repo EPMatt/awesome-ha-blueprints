@@ -205,7 +205,7 @@ condition:
 action:
   # Add short "debounce" to prevent HA from not restarting an automation.
   - delay:
-      milliseconds: 33
+      milliseconds: 50
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
