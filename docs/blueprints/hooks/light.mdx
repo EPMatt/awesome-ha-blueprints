@@ -69,7 +69,12 @@ This integration provides the entity which represents a light in Home Assistant.
 />
 <Input
   name='Light Transition'
-  description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
+  description='Time (in milliseconds) the light should take turn on or off, if the light supports it.'
+  selector='number'
+/>
+<Input
+  name='Step Duration'
+  description='Time duration (in milliseconds) for each step, both when controlling brightness and color. Tweaking it might result in a smoother control experience, depending on the light model.'
   selector='number'
 />
 <Input
@@ -130,3 +135,4 @@ If you want to link multiple lights to the same controller you can either use [L
   - allow to force brightness to a specific value when turning on the light
 - **2021-03-27**: Add support for Philips Hue dimmer switch
 - **2021-04-06**: Fix light color modes not allowing to configure an automation with color temperature control.
+- **2021-04-13**: Specify step duration (in milliseconds) when controlling light brightness and color.
