@@ -208,12 +208,6 @@ action:
       trigger_delta:
         '{{ ((as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
         default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000) | int }}'
-  # we need to wait a bit for debouncing to work.
-  # The doublep ress will be executed at once because of of the wait for trigger.
-  # Any other button is also ignored within the double press timeout.
-  # This has no real downside but does helps agains accidental miss-presses.
-  - delay:
-      milliseconds: '{{ helper_debounce_delay | int }}'
   - choose: 
       - conditions: '{{ not (helper_double_press_delay and trigger_delta < helper_double_press_delay
                         and button_double_press and trigger_action in button_short) }}'
@@ -222,6 +216,12 @@ action:
           data:
             entity_id: !input helper_last_controller_event
             value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+  # we need to wait a bit for debouncing to work.
+  # The doublep ress will be executed at once because of of the wait for trigger.
+  # Any other button is also ignored within the double press timeout.
+  # This has no real downside but does helps agains accidental miss-presses.
+  - delay:
+      milliseconds: '{{ helper_debounce_delay | int }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action in button_short }}'
@@ -256,10 +256,14 @@ action:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_double
-                      # If no event cought within the timeout period (single press)
-                      # wait.trigger will be filled with "none" if wait_for trigger timeouts, otherwise it will not exist
+                          # Need to update the helper to make sure the button_short is not triggered directly after double.      
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+                      # check if nothing happened within the double_press_delay time and then fire button_short
                       - conditions:
-                        - '{{ (wait.trigger and "none" in wait.trigger) or trigger_delta > helper_double_press_delay }}'
+                        - '{{ trigger_delta > helper_double_press_delay }}'
                         sequence:
                           - event: ahb_controller_event
                             event_data:
