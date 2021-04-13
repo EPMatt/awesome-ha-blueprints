@@ -281,9 +281,10 @@ action:
                 - conditions: []
                   sequence: !input action_button_short
       - conditions:
-          - '{{ trigger_action in button_long }}'
+          # Need to check this way because trigger_action gets appended with extra data.
+          - '{{ button_long[0] in trigger_action }}'
           # make sure that not triggered when button is already hold down (prevent processing multiple events)
-          - '{{ "button_long" not in (states(helper_last_controller_event) | from_json) or trigger_delta > 1000 }}'
+          - '{{ button_long[0] not in states(helper_last_controller_event) or trigger_delta > 1000 }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
