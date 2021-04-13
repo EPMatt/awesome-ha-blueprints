@@ -213,7 +213,7 @@ action:
   # Any other button is also ignored within the double press timeout.
   # This has no real downside but does helps agains accidental miss-presses.
   - delay:
-      milliseconds: '{{ helper_debounce_delay }}'
+      milliseconds: '{{ helper_debounce_delay | int }}'
   - choose: 
       - conditions: '{{ not (helper_double_press_delay and trigger_delta < helper_double_press_delay
                         and button_double_press and trigger_action in button_short) }}'
@@ -254,7 +254,8 @@ action:
                               action: button_double
                           # run the custom action
                           - choose:
-                            default: !input action_button_double
+                              - conditions: []
+                                sequence: !input action_button_double
                       # If no event cought within the timeout period (single press)
                       # wait.trigger does not yet exists when triggered, only after timeout or after the trigger is done.
                       # So we need to check for both if it exists ir contains none.
@@ -266,7 +267,8 @@ action:
                               action: button_short
                           # run the custom action
                           - choose:
-                            default: !input action_button_short
+                              - conditions: []
+                                sequence: !input action_button_short
             # if double press event is disabled run the action for the single short press
             default:
               # fire the event
