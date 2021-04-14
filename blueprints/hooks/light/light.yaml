@@ -306,7 +306,7 @@ action:
                     transition: '{{ step_duration / 1000 }}'
                     entity_id: !input light
                 - delay:
-                    milliseconds: '{{ step_duration / 1000 }}'
+                    milliseconds: '{{ step_duration }}'
       - conditions: '{{ action == brightness_down_repeat }}'
         sequence:
           - repeat:
@@ -318,7 +318,7 @@ action:
                     transition: '{{ step_duration / 1000 }}'
                     entity_id: !input light
                 - delay:
-                    milliseconds: '{{ step_duration / 1000 }}'
+                    milliseconds: '{{ step_duration }}'
       - conditions: '{{ action == color_up }}'
         sequence:
           choose:
@@ -367,7 +367,7 @@ action:
                           transition: '{{ step_duration / 1000 }}'
                         entity_id: !input light
                       - delay:
-                          milliseconds: '{{ step_duration / 1000 }}'
+                          milliseconds: '{{ step_duration }}'
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
               sequence:
                 - repeat:
@@ -379,7 +379,7 @@ action:
                           transition: '{{ step_duration / 1000 }}'
                         entity_id: !input light
                       - delay:
-                          milliseconds: '{{ step_duration / 1000 }}'
+                          milliseconds: '{{ step_duration }}'
       - conditions: '{{ action == color_down_repeat }}'
         sequence:
           choose:
@@ -394,7 +394,7 @@ action:
                           transition: '{{ step_duration / 1000 }}'
                         entity_id: !input light
                       - delay:
-                          milliseconds: '{{ step_duration / 1000 }}'
+                          milliseconds: '{{ step_duration }}'
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
               sequence:
                 - repeat:
@@ -406,4 +406,4 @@ action:
                           transition: '{{ step_duration / 1000 }}'
                         entity_id: !input light
                       - delay:
-                          milliseconds: '{{ step_duration / 1000 }}'
+                          milliseconds: '{{ step_duration }}'
