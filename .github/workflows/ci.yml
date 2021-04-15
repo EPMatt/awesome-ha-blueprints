@@ -4,6 +4,9 @@ name: Continuous Integration
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   prettify-lint:
@@ -27,6 +30,7 @@ jobs:
   gh-pages:
     needs: prettify-lint
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request }}
 
     steps:
       - name: Check out Git repository
