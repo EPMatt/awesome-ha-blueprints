@@ -4,7 +4,7 @@ about: Suggest a new blueprint to add to the collection.
 title: ''
 labels:
 - blueprint
-- bug
+- new
 assignees: ''
 ---
 
