@@ -66,10 +66,10 @@ blueprint:
     min_brightness:
       name: (Optional) Light minimum brightness
       description: The minimum brightness the light can be set with this automation.
-      default: 0
+      default: 1
       selector:
         number:
-          min: 0
+          min: 1
           max: 255
           step: 1
           unit_of_measurement: brightness
@@ -130,6 +130,13 @@ blueprint:
       default: true
       selector:
         boolean:
+    smooth_power_off:
+      name: (Optional) Smooth power off
+      description: Allow a brightness down command (single or continuous) to turn off the light when at minimum brightness. Disabling this will prevent the light from being turned off by brightness down commands.
+      default: true
+      selector:
+        boolean:
+    
 
 # Automation schema
 variables:
@@ -145,6 +152,7 @@ variables:
   force_brightness: !input force_brightness
   on_brightness: !input on_brightness
   smooth_power_on: !input smooth_power_on
+  smooth_power_off: !input smooth_power_off
   # Blueprint data
   supported_color_modes:
     Auto: auto
@@ -285,11 +293,19 @@ action:
               entity_id: !input light
       - conditions: '{{ action == brightness_down }}'
         sequence:
-          - service: light.turn_on
-            data:
-              brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
-              transition: 0.25
-              entity_id: !input light
+          - choose:
+              - conditions: '{{ smooth_power_off and state_attr(light,"brightness") == min_brightness }}'
+                sequence:
+                  - service: light.turn_off
+                    data:
+                      transition: 0.25
+                      entity_id: !input light
+            default:
+            - service: light.turn_on
+              data:
+                brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
+                transition: 0.25
+                entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
@@ -315,16 +331,39 @@ action:
                     milliseconds: 250
       - conditions: '{{ action == brightness_down_repeat }}'
         sequence:
-          - repeat:
-              while: '{{ true }}'
+          - choose:
+            # using a separate sequence for the smooth power off feature to not perform unnecessary checks at every iteration when the feature is disabled
+            - conditions: '{{ smooth_power_off }}'
               sequence:
-                - service: light.turn_on
-                  data:
-                    brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                    transition: 0.25
-                    entity_id: !input light
-                - delay:
-                    milliseconds: 250
+                - repeat:
+                  while: '{{ true }}'
+                  sequence:
+                    - choose:
+                      - conditions: '{{ state_attr(light,"brightness") == min_brightness }}'
+                        sequence: 
+                          - service: light.turn_off
+                            data:
+                              transition: 0.25
+                              entity_id: !input light
+                      default:
+                        - service: light.turn_on
+                          data:
+                            brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
+                            transition: 0.25
+                            entity_id: !input light
+                    - delay:
+                        milliseconds: 250
+            default:
+            - repeat:
+                while: '{{ true }}'
+                sequence:
+                  - service: light.turn_on
+                    data:
+                      brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
+                      transition: 0.25
+                      entity_id: !input light
+                  - delay:
+                      milliseconds: 250
       - conditions: '{{ action == color_up }}'
         sequence:
           choose:
