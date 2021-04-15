@@ -49,6 +49,10 @@ A clear and concise description of what you expected to happen.
 
 A clear and concise description of what it's actually happening, in contrast with the expected behaviour.
 
+## Additional Details\*
+
+- [ ] I'd like to help developing a fix for this issue.
+
 ## Screenshots
 
 If applicable, add screenshots to help explain your problem.
