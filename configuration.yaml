@@ -7,3 +7,4 @@ group: !include config/groups.yaml
 automation: !include config/automations.yaml
 script: !include config/scripts.yaml
 scene: !include config/scenes.yaml
+switch: !include switch.yaml
