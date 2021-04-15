@@ -203,8 +203,8 @@ action:
                   - choose:
                       # if previous event was a short press
                       - conditions:
-                        - '{{ (states(helper_last_controller_event) | from_json).action in button_short }}'
-                        - '{{ (strptime(trigger.event.time_fired,"%Y-%m-%dT%H:%M:%S.%f%z")) <= (strptime((states(helper_last_controller_event) | from_json).time_fired,"%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(milliseconds=helper_double_press_delay)) }}'
+                          - '{{ (states(helper_last_controller_event) | from_json).action in button_short }}'
+                          - '{{ (strptime(trigger.event.time_fired,"%Y-%m-%dT%H:%M:%S.%f%z")) <= (strptime((states(helper_last_controller_event) | from_json).time_fired,"%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(milliseconds=helper_double_press_delay)) }}'
                         sequence:
                           # run the double press action
                           # fire the event
