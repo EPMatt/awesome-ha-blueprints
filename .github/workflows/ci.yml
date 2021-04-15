@@ -32,7 +32,7 @@ jobs:
         with:
           tag: stable
       - name: Trigger blueprint verification
-        run: | 
+        run: |
           curl -sSL -f -X GET \
             -H "Authorization: Bearer ${{ steps.homeassistant.outputs.token }}" \
             ${{ steps.homeassistant.outputs.url }}/config/blueprint/dashboard
