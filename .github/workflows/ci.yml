@@ -26,18 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: YamlLint
         run: yamllint .
-      - name: Setup Home Assistant
-        id: homeassistant
-        uses: ludeeus/setup-homeassistant@21.1.1
-        with:
-          tag: stable
-      - name: Trigger blueprint verification
-        run: |
-          curl -sSL -f -X GET \
-            -H "Authorization: Bearer ${{ steps.homeassistant.outputs.token }}" \
-            ${{ steps.homeassistant.outputs.url }}/config/blueprint/dashboard
-      - name: Get Home Assistant logs
-        run: docker logs ${{ steps.homeassistant.outputs.containername }}
 
   gh-pages:
     needs: prettify-lint
