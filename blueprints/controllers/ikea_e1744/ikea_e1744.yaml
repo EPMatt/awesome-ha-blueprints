@@ -100,14 +100,15 @@ blueprint:
           domain: input_text
     helper_debounce_delay:
       name: Helper - Debounce delay
-      description: Delay used for debouncing RAW controller events, when the device
+      description:
+        Delay used for debouncing RAW controller events, when the device
         is connected with an integration which needs debounce. Change this value
         only if you notice duplicate action runs.
         A postive value means the first in the series of commands received within that timeframe will be executed
         at once but the next command will only be executed after the set time.
         A negative value means execution will wait for the amount of time configured (but then as a postive)
         and the last of the commands received in that time frame will be executed.
-      default: 0 
+      default: 0
       selector:
         number:
           min: -500
@@ -186,7 +187,7 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
-      # debouncing: filter events that fire rapidly after one and other 
+      # debouncing: filter events that fire rapidly after one and other
       # Make sure stop events always go trough but only one.
       # Ignore repeats of the same rotation events and stop events.
       # Ignore triggers in opesite directions without a stop event (or click event) in between.
@@ -224,8 +225,8 @@ action:
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
-    # When debounce delay is a negative value, set pre_debounce variable and make value postive
-      pre_debounce: '{% if helper_debounce_delay >= 0 %}1{% else %}0{% endif %}' 
+      # When debounce delay is a negative value, set pre_debounce variable and make value postive
+      pre_debounce: '{% if helper_debounce_delay >= 0 %}1{% else %}0{% endif %}'
       debounce_delay: >-
         {% if helper_debounce_delay < 0 %}
           {{ helper_debounce_delay * -1 }}
@@ -257,7 +258,7 @@ action:
   - service: input_text.set_value
     data:
       entity_id: !input 'helper_last_controller_event'
-      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}"}' 
+      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}"}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action in rotate_left }}'
@@ -277,7 +278,7 @@ action:
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event in rotate_left }}'
         sequence:
-          # when doing pre_debounce wait time defined in debounce_delay before stopping since we always allow stop events to go trough. 
+          # when doing pre_debounce wait time defined in debounce_delay before stopping since we always allow stop events to go trough.
           - delay:
               milliseconds: '{% if pre_debounce == 1 %}{{ debounce_delay }}{% else %}0{% endif %}'
           # fire the event
@@ -306,7 +307,7 @@ action:
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event in rotate_right }}'
         sequence:
-          # wait time defined in debounce_delay before stopping since we always allow stop events to go trough. 
+          # wait time defined in debounce_delay before stopping since we always allow stop events to go trough.
           - delay:
               milliseconds: '{% if pre_debounce == 1 %}{{ debounce_delay }}{% else %}0{% endif %}'
           # fire the event
