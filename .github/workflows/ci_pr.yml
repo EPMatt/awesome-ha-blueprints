@@ -17,16 +17,17 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: npm ci
-      - name: Yamllint
+      - id: yamllint
+        name: Yamllint
         uses: reviewdog/action-yamllint@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           yamllint_flags: '.'
           fail_on_error: true
-          level: warning
           filter_mode: nofilter
       - if: always()
+        id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
@@ -34,6 +35,22 @@ jobs:
           reporter: github-pr-review
           eslint_flags: '--ext js,jsx .'
           fail_on_error: true
-          level: warning
           filter_mode: nofilter
+      - if: always()
+        id: prettier
+        name: Prettier Check
+        uses: creyD/prettier_action@v3.3
+        with:
+          dry: true
+          prettier_options: '**/*.{yml,yaml,md,js,jsx,json,css,scss}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+      - if: steps.prettier.conclusion == 'failure'
+        name: Create Prettier comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.number}}
+          body: |
+            Hey there! Thank you for contributing to the project. :rocket:
+            It looks like there's some unformatted code in your PR. Did you remember to run the `npm run format` command before submitting your work?
 
