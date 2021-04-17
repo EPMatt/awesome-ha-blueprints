@@ -33,7 +33,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-          eslint_flags: '--ext js,jsx .'
+          eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
       - if: always()
@@ -42,7 +42,7 @@ jobs:
         uses: creyD/prettier_action@v3.3
         with:
           dry: true
-          prettier_options: '--write **/*.{yml,yaml,md,js,jsx,json,css,scss}'
+          prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: ${{ always() && steps.prettier.outcome != 'success' }}
