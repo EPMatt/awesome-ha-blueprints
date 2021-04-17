@@ -36,8 +36,21 @@ jobs:
           eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
-      - if: always()
-        id: prettier
+  
+
+  prettier-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - id: prettier
         name: Prettier Check
         uses: creyD/prettier_action@v3.3
         with:
@@ -45,11 +58,3 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-      - if: ${{ always() && steps.prettier.outcome != 'success' }}
-        name: Create Prettier comment
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.number}}
-          body: |
-            Hey @${{ github.actor}}! Thank you for contributing to the project. :rocket:
-            It looks like there's some unformatted code in your PR. Did you remember to run the `npm run format` command before submitting your work?

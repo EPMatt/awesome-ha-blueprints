@@ -1,0 +1,24 @@
+name: CI - PR Comment
+
+'on':
+  check_run:
+    types:
+      - completed
+jobs:
+  pr-comment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.check_run.name == 'prettier-check' && github.event.check_run.conclusion == 'failure' }}
+
+    steps:
+      - uses: 8BitJonny/gh-get-current-pr@v1
+        id: PR
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ github.event.check_run.head_sha }}
+      - name: Create Prettier comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.PR.outputs.number }}
+          body: |
+            Hey @${{ steps.PR.outputs.user.login }}! Thank you for contributing to the project. :rocket:
+            It looks like there's some unformatted code in your PR. Did you remember to run the `npm run format` command before submitting your work?
