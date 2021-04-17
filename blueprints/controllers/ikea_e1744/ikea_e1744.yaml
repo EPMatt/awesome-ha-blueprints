@@ -288,7 +288,7 @@ action:
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input 'action_click_short'
+                sequence: !input action_click_short
       - conditions: '{{ trigger_action in click_double }}'
         sequence:
           # fire the event
