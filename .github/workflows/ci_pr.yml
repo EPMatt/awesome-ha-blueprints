@@ -1,7 +1,7 @@
 name: Continuous Integration - PR
 
 'on':
-  pull_request_target:
+  pull_request:
     branches:
       - main
 jobs:
@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
       - name: Yamllint
         uses: reviewdog/action-yamllint@v1
         with:
@@ -19,11 +25,15 @@ jobs:
           yamllint_flags: '.'
           fail_on_error: true
           level: warning
+          filter_mode: nofilter
       - if: always()
         name: ESLint
-        run: eslint --ext js,jsx --fix .
-      - if: always()
-        name: Code suggester
-        uses: reviewdog/action-suggester@v1
+        uses: reviewdog/action-eslint@v1
         with:
-          tool_name: eslint
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          eslint_flags: '--ext js,jsx .'
+          fail_on_error: true
+          level: warning
+          filter_mode: nofilter
+
