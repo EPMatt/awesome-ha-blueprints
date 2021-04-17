@@ -17,7 +17,7 @@ function BlueprintCategoryCard({ icon, color, name, description, id }) {
         >
           <Icon size={48} />
         </div>
-        <div className='card__body' style={{minHeight:'13rem'}}>
+        <div className='card__body' style={{ minHeight: '13rem' }}>
           <h3>{name}</h3>
           <p>{description}</p>
         </div>
