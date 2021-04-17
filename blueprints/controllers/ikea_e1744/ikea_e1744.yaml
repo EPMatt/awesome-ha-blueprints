@@ -253,7 +253,7 @@ action:
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input 'action_rotate_left_stop'
+                sequence: !input action_rotate_left_stop
       - conditions: '{{ trigger_action in rotate_right }}'
         sequence:
           # fire the event only once before looping the action
