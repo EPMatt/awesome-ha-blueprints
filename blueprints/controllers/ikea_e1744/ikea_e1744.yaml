@@ -100,7 +100,8 @@ blueprint:
           domain: input_text
     helper_debounce_delay:
       name: Helper - Debounce delay
-      description: Delay used for debouncing RAW controller events, when the device
+      description:
+        Delay used for debouncing RAW controller events, when the device
         is connected with an integration which needs debounce. Change this value
         only if you notice duplicate action runs.
         A postive value means the first in the series of commands received within that timeframe will be executed
