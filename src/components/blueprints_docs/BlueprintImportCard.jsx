@@ -8,10 +8,10 @@ const styles = {
   },
 }
 
-function BlueprintImportCard(props) {
+function BlueprintImportCard({ category, id }) {
   const [copy, setCopy] = useState(false)
-  const url = `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${props.category}/${props.id}/${props.id}.yaml`
-  const copyToClipboard = async (e) => {
+  const url = `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${category}/${id}/${id}.yaml`
+  const copyToClipboard = async () => {
     await navigator.clipboard.writeText(url)
     setCopy(true)
   }
@@ -21,8 +21,8 @@ function BlueprintImportCard(props) {
         <h3>Import this blueprint</h3>
       </div>
       <div className='card__body'>
-        <div class='row row--no-gutters'>
-          <div class='col col--6'>
+        <div className='row row--no-gutters'>
+          <div className='col col--6'>
             <h5>My Home Assistant</h5>
             <p>
               <a
@@ -30,6 +30,7 @@ function BlueprintImportCard(props) {
                   url
                 )}`}
                 target='_blank'
+                rel='noreferrer'
               >
                 <img
                   src='https://my.home-assistant.io/badges/blueprint_import.svg'
@@ -41,9 +42,10 @@ function BlueprintImportCard(props) {
               <small>(Home Assistant 2021.3.0 or higher)</small>
             </p>
           </div>
-          <div class='col col--6'>
+          <div className='col col--6'>
             <h5>Direct Link</h5>
             <button
+              type='button'
               className={`button button--${copy ? 'success' : 'primary'}`}
               onClick={copyToClipboard}
             >

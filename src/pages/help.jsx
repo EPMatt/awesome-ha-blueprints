@@ -5,8 +5,8 @@ import Link from '@docusaurus/Link'
 function Help() {
   return (
     <Layout
-      title={`Help`}
-      description={`Ask for help for anything related to Awesome HA Blueprints`}
+      title='Help'
+      description='Ask for help for anything related to Awesome HA Blueprints'
     >
       <div
         className='row row--no-gutters padding-vert--lg'
@@ -81,7 +81,7 @@ function Help() {
                 . ☕
               </p>
             </div>
-            <div className='col col--4' style={{ maxWidth: 300 }}></div>
+            <div className='col col--4' style={{ maxWidth: 300 }} />
           </div>
         </div>
       </div>

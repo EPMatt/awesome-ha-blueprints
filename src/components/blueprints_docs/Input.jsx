@@ -49,21 +49,21 @@ const styles = {
   },
 }
 
-function Input(props) {
-  const selector = props.selector ? selectors[props.selector] : selectors.none
+function Input({ selector, required, name, description }) {
+  const selectorVal = selector ? selectors[selector] : selectors.none
   return (
     <div>
       <span style={styles.inputName}>
-        {props.name} <Badge variant='primary'>{selector.type}</Badge>{' '}
-        {props.required ? (
-          <Badge variant='warning'>{props.required} Required</Badge>
+        {name} <Badge variant='primary'>{selectorVal.type}</Badge>{' '}
+        {required ? (
+          <Badge variant='warning'>{required} Required</Badge>
         ) : (
           <Badge variant='info'>Optional</Badge>
         )}
       </span>
       <br />
       <p style={styles.inputDescription} className='margin-top--sm'>
-        {props.description}
+        {description}
       </p>
       <hr />
     </div>
