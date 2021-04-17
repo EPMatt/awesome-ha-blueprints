@@ -19,3 +19,11 @@ jobs:
           yamllint_flags: '.'
           fail_on_error: true
           level: warning
+      - if: always()
+        name: ESLint
+        run: eslint --ext js,jsx --fix .
+      - if: always()
+        name: Code suggester
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: eslint
