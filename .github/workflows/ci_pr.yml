@@ -5,7 +5,23 @@ name: Continuous Integration - PR
     branches:
       - main
 jobs:
-  lint:
+  yamllint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - id: yamllint
+        name: Yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          yamllint_flags: '.'
+          fail_on_error: true
+          filter_mode: nofilter
+
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,17 +33,7 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: npm ci
-      - id: yamllint
-        name: Yamllint
-        uses: reviewdog/action-yamllint@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-check
-          yamllint_flags: '.'
-          fail_on_error: true
-          filter_mode: nofilter
-      - if: always()
-        id: eslint
+      - id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
@@ -36,9 +42,8 @@ jobs:
           eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
-  
 
-  prettier-check:
+  prettier-lint:
     runs-on: ubuntu-latest
 
     steps:
