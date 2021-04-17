@@ -45,7 +45,7 @@ jobs:
           prettier_options: '--write **/*.{yml,yaml,md,js,jsx,json,css,scss}'
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-      - if: steps.prettier.conclusion == 'failure'
+      - if: ${{ steps.prettier.outcome == 'failure' }}
         name: Create Prettier comment
         uses: peter-evans/create-or-update-comment@v1
         with:
