@@ -21,3 +21,4 @@ Make sure to provide enough information so that your pull request can be reviewe
 
 - [ ] I followed sections of the [Contribution Guidelines](https://github.com/EPMatt/awesome-ha-blueprints/blob/main/CONTRIBUTING.md) relevant to changes I'm proposing.
 - [ ] I properly tested proposed changes on my system and confirm that they are working as expected.
+- [ ] I formatted files with Prettier using the command `npm run format` before submitting my Pull Request.
