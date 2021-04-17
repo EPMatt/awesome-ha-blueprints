@@ -130,8 +130,9 @@ variables:
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
   # Subtracted debounce delay so that the timeout is really as set in double press delay but never go below minimum delay.
-  adjusted_double_press_delay: '{% if helper_double_press_delay - helper_debounce_delay < 100 %}100{% else %}
-                                {{ (helper_double_press_delay - helper_debounce_delay) | int }} {% endif %}'
+  adjusted_double_press_delay:
+    '{% if helper_double_press_delay - helper_debounce_delay < 100 %}100{% else %}
+    {{ (helper_double_press_delay - helper_debounce_delay) | int }} {% endif %}'
   # mapping between actions and integrations
   actions_mapping:
     deconz:
@@ -196,7 +197,7 @@ condition:
         {{ time_delta | int > helper_double_press_delay | int }}
         {%- else -%}
         {{ trigger_action != "" and time_delta | int > helper_debounce_delay | int }}
-        {%- endif -%}  
+        {%- endif -%}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
@@ -231,16 +232,16 @@ action:
                   - delay:
                       milliseconds: '{{ helper_debounce_delay | int }}'
                   - wait_for_trigger:
-                    - platform: event
-                      event_type: state_changed
-                      event_data:
-                        entity_id: !input 'controller_entity'
-                    - platform: event
-                      event_type:
-                        - zha_event
-                        - deconz_event
-                      event_data:
-                        device_id: !input 'controller_device'
+                      - platform: event
+                        event_type: state_changed
+                        event_data:
+                          entity_id: !input 'controller_entity'
+                      - platform: event
+                        event_type:
+                          - zha_event
+                          - deconz_event
+                        event_data:
+                          device_id: !input 'controller_device'
                     timeout:
                       milliseconds: '{{ adjusted_double_press_delay }}'
                   - choose:
@@ -256,14 +257,14 @@ action:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_double
-                          # Need to update the helper to make sure the button_short is not triggered directly after double.      
+                          # Need to update the helper to make sure the button_short is not triggered directly after double.
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
                               value: '{{ {"trigger_action":"double_press","last_triggered":now()|string} | to_json }}'
                       # check if nothing happened within the double_press_delay time and then fire button_short
                       - conditions:
-                        - '{{ trigger_delta > helper_double_press_delay }}'
+                          - '{{ trigger_delta > helper_double_press_delay }}'
                         sequence:
                           - event: ahb_controller_event
                             event_data:
@@ -282,8 +283,8 @@ action:
                   action: button_short
               # run the custom action
               - choose:
-                - conditions: []
-                  sequence: !input action_button_short
+                  - conditions: []
+                    sequence: !input action_button_short
       - conditions:
           # Need to check this way because trigger_action gets appended with extra data.
           - '{{ button_long[0] in trigger_action }}'
@@ -313,5 +314,5 @@ action:
               action: button_release
           # run the custom action
           - choose:
-            - conditions: []
-              sequence: !input action_button_release
+              - conditions: []
+                sequence: !input action_button_release
