@@ -299,7 +299,7 @@ action:
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input 'action_click_double'
+                sequence: !input action_click_double
       - conditions: '{{ trigger_action in click_triple }}'
         sequence:
           # fire the event
