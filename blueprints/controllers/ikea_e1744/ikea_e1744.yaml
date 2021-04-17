@@ -277,7 +277,7 @@ action:
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input 'action_rotate_right_stop'
+                sequence: !input action_rotate_right_stop
       - conditions: '{{ trigger_action in click_short }}'
         sequence:
           # fire the event
