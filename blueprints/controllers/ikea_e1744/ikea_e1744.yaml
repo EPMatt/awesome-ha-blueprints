@@ -264,7 +264,7 @@ action:
           # repeat until the automation is restarted ie. when the corresponding stop message is received
           - repeat:
               sequence: !input action_rotate_right
-              while: '{{ rotate_right_loop }}'
+              until: '{{ not rotate_right_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_right_stop }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
