@@ -101,14 +101,17 @@ blueprint:
     helper_debounce_delay:
       name: Helper - Debounce delay
       description: Delay used for debouncing RAW controller events, when the device
-        is connected with an integration which needs debounce. Increase this value
-        only if the device is integrated with deCONZ, ZHA and you notice duplicate
-        action runs.
-      default:  
+        is connected with an integration which needs debounce. Change this value
+        only if you notice duplicate action runs.
+        A postive value means the first in the series of commands received within that timeframe will be executed
+        at once but the next command will only be executed after the set time.
+        A negative value means execution will wait for the amount of time configured (but then as a postive)
+        and the last of the commands received in that time frame will be executed.
+      default: 0 
       selector:
         number:
-          min: 0.0
-          max: 500.0
+          min: -500
+          max: 500
           unit_of_measurement: milliseconds
           mode: slider
           step: 5
@@ -184,57 +187,80 @@ condition:
     conditions:
       # check that the button event is not empty
       # debouncing: filter events that fire rapidly after one and other 
-      # Make sure stop events always go trough
+      # Make sure stop events always go trough but only one.
+      # Ignore repeats of the same rotation events and stop events.
+      # Ignore triggers in opesite directions without a stop event (or click event) in between.
       - >-
         {%- set trigger_action -%}
-        {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
-        {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
-        {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {%- endif -%}
+          {%- if integration_id == "zigbee2mqtt" -%}
+            {{ trigger.event.data.new_state.state }}
+          {%- elif integration_id == "deconz" -%}
+            {{ trigger.event.data.event }}
+          {%- elif integration_id == "zha" -%}
+            {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+          {%- endif -%}
         {%- endset -%}
-        {%- set time_delta -%}
-        {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
-        default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
+        {%- set trigger_time_delta -%}
+          {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
+          default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
         {%- endset -%}
-        {{ trigger_action and time_delta | int > helper_debounce_delay | int or
-        trigger_action in rotate_left_stop or trigger_action in rotate_right_stop }}
+        {%- set last_controller_event -%}
+          {%- if "trigger_action" in states(helper_last_controller_event) -%}
+            {{ (states(helper_last_controller_event) | from_json).trigger_action }}
+          {%- endif -%}
+        {%- endset -%}
+        {{
+          (trigger_action and (helper_debounce_delay > 0 or trigger_time_delta | int > helper_debounce_delay | int)
+            and not ((trigger_action in rotate_left or trigger_action in rotate_right) and trigger_action == last_controller_event)
+            and not (trigger_action in rotate_left and last_controller_event in rotate_right)
+            and not (trigger_action in rotate_right and last_controller_event in rotate_left))
+          or
+           ((trigger_action in rotate_left_stop or trigger_action in rotate_right_stop) and trigger_action != last_controller_event)
+        }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-  # Add short "debounce" to prevent HA from not restarting an automation.
-  - delay:
-      milliseconds: 50
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
+    # When debounce delay is a negative value, set pre_debounce variable and make value postive
+      pre_debounce: '{% if helper_debounce_delay >= 0 %}1{% else %}0{% endif %}' 
+      debounce_delay: >-
+        {% if helper_debounce_delay < 0 %}
+          {{ helper_debounce_delay * -1 }}
+        {% else %}
+          {{ helper_debounce_delay }}
+        {% endif %}
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+          {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
+          {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+          {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      last_controller_event: '{%- if "trigger_action" in states(helper_last_controller_event) -%}
+      last_controller_event: >-
+        {%- if "trigger_action" in states(helper_last_controller_event) -%}
           {{ (states(helper_last_controller_event) | from_json).trigger_action }}
-        {%- endif -%}'
+        {%- endif -%}
       trigger_time_delta: >-
         {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
         default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
+  # choose the sequence to run based on the received button event
+  - choose:
+      - conditions: '{{ pre_debounce != 1 }}'
+        sequence:
+          - delay:
+              milliseconds: '{{ debounce_delay }}'
   # save the last controller event, store the button event
   - service: input_text.set_value
     data:
       entity_id: !input 'helper_last_controller_event'
-      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}" }' 
+      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}"}' 
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: >-
-          {{ trigger_action in rotate_left and
-             last_controller_event not in rotate_right }}
+      - conditions: '{{ trigger_action in rotate_left }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -251,6 +277,9 @@ action:
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event in rotate_left }}'
         sequence:
+          # when doing pre_debounce wait time defined in debounce_delay before stopping since we always allow stop events to go trough. 
+          - delay:
+              milliseconds: '{% if pre_debounce == 1 %}{{ debounce_delay }}{% else %}0{% endif %}'
           # fire the event
           - event: ahb_controller_event
             event_data:
@@ -260,9 +289,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_rotate_left_stop
-      - conditions: >-
-          {{ trigger_action in rotate_right and
-             last_controller_event not in rotate_left }}
+      - conditions: '{{ trigger_action in rotate_right }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -279,6 +306,9 @@ action:
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event in rotate_right }}'
         sequence:
+          # wait time defined in debounce_delay before stopping since we always allow stop events to go trough. 
+          - delay:
+              milliseconds: '{% if pre_debounce == 1 %}{{ debounce_delay }}{% else %}0{% endif %}'
           # fire the event
           - event: ahb_controller_event
             event_data:
@@ -321,9 +351,3 @@ action:
           - choose:
               - conditions: []
                 sequence: !input 'action_click_triple'
-    #For debugging. we can ask users for the output of the ahb_controller_event that contains IGNORED messages.
-    default:
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: IGNORED_{{trigger_action}}_{{last_controller_event}}
