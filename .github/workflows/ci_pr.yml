@@ -42,7 +42,7 @@ jobs:
         uses: creyD/prettier_action@v3.3
         with:
           dry: true
-          prettier_options: '--check **/*.{yml,yaml,md,js,jsx,json,css,scss}'
+          prettier_options: '--write **/*.{yml,yaml,md,js,jsx,json,css,scss}'
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: steps.prettier.conclusion == 'failure'
