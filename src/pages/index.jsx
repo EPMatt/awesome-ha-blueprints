@@ -15,7 +15,7 @@ export default function Home() {
         className={clsx('hero hero--primary', styles.heroBanner)}
         style={{ minHeight: '70vh' }}
       >
-        <div className='container'>
+        <div class='container'>
           <img
             alt='Awesome HA Blueprints logo'
             src={useBaseUrl('img/logo.svg')}
