@@ -51,5 +51,5 @@ jobs:
         with:
           issue-number: ${{ github.event.number}}
           body: |
-            Hey there! Thank you for contributing to the project. :rocket:
+            Hey @${{ github.actor}}! Thank you for contributing to the project. :rocket:
             It looks like there's some unformatted code in your PR. Did you remember to run the `npm run format` command before submitting your work?
