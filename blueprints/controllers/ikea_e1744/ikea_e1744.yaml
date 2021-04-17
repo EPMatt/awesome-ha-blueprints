@@ -250,7 +250,7 @@ action:
         default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ pre_debounce != 1 and (last_controller_event not in action_rotate_left_stop or last_controller_event not in action_rotate_right_stop) }}'
+      - conditions: '{{ pre_debounce != 1 and (last_controller_event not in rotate_left_stop or last_controller_event not in rotate_right_stop) }}'
         sequence:
           - delay:
               milliseconds: '{{ debounce_delay }}'
