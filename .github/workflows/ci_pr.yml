@@ -42,7 +42,7 @@ jobs:
         uses: creyD/prettier_action@v3.3
         with:
           dry: true
-          prettier_options: '**/*.{yml,yaml,md,js,jsx,json,css,scss}'
+          prettier_options: '--check **/*.{yml,yaml,md,js,jsx,json,css,scss}'
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: steps.prettier.conclusion == 'failure'
@@ -53,4 +53,3 @@ jobs:
           body: |
             Hey there! Thank you for contributing to the project. :rocket:
             It looks like there's some unformatted code in your PR. Did you remember to run the `npm run format` command before submitting your work?
-
