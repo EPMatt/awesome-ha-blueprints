@@ -121,7 +121,7 @@ variables:
   helper_last_controller_event: !input helper_last_controller_event
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
-  helper_debounce_delay: !input 'helper_debounce_delay'
+  helper_debounce_delay: !input helper_debounce_delay
   # mapping between actions and integrations
   actions_mapping:
     deconz:
