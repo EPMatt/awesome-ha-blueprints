@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
       - name: Yamllint
         uses: reviewdog/action-yamllint@v1
         with:
@@ -21,7 +27,7 @@ jobs:
           level: warning
       - if: always()
         name: ESLint
-        run: eslint --ext js,jsx --fix .
+        run: npx eslint --ext js,jsx --fix .
       - if: always()
         name: Code suggester
         uses: reviewdog/action-suggester@v1
