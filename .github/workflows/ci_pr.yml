@@ -1,0 +1,21 @@
+name: Continuous Integration - PR
+
+'on':
+  pull_request_target:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          yamllint_flags: '.'
+          fail_on_error: true
+          level: warning

@@ -4,9 +4,6 @@ name: Continuous Integration
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   prettify-lint:
@@ -24,13 +21,18 @@ jobs:
           commit_message: 🤖 Enforce Code Style
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: YamlLint
-        run: yamllint .
+      - name: Yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          yamllint_flags: '.'
+          fail_on_error: true
+          level: warning
 
   gh-pages:
     needs: prettify-lint
     runs-on: ubuntu-latest
-    if: ${{ !github.event.pull_request }}
 
     steps:
       - name: Check out Git repository
