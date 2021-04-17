@@ -243,6 +243,8 @@ action:
               while: '{{ rotate_left_loop }}'
       - conditions:
           - '{{ trigger_action in rotate_left_stop }}'
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event in rotate_left }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
