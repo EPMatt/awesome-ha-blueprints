@@ -222,14 +222,19 @@ action:
       last_controller_event: '{%- if "trigger_action" in states(helper_last_controller_event) -%}
           {{ (states(helper_last_controller_event) | from_json).trigger_action }}
         {%- endif -%}'
+      trigger_time_delta: >-
+        {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
+        default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
   # save the last controller event, store the button event
   - service: input_text.set_value
     data:
       entity_id: !input 'helper_last_controller_event'
-      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}","last_event":"{{last_controller_event}}" }' 
+      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}" }' 
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action in rotate_left }}'
+      - conditions: >-
+          {{ trigger_action in rotate_left and
+             last_controller_event not in rotate_right }}
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -255,7 +260,9 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_rotate_left_stop
-      - conditions: '{{ trigger_action in rotate_right }}'
+      - conditions: >-
+          {{ trigger_action in rotate_right and
+             last_controller_event not in rotate_left }}
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -314,3 +321,9 @@ action:
           - choose:
               - conditions: []
                 sequence: !input 'action_click_triple'
+    #For debugging. we can ask users for the output of the ahb_controller_event that contains IGNORED messages.
+    default:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: IGNORED_{{trigger_action}}_{{last_controller_event}}
