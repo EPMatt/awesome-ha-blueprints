@@ -32,13 +32,8 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-          eslint_flags: '--ext js,jsx --fix .'
+          eslint_flags: '--ext js,jsx .'
           fail_on_error: true
           level: warning
-          filter_mode: nofilter\
-      - if: always()
-        name: ESLint - Suggestions
-        uses: reviewdog/action-suggester@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          tool_name: eslint
+          filter_mode: nofilter
+
