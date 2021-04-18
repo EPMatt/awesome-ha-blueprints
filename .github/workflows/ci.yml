@@ -6,25 +6,8 @@ name: CI - Push
       - main
 
 jobs:
-  yamllint:
-    name: Yamllint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-      - id: yamllint
-        name: Yamllint
-        uses: reviewdog/action-yamllint@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-check
-          yamllint_flags: '.'
-          fail_on_error: true
-          filter_mode: nofilter
-
-  eslint:
-    name: ESLint
+  lint:
+    name: Run Linters
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +31,17 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
-      - id: eslint
+      - id: yamllint
+        name: Yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          yamllint_flags: '.'
+          fail_on_error: true
+          filter_mode: nofilter
+      - if: always()
+        id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
