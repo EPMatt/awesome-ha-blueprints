@@ -224,7 +224,7 @@ condition:
 action:
   # Added random delay to counter bug in HA-core-2021.4.5 that cause deadlock. Will be removed if/when issue is resolved.
   - delay:
-      milliseconds: '{{ range(1,50)|random }}'
+      milliseconds: '{{ range(5,50,5)|random }}'
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
