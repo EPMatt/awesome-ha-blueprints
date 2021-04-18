@@ -1,4 +1,4 @@
-name: Continuous Integration - PR
+name: CI - PR
 
 'on':
   pull_request:
@@ -6,6 +6,7 @@ name: Continuous Integration - PR
       - main
 jobs:
   yamllint:
+    name: Yamllint
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +23,7 @@ jobs:
           filter_mode: nofilter
 
   eslint:
+    name: ESLint
     runs-on: ubuntu-latest
 
     steps:
@@ -44,6 +46,7 @@ jobs:
           filter_mode: nofilter
 
   prettier-lint:
+    name: Prettier - Check code style
     runs-on: ubuntu-latest
 
     steps:

@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI - Push
 
 'on':
   push:
@@ -6,32 +6,74 @@ name: Continuous Integration
       - main
 
 jobs:
-  prettify-lint:
+  yamllint:
+    name: Yamllint
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-      - name: Prettify code
-        uses: creyD/prettier_action@v3.3
-        with:
-          prettier_options: --write .
-          commit_message: 🤖 Enforce Code Style
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Yamllint
+      - id: yamllint
+        name: Yamllint
         uses: reviewdog/action-yamllint@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           yamllint_flags: '.'
           fail_on_error: true
-          level: warning
+          filter_mode: nofilter
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - id: eslint
+        name: ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          eslint_flags: --ext js,jsx .
+          fail_on_error: true
+          filter_mode: nofilter
+
+  prettier:
+    name: Prettier - Enforce code style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm ci
+      - id: prettier
+        name: Prettier
+        uses: creyD/prettier_action@v3.3
+        with:
+          prettier_options: --write .
+          commit_message: 🤖 Enforce Code Style
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
 
   gh-pages:
-    needs: prettify-lint
+    name: Deploy to GH Pages
+    needs:
+      - yamllint
+      - eslint
+      - prettier
     runs-on: ubuntu-latest
 
     steps:
