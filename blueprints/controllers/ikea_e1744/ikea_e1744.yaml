@@ -222,6 +222,9 @@ condition:
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
+  # Added random delay to counter bug in HA-core-2021.4.5 that cause deadlock. Will be removed if/when issue is resolved.
+  - delay:
+      milliseconds: '{{ range(5,50,5)|random }}'
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
@@ -248,11 +251,6 @@ action:
       trigger_time_delta: >-
         {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
         default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
-      last_delay: '{{ (states(helper_last_controller_event) | from_json).last_delay }}'
-      temp_delay: '{% if last_delay | int > 25 %}25{% else %}50{% endif %}'
-  # Added random delay to counter bug in HA-core-2021.4.5 that cause deadlock. Will be removed if/when issue is resolved.
-  - delay:
-      milliseconds: '{{ temp_delay | default(10) }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ pre_debounce != 1 and (last_controller_event not in rotate_left_stop or last_controller_event not in rotate_right_stop) }}'
@@ -263,7 +261,7 @@ action:
   - service: input_text.set_value
     data:
       entity_id: !input 'helper_last_controller_event'
-      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}","last_delay":"{{temp_delay}}"}'
+      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}"}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action in rotate_left }}'
