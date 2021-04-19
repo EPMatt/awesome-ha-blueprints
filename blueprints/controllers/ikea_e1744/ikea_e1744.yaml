@@ -100,8 +100,7 @@ blueprint:
           domain: input_text
     helper_debounce_delay:
       name: Helper - Debounce delay
-      description:
-        Delay used for debouncing RAW controller events.
+      description: Delay used for debouncing RAW controller events.
         A postive value means only the first of all commands received in this period will be executed at once.
         This is helps preventing multiple raw events for one action to fire more then once and also prevents different events to be fired too quick after one and other.
         Stop events will always never get filtered to prevent endless loops.
