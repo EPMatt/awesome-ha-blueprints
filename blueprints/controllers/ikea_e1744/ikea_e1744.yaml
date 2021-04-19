@@ -255,7 +255,7 @@ action:
       milliseconds: '{{ temp_delay | default(10) }}'
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ pre_debounce != 1 and (last_controller_event not in action_rotate_left_stop or last_controller_event not in action_rotate_right_stop) }}'
+      - conditions: '{{ pre_debounce != 1 and (last_controller_event not in rotate_left_stop or last_controller_event not in rotate_right_stop) }}'
         sequence:
           - delay:
               milliseconds: '{{ debounce_delay }}'
