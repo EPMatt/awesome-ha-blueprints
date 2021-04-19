@@ -206,7 +206,7 @@ condition:
           {%- endif -%}
         {%- endset -%}
         {{
-          (trigger_action and (helper_debounce_delay > 0 or trigger_time_delta | int > helper_debounce_delay | int)
+          (trigger_action and (helper_debounce_delay < 0 or trigger_time_delta | int > helper_debounce_delay | int)
             and not ((trigger_action in rotate_left or trigger_action in rotate_right) and trigger_action == last_controller_event)
             and not (trigger_action in rotate_left and last_controller_event in rotate_right)
             and not (trigger_action in rotate_right and last_controller_event in rotate_left))
