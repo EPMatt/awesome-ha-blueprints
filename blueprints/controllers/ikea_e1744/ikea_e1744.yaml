@@ -101,13 +101,14 @@ blueprint:
     helper_debounce_delay:
       name: Helper - Debounce delay
       description:
-        Delay used for debouncing RAW controller events, when the device
-        is connected with an integration which needs debounce. Change this value
-        only if you notice duplicate action runs.
+        Delay used for debouncing RAW controller events.
         A postive value means the first in the series of commands received within that timeframe will be executed
         at once but the next command will only be executed after the set time.
         A negative value means execution will wait for the amount of time configured (but then as a postive)
         and the last of the commands received in that time frame will be executed.
+        This can make dimming more smooth wince this controller is very sensitive to sudden moves.
+        Also this controller tents to send more then 1 raw event per event.
+        This settings ensures only 1 event is then processed. 
       default: 0
       selector:
         number:
@@ -257,7 +258,7 @@ action:
   # choose the sequence to run based on the received button event
   - choose:
       - conditions:
-          - '{{ trigger_action in rotate_stop and (last_controller_event in rotate_left or last_controller_event in rotate_right) }}'
+          - '{{ trigger_action in rotate_stop }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
