@@ -130,7 +130,7 @@ variables:
   actions_mapping:
     deconz:
       rotate_left: [3001]
-      rotate_stop: [2003,3003]
+      rotate_stop: [2003, 3003]
       rotate_right: [2001]
       click_short: [1002]
       click_double: [1004]
