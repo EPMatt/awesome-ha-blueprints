@@ -12,15 +12,11 @@ const requirements = {
   controller: ControllerRequirement,
 }
 
-function Requirement(props) {
-  const Component = props.id ? requirements[props.id] : CustomRequirement
+function Requirement({ id, required, name, refers, children }) {
+  const Component = id ? requirements[id] : CustomRequirement
   return (
-    <Component
-      name={props.name}
-      required={props.required}
-      refers={props.refers}
-    >
-      {props.children}
+    <Component name={name} required={required} refers={refers}>
+      {children}
     </Component>
   )
 }

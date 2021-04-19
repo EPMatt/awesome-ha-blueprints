@@ -10,18 +10,18 @@ const styles = {
   },
 }
 
-function Requirement(props) {
+function Requirement({ name, required, children }) {
   return (
     <div className='margin-bottom--lg'>
       <div style={styles.requirementNameContainer}>
-        <h3 style={styles.requirementName}>{props.name} </h3>
-        {props.required ? (
-          <Badge variant='warning'>{props.required} Required</Badge>
+        <h3 style={styles.requirementName}>{name} </h3>
+        {required ? (
+          <Badge variant='warning'>{required} Required</Badge>
         ) : (
           <Badge variant='info'>Optional</Badge>
         )}
       </div>
-      {props.children}
+      {children}
     </div>
   )
 }

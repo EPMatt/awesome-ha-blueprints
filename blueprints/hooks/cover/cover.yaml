@@ -68,17 +68,16 @@ variables:
       close_cover: button_double
       stop_cover_all: button_long
   # extract controller ids
-  controller_id: '{{ controller_entity if controller_device == "" else controller_device }}'
   controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
-  open_cover: '{{controller_mapping[controller_model_id]["open_cover"]}}'
-  close_cover: '{{controller_mapping[controller_model_id]["close_cover"]}}'
-  stop_cover: '{{controller_mapping[controller_model_id]["stop_cover"]}}'
-  open_cover_tilt: '{{controller_mapping[controller_model_id]["open_cover_tilt"]}}'
-  close_cover_tilt: '{{controller_mapping[controller_model_id]["close_cover_tilt"]}}'
-  stop_cover_tilt: '{{controller_mapping[controller_model_id]["stop_cover_tilt"]}}'
-  stop_cover_all: '{{controller_mapping[controller_model_id]["stop_cover_all"]}}'
+  open_cover: '{{ controller_mapping[controller_model_id]["open_cover"] | default(None) }}'
+  close_cover: '{{ controller_mapping[controller_model_id]["close_cover"] | default(None) }}'
+  stop_cover: '{{ controller_mapping[controller_model_id]["stop_cover"] | default(None) }}'
+  open_cover_tilt: '{{ controller_mapping[controller_model_id]["open_cover_tilt"] | default(None) }}'
+  close_cover_tilt: '{{ controller_mapping[controller_model_id]["close_cover_tilt"] | default(None) }}'
+  stop_cover_tilt: '{{ controller_mapping[controller_model_id]["stop_cover_tilt"] | default(None) }}'
+  stop_cover_all: '{{ controller_mapping[controller_model_id]["stop_cover_all"] | default(None) }}'
 
 # mode restart ensures long actions are interrupted when the release action is received
 mode: restart

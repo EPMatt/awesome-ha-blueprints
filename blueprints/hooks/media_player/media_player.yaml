@@ -121,18 +121,17 @@ variables:
       next_track: button_on_long
       prev_track: button_off_long
   # extract controller ids
-  controller_id: '{{ controller_entity if controller_device == "" else controller_device }}'
   controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
-  volume_up: '{{controller_mapping[controller_model_id]["volume_up"]}}'
-  volume_up_repeat: '{{controller_mapping[controller_model_id]["volume_up_repeat"]}}'
-  volume_down: '{{controller_mapping[controller_model_id]["volume_down"]}}'
-  volume_down_repeat: '{{controller_mapping[controller_model_id]["volume_down_repeat"]}}'
-  next_track: '{{controller_mapping[controller_model_id]["next_track"]}}'
-  prev_track: '{{controller_mapping[controller_model_id]["prev_track"]}}'
-  stop: '{{controller_mapping[controller_model_id]["stop"]}}'
-  play_pause: '{{controller_mapping[controller_model_id]["play_pause"]}}'
+  volume_up: '{{ controller_mapping[controller_model_id]["volume_up"] | default(None) }}'
+  volume_up_repeat: '{{ controller_mapping[controller_model_id]["volume_up_repeat"] | default(None) }}'
+  volume_down: '{{ controller_mapping[controller_model_id]["volume_down"] | default(None) }}'
+  volume_down_repeat: '{{ controller_mapping[controller_model_id]["volume_down_repeat"] | default(None) }}'
+  next_track: '{{ controller_mapping[controller_model_id]["next_track"] | default(None) }}'
+  prev_track: '{{ controller_mapping[controller_model_id]["prev_track"] | default(None) }}'
+  stop: '{{ controller_mapping[controller_model_id]["stop"] | default(None) }}'
+  play_pause: '{{ controller_mapping[controller_model_id]["play_pause"] | default(None) }}'
   volume_step_value_short: '{{ 1/volume_steps_short }}'
   volume_step_value_long: '{{ 1/volume_steps_long }}'
 

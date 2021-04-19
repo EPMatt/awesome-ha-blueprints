@@ -5,7 +5,7 @@ description: A description for the blueprint
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
 
-<ImportCard id='_example' category='automation'/>
+<ImportCard id='_example' category='automation' />
 
 ## Description
 
@@ -26,6 +26,7 @@ _Add here what this requirement is used for within the blueprint, as well as ref
 You must have this integration enabled on your system to run the automation. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
 [Persistent Notification Integration Docs](https://www.home-assistant.io/integrations/persistent_notification/)
+
 </Requirement>
 
 ## Inputs
@@ -33,25 +34,26 @@ You must have this integration enabled on your system to run the automation. Thi
 _List here and describe the inputs used by the blueprint._
 
 _Add here the description for what the input is used for and its type/constraints._
+
 <Input
- name='Example Input Boolean'
- description='The boolean input which will activate the automation. This input is required.'
- selector='boolean'
- required
- />
+  name='Example Input Boolean'
+  description='The boolean input which will activate the automation. This input is required.'
+  selector='boolean'
+  required
+/>
 _Add here the description for what the input is used for and its type/constraints._
 <Input
- name='Example Text'
- description='The text which will be displayed as message in the persistent notification. This input is optional.'
- selector='text'
- />
+  name='Example Text'
+  description='The text which will be displayed as message in the persistent notification. This input is optional.'
+  selector='text'
+/>
 _Add here the description for what the input is used for and its type/constraints._
 <Input
- name='Example Input Device'
- description='A device input which demonstrates how to document an input with a specific requirement. As a bare example, this input is required only if using the MQTT Integration.'
- selector='device'
- required='MQTT Integration'
- />
+  name='Example Input Device'
+  description='A device input which demonstrates how to document an input with a specific requirement. As a bare example, this input is required only if using the MQTT Integration.'
+  selector='device'
+  required='MQTT Integration'
+/>
 
 ## Additional Notes
 
