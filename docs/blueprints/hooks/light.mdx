@@ -96,13 +96,21 @@ This integration provides the entity which represents a light in Home Assistant.
   name='Force brightness value at turn on'
   description='Force brightness to the "On brightness" input value, when the light is being turned on.'
   selector='boolean'
-  required
 />
 <Input
   name='On brightness'
   description='Brightness value to force when turning on the light'
   selector='number'
-  required
+/>
+<Input
+  name='Smooth power on'
+  description='Force the light to turn on at minimum brightness when a brightness up command (single or continuous) is triggered and light is off.'
+  selector='boolean'
+/>
+<Input
+  name='Smooth power off'
+  description='Allow a brightness down command (single or continuous) to turn off the light when at minimum brightness. Disabling this will prevent the light from being turned off by brightness down commands.'
+  selector='boolean'
 />
 
 ## Supported Controllers
@@ -128,5 +136,10 @@ If you want to link multiple lights to the same controller you can either use [L
   - set minimum and maximum light brightness
   - specify number of steps from min to max brightness, both for short and long actions, when controlling the light
   - allow to force brightness to a specific value when turning on the light
-- **2021-03-27**: Add support for Philips Hue dimmer switch
-- **2021-04-06**: Fix light color modes not allowing to configure an automation with color temperature control.
+- **2021-03-27**: add support for Philips Hue dimmer switch
+- **2021-04-06**: fix light color modes not allowing to configure an automation with color temperature control.
+- **2021-04-13**: specify step duration (in milliseconds) when controlling light brightness and color.
+- **2021-04-15**:
+  - add smooth power on/off features
+  - **breaking change**: by default the light now turns off when a brightness down command is received and light is at minimum brightness. To disable this behaviour, turn off the smooth power off feature.
+  - fix some optional fields name.
