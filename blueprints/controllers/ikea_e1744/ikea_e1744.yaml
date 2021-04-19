@@ -243,8 +243,9 @@ action:
         {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
         default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
   # choose the sequence to run based on the received button event
+  # Delay when negative debounce value is set.
   - choose:
-      - conditions: '{{ pre_debounce != 1 and (last_controller_event not in rotate_stop) }}'
+      - conditions: '{{ pre_debounce != 1 }}'
         sequence:
           - delay:
               milliseconds: '{{ debounce_delay }}'
