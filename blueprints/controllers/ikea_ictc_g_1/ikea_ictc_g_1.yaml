@@ -92,9 +92,9 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      rotate_left: [3002]
+      rotate_left: ['3002']
       rotate_left_stop: []
-      rotate_right: [2002]
+      rotate_right: ['2002']
       rotate_right_stop: []
     zha:
       rotate_left: [move_1_70, move_1_195]

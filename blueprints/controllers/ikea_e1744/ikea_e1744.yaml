@@ -110,13 +110,13 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      rotate_left: [3001]
-      rotate_left_stop: [3003]
-      rotate_right: [2001]
-      rotate_right_stop: [2003]
-      click_short: [1002]
-      click_double: [1004]
-      click_triple: [1005]
+      rotate_left: ['3001']
+      rotate_left_stop: ['3003']
+      rotate_right: ['2001']
+      rotate_right_stop: ['2003']
+      click_short: ['1002']
+      click_double: ['1004']
+      click_triple: ['1005']
     zha:
       rotate_left: [move_1_195]
       rotate_left_stop: [stop]
