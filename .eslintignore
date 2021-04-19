@@ -1,6 +1,3 @@
-# ignore workflows files
-/.github/workflows
-
 # Dependencies
 /node_modules
 

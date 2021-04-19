@@ -1,9 +1,7 @@
 import React from 'react'
 
-function Badge(props) {
-  return (
-    <span className={`badge badge--${props.variant}`}>{props.children}</span>
-  )
+function Badge({ variant, children }) {
+  return <span className={`badge badge--${variant}`}>{children}</span>
 }
 
 export default Badge

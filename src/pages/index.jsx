@@ -17,6 +17,7 @@ export default function Home() {
       >
         <div className='container'>
           <img
+            alt='Awesome HA Blueprints logo'
             src={useBaseUrl('img/logo.svg')}
             className='margin-bottom--lg'
             style={{ width: 80 }}

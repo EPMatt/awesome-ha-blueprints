@@ -39,7 +39,7 @@ Some controllers require to provide an `input_text` entity to recognize some act
 
 This is due to the actions mapping for the controller with these integrations, since natively the controller doesn't allow to distinguish between certain button events, so the blueprint needs to store the previous event, using the text input, and take advantage of this information for subsequent events.
 
-Before setting up the automation, create a brand new  `input_text` entity in your Home Assistant, then provide it to the blueprint, when required. **Make sure the input is not shared between multiple automations, and is not altered by any other agent**, since this could lead to inconsistencies in the automation.
+Before setting up the automation, create a brand new `input_text` entity in your Home Assistant, then provide it to the blueprint, when required. **Make sure the input is not shared between multiple automations, and is not altered by any other agent**, since this could lead to inconsistencies in the automation.
 :::
 
 :::tip
