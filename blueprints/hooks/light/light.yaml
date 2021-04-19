@@ -204,21 +204,20 @@ variables:
       color_up_repeat: button_on_long
       color_down_repeat: button_off_long
   # extract controller ids
-  controller_id: '{{ controller_entity if controller_device == "" else controller_device }}'
   controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
-  brightness_up: '{{controller_mapping[controller_model_id]["brightness_up"]}}'
-  brightness_up_repeat: '{{controller_mapping[controller_model_id]["brightness_up_repeat"]}}'
-  brightness_down: '{{controller_mapping[controller_model_id]["brightness_down"]}}'
-  brightness_down_repeat: '{{controller_mapping[controller_model_id]["brightness_down_repeat"]}}'
-  color_up: '{{controller_mapping[controller_model_id]["color_up"]}}'
-  color_up_repeat: '{{controller_mapping[controller_model_id]["color_up_repeat"]}}'
-  color_down: '{{controller_mapping[controller_model_id]["color_down"]}}'
-  color_down_repeat: '{{controller_mapping[controller_model_id]["color_down_repeat"]}}'
-  toggle: '{{controller_mapping[controller_model_id]["toggle"]}}'
-  turn_on: '{{controller_mapping[controller_model_id]["turn_on"]}}'
-  turn_off: '{{controller_mapping[controller_model_id]["turn_off"]}}'
+  brightness_up: '{{ controller_mapping[controller_model_id]["brightness_up"] | default(None) }}'
+  brightness_up_repeat: '{{ controller_mapping[controller_model_id]["brightness_up_repeat"] | default(None) }}'
+  brightness_down: '{{ controller_mapping[controller_model_id]["brightness_down"] | default(None) }}'
+  brightness_down_repeat: '{{ controller_mapping[controller_model_id]["brightness_down_repeat"] | default(None) }}'
+  color_up: '{{ controller_mapping[controller_model_id]["color_up"] | default(None) }}'
+  color_up_repeat: '{{ controller_mapping[controller_model_id]["color_up_repeat"] | default(None) }}'
+  color_down: '{{ controller_mapping[controller_model_id]["color_down"] | default(None) }}'
+  color_down_repeat: '{{ controller_mapping[controller_model_id]["color_down_repeat"] | default(None) }}'
+  toggle: '{{ controller_mapping[controller_model_id]["toggle"] | default(None) }}'
+  turn_on: '{{ controller_mapping[controller_model_id]["turn_on"] | default(None) }}'
+  turn_off: '{{ controller_mapping[controller_model_id]["turn_off"] | default(None) }}'
   # extract light color mode id
   light_color_mode_id: >-
     {% if light_color_mode == "Auto" %}
