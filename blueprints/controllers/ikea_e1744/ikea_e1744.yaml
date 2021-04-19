@@ -222,9 +222,6 @@ condition:
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-  # Added random delay to counter bug in HA-core-2021.4.5 that cause deadlock. Will be removed if/when issue is resolved.
-  - delay:
-      milliseconds: '{{ range(1,50)|random }}'
   # extract button event from the trigger to provide a single string value to check against
   # extract last controller_event
   - variables:
