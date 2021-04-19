@@ -92,7 +92,7 @@ blueprint:
         boolean:
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
-      name: (ZHA, Zigbee2MQTT Required) Helper - Last Controller Event
+      name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. See docs for more.
       default: ''
       selector:
@@ -102,13 +102,12 @@ blueprint:
       name: Helper - Debounce delay
       description:
         Delay used for debouncing RAW controller events.
-        A postive value means the first in the series of commands received within that timeframe will be executed
-        at once but the next command will only be executed after the set time.
-        A negative value means execution will wait for the amount of time configured (but then as a postive)
-        and the last of the commands received in that time frame will be executed.
-        This can make dimming more smooth wince this controller is very sensitive to sudden moves.
-        Also this controller tents to send more then 1 raw event per event.
-        This settings ensures only 1 event is then processed. 
+        A postive value means only the first of all commands received in this period will be executed at once.
+        This is helps preventing multiple raw events for one action to fire more then once and also prevents different events to be fired too quick after one and other.
+        Stop events will always never get filtered to prevent endless loops.
+        A negative value means only the last of all commands received in this period will be executed after the set time has passed.
+        This helps smooth out dimming/volume control since this controller is very sensitive.
+        I.e. when rotating right, but the first touch is registered as left directly followed by right (as intended) the initial left is filtered out.
       default: 0
       selector:
         number:
