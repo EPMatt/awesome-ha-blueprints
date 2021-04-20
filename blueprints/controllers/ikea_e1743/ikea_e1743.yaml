@@ -200,7 +200,7 @@ condition:
         {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
+        {{ trigger.event.data.event | string }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
@@ -217,7 +217,7 @@ action:
         {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
+        {{ trigger.event.data.event | string }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
