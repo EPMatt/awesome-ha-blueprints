@@ -265,8 +265,10 @@ action:
               action: '{% if last_controller_event in rotate_left %}rotate_left_stop{% else %}rotate_right_stop{% endif %}'
           # run the custom action
           - choose:
-              - conditions: []
+              - conditions: '{{ last_controller_event in rotate_left }}'
                 sequence: !input action_rotate_left_stop
+              - conditions: '{{ last_controller_event in rotate_right }}'
+                sequence: !input action_rotate_right_stop
       - conditions: '{{ trigger_action in rotate_left }}'
         sequence:
           # fire the event only once before looping the action
