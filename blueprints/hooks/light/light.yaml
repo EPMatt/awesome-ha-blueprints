@@ -192,8 +192,8 @@ variables:
       toggle: button_short
       color_up: button_double
     ikea_ictc_g_1:
-      brightness_up_repeat: rotate_right
-      brightness_down_repeat: rotate_left
+      brightness_up: rotate_right
+      brightness_down: rotate_left
     philips_324131092621:
       turn_on: button_on_short
       turn_off: button_off_short
