@@ -171,7 +171,7 @@ action:
         {%- endif -%}
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action in button_short }}'
+      - conditions: '{{ (trigger_action | string) in button_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -231,7 +231,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_short
-      - conditions: '{{ trigger_action in button_long }}'
+      - conditions: '{{ (trigger_action | string) in button_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -243,7 +243,7 @@ action:
           - repeat:
               sequence: !input action_button_long
               until: '{{ not button_long_loop }}'
-      - conditions: '{{ trigger_action in button_release }}'
+      - conditions: '{{ (trigger_action | string) in button_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
