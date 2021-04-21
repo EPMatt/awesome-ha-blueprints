@@ -130,9 +130,7 @@ variables:
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
   # Subtracted debounce delay so that the timeout is really as set in double press delay but never go below minimum delay.
-  adjusted_double_press_delay:
-    '{% if helper_double_press_delay - helper_debounce_delay < 100 %}100{% else %}
-    {{ (helper_double_press_delay - helper_debounce_delay) | int }} {% endif %}'
+  adjusted_double_press_delay: '{{ [helper_double_press_delay - helper_debounce_delay, 100] | max }}'
   # mapping between actions and integrations
   actions_mapping:
     deconz:
