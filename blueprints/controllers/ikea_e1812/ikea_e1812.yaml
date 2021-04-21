@@ -136,12 +136,12 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      button_short: [1002]
-      button_long: [1001]
-      button_release: [1003]
+      button_short: ['1002']
+      button_long: ['1001']
+      button_release: ['1003']
     zha:
       button_short: ['on']
-      button_long: [move_with_on_off]
+      button_long: [move_with_on_off_0_83]
       button_release: [stop]
     zigbee2mqtt:
       button_short: ['on']
@@ -285,11 +285,7 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_short
-      - conditions:
-          # Need to check this way because trigger_action gets appended with extra data.
-          - '{{ button_long[0] in trigger_action }}'
-          # make sure that not triggered when button is already hold down (prevent processing multiple events)
-          - '{{ button_long[0] not in states(helper_last_controller_event) or trigger_delta > 1000 }}'
+      - conditions: '{{ trigger_action in button_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
