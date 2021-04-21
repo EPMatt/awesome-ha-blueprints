@@ -176,9 +176,7 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
-      # debouncing: stop if trigger happened within the defined in the helper_debounce_delay input
-      # When double_press is enabled wait until double_press timeout expired.
-      # Both prevent unnecessary automation restarts
+
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
@@ -189,19 +187,16 @@ condition:
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
         {%- endset -%}
-        {%- set time_delta -%}
-        {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
-        default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
-        {%- endset -%}
-        {%- if button_double_press and trigger_action and trigger_action in button_short -%}
-        {{ time_delta | int > helper_double_press_delay | int }}
-        {%- else -%}
-        {{ trigger_action != "" and time_delta | int > helper_debounce_delay | int }}
-        {%- endif -%}
+        {{ trigger_action != "" }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
+  # debouncing: when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
+  # therefore previous runs must wait for the debounce delay before executing any other action
+  # if the delay expires and the automation is still running it means it's the last run and execution can continue
+  - delay:
+      milliseconds: !input helper_debounce_delay
   # extract button event from the trigger
   # provide a single string value to check against
   - variables:
@@ -228,26 +223,14 @@ action:
               # if double press event is enabled
               - conditions: '{{ button_double_press }}'
                 sequence:
-                  # Debounce delay to prevent multiple events to trigger an unwanted double_press
-                  - delay:
-                      milliseconds: '{{ helper_debounce_delay | int }}'
-                  - wait_for_trigger:
-                      - platform: event
-                        event_type: state_changed
-                        event_data:
-                          entity_id: !input 'controller_entity'
-                      - platform: event
-                        event_type:
-                          - zha_event
-                          - deconz_event
-                        event_data:
-                          device_id: !input 'controller_device'
-                    timeout:
-                      milliseconds: '{{ adjusted_double_press_delay }}'
                   - choose:
-                      # if event cought within the timeout period (double press)
-                      - conditions: '{{ wait.trigger and not "none" in wait.trigger }}'
+                      - conditions: '{{ trigger_action in states(helper_last_controller_event) and trigger_delta <= helper_double_press_delay }}'
                         sequence:
+                          # Need to update the helper to make sure the button_short is not triggered directly after double.
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now()|string} | to_json }}'
                           # fire the event
                           - event: ahb_controller_event
                             event_data:
@@ -257,23 +240,21 @@ action:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_double
-                          # Need to update the helper to make sure the button_short is not triggered directly after double.
-                          - service: input_text.set_value
-                            data:
-                              entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now()|string} | to_json }}'
-                      # check if nothing happened within the double_press_delay time and then fire button_short
-                      - conditions:
-                          - '{{ trigger_delta > helper_double_press_delay }}'
-                        sequence:
-                          - event: ahb_controller_event
-                            event_data:
-                              controller: '{{ controller_id }}'
-                              action: button_short
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_short
+                    default:
+                      # wait for the double press event to occur, within the provided delay
+                      # if the second press is received, automation is restarted
+                      - delay:
+                          milliseconds: '{{ adjusted_double_press_delay }}'
+                      # if delay expires, no second press was received, therefore run the short press action
+                      # fire the event
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: button_short
+                      # run the custom action
+                      - choose:
+                          - conditions: []
+                            sequence: !input action_button_short
             # if double press event is disabled run the action for the single short press
             default:
               # fire the event
