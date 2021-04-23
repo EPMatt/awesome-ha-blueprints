@@ -208,7 +208,7 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}'
+      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) |regex_match("^\{(\".*\": \".*\"(, )?)*\}$"))else "1970-01-01 00:00:00")) * 1000 }}'
   # update helper
   - service: input_text.set_value
     data:
@@ -216,7 +216,7 @@ action:
       value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ (trigger_action | string) in button_short }}'
+      - conditions: '{{ trigger_action | string in button_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -224,13 +224,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action in states(helper_last_controller_event) and trigger_delta <= helper_double_press_delay  }}'
+                      - conditions: '{{ trigger_action in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now()|string} | to_json }}'
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -269,7 +269,7 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_short
-      - conditions: '{{ (trigger_action | string) in button_long }}'
+      - conditions: '{{ trigger_action | string in button_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -281,11 +281,11 @@ action:
               - conditions: '{{ button_long_loop }}'
                 sequence:
                   - repeat:
-                      while: '{{ repeat.index < button_long_max_loop_repeats }}'
+                      while: '{{ repeat.index < button_long_max_loop_repeats | int }}'
                       sequence: !input action_button_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_long
-      - conditions: '{{ (trigger_action | string) in button_release }}'
+      - conditions: '{{ trigger_action | string in button_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
