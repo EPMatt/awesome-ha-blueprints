@@ -321,7 +321,7 @@ action:
         {%- endif -%}
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action in button_on_short }}'
+      - conditions: '{{ (trigger_action | string) in button_on_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -381,7 +381,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_on_short
-      - conditions: '{{ trigger_action in button_on_long }}'
+      - conditions: '{{ (trigger_action | string) in button_on_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -393,7 +393,7 @@ action:
           - repeat:
               sequence: !input action_button_on_long
               until: '{{ not button_on_long_loop }}'
-      - conditions: '{{ trigger_action in button_on_release }}'
+      - conditions: '{{ (trigger_action | string) in button_on_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -403,7 +403,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_on_release
-      - conditions: '{{ trigger_action in button_off_short }}'
+      - conditions: '{{ (trigger_action | string) in button_off_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -463,7 +463,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_off_short
-      - conditions: '{{ trigger_action in button_off_long }}'
+      - conditions: '{{ (trigger_action | string) in button_off_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -475,7 +475,7 @@ action:
           - repeat:
               sequence: !input action_button_off_long
               until: '{{ not button_off_long_loop }}'
-      - conditions: '{{ trigger_action in button_off_release }}'
+      - conditions: '{{ (trigger_action | string) in button_off_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -485,7 +485,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_off_release
-      - conditions: '{{ trigger_action in button_up_short }}'
+      - conditions: '{{ (trigger_action | string) in button_up_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -545,7 +545,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_up_short
-      - conditions: '{{ trigger_action in button_up_long }}'
+      - conditions: '{{ (trigger_action | string) in button_up_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -557,7 +557,7 @@ action:
           - repeat:
               sequence: !input action_button_up_long
               until: '{{ not button_up_long_loop }}'
-      - conditions: '{{ trigger_action in button_up_release }}'
+      - conditions: '{{ (trigger_action | string) in button_up_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -567,7 +567,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_up_release
-      - conditions: '{{ trigger_action in button_down_short }}'
+      - conditions: '{{ (trigger_action | string) in button_down_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -627,7 +627,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_down_short
-      - conditions: '{{ trigger_action in button_down_long }}'
+      - conditions: '{{ (trigger_action | string) in button_down_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -639,7 +639,7 @@ action:
           - repeat:
               sequence: !input action_button_down_long
               until: '{{ not button_down_long_loop }}'
-      - conditions: '{{ trigger_action in button_down_release }}'
+      - conditions: '{{ (trigger_action | string) in button_down_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event

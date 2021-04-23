@@ -356,7 +356,7 @@ action:
         {%- endif -%}
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action in button_left_short }}'
+      - conditions: '{{ (trigger_action | string) in button_left_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -416,7 +416,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_left_short
-      - conditions: '{{ trigger_action in button_left_long }}'
+      - conditions: '{{ (trigger_action | string) in button_left_long }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -437,7 +437,7 @@ action:
               sequence: !input action_button_left_long
               until: '{{ not button_left_long_loop }}'
       - conditions:
-          - '{{ trigger_action in button_left_release }}'
+          - '{{ (trigger_action | string) in button_left_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in button_left_long }}'
         sequence:
@@ -449,7 +449,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_left_release
-      - conditions: '{{ trigger_action in button_right_short }}'
+      - conditions: '{{ (trigger_action | string) in button_right_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -509,7 +509,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_right_short
-      - conditions: '{{ trigger_action in button_right_long }}'
+      - conditions: '{{ (trigger_action | string) in button_right_long }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -530,7 +530,7 @@ action:
               sequence: !input action_button_right_long
               until: '{{ not button_right_long_loop }}'
       - conditions:
-          - '{{ trigger_action in button_right_release }}'
+          - '{{ (trigger_action | string) in button_right_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in button_right_long }}'
         sequence:
@@ -542,7 +542,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_right_release
-      - conditions: '{{ trigger_action in button_up_short }}'
+      - conditions: '{{ (trigger_action | string) in button_up_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -602,7 +602,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_up_short
-      - conditions: '{{ trigger_action in button_up_long }}'
+      - conditions: '{{ (trigger_action | string) in button_up_long }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -623,7 +623,7 @@ action:
               sequence: !input action_button_up_long
               until: '{{ not button_up_long_loop }}'
       - conditions:
-          - '{{ trigger_action in button_up_release }}'
+          - '{{ (trigger_action | string) in button_up_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in button_up_long }}'
         sequence:
@@ -635,7 +635,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_up_release
-      - conditions: '{{ trigger_action in button_down_short }}'
+      - conditions: '{{ (trigger_action | string) in button_down_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -695,7 +695,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_down_short
-      - conditions: '{{ trigger_action in button_down_long }}'
+      - conditions: '{{ (trigger_action | string) in button_down_long }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -716,7 +716,7 @@ action:
               sequence: !input action_button_down_long
               until: '{{ not button_down_long_loop }}'
       - conditions:
-          - '{{ trigger_action in button_down_release }}'
+          - '{{ (trigger_action | string) in button_down_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in button_down_long }}'
         sequence:
@@ -728,7 +728,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_button_down_release
-      - conditions: '{{ trigger_action in button_center_short }}'
+      - conditions: '{{ (trigger_action | string) in button_center_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -788,7 +788,7 @@ action:
               # run the custom action
               - choose:
                 default: !input action_button_center_short
-      - conditions: '{{ trigger_action in button_center_long }}'
+      - conditions: '{{ (trigger_action | string) in button_center_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
