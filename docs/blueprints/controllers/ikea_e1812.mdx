@@ -86,6 +86,12 @@ This integration provides the entity which will be used to store the last button
   required
 />
 <Input
+  name='Long button press - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
+  required
+/>
+<Input
   name='Expose button double press event'
   description='Choose whether or not to expose the virtual double press event for the button. Turn this on if you are providing an action for the button double press event.'
   selector='boolean'
@@ -95,11 +101,16 @@ This integration provides the entity which will be used to store the last button
   name='Helper - Last Controller Event'
   description='Input Text used to store the last event fired by the controller. See docs for more.'
   selector='entity'
-  required='(Double press action Required)'
+  required
 />
 <Input
   name='Helper - Double Press delay'
   description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
+  selector='number'
+/>
+<Input
+  name='Helper - Debounce delay'
+  description='Delay used for debouncing RAW controller events, when the device is connected with an integration which needs debounce. Increase this value only if the device is integrated with deCONZ, ZHA and you notice duplicate action runs.'
   selector='number'
 />
 
@@ -138,6 +149,8 @@ Please enable double button press events to use all the available actions.
 [Cover Hook docs](/docs/blueprints/hooks/cover)
 
 ## Additional Notes
+
+The `helper_last_controller_event` text input allows to store the previous button event as well as the last time a controller event was fired. This info is used in many different ways to implement the blueprint's core functionality. Make sure the input text is not altered by any other agents, since this could break the automation and lead to unexpected behaviour.
 
 It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
 
