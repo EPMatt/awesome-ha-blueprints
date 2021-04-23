@@ -215,7 +215,7 @@ action:
       entity_id: !input helper_last_controller_event
       value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
   - choose:
-      - conditions: '{{ trigger_action in button_short }}'
+      - conditions: '{{ (trigger_action | string) in button_short }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -264,7 +264,7 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_short
-      - conditions: '{{ trigger_action in button_long }}'
+      - conditions: '{{ (trigger_action | string) in button_long }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -280,7 +280,7 @@ action:
                       sequence: !input action_button_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_long
-      - conditions: '{{ trigger_action in button_release }}'
+      - conditions: '{{ (trigger_action | string) in button_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event

@@ -92,9 +92,9 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      rotate_left: [3002]
+      rotate_left: ['3002']
       rotate_left_stop: []
-      rotate_right: [2002]
+      rotate_right: ['2002']
       rotate_right_stop: []
     zha:
       rotate_left: [move_1_70, move_1_195]
@@ -166,7 +166,7 @@ action:
         {%- endif -%}
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action in rotate_left }}'
+      - conditions: '{{ (trigger_action | string) in rotate_left }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -187,7 +187,7 @@ action:
               sequence: !input action_rotate_left
               until: '{{ not rotate_left_loop }}'
       - conditions:
-          - '{{ trigger_action in rotate_left_stop }}'
+          - '{{ (trigger_action | string) in rotate_left_stop }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_left }}'
         sequence:
@@ -199,7 +199,7 @@ action:
           # run the custom action
           - choose:
             default: !input action_rotate_left_stop
-      - conditions: '{{ trigger_action in rotate_right }}'
+      - conditions: '{{ (trigger_action | string) in rotate_right }}'
         sequence:
           # for integrations which need to save the last controller event, store the button event
           - choose:
@@ -220,7 +220,7 @@ action:
               sequence: !input action_rotate_right
               until: '{{ not rotate_right_loop }}'
       - conditions:
-          - '{{ trigger_action in rotate_right_stop }}'
+          - '{{ (trigger_action | string) in rotate_right_stop }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or states(helper_last_controller_event) in rotate_right }}'
         sequence:
