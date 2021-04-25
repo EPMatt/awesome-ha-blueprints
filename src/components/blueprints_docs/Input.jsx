@@ -5,6 +5,9 @@ const selectors = {
   action: {
     type: 'Action',
   },
+  addon: {
+    type: 'Add-on',
+  },
   area: {
     type: 'Area',
   },
