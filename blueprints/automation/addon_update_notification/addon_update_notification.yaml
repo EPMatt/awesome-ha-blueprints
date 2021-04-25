@@ -49,7 +49,7 @@ blueprint:
         text:
     notification_title:
       name: Notification title
-      default: '{{ addon_name }} addon : Update available'
+      default: '{{ addon_name }} add-on : Update available'
       description: Title for the update notification.
         You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
       selector:
@@ -58,7 +58,7 @@ blueprint:
       name: Notification message
       description: Message for the update notification.
         You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
-      default: Update available for {{ addon_name }} addon ({{ version }} -> {{ newest_version }})
+      default: Update available for {{ addon_name }} add-on ({{ version }} -> {{ newest_version }})
       selector:
         text:
           multiline: true
@@ -113,7 +113,7 @@ blueprint:
     update_success_notification:
       name: Update success notification
       description:
-        Send a notification after the addon update triggered by the update button succeed.
+        Send a notification after the add-on update triggered by the update button succeed.
         The notification will use the same settings for group, channel, importance and color from the update available notification.
       default: true
       selector:
@@ -122,14 +122,14 @@ blueprint:
       name: Update success notification title
       description: Title for the update success notification.
         You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
-      default: '{{ addon_name }} addon: Update completed'
+      default: '{{ addon_name }} add-on: Update completed'
       selector:
         text:
     update_success_notification_message:
       name: Update success notification message
       description: Message for the update success notification.
         You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
-      default: Addon {{ addon_name }} was succesfully updated to {{ newest_version }}
+      default: Add-on {{ addon_name }} was succesfully updated to {{ newest_version }}
       selector:
         text:
           multiline: true
