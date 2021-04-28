@@ -84,75 +84,100 @@ blueprint:
       default: false
       selector:
         boolean:
+    rotate_left_max_loop_repeats:
+      name: Rotate left - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
     rotate_right_loop:
       name: Rotate right - loop until stop
       description: Loop the rotate right action until the rotation is stopped.
       default: false
       selector:
         boolean:
+    rotate_right_max_loop_repeats:
+      name: Rotate right - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
-      name: (Required) Helper - Last Controller Event
+      name: Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. See docs for more.
       default: ''
       selector:
         entity:
           domain: input_text
     helper_debounce_delay:
-      name: Helper - Debounce delay
-      description: Delay used for debouncing RAW controller events.
-        A postive value means only the first of all commands received in this period will be executed at once.
-        This is helps preventing multiple raw events for one action to fire more then once and also prevents different events to be fired too quick after one and other.
-        Stop events will always never get filtered to prevent endless loops.
-        A negative value means only the last of all commands received in this period will be executed after the set time has passed.
-        This helps smooth out dimming/volume control since this controller is very sensitive.
-        I.e. when rotating right, but the first touch is registered as left directly followed by right (as intended) the initial left is filtered out.
+      name: (Optional) Helper - Debounce delay
+      description: >-
+        Delay used for debouncing RAW controller events, when the device
+        is connected with an integration which needs debounce. Increase this value
+        only if the device is integrated with deCONZ, ZHA and you notice duplicate
+        action runs.
       default: 0
       selector:
         number:
-          min: -500
-          max: 500
+          min: 0
+          max: 1000
           unit_of_measurement: milliseconds
-          mode: slider
-          step: 5
+          mode: box
+          step: 10
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
   integration: !input integration
   rotate_left_loop: !input rotate_left_loop
+  rotate_left_max_loop_repeats: !input rotate_left_max_loop_repeats
   rotate_right_loop: !input rotate_right_loop
+  rotate_right_max_loop_repeats: !input rotate_right_max_loop_repeats
   helper_last_controller_event: !input helper_last_controller_event
+  helper_debounce_delay: !input helper_debounce_delay
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
-  helper_debounce_delay: !input helper_debounce_delay
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      rotate_left: [3001]
-      rotate_stop: [2003, 3003]
-      rotate_right: [2001]
-      click_short: [1002]
-      click_double: [1004]
-      click_triple: [1005]
+      rotate_left: ['3001']
+      rotate_stop: ['3003', '2003']
+      rotate_right: ['2001']
+      click_short: ['1002']
+      click_double: ['1004']
+      click_triple: ['1005']
     zha:
       rotate_left: [move_1_195]
-      rotate_right: [move_0_195]
       rotate_stop: [stop]
+      rotate_right: [move_0_195]
       click_short: [toggle]
       click_double: [step_0_1_0]
       click_triple: [step_1_1_0]
     zigbee2mqtt:
       rotate_left: [brightness_move_down]
-      rotate_right: [brightness_move_up]
       rotate_stop: [brightness_stop]
+      rotate_right: [brightness_move_up]
       click_short: [toggle]
       click_double: [brightness_step_up]
       click_triple: [brightness_step_down]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
+  rotate_left_stop: '{{ actions_mapping[integration_id]["rotate_left_stop"] }}'
   rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
-  rotate_stop: '{{ actions_mapping[integration_id]["rotate_stop"] }}'
+  rotate_right_stop: '{{ actions_mapping[integration_id]["rotate_right_stop"] }}'
   click_short: '{{ actions_mapping[integration_id]["click_short"] }}'
   click_double: '{{ actions_mapping[integration_id]["click_double"] }}'
   click_triple: '{{ actions_mapping[integration_id]["click_triple"] }}'
@@ -180,120 +205,107 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
-      # debouncing: filter events that fire rapidly after one and other
-      # Make sure stop events always go trough but only one.
-      # Ignore repeats of the same rotation events and stop events.
-      # Ignore triggers in opesite directions without a stop event (or click event) in between.
       - >-
         {%- set trigger_action -%}
-          {%- if integration_id == "zigbee2mqtt" -%}
-            {{ trigger.event.data.new_state.state }}
-          {%- elif integration_id == "deconz" -%}
-            {{ trigger.event.data.event }}
-          {%- elif integration_id == "zha" -%}
-            {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-          {%- endif -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
         {%- endset -%}
-        {%- set trigger_time_delta -%}
-          {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
-          default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
-        {%- endset -%}
-        {%- set last_controller_event -%}
-          {%- if "trigger_action" in states(helper_last_controller_event) -%}
-            {{ (states(helper_last_controller_event) | from_json).trigger_action }}
-          {%- endif -%}
-        {%- endset -%}
-        {{
-          (trigger_action and (helper_debounce_delay < 0 or trigger_time_delta | int > helper_debounce_delay | int)
-            and not ((trigger_action in rotate_left or trigger_action in rotate_right) and trigger_action == last_controller_event)
-            and not (trigger_action in rotate_left and last_controller_event in rotate_right)
-            and not (trigger_action in rotate_right and last_controller_event in rotate_left))
-          or
-           ((trigger_action in rotate_stop) and trigger_action != last_controller_event)
-        }}
+        {{ trigger_action != "" }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-  # extract button event from the trigger to provide a single string value to check against
-  # extract last controller_event
+  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
+  # therefore previous runs must wait for the debounce delay before executing any other action
+  # if the delay expires and the automation is still running it means it's the last run and execution can continue
+  - delay:
+      milliseconds: !input helper_debounce_delay
+  # extract button event from the trigger
+  # provide a single string value to check against
   - variables:
-      # When debounce delay is a negative value, set pre_debounce variable and make value postive
-      pre_debounce: '{% if helper_debounce_delay >= 0 %}1{% else %}0{% endif %}'
-      debounce_delay: >-
-        {% if helper_debounce_delay < 0 %}
-          {{ helper_debounce_delay * -1 }}
-        {% else %}
-          {{ helper_debounce_delay }}
-        {% endif %}
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
-          {{ trigger.event.data.new_state.state }}
+        {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
-          {{ trigger.event.data.event }}
+        {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-          {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      last_controller_event: >-
-        {%- if "trigger_action" in states(helper_last_controller_event) -%}
-          {{ (states(helper_last_controller_event) | from_json).trigger_action }}
-        {%- endif -%}
-      trigger_time_delta: >-
-        {{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) |
-        default("{\"last_triggered\":\"1970-01-01 01:11:06\"}",true) | from_json).last_triggered)) * 1000 }}
-  # choose the sequence to run based on the received button event
-  # Delay when negative debounce value is set.
-  - choose:
-      - conditions: '{{ pre_debounce != 1 }}'
-        sequence:
-          - delay:
-              milliseconds: '{{ debounce_delay }}'
-  # save the last controller event, store the button event
+      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) |regex_match("^\{(\".*\": \".*\"(, )?)*\}$"))else "1970-01-01 00:00:00")) * 1000 }}'
+      last_controller_event: '{{ (states(helper_last_controller_event) | from_json).trigger_action if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^{(".*": ".*"(, )?)*}$")) else "" }}'
+  # update helper
   - service: input_text.set_value
     data:
-      entity_id: !input 'helper_last_controller_event'
-      value: '{"trigger_action":"{{trigger_action}}","last_triggered":"{{now()}}"}'
+      entity_id: !input helper_last_controller_event
+      value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions:
-          - '{{ trigger_action in rotate_stop }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: '{% if last_controller_event in rotate_left %}rotate_left_stop{% else %}rotate_right_stop{% endif %}'
-          # run the custom action
-          - choose:
-              - conditions: '{{ last_controller_event in rotate_left }}'
-                sequence: !input action_rotate_left_stop
-              - conditions: '{{ last_controller_event in rotate_right }}'
-                sequence: !input action_rotate_right_stop
-      - conditions: '{{ trigger_action in rotate_left }}'
+      - conditions: '{{ trigger_action | string in rotate_left }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
               action: rotate_left
-          # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding stop message is received
-          - repeat:
-              sequence: !input action_rotate_left
-              until: '{{ not rotate_left_loop }}'
-      - conditions: '{{ trigger_action in rotate_right }}'
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ rotate_left_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < rotate_left_max_loop_repeats | int }}'
+                      sequence: !input action_rotate_left
+            # if looping is not enabled run the custom action only once
+            default: !input action_rotate_left
+      - conditions:
+          - '{{ trigger_action | string in rotate_stop }}'
+          # check the previous event to determine the event which the received stop action is relative to
+          - '{{ last_controller_event in rotate_left }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left_stop
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_left_stop
+      - conditions: '{{ trigger_action | string in rotate_right }}'
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
               action: rotate_right
-          # if looping is enabled, loop the action indefinitely
-          # repeat until the automation is restarted ie. when the corresponding stop message is received
-          - repeat:
-              sequence: !input action_rotate_right
-              until: '{{ not rotate_right_loop }}'
-      - conditions: '{{ trigger_action in click_short }}'
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ rotate_right_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < rotate_right_max_loop_repeats | int }}'
+                      sequence: !input action_rotate_right
+            # if looping is not enabled run the custom action only once
+            default: !input action_rotate_right
+      - conditions:
+          - '{{ trigger_action | string in rotate_stop }}'
+          # check the previous event to determine the event which the received stop action is relative to
+          - '{{ last_controller_event in rotate_right }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right_stop
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_right_stop
+      - conditions: '{{ trigger_action | string in click_short }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -304,7 +316,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_click_short
-      - conditions: '{{ trigger_action in click_double }}'
+      - conditions: '{{ trigger_action | string in click_double }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -315,7 +327,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_click_double
-      - conditions: '{{ trigger_action in click_triple }}'
+      - conditions: '{{ trigger_action | string in click_triple }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -325,4 +337,4 @@ action:
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input 'action_click_triple'
+                sequence: !input action_click_triple
