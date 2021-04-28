@@ -175,9 +175,8 @@ variables:
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
-  rotate_left_stop: '{{ actions_mapping[integration_id]["rotate_left_stop"] }}'
+  rotate_stop: '{{ actions_mapping[integration_id]["rotate_stop"] }}'
   rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
-  rotate_right_stop: '{{ actions_mapping[integration_id]["rotate_right_stop"] }}'
   click_short: '{{ actions_mapping[integration_id]["click_short"] }}'
   click_double: '{{ actions_mapping[integration_id]["click_double"] }}'
   click_triple: '{{ actions_mapping[integration_id]["click_triple"] }}'
