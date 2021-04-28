@@ -275,6 +275,16 @@ When double press events are enabled for a specific button, clicking the button 
 
 If double press events are disabled for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
 
+### Center button long press
+
+Please note that the long press on the center button behaves differently from the long press for other buttons, due to how the controller implements this feature: when long pressing the center button, the controller first fires the short press event, then after a couple of seconds it sends the long press event as well. This behaviour is due to the controller design and it's not relative to any integration or the blueprint itself.
+
+### Issues with the E1810 model firing bad events
+
+It has been reported that the newer IKEA E1810 controller, which looks identical to the E1524, might fire wrong events in certain situations when interacting with it. This is due to an issue with the controller design and is not relative to the blueprint itself.
+
+If you notice your controller is not behaving as expected please remove the battery, wait about 2 minutes, insert it back and try again.
+
 ## Changelog
 
 - **2021-02-05**: first blueprint version :tada:
@@ -295,3 +305,4 @@ If double press events are disabled for a specific button, the corresponding sin
 - **2021-03-26**: add support for the Cover Hook
 - **2021-03-30**: Fix event mappings for ZHA and deCONZ
 - **2021-04-19**: Fix double press events not being detected with deCONZ
+- **2021-04-23**: Fix deCONZ events not being recognized

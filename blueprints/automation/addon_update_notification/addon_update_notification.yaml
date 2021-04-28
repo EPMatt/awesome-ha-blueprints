@@ -1,0 +1,220 @@
+blueprint:
+  name: Send a mobile notification when add-on update is available
+  description: |
+    Send a notification to the provided mobile devices whenever an update for the given Home Assistant add-on is available.
+    Supports full notification customization, notification groups, auto-dismissal when the add-on is updated and button for starting the update directly from your notification tray,
+    with optional notification after the update completed succesfully.
+
+    Full documentation for this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/addon_update_notification).
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/addon_update_notification/addon_update_notification.yaml
+  domain: automation
+  input:
+    addon:
+      name: Add-on
+      description: The add-on to monitor for updates.
+      selector:
+        addon:
+    addon_name:
+      name: Add-on name
+      description: The add-on name to be displayed in notifications.
+      selector:
+        text:
+    addon_sensor_version:
+      name: Add-on version sensor
+      description: The add-on current version sensor, exposed by the Supervisor.
+      selector:
+        entity:
+          domain: sensor
+          integration: hassio
+    addon_sensor_newest_version:
+      name: Add-on newest version sensor
+      description: The add-on newest version sensor, exposed by the Supervisor.
+      selector:
+        entity:
+          domain: sensor
+          integration: hassio
+    addon_sensor_update_available:
+      name: Add-on update available sensor
+      description: The add-on update available sensor, exposed by the Supervisor.
+      selector:
+        entity:
+          domain: binary_sensor
+          integration: hassio
+    mobile_notify_service:
+      name: Mobile devices notification service
+      description:
+        The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>).
+        You can provide both a notify group or a single notify device here.
+      selector:
+        text:
+    notification_title:
+      name: Notification title
+      default: '{{ addon_name }} add-on : Update available'
+      description: Title for the update notification.
+        You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
+      selector:
+        text:
+    notification_message:
+      name: Notification message
+      description: Message for the update notification.
+        You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
+      default: Update available for {{ addon_name }} add-on ({{ version }} -> {{ newest_version }})
+      selector:
+        text:
+          multiline: true
+    tap_action:
+      name: Tap action
+      description: URL you'll navigate to when tapping on the notification. Default to the add-on's info page.
+      default: /hassio/addon/{{ addon }}/info
+      selector:
+        text:
+    notification_color:
+      name: (Android only) Notification color
+      description: Color for the notifications. You can both type a friendly color name or an hex value.
+      default: ''
+      selector:
+        text:
+    notification_channel:
+      name: (Android only) Notification channel
+      description:
+        Android notification channel. Allows to group notifications to
+        then apply custom settings for sound, vibration, etc. Leave blank if you do
+        not want to use this feature.
+      default: ''
+      selector:
+        text:
+    notification_channel_importance:
+      name: (Android only) Notification Channel importance
+      description: Android notification channel importance. Allows to define different priority levels for your notifications.
+      default: default
+      selector:
+        select:
+          options:
+            - default
+            - min
+            - low
+            - high
+            - max
+    notification_group:
+      name: Notification group
+      description:
+        Notification group for the notifications sent with this automation.
+        Use this to group notifications in the notification tray. Leave blank if you
+        do not want to use this feature.
+      default: ''
+      selector:
+        text:
+    update_button:
+      name: Notification Update Button
+      description: Add a button to the notification for updating the addon.
+      default: true
+      selector:
+        boolean:
+    update_success_notification:
+      name: Update success notification
+      description:
+        Send a notification after the add-on update triggered by the update button succeed.
+        The notification will use the same settings for group, channel, importance and color from the update available notification.
+      default: true
+      selector:
+        boolean:
+    update_success_notification_title:
+      name: Update success notification title
+      description: Title for the update success notification.
+        You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
+      default: '{{ addon_name }} add-on: Update completed'
+      selector:
+        text:
+    update_success_notification_message:
+      name: Update success notification message
+      description: Message for the update success notification.
+        You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.
+      default: Add-on {{ addon_name }} was succesfully updated to {{ newest_version }}
+      selector:
+        text:
+          multiline: true
+
+# convert blueprint inputs to variables to be used in templates
+variables:
+  notification_title: !input notification_title
+  notification_message: !input notification_message
+  addon: !input addon
+  addon_name: !input addon_name
+  addon_sensor_version: !input addon_sensor_version
+  addon_sensor_newest_version: !input addon_sensor_newest_version
+  addon_sensor_update_available: !input addon_sensor_update_available
+  update_button: !input update_button
+  update_success_notification: !input update_success_notification
+trigger_variables:
+  trigger_addon: !input addon
+
+mode: single
+max_exceeded: silent
+trigger:
+  # trigger when the update status changes
+  - platform: state
+    entity_id: !input addon_sensor_update_available
+  # trigger when a user presses on the update button in the notification
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      tag: ahb_addon_notification_{{ trigger_addon }}
+      action: ahb_addon_update_{{ trigger_addon }}
+action:
+  - variables:
+      version: '{{ states(addon_sensor_version) }}'
+      newest_version: '{{ states(addon_sensor_newest_version) }}'
+  - choose:
+      # if an update was requested by the user clicking on the update button in the notification
+      - conditions: '{{ "event" in trigger and trigger.event.event_type == "mobile_app_notification_action" }}'
+        sequence:
+          # update the addon
+          - service: hassio.addon_update
+            data:
+              addon: !input addon
+          # if user opted in for notification after successful update, send it to the mobile device
+          - condition: template
+            value_template: '{{ update_success_notification }}'
+          - service: !input 'mobile_notify_service'
+            data:
+              title: !input update_success_notification_title
+              message: !input update_success_notification_message
+              data:
+                # iOS URL
+                url: !input tap_action
+                # Android URL
+                clickAction: !input tap_action
+                tag: 'ahb_addon_notification_{{ addon }}'
+                # notification group
+                group: !input 'notification_group'
+                channel: !input 'notification_channel'
+                importance: !input notification_channel_importance
+                color: !input notification_color
+      # if an update is available send a notification
+      - conditions: '{{ trigger.to_state.state == "on" }}'
+        sequence:
+          - service: !input 'mobile_notify_service'
+            data:
+              title: !input notification_title
+              message: !input notification_message
+              data:
+                # iOS URL
+                url: !input tap_action
+                # Android URL
+                clickAction: !input tap_action
+                tag: 'ahb_addon_notification_{{ addon }}'
+                # notification group
+                group: !input 'notification_group'
+                channel: !input 'notification_channel'
+                importance: !input notification_channel_importance
+                color: !input notification_color
+                actions: >-
+                  {% set actions=[{"action": "ahb_addon_update_"+addon, "title": "Update"}] %}
+                  {{ actions if update_button else [] }}
+    # if no update is available dismiss any previous update notification
+    default:
+      - service: !input 'mobile_notify_service'
+        data:
+          message: 'clear_notification'
+          data:
+            tag: 'ahb_update_notification_{{ addon }}'

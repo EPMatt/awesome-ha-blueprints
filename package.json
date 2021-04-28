@@ -15,8 +15,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.73",
-    "@docusaurus/preset-classic": "2.0.0-alpha.73",
+    "@docusaurus/core": "2.0.0-alpha.74",
+    "@docusaurus/preset-classic": "2.0.0-alpha.74",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "react": "^17.0.1",
@@ -36,9 +36,9 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
