@@ -128,7 +128,7 @@ This integration provides the entity which will be used to store the last button
 />
 <Input
   name='Helper - Debounce delay'
-  description='Delay used for debouncing RAW controller events, when the device is connected with an integration which needs debounce. Increase this value only if the device is integrated with deCONZ, ZHA and you notice duplicate action runs.'
+  description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
   selector='number'
 />
 
