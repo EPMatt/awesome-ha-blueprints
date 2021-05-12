@@ -30,7 +30,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
       - name: Setup Node.JS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: '14'
       - name: Cache node modules
@@ -65,7 +65,7 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
       - name: Setup Node.JS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: '14'
       - name: Cache node modules
