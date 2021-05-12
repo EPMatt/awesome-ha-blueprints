@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '14'
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
@@ -63,7 +63,7 @@ jobs:
         with:
           node-version: '14'
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
@@ -102,7 +102,7 @@ jobs:
         with:
           node-version: '14'
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
