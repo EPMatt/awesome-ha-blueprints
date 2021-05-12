@@ -33,7 +33,7 @@ jobs:
         run: npm ci
       - id: yamllint
         name: Yamllint
-        uses: reviewdog/action-yamllint@v1
+        uses: reviewdog/action-yamllint@v1.2
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
