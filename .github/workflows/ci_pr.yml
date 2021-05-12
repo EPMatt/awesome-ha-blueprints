@@ -49,7 +49,7 @@ jobs:
         run: npm ci
       - id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1
+        uses: reviewdog/action-eslint@v1.12.3
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
