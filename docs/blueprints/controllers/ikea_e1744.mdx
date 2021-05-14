@@ -100,25 +100,21 @@ This integration provides the entity which will be used to store the last button
   name='Rotate left - loop until stop'
   description='Loop the rotate left action until the rotation is stopped.'
   selector='boolean'
-  required
 />
 <Input
   name='Rotate left - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
-  required
 />
 <Input
   name='Rotate right - loop until stop'
   description='Loop the rotate right action until the rotation is stopped.'
   selector='boolean'
-  required
 />
 <Input
   name='Rotate right - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
-  required
 />
 <Input
   name='Helper - Last Controller Event'
@@ -192,3 +188,4 @@ The text input is used to determine stop rotation events when the controller is 
   - :tada: Add Debouncing support. Debouncing avoids duplicate action runs which might occur with certain controllers and integrations. The feature is disabled by default, check the documentation to find out how to enable it
   - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with two new blueprint inputs
   - Use any RAW stop event (left/right) to identify the stop event corresponding to the current remote rotation
+  - Fix inputs wrongly marked as required

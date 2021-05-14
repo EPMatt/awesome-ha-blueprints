@@ -79,13 +79,13 @@ blueprint:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     rotate_left_loop:
-      name: Rotate left - loop until stop
+      name: (Optional) Rotate left - loop until stop
       description: Loop the rotate left action until the rotation is stopped.
       default: false
       selector:
         boolean:
     rotate_left_max_loop_repeats:
-      name: Rotate left - Maximum loop repeats
+      name: (Optional) Rotate left - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -97,13 +97,13 @@ blueprint:
           mode: slider
           step: 1
     rotate_right_loop:
-      name: Rotate right - loop until stop
+      name: (Optional) Rotate right - loop until stop
       description: Loop the rotate right action until the rotation is stopped.
       default: false
       selector:
         boolean:
     rotate_right_max_loop_repeats:
-      name: Rotate right - Maximum loop repeats
+      name: (Optional) Rotate right - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
