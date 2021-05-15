@@ -107,7 +107,7 @@ This integration provides the entity which will be used to store the last button
 />
 <Input
   name='Helper - Debounce delay'
-  description='Delay used for debouncing RAW controller events, when the device is connected with an integration which needs debounce. Increase this value only if the device is integrated with deCONZ, ZHA and you notice duplicate action runs.'
+  description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
   selector='number'
 />
 
@@ -166,3 +166,16 @@ If double press events are disabled for a specific button, the corresponding sin
 - **2021-03-26**: add support for the Cover Hook
 - **2021-04-19**: Fix double press events not being detected with deCONZ
 - **2021-04-23**: Fix deCONZ events not being recognized
+- **2021-05-15**:
+
+  :warning: **Breaking Change**:
+
+  `helper_last_controller_event` is now a mandatory input. This change is required for debouncing support. It also simplifies the blueprint setup (reducing issues due to improper configuration missing the helper, which was required only in certain conditions as was stated in the docs), and provides support for advanced features which might be developed in the future.
+
+  If you plan to update this blueprint, please make sure to provide a valid `input_text` entity for the `helper_last_controller_event` input. You should create a separate `input_text` for each Controller blueprint you're configuring, since using the same for multiple automation could lead to inconsistencies and undefined behaviour.
+
+  **Other changes:**
+
+  - :tada: Add Debouncing support. Debouncing avoids duplicate action runs which might occur with certain controllers and integrations. The feature is disabled by default, check the documentation to find out how to enable it
+  - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with a new blueprint input
+  - Fix inputs wrongly marked as required
