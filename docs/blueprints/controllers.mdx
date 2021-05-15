@@ -7,15 +7,26 @@ description: Integrate a wide set of controllers in Home Assistant and provide a
 Controllers are part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
 :::
 
+import Image from '/src/components/ControllerImage'
+
 **Controllers** are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them. They consist in a practical abstraction layer for easily building controlled-based automations without worrying about the handling of RAW controller events, and the integration used to connect controllers to Home Assistant (Zigbee2MQTT, ZHA, etc.).
 
 You can integrate Controllers with [Hooks](hooks) and create controller-based automations to control lights, media players and much more, without having to write a single line of code.
 
-| Name                                                                                | Description                                                                                                                                                                                                               |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [IKEA E1524/E1810 5-Button Remote](/docs/blueprints/controllers/ikea_e1524_e1810)   | Controller automation for executing any kind of action triggered by an IKEA E1524/E1810 5-Button remote remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA. |
-| [E1743 On/Off Switch & Dimmer](/docs/blueprints/controllers/ikea_e1743)             | Controller automation for executing any kind of action triggered by an IKEA E1743 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.                       |
-| [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)       | Controller automation for executing any kind of action triggered by an IKEA E1744 remote controller. Supports Zigbee2MQTT, deCONZ, ZHA.                                                                                   |
-| [IKEA E1812 Shortcut button](/docs/blueprints/controllers/ikea_e1812)               | Controller automation for executing any kind of action triggered by an IKEA E1812 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.                       |
-| [IKEA ICTC-G-1 TRADFRI wireless dimmer](/docs/blueprints/controllers/ikea_ictc_g_1) | Controller automation for executing any kind of action triggered by an IKEA ICTC-G-1 remote controller. Supports Zigbee2MQTT, deCONZ, ZHA.                                                                                |
-| [Philips Hue dimmer switch](/docs/blueprints/controllers/philips_324131092621)      | Controller automation for executing any kind of action triggered by an IKEA E1812 remote controller. Allows to optionally loop an action on a button long press. Supports Zigbee2MQTT, deCONZ, ZHA.                       |
+
+### Supported Controllers
+
+Currently **6** devices are supported from **2** different vendors.
+
+*Can't find the controller you're looking for in this list? [Submit a new blueprint proposal for your controller here.](https://github.com/EPMatt/awesome-ha-blueprints/issues/new?assignees=&labels=blueprint%2Cnew%2Ccontroller&template=new-controller-support.md&title=New+Controller+-+)*
+
+| Manufacturer | Model                                                             | Description                      | Integrations             | Picture                                 |
+| ------------ | ----------------------------------------------------------------- | -------------------------------- | ------------------------ | --------------------------------------- |
+| IKEA         | [E1524/E1810](/docs/blueprints/controllers/ikea_e1524_e1810)      | TRÅDFRI Wireless 5-Button Remote | deCONZ, ZHA, Zigbee2MQTT | <Image img='ikea_e1524_e1810.png'/>     |
+| IKEA         | [E1743](/docs/blueprints/controllers/ikea_e1743)                  | TRÅDFRI On/Off Switch & Dimmer   | deCONZ, ZHA, Zigbee2MQTT | <Image img='ikea_e1743.png'/>           |
+| IKEA         | [E1744](/docs/blueprints/controllers/ikea_e1744)                  | SYMFONISK Rotary Remote          | deCONZ, ZHA, Zigbee2MQTT | <Image img='ikea_e1744.png'/>           |
+| IKEA         | [E1812](/docs/blueprints/controllers/ikea_e1812)                  | TRÅDFRI Shortcut button          | deCONZ, ZHA, Zigbee2MQTT | <Image img='ikea_e1812.png'/>           |
+| IKEA         | [ICTC-G-1](/docs/blueprints/controllers/ikea_ictc_g_1)            | TRÅDFRI wireless dimmer          | deCONZ, ZHA, Zigbee2MQTT | <Image img='ikea_ictc_g_1.png'/>        |
+| Philips      | [324131092621](/docs/blueprints/controllers/philips_324131092621) | Hue dimmer switch                | deCONZ, ZHA, Zigbee2MQTT | <Image img='philips_324131092621.png'/> |
+
+*Can't find the controller you're looking for in this list? [Submit a new blueprint proposal for your controller here.](https://github.com/EPMatt/awesome-ha-blueprints/issues/new?assignees=&labels=blueprint%2Cnew%2Ccontroller&template=new-controller-support.md&title=New+Controller+-+)*
