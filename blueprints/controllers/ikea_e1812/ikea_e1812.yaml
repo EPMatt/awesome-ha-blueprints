@@ -61,13 +61,13 @@ blueprint:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     button_long_loop:
-      name: Long button press - loop until release
+      name: (Optional) Long button press - loop until release
       description: Loop the action until the button is released.
       default: false
       selector:
         boolean:
     button_long_max_loop_repeats:
-      name: Long button press - Maximum loop repeats
+      name: (Optional) Long button press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -80,7 +80,7 @@ blueprint:
           step: 1
     # inputs for enabling double press events
     button_double_press:
-      name: Expose button double press event
+      name: (Optional) Expose button double press event
       description: Choose whether or not to expose the virtual double press event for the button. Turn this on if you are providing an action for the button double press event.
       default: false
       selector:
