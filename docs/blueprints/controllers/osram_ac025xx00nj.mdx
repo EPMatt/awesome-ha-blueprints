@@ -183,6 +183,36 @@ This integration provides the entity which will be used to store the last button
 
 ## Available Hooks
 
+### Light
+
+This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+Please enable double press events for the Up and Down button to use all the available actions.
+
+- Up button short press -> Brightness up
+- Up button long press & hold -> Brightness up (continuous, until release)
+- Up button double press -> Color Up
+- Center button short press -> Toggle
+- Down button short press -> Brightness down
+- Down button long press & hold -> Brightness down (continuous, until release)
+- Down button double press -> Color Down
+
+[Light Hook docs](/docs/blueprints/hooks/light)
+
+### Media Player
+
+This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
+Please enable double press events for the Up and Down button to use all the available actions.
+
+- Up button short press -> Volume up
+- Up button long press & hold -> Volume up (continuous, until release)
+- Up button double press -> Next track
+- Center button short press -> Play/Pause
+- Center button long press -> Toggle
+- Down button short press -> Volume down
+- Down button long press & hold -> Volume down (continuous, until release)
+- Down button double press -> Previous Track
+
+[Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
 ## Additional Notes
 
