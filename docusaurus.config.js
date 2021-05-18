@@ -13,7 +13,7 @@ module.exports = {
     announcementBar: {
       id: 'support_us',
       content:
-        '🚀 <b>Love this project?</b><br/><a target="_blank" href="https://github.com/EPMatt/awesome-ha-blueprints">Drop a star on GitHub</a>🌟 or <a target="_blank" href="https://www.buymeacoffee.com/epmatt">make a small donation</a>☕ to show your support!',
+        '🚀 <b>Love this project?</b> <a target="_blank" href="https://github.com/EPMatt/awesome-ha-blueprints">Drop a star on GitHub</a>🌟 or <a target="_blank" href="https://www.buymeacoffee.com/epmatt">make a small donation</a>☕ to show your support!',
       backgroundColor: '#fffbd4',
       textColor: '#091E42',
     },
