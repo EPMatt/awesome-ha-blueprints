@@ -120,6 +120,7 @@ This integration provides the entity which represents a light in Home Assistant.
 - [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)
 - [IKEA E1812 Shortcut button](/docs/blueprints/controllers/ikea_e1812)
 - [IKEA ICTC-G-1 TRADFRI wireless dimmer](/docs/blueprints/controllers/ikea_ictc_g_1)
+- [Osram SMART+ Switch Mini](/docs/blueprints/controllers/osram_ac025xx00nj)
 - [Philips Hue Dimmer switch](/docs/blueprints/controllers/philips_324131092621)
 
 ## Additional Notes
@@ -143,3 +144,4 @@ If you want to link multiple lights to the same controller you can either use [L
   - **breaking change**: by default the light now turns off when a brightness down command is received and light is at minimum brightness. To disable this behaviour, turn off the smooth power off feature.
   - fix some optional fields name.
 - **2021-04-19**: remove unused variable, fix warnings for undefined variables in Home Assistant Core >=2021.4.0
+- **2021-05-16**: Add support for Osram SMART+ Switch Mini
