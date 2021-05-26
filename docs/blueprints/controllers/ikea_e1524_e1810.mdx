@@ -221,7 +221,7 @@ This integration provides the entity which will be used to store the last button
 />
 <Input
   name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See docs for more.'
+  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
   selector='entity'
   required
 />
@@ -283,14 +283,15 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 ## Additional Notes
 
-The `helper_last_controller_event` text input allows to store the previous button event as well as the last time a controller event was fired. This info is used in many different ways to implement the blueprint's core functionality. Make sure the input text is not altered by any other agents, since this could break the automation and lead to unexpected behaviour.
-The text input is used to determine button release events when the controller is integrated with ZHA, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input.
+### Helper - Last Controller Event
 
-It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
+The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
 
-When double press events are enabled for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
+The helper is used to determine button release events when the controller is integrated with ZHA, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button.
 
-If double press events are disabled for a specific button, the corresponding single press action will be executed immediately when the button is pressed.
+### Virtual double press events
+
+It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
 
 ### Center button long press
 
