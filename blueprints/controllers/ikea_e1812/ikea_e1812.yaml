@@ -88,7 +88,7 @@ blueprint:
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
       name: Helper - Last Controller Event
-      description: Input Text used to store the last event fired by the controller. See docs for more.
+      description: Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.
       default: ''
       selector:
         entity:

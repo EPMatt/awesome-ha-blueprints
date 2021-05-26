@@ -103,7 +103,7 @@ This integration provides the entity which will be used to store the last button
 />
 <Input
   name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See docs for more.'
+  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
   selector='entity'
   required
 />
@@ -134,8 +134,11 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 ## Additional Notes
 
-The `helper_last_controller_event` text input allows to store the previous button event as well as the last time a controller event was fired. This info is used in many different ways to implement the blueprint's core functionality. Make sure the input text is not altered by any other agents, since this could break the automation and lead to unexpected behaviour.
-The text input is used to determine stop rotation events when the controller is integrated with ZHA, Zigbee2MQTT, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different rotation events, so the blueprint must store the previous rotation, using the text input.
+### Helper - Last Controller Event
+
+The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
+
+The helper is used to determine stop rotation events when the controller is integrated with ZHA, Zigbee2MQTT, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different rotation events, so the blueprint must store the previous rotation.
 
 This blueprint provides beta support for controllers integrated with deCONZ, since not all the supported events are mapped for this integration. If you are using the IKEA ICTC-G-1 with deCONZ and would like to help, you can reach out [here](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687).
 
