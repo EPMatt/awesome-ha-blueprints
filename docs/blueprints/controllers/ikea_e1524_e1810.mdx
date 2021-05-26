@@ -323,7 +323,7 @@ If you notice your controller is not behaving as expected please remove the batt
 - **2021-03-30**: Fix event mappings for ZHA and deCONZ
 - **2021-04-19**: Fix double press events not being detected with deCONZ
 - **2021-04-23**: Fix deCONZ events not being recognized
-- **2021-05-19**:
+- **2021-05-26**:
 
   :warning: **Breaking Change**:
 
@@ -336,3 +336,4 @@ If you notice your controller is not behaving as expected please remove the batt
   - :tada: Add Debouncing support. Debouncing avoids duplicate action runs which might occur with certain controllers and integrations. The feature is disabled by default, check the documentation to find out how to enable it
   - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with four new blueprint inputs
   - Fix inputs wrongly marked as required
+  - Fix for Zigbee2MQTT reporting null state changes

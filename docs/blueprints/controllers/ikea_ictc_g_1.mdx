@@ -144,7 +144,7 @@ This blueprint provides beta support for controllers integrated with deCONZ, sin
 - **2021-03-26**: first blueprint version :tada:
 - **2021-04-19**: Fix stop rotation events not being detected with deCONZ
 - **2021-04-23**: Fix deCONZ events not being recognized
-- **2021-05-19**:
+- **2021-05-26**:
 
   :warning: **Breaking Change**:
 
@@ -158,3 +158,4 @@ This blueprint provides beta support for controllers integrated with deCONZ, sin
   - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with two new blueprint inputs
   - Use any RAW stop event (left/right) to identify the stop event corresponding to the current remote rotation
   - Fix inputs wrongly marked as required
+  - Fix for Zigbee2MQTT reporting null state changes
