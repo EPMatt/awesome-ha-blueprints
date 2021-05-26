@@ -143,59 +143,76 @@ This integration provides the entity which will be used to store the last button
   name='Long on button press - loop until release'
   description='Loop the action until the on button is released.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Long on button press - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Long off button press - loop until release'
   description='Loop the action until the off button is released.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Long off button press - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Long up button press - loop until release'
   description='Loop the action until the up button is released.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Long up button press - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Long down button press - loop until release'
   description='Loop the action until the down button is released.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Long down button press - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Expose on button double press event'
   description='Choose whether or not to expose the virtual double press event for the on button. Turn this on if you are providing an action for the on button double press event.'
   selector='boolean'
-  required
 />
 <Input
   name='Expose off button double press event'
   description='Choose whether or not to expose the virtual double press event for the off button. Turn this on if you are providing an action for the off button double press event.'
   selector='boolean'
-  required
 />
 <Input
   name='Expose up button double press event'
   description='Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.'
   selector='boolean'
-  required
 />
 <Input
   name='Expose down button double press event'
   description='Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.'
   selector='boolean'
-  required
 />
 <Input
   name='Helper - Last Controller Event'
   description='Input Text used to store the last event fired by the controller. See docs for more.'
   selector='entity'
-  required='(Double press action Required)'
+  required
 />
 <Input
   name='Helper - Double Press delay'
   description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
+  selector='number'
+/>
+<Input
+  name='Helper - Debounce delay'
+  description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
   selector='number'
 />
 
@@ -233,6 +250,8 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 ## Additional Notes
 
+The `helper_last_controller_event` text input allows to store the previous button event as well as the last time a controller event was fired. This info is used in many different ways to implement the blueprint's core functionality. Make sure the input text is not altered by any other agents, since this could break the automation and lead to unexpected behaviour.
+
 It's also important to notice that the controller doesn't natively support double press events. This blueprint provides virtual double press events by relying on the text input, used to store the last short press event, and a delay, which represents the maximum time gap between the first and second short press required to trigger the virtual double press.
 
 When double press events are enabled for a specific button, clicking the button results in the automation first waiting for the second button press, then, if none is received within the provided delay, executing the short press action.
@@ -244,3 +263,17 @@ If double press events are disabled for a specific button, the corresponding sin
 - **2021-03-27**: first blueprint version :tada:
 - **2021-04-19**: Fix double press events not being detected with deCONZ
 - **2021-04-23**: Fix deCONZ events not being recognized
+- **2021-05-26**:
+
+  :warning: **Breaking Change**:
+
+  `helper_last_controller_event` is now a mandatory input. This change is required for debouncing support. It also simplifies the blueprint setup (reducing issues due to improper configuration missing the helper, which was required only in certain conditions as was stated in the docs), and provides support for advanced features which might be developed in the future.
+
+  If you plan to update this blueprint, please make sure to provide a valid `input_text` entity for the `helper_last_controller_event` input. You should create a separate `input_text` for each Controller blueprint you're configuring, since using the same for multiple automation could lead to inconsistencies and undefined behaviour.
+
+  **Other changes:**
+
+  - :tada: Add Debouncing support. Debouncing avoids duplicate action runs which might occur with certain controllers and integrations. The feature is disabled by default, check the documentation to find out how to enable it
+  - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with four new blueprint inputs
+  - Fix inputs wrongly marked as required
+  - Fix for Zigbee2MQTT reporting null state changes

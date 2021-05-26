@@ -17,8 +17,6 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA ICTC-G-1 TRADFRI wireless dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
-In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
-
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to optionally loop the rotate actions while the remote is rotating either left or right. Once the remote stops rotating, the loop stops as well. This is useful when rotating the controller should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
 :::tip
@@ -87,19 +85,32 @@ This integration provides the entity which will be used to store the last button
   name='Rotate left - loop until stop'
   description='Loop the rotate left action until the rotation is stopped.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Rotate left - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Rotate right - loop until stop'
   description='Loop the rotate right action until the rotation is stopped.'
   selector='boolean'
-  required
+/>
+<Input
+  name='Rotate right - Maximum loop repeats'
+  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
 />
 <Input
   name='Helper - Last Controller Event'
   description='Input Text used to store the last event fired by the controller. See docs for more.'
   selector='entity'
-  required='(ZHA, Zigbee2MQTT Required)'
+  required
+/>
+<Input
+  name='Helper - Debounce delay'
+  description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
+  selector='number'
 />
 
 ## Available Hooks
@@ -123,7 +134,8 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 ## Additional Notes
 
-The reason why a text input is required to store the last long press event when using a remote with ZHA, Zigbee2MQTT is because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button, using the text input. Make sure the input text is not altered by any other agents, since this could break the automation.
+The `helper_last_controller_event` text input allows to store the previous button event as well as the last time a controller event was fired. This info is used in many different ways to implement the blueprint's core functionality. Make sure the input text is not altered by any other agents, since this could break the automation and lead to unexpected behaviour.
+The text input is used to determine stop rotation events when the controller is integrated with ZHA, Zigbee2MQTT, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different rotation events, so the blueprint must store the previous rotation, using the text input.
 
 This blueprint provides beta support for controllers integrated with deCONZ, since not all the supported events are mapped for this integration. If you are using the IKEA ICTC-G-1 with deCONZ and would like to help, you can reach out [here](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687).
 
@@ -132,3 +144,18 @@ This blueprint provides beta support for controllers integrated with deCONZ, sin
 - **2021-03-26**: first blueprint version :tada:
 - **2021-04-19**: Fix stop rotation events not being detected with deCONZ
 - **2021-04-23**: Fix deCONZ events not being recognized
+- **2021-05-26**:
+
+  :warning: **Breaking Change**:
+
+  `helper_last_controller_event` is now a mandatory input. This change is required for debouncing support. It also simplifies the blueprint setup (reducing issues due to improper configuration missing the helper, which was required only in certain conditions as was stated in the docs), and provides support for advanced features which might be developed in the future.
+
+  If you plan to update this blueprint, please make sure to provide a valid `input_text` entity for the `helper_last_controller_event` input. You should create a separate `input_text` for each Controller blueprint you're configuring, since using the same for multiple automation could lead to inconsistencies and undefined behaviour.
+
+  **Other changes:**
+
+  - :tada: Add Debouncing support. Debouncing avoids duplicate action runs which might occur with certain controllers and integrations. The feature is disabled by default, check the documentation to find out how to enable it
+  - Prevent undesired endless loops, which might occur in rare cases when the corresponding stop event is not received, by running loop actions a finite number of times, customizable with two new blueprint inputs
+  - Use any RAW stop event (left/right) to identify the stop event corresponding to the current remote rotation
+  - Fix inputs wrongly marked as required
+  - Fix for Zigbee2MQTT reporting null state changes
