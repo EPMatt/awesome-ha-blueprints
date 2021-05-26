@@ -1,60 +1,49 @@
+<div align="center">
+
 # Awesome HA Blueprints
+
+<a href="https://epmatt.github.io/awesome-ha-blueprints/">
+<img width=200 src="./awesome-ha-blueprints-logo.png"/>
+</a>
+<br/>
+<br/>
+A curated collection of blueprints for Home Assistant.
+
+Reliable, customizable, fully tested by the community.
 
 ![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen) ![GPL-3.0 License](https://img.shields.io/github/license/EPMatt/awesome-ha-blueprints) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/epmatt/awesome-ha-blueprints/Continuous%20Integration?label=checks%20and%20build) [![Community Topic here](https://img.shields.io/badge/discussion-here-blue)](https://community.home-assistant.io/t/awesome-ha-blueprints-a-curated-list-of-blueprints-easily-create-controller-based-automations-remotes-switches-for-controlling-lights-media-players-and-more/256687)
 [![Buy Me a Coffee](https://img.shields.io/badge/sponsor-buy%20me%20a%20coffee%20%3A%29-ffdd38)](https://www.buymeacoffee.com/epmatt)
 
-With the recent **Home Assistant 2020.12 Release**, a new exciting feature was introduced: _Blueprints_.
+</div>
 
-Blueprints, which currently are available only for the `automation` domain, are highly reusable configurations for the home automation hub.
+## Introduction
 
-For automations, an interesting use-case is described in the [Official Blueprint Documentation](https://www.home-assistant.io/docs/blueprint/):
+**Awesome HA Blueprints** is a curated list of automation blueprints for Home Assistant, which can then be easily imported and updated in any Home Assistant instance.
 
-> Imagine a blueprint that controls a light based on motion, that allows you to configure the motion sensor to trigger on, and the light to control.
->
-> It is now possible to create two automations that each have their own configuration for this blueprint and that act completely independent, yet are based on the same automation configuration.
-
-One of the major advantages of Blueprints is their ability to be customized by any user, adapting to their needs, **directly from the UI, without ever writing a single YAML line**.
-
-This project aims to build a curated list of automation blueprints for Home Assistant, which can then be easily imported and updated in any Home Assistant instance. Each blueprint included in the collection will be:
+Blueprints included in the collection are:
 
 - **Highly customizable** and **flexible** to user needs, but still hiding the complexity of their internal working to the user;
 - **Reliable** on most situations and corner cases;
 - **Fully maintained**, collaboratively **developed** and **tested by the community**.
 
-One of the main focuses of the project is on **Reliability**. With more and more people looking into home automation every day, it's important that our smart homes run on reliable software. This includes not only server OSs, home automation hubs, and general services, but also the automations we use throughout the day.
+You can read the full introduction to the project [here](https://epmatt.github.io/awesome-ha-blueprints/docs/introduction).
 
-The **ultimate goal** of Awesome HA Blueprints is to **develop an highly valuable resource** for Home Assistant newcomers who would like to include **complex automations** in their home automation setups **with just a few clicks**, without even touching a single line of code.
+## Documentation
 
-## Importing a blueprint
+Every blueprint included in the collection is highly documented. You can read full documentation regarding this project in the [Official documentation website](https://epmatt.github.io/awesome-ha-blueprints/).
 
-You can import blueprints directly from the Home Assistant UI.
+## Available blueprints
 
-1. Look for the blueprint you'd like to import [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints);
-2. In the page of the blueprint you'd like to import, click on the **Copy Link** button on the top of the page. The URL for the blueprint is now in your clipboard;
-3. On your Home Assistant instance go to **Configuration** and then **Blueprints**
-4. Click on the **Import Blueprint** button in the bottom right corner. A new dialog will pop-up;
-5. Paste the URL for the blueprint and click on **Preview Blueprint**;
-6. If desided change the name of the blueprint and finish the import;
-7. You're good to go! Now your blueprint can be used for generating automations.
+Browse the full list of available blueprints [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/).
 
-Check out the [Official documentation on Using Automation Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/) for the detailed process of importing blueprints into Home Assistant and using them for automations.
+Blueprints are divided in categories. If you're interested in creating **controller-based automations**, check out the [Controllers-Hooks blueprint ecosystem](https://epmatt.github.io/awesome-ha-blueprints/docs/controllers-hooks-ecosystem). You'll be able to set up your switches, dimmers and remotes to control your lights, media players and more in just a few clicks.
 
-## Contributing to the project
+## Contributing
 
 Please check our [Contribution Guidelines](https://github.com/EPMatt/awesome-ha-blueprints/blob/main/CONTRIBUTING.md) for additional information on how to contribute. From issues to new blueprints submissions, everything is described in detail to make sure the community can benefit the most from your contribution.
 
-## Further Developments
+## Supporting the project
 
-The Awesome HA Blueprints Project is just at its starting point, so many things could change in the upcoming weeks and months. This could include:
+You can support Awesome HA Blueprints by just **dropping a star here on GitHub** :star:. This simple action will help the project to gain popularity and enlarge its community.
 
-- changes to the template blueprint and documentation file;
-- improvements to project documentation;
-- implementation of a folder structure to better organize blueprints by category.
-
-Awesome HA Blueprints is based on a strong contribution from the whole community. With an expected large interaction volume this project will require a lot of effort to be maintained. Therefore any suggestion on organization, guidelines, or anything that can improve the interaction with Awesome HA Blueprints would be amazing and highly appreciated!
-
-## Additional Resources
-
-- [Home Assistant official documentation on Blueprints](https://www.home-assistant.io/docs/blueprint/) if you want to learn more about blueprints, how to create and use them in your Home Assistant installation;
-- [Home Assistant Blueprint Exchange forum](https://community.home-assistant.io/c/blueprints-exchange) the official resource for sharing blueprints within the community, which is currently seeing an intense activity from the community;
-- [Beginner's Guide to Blueprints](https://youtu.be/oFcRe91LH1E) a YouTube video by Zack Barett which describes how to import, use and create blueprints.
+Moreover, if you really love the project and want to support its future developments, please **consider [leaving a small donation](https://www.buymeacoffee.com/epmatt)**. ☕
