@@ -170,7 +170,7 @@ It's also important to note that the controller doesn't natively support double 
 
   :warning: **Breaking Change**:
 
-  `helper_last_controller_event` is now a mandatory input. This change is required for debouncing support. It also simplifies the blueprint setup (reducing issues due to improper configuration missing the helper, which was required only in certain conditions as was stated in the docs), and provides support for advanced features which might be developed in the future.
+  `helper_last_controller_event` is now a mandatory input. It also simplifies the blueprint setup (reducing issues due to improper configuration missing the helper, which was required only in certain conditions as was stated in the docs), and provides support for advanced features which might be developed in the future.
 
   If you plan to update this blueprint, please make sure to provide a valid `input_text` entity for the `helper_last_controller_event` input. You should create a separate `input_text` for each Controller blueprint you're configuring, since using the same for multiple automation could lead to inconsistencies and undefined behaviour.
 
