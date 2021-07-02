@@ -96,6 +96,17 @@ blueprint:
           max: 5000
           mode: slider
           step: 1
+    rotate_left_loop_pause_length:
+      name: (Optional) Rotate left - Loop pause length
+      description: >-
+        The time to pause before looping again
+      default: 200
+      selector:
+        number:
+          min: 0
+          max: 2000
+          mode: slider
+          step: 1
     rotate_right_loop:
       name: (Optional) Rotate right - loop until stop
       description: Loop the rotate right action until the rotation is stopped.
@@ -112,6 +123,17 @@ blueprint:
         number:
           min: 1
           max: 5000
+          mode: slider
+          step: 1
+    rotate_right_loop_pause_length:
+      name: (Optional) Rotate right - Loop pause length
+      description: >-
+        The time to pause before looping again
+      default: 200
+      selector:
+        number:
+          min: 0
+          max: 2000
           mode: slider
           step: 1
     # helpers used to properly recognize the remote button events
@@ -255,7 +277,12 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < rotate_left_max_loop_repeats | int }}'
-                      sequence: !input action_rotate_left
+                      sequence:
+                        - choose:
+                          default: !input action_rotate_left
+                        - delay:
+                            milliseconds: !input rotate_left_loop_pause_length
+
             # if looping is not enabled run the custom action only once
             default: !input action_rotate_left
       - conditions:
@@ -285,7 +312,11 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < rotate_right_max_loop_repeats | int }}'
-                      sequence: !input action_rotate_right
+                      sequence:
+                        - choose:
+                          default: !input action_rotate_right
+                        - delay:
+                            milliseconds: !input rotate_right_loop_pause_length
             # if looping is not enabled run the custom action only once
             default: !input action_rotate_right
       - conditions:
