@@ -37,6 +37,7 @@ blueprint:
             - IKEA ICTC-G-1 TRADFRI wireless dimmer
             - Osram SMART+ Switch Mini
             - Philips Hue Dimmer switch
+            - Philips Hue Smart Button
     light:
       name: Light
       description: Light which will be controlled with this automation.
@@ -166,6 +167,7 @@ variables:
     IKEA ICTC-G-1 TRADFRI wireless dimmer: ikea_ictc_g_1
     Osram SMART+ Switch Mini: osram_ac025xx00nj
     Philips Hue Dimmer switch: philips_324131092621
+    Philips Hue Smart Button: philips_8718699693985
   controller_mapping:
     ikea_e1524_e1810:
       brightness_up: button_up_short
@@ -213,6 +215,8 @@ variables:
       brightness_down_repeat: button_down_long
       color_up_repeat: button_on_long
       color_down_repeat: button_off_long
+    philips_8718699693985:
+      toggle: button_short
   # extract controller ids
   controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller
