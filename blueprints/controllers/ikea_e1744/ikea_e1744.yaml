@@ -114,6 +114,18 @@ blueprint:
           max: 5000
           mode: slider
           step: 1
+    rotate_loop_pause:
+      name: (Optional) Rotation loop pause (ms)
+      description: >-
+        The amount of time in milliseconds to pause during each loop
+      default: 200
+      selector:
+        number:
+          min: 1
+          max: 2000
+          mode: slider
+          step: 20
+
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
       name: Helper - Last Controller Event
