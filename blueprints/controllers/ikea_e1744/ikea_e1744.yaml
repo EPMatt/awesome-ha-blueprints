@@ -157,7 +157,7 @@ variables:
   rotate_left_max_loop_repeats: !input rotate_left_max_loop_repeats
   rotate_right_loop: !input rotate_right_loop
   rotate_right_max_loop_repeats: !input rotate_right_max_loop_repeats
-  helper_last_controller_event: !input helper_last_controller_event
+  state_helper_var: !input helper_last_controller_event
   helper_debounce_delay: !input helper_debounce_delay
   # integration id used to select items in the action mapping
   integration_id: '{{ integration | lower }}'
@@ -231,11 +231,7 @@ condition:
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
-  # therefore previous runs must wait for the debounce delay before executing any other action
-  # if the delay expires and the automation is still running it means it's the last run and execution can continue
-  - delay:
-      milliseconds: !input helper_debounce_delay
+
   # extract button event from the trigger
   # provide a single string value to check against
   - variables:
@@ -254,6 +250,12 @@ action:
     data:
       entity_id: !input helper_last_controller_event
       value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
+  # therefore previous runs must wait for the debounce delay before executing any other action
+  # if the delay expires and the automation is still running it means it's the last run and execution can continue
+
+  - delay:
+      milliseconds: !input helper_debounce_delay
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in rotate_left }}'
