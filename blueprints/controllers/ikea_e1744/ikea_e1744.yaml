@@ -245,79 +245,192 @@ action:
         {%- endif -%}
       trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "1970-01-01 00:00:00")) * 1000 }}'
       last_controller_event: '{{ (states(helper_last_controller_event) | from_json).trigger_action if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "" }}'
-  # update helper
+      state_helper_var: >
+        {{
+          (states(state_helper_var) | from_json)
+            if state_helper_var is not none
+              and (states(state_helper_var) | from_json).initialised == true
+            else
+              (
+                {
+                  "initialised": true,
+                  "rotation": {
+                    "rotate_left": {
+                      "when": now()|string,
+                      "active": false
+                    },
+                    "rotate_right": {
+                      "when": now()|string,
+                      "active": false
+                    }
+                  }
+                } | to_json
+              ) | from_json
+        }}
+
+      is_rotate_left: '{{ trigger_action | string in rotate_left }}'
+      is_rotate_right: '{{ trigger_action | string in rotate_right }}'
+      is_rotate_stop: '{{ trigger_action | string in rotate_stop }}'
+
+      max_loop_repeats: '{{ rotate_left_max_loop_repeats if rotating_left else rotate_right_max_loop_repeats }}'
+      is_already_rotating_left: '{{ state_helper_var.rotation.rotate_left.active }}'
+      is_already_rotating_right: '{{ state_helper_var.rotation.rotate_right.active }}'
+      is_already_rotating: '{{ is_already_rotating_left or is_already_rotating_right }}'
+
+
+  # Set an initial value for the helper
   - service: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
-      value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+      value: '{{ state_helper_var | to_json}}'
+
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
   # if the delay expires and the automation is still running it means it's the last run and execution can continue
 
   - delay:
       milliseconds: !input helper_debounce_delay
+
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action | string in rotate_left }}'
-        sequence:
-          # fire the event only once before looping the action
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_left
-          - choose:
-              # if looping is enabled, loop the action for a finite number of iterations
-              - conditions: '{{ rotate_left_loop }}'
-                sequence:
-                  - repeat:
-                      while: '{{ repeat.index < rotate_left_max_loop_repeats | int }}'
-                      sequence: !input action_rotate_left
-            # if looping is not enabled run the custom action only once
-            default: !input action_rotate_left
+
+
+      # Rotate Start
       - conditions:
-          - '{{ trigger_action | string in rotate_stop }}'
-          # check the previous event to determine the event which the received stop action is relative to
-          - '{{ last_controller_event in rotate_left }}'
+          # First determine if the trigger is a rotation related trigger
+          - '{{ is_rotate_left or is_rotate_right }}'
+          # ...then check the state helper var to assert that we are not already rotating in that direction
+          - '{{ not is_already_rotating }}'
         sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_left_stop
-          # run the custom action
-          - choose:
-              - conditions: []
-                sequence: !input action_rotate_left_stop
-      - conditions: '{{ trigger_action | string in rotate_right }}'
-        sequence:
-          # fire the event only once before looping the action
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_right
-          - choose:
-              # if looping is enabled, loop the action for a finite number of iterations
-              - conditions: '{{ rotate_right_loop }}'
-                sequence:
-                  - repeat:
-                      while: '{{ repeat.index < rotate_right_max_loop_repeats | int }}'
-                      sequence: !input action_rotate_right
-            # if looping is not enabled run the custom action only once
-            default: !input action_rotate_right
+          - variables:
+              # Update the state helper var to set rotation active = true for the current direction of rotation
+              state_helper_var: >-
+                {{
+                  (
+                    {
+                      "initialised": true,
+                      "rotation": {
+                        "rotate_left": {
+                          "when": now()|string if is_rotate_left else state_helper_var.rotation.rotate_left.when,
+                          "active": is_rotate_left
+                        },
+                        "rotate_right": {
+                          "when": now()|string if is_rotate_right else state_helper_var.rotation.rotate_right.when,
+                          "active": is_rotate_right
+                        }
+                      }
+                    } | to_json
+                  ) | from_json
+                }}
+              is_already_rotating_left: '{{ state_helper_var.rotation.rotate_left.active }}'
+              is_already_rotating_right: '{{ state_helper_var.rotation.rotate_right.active }}'
+              is_already_rotating: '{{ is_already_rotating_left or is_already_rotating_right }}'
+
+
+          # Update the value of the state helper text input
+          - service: input_text.set_value
+            data:
+              entity_id: !input helper_last_controller_event
+              value: '{{ state_helper_var | to_json }}'
+
+          - repeat:
+              # If we have started rotating in a direction and that direction has looping enabled
+              # and if the repeat index is less than the max allowed loop count
+              # or if the repeat index is 1 (only allows 1 iteration, i.e. no looping, just one execution)
+              while: >
+                {{
+                  (
+                    (
+                      ( is_already_rotating_left and rotate_left_loop )
+                      or
+                      ( is_already_rotating_right and rotate_right_loop )
+                    )
+                    and
+                    repeat.index < max_loop_repeats | int
+                  )
+                  or
+                  repeat.index == 1
+                }}
+              sequence:
+                - choose:
+                  - conditions: '{{ is_rotate_left }}'
+                    sequence:
+                      - choose:
+                        - conditions: []
+                          sequence: !input action_rotate_left
+
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: rotate_left
+
+                  - conditions: '{{ is_rotate_right }}'
+                    sequence:
+                      - choose:
+                        - conditions: []
+                          sequence: !input action_rotate_right
+
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: rotate_right
+
+                - delay:
+                    milliseconds: !input rotate_loop_pause
+
+      # Rotate Stop
       - conditions:
-          - '{{ trigger_action | string in rotate_stop }}'
-          # check the previous event to determine the event which the received stop action is relative to
-          - '{{ last_controller_event in rotate_right }}'
+          - '{{ is_rotate_stop }}'
+          - '{{ is_already_rotating }}'
         sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: rotate_right_stop
-          # run the custom action
+          - variables:
+              state_helper_var: >-
+                {{
+                  (
+                    {
+                      "initialised": true,
+                      "rotation": {
+                        "rotate_left": {
+                          "when": state_helper_var.rotation.rotate_left.when,
+                          "active": state_helper_var.rotation.rotate_left.active if is_rotate_right else false
+                        },
+                        "rotate_right": {
+                          "when": state_helper_var.rotation.rotate_right.when,
+                          "active": state_helper_var.rotation.rotate_right.active if is_rotate_left else false
+                        }
+                      }
+                    } | to_json
+                  ) | from_json
+                }}
+          # Update the value of the state helper text input
+          - service: input_text.set_value
+            data:
+              entity_id: !input helper_last_controller_event
+              value: '{{ state_helper_var | to_json }}'
+
           - choose:
-              - conditions: []
-                sequence: !input action_rotate_right_stop
+              - conditions: '{{ is_already_rotating_left }}'
+                sequence:
+                  - choose:
+                    - conditions: []
+                      sequence: !input action_rotate_left_stop
+
+                  - event: ahb_controller_event
+                    event_data:
+                      controller: '{{ controller_id }}'
+                      action: rotate_left_stop
+
+              - conditions: '{{ is_already_rotating_right }}'
+                sequence:
+                  - choose:
+                    - conditions: []
+                      sequence: !input action_rotate_right_stop
+
+                  - event: ahb_controller_event
+                    event_data:
+                      controller: '{{ controller_id }}'
+                      action: rotate_right_stop
+
       - conditions: '{{ trigger_action | string in click_short }}'
         sequence:
           # fire the event
@@ -351,3 +464,4 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_click_triple
+
