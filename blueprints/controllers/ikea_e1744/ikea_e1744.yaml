@@ -128,8 +128,10 @@ blueprint:
 
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
-      name: Helper - Last Controller Event
-      description: Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.
+      name: Helper - State container (required)
+      description: >-
+        Important: You will need to add an input_text helper (see: /config/helpers) and then select it for this input.
+        This helper will hold the state of the rotation
       default: ''
       selector:
         entity:
