@@ -270,7 +270,7 @@ action:
       is_rotate_right: '{{ trigger_action | string in rotate_right }}'
       is_rotate_stop: '{{ trigger_action | string in rotate_stop }}'
 
-      max_loop_repeats: '{{ rotate_left_max_loop_repeats if rotating_left else rotate_right_max_loop_repeats }}'
+      max_loop_repeats: '{{ rotate_left_max_loop_repeats if is_rotating_left else rotate_right_max_loop_repeats }}'
       is_already_rotating_left: '{{ state_helper_var.rotation.rotate_left.active }}'
       is_already_rotating_right: '{{ state_helper_var.rotation.rotate_right.active }}'
       is_already_rotating: '{{ is_already_rotating_left or is_already_rotating_right }}'
