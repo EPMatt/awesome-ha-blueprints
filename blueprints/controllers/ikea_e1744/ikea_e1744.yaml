@@ -128,10 +128,11 @@ blueprint:
 
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
-      name: Helper - State container (required)
+      name: (Required) Helper - State container
       description: >-
-        Important: You will need to add an input_text helper (see: /config/helpers) and then select it for this input.
-        This helper will hold the state of the rotation
+        A value is required here, without one your automation will not work. You will need to add an input_text
+        helper (see: /config/helpers) and then select it for this input.
+        This input_text helper will hold state information between events.
       default: ''
       selector:
         entity:
