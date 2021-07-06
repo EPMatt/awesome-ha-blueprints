@@ -243,8 +243,6 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(state_helper_var) | from_json).last_triggered if state_helper_var is not none and (states(state_helper_var) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "1970-01-01 00:00:00")) * 1000 }}'
-      last_controller_event: '{{ (states(state_helper_var) | from_json).trigger_action if state_helper_var is not none and (states(state_helper_var) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "" }}'
       state_helper_var: >
         {{
           (states(state_helper_var) | from_json)
