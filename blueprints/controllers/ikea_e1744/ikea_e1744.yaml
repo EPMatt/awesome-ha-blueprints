@@ -261,7 +261,7 @@ action:
       - conditions:
           - '{{ trigger_action | string in rotate_stop }}'
           # check the previous event to determine the event which the received stop action is relative to
-          - '{{ last_controller_event in rotate_left }}'
+          - '{{ last_controller_event | string in rotate_left }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -291,7 +291,7 @@ action:
       - conditions:
           - '{{ trigger_action | string in rotate_stop }}'
           # check the previous event to determine the event which the received stop action is relative to
-          - '{{ last_controller_event in rotate_right }}'
+          - '{{ last_controller_event | string in rotate_right }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
