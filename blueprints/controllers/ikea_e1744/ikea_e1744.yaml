@@ -130,7 +130,7 @@ blueprint:
     helper_last_controller_event:
       name: (Required) Helper - State container
       description: >-
-        A value is required here, without one your automation will not work. You will need to add an input_text
+        A value is required here, without one  your automation will not work. You will need to add an input_text
         helper (see: /config/helpers) and then select it for this input.
         This input_text helper will hold state information between events.
       default: ''
@@ -232,7 +232,6 @@ condition:
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
-
   # extract button event from the trigger
   # provide a single string value to check against
   - variables:
@@ -276,7 +275,6 @@ action:
       is_already_rotating_right: '{{ state_helper_var.rotation.rotate_right.active }}'
       is_already_rotating: '{{ is_already_rotating_left or is_already_rotating_right }}'
 
-
   # Set an initial value for the helper
   - service: input_text.set_value
     data:
@@ -292,8 +290,6 @@ action:
 
   # choose the sequence to run based on the received button event
   - choose:
-
-
       # Rotate Start
       - conditions:
           # First determine if the trigger is a rotation related trigger
@@ -325,7 +321,6 @@ action:
               is_already_rotating_right: '{{ state_helper_var.rotation.rotate_right.active }}'
               is_already_rotating: '{{ is_already_rotating_left or is_already_rotating_right }}'
 
-
           # Update the value of the state helper text input
           - service: input_text.set_value
             data:
@@ -352,27 +347,27 @@ action:
                 }}
               sequence:
                 - choose:
-                  - conditions: '{{ is_rotate_left }}'
-                    sequence:
-                      - choose:
-                        - conditions: []
-                          sequence: !input action_rotate_left
+                    - conditions: '{{ is_rotate_left }}'
+                      sequence:
+                        - choose:
+                            - conditions: []
+                              sequence: !input action_rotate_left
 
-                      - event: ahb_controller_event
-                        event_data:
-                          controller: '{{ controller_id }}'
-                          action: rotate_left
+                        - event: ahb_controller_event
+                          event_data:
+                            controller: '{{ controller_id }}'
+                            action: rotate_left
 
-                  - conditions: '{{ is_rotate_right }}'
-                    sequence:
-                      - choose:
-                        - conditions: []
-                          sequence: !input action_rotate_right
+                    - conditions: '{{ is_rotate_right }}'
+                      sequence:
+                        - choose:
+                            - conditions: []
+                              sequence: !input action_rotate_right
 
-                      - event: ahb_controller_event
-                        event_data:
-                          controller: '{{ controller_id }}'
-                          action: rotate_right
+                        - event: ahb_controller_event
+                          event_data:
+                            controller: '{{ controller_id }}'
+                            action: rotate_right
 
                 - delay:
                     milliseconds: !input rotate_loop_pause
@@ -411,8 +406,8 @@ action:
               - conditions: '{{ is_already_rotating_left }}'
                 sequence:
                   - choose:
-                    - conditions: []
-                      sequence: !input action_rotate_left_stop
+                      - conditions: []
+                        sequence: !input action_rotate_left_stop
 
                   - event: ahb_controller_event
                     event_data:
@@ -422,8 +417,8 @@ action:
               - conditions: '{{ is_already_rotating_right }}'
                 sequence:
                   - choose:
-                    - conditions: []
-                      sequence: !input action_rotate_right_stop
+                      - conditions: []
+                        sequence: !input action_rotate_right_stop
 
                   - event: ahb_controller_event
                     event_data:
@@ -463,4 +458,3 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_click_triple
-
