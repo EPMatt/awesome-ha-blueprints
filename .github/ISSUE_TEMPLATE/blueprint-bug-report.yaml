@@ -1,5 +1,5 @@
 name: Blueprint Bug Report
-about: Create a bug report for a blueprint included in our collection.
+description: Create a bug report for a blueprint included in our collection.
 title: ''
 labels:
   - blueprint
