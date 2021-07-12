@@ -77,8 +77,6 @@ body:
       label: Additional Details
       options:
         - label: I'd like to help developing a fix for this issue.
-    validations:
-      required: true
   - type: textarea
     attributes:
       label: Screenshots
