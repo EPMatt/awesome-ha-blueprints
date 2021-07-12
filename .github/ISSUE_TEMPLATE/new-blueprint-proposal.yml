@@ -31,8 +31,7 @@ body:
   - type: textarea
     attributes:
       label: Useful resources
-      description: Any blueprint/automation or resource not included in this project which achieves the same/similar goal.
-      placeholder: "- Link to the resources you've found: [Resource name here](https://link-goes-here)."
+      description: Any blueprint/automation or resource not included in this project which achieves the same/similar goal. Include links/references to them.
   - type: textarea
     attributes:
       label: Additional context
