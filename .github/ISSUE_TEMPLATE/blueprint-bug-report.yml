@@ -1,10 +1,9 @@
 name: Blueprint Bug Report
 description: Create a bug report for a blueprint included in our collection.
-title: ''
+title: 'Bug - '
 labels:
   - blueprint
   - bug
-assignees: ''
 body:
   - type: markdown
     attributes:
