@@ -244,11 +244,9 @@ action:
                   "initialised": true,
                   "rotation": {
                     "rotate_left": {
-                      "when": now()|string,
                       "active": false
                     },
                     "rotate_right": {
-                      "when": now()|string,
                       "active": false
                     }
                   }
@@ -296,11 +294,9 @@ action:
                       "initialised": true,
                       "rotation": {
                         "rotate_left": {
-                          "when": now()|string if is_rotate_left else helper_last_controller_event.rotation.rotate_left.when,
                           "active": is_rotate_left
                         },
                         "rotate_right": {
-                          "when": now()|string if is_rotate_right else helper_last_controller_event.rotation.rotate_right.when,
                           "active": is_rotate_right
                         }
                       }
@@ -374,11 +370,9 @@ action:
                       "initialised": true,
                       "rotation": {
                         "rotate_left": {
-                          "when": helper_last_controller_event.rotation.rotate_left.when,
                           "active": helper_last_controller_event.rotation.rotate_left.active if is_rotate_right else false
                         },
                         "rotate_right": {
-                          "when": helper_last_controller_event.rotation.rotate_right.when,
                           "active": helper_last_controller_event.rotation.rotate_right.active if is_rotate_left else false
                         }
                       }
