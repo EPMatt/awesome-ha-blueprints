@@ -1,0 +1,684 @@
+# Blueprint metadata
+blueprint:
+  name: Controller - LEDVANCE 74099 SYLVANIA LIGHTIFY Smart Switch - 4 Buttons
+  description: |
+    Controller automation for executing any kind of action triggered by an LEDVANCE 74099 SYLVANIA LIGHTIFY Smart Switch - 4 Buttons. Allows to optionally loop an action on a button long press.
+    Supports ZHA.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+
+    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ledvance_74099).
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ledvance_74099/ledvance_74099.yaml
+  domain: automation
+  input:
+    integration:
+      name: Integration
+      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
+      selector:
+        select:
+          options:
+            - ZHA
+    controller_device:
+      name: (ZHA) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with ZHA.
+      default: ''
+      selector:
+        device:
+    # inputs for custom actions
+    action_button_1_short:
+      name: (Optional) Button 1 - short press
+      description: Action to run on short button 1 press.
+      default: []
+      selector:
+        action:
+    action_button_1_long:
+      name: (Optional) Button 1 - long press
+      description: Action to run on long button 1 press.
+      default: []
+      selector:
+        action:
+    action_button_1_release:
+      name: (Optional) Button 1 - release after long press
+      description: Action to run on button 1 release after a long press.
+      default: []
+      selector:
+        action:
+    action_button_1_double:
+      name: (Optional) Button 1 - double press
+      description: Action to run on double button 1 press.
+      default: []
+      selector:
+        action:
+    action_button_2_short:
+      name: (Optional) Button 2 - short press
+      description: Action to run on short button 2 press.
+      default: []
+      selector:
+        action:
+    action_button_2_long:
+      name: (Optional) Button 2 - long press
+      description: Action to run on long button 2 press.
+      default: []
+      selector:
+        action:
+    action_button_2_release:
+      name: (Optional) Button 2 - release after long press
+      description: Action to run on button 2 release after a long press.
+      default: []
+      selector:
+        action:
+    action_button_2_double:
+      name: (Optional) Button 2 - double press
+      description: Action to run on double button 2 press.
+      default: []
+      selector:
+        action:
+    action_button_3_short:
+      name: (Optional) Button 3 - short press
+      description: Action to run on short button 3 press.
+      default: []
+      selector:
+        action:
+    action_button_3_long:
+      name: (Optional) Button 3 - long press
+      description: Action to run on long button 3 press.
+      default: []
+      selector:
+        action:
+    action_button_3_release:
+      name: (Optional) Button 3 - release after long press
+      description: Action to run on button 3 release after a long press.
+      default: []
+      selector:
+        action:
+    action_button_3_double:
+      name: (Optional) Button 3 - double press
+      description: Action to run on double button 3 press.
+      default: []
+      selector:
+        action:
+    action_button_4_short:
+      name: (Optional) Button 4 - short press
+      description: Action to run on short button 4 press.
+      default: []
+      selector:
+        action:
+    action_button_4_long:
+      name: (Optional) Button 4 - long press
+      description: Action to run on long button 4 press.
+      default: []
+      selector:
+        action:
+    action_button_4_release:
+      name: (Optional) Button 4 - release after long press
+      description: Action to run on button 4 release after a long press.
+      default: []
+      selector:
+        action:
+    action_button_4_double:
+      name: (Optional) Button 4 - double press
+      description: Action to run on double button 4 press.
+      default: []
+      selector:
+        action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
+    button_1_long_loop:
+      name: (Optional) Long button 1 press - loop until release
+      description: Loop the action until the button 1 is released.
+      default: false
+      selector:
+        boolean:
+    button_1_long_max_loop_repeats:
+      name: (Optional) Long button 1 press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    button_2_long_loop:
+      name: (Optional) Long button 2 press - loop until release
+      description: Loop the action until the button 2 is released.
+      default: false
+      selector:
+        boolean:
+    button_2_long_max_loop_repeats:
+      name: (Optional) Long button 2 press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    button_3_long_loop:
+      name: (Optional) Long button 3 press - loop until release
+      description: Loop the action until the button 3 is released.
+      default: false
+      selector:
+        boolean:
+    button_3_long_max_loop_repeats:
+      name: (Optional) Long button 3 press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    button_4_long_loop:
+      name: (Optional) Long button 4 press - loop until release
+      description: Loop the action until the button 4 is released.
+      default: false
+      selector:
+        boolean:
+    button_4_long_max_loop_repeats:
+      name: (Optional) Long button 4 press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    # inputs for enabling double press events
+    button_1_double_press:
+      name: (Optional) Expose button 1 double press event
+      description: Choose whether or not to expose the virtual double press event for the button 1. Turn this on if you are providing an action for the button 1 double press event.
+      default: false
+      selector:
+        boolean:
+    button_2_double_press:
+      name: (Optional) Expose button 2 double press event
+      description: Choose whether or not to expose the virtual double press event for the button 2. Turn this on if you are providing an action for the button 2 double press event.
+      default: false
+      selector:
+        boolean:
+    button_3_double_press:
+      name: (Optional) Expose button 3 double press event
+      description: Choose whether or not to expose the virtual double press event for the button 3. Turn this on if you are providing an action for the button 3 double press event.
+      default: false
+      selector:
+        boolean:
+    button_4_double_press:
+      name: (Optional) Expose button 4 double press event
+      description: Choose whether or not to expose the virtual double press event for the button 4. Turn this on if you are providing an action for the button 4 double press event.
+      default: false
+      selector:
+        boolean:
+    # helpers used to properly recognize the remote button events
+    helper_last_controller_event:
+      name: Helper - Last Controller Event
+      description: Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.
+      default: ''
+      selector:
+        entity:
+          domain: input_text
+    helper_double_press_delay:
+      name: (Optional) Helper - Double Press delay
+      description: Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.
+      default: 500
+      selector:
+        number:
+          min: 100
+          max: 5000
+          unit_of_measurement: milliseconds
+          mode: box
+          step: 10
+    helper_debounce_delay:
+      name: (Optional) Helper - Debounce delay
+      description: >-
+        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value
+        if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1000
+          unit_of_measurement: milliseconds
+          mode: box
+          step: 10
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  integration: !input integration
+  button_1_long_loop: !input button_1_long_loop
+  button_1_long_max_loop_repeats: !input button_1_long_max_loop_repeats
+  button_1_double_press: !input button_1_double_press
+  button_2_long_loop: !input button_2_long_loop
+  button_2_long_max_loop_repeats: !input button_2_long_max_loop_repeats
+  button_2_double_press: !input button_2_double_press
+  button_3_long_loop: !input button_3_long_loop
+  button_3_long_max_loop_repeats: !input button_3_long_max_loop_repeats
+  button_3_double_press: !input button_3_double_press
+  button_4_long_loop: !input button_4_long_loop
+  button_4_long_max_loop_repeats: !input button_4_long_max_loop_repeats
+  button_4_double_press: !input button_4_double_press
+  helper_last_controller_event: !input helper_last_controller_event
+  helper_double_press_delay: !input helper_double_press_delay
+  helper_debounce_delay: !input helper_debounce_delay
+  # integration id used to select items in the action mapping
+  integration_id: '{{ integration | lower }}'
+  # adjusted debounce delay so that the resulting double press delay is exactly as specified by the user when running the action, taking also account of debouncing
+  # make sure it never goes below the minimum double press delay
+  adjusted_double_press_delay: '{{ [helper_double_press_delay - helper_debounce_delay, 100] | max }}'
+  # mapping between actions and integrations
+  actions_mapping:
+    zha:
+      button_1_short: [1_6_on]
+      button_1_long: [1_8_move_1_38]
+      button_1_release: [1_8_stop]
+      button_2_short: [2_6_on]
+      button_2_long: [2_8_move_1_38]
+      button_2_release: [2_8_stop]
+      button_3_short: [3_6_on]
+      button_3_long: [3_8_move_1_38]
+      button_3_release: [3_8_stop]
+      button_4_short: [4_6_on]
+      button_4_long: [4_8_move_1_38]
+      button_4_release: [4_8_stop]
+  # pre-choose actions for buttons based on configured integration
+  # no need to perform this task at automation runtime
+  button_1_short: '{{ actions_mapping[integration_id]["button_1_short"] }}'
+  button_1_long: '{{ actions_mapping[integration_id]["button_1_long"] }}'
+  button_1_release: '{{ actions_mapping[integration_id]["button_1_release"] }}'
+  button_2_short: '{{ actions_mapping[integration_id]["button_2_short"] }}'
+  button_2_long: '{{ actions_mapping[integration_id]["button_2_long"] }}'
+  button_2_release: '{{ actions_mapping[integration_id]["button_2_release"] }}'
+  button_3_short: '{{ actions_mapping[integration_id]["button_3_short"] }}'
+  button_3_long: '{{ actions_mapping[integration_id]["button_3_long"] }}'
+  button_3_release: '{{ actions_mapping[integration_id]["button_3_release"] }}'
+  button_4_short: '{{ actions_mapping[integration_id]["button_4_short"] }}'
+  button_4_long: '{{ actions_mapping[integration_id]["button_4_long"] }}'
+  button_4_release: '{{ actions_mapping[integration_id]["button_4_release"] }}'
+  # build data to send within a controller event
+  controller_device: !input controller_device
+  controller_id: '{{controller_device}}'
+# mode restart ensures hold actions are interrupted when the corresponding release action is received
+mode: restart
+max_exceeded: silent
+trigger:
+  # trigger for other integrations
+  - platform: event
+    event_type:
+      - zha_event
+    event_data:
+      device_id: !input controller_device
+condition:
+  - condition: and
+    conditions:
+      # check that the button event is not empty
+      - >-
+        {%- set trigger_action -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.endpoint_id }}_{{ trigger.event.data.cluster_id }}_{{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+        {%- endset -%}
+        {{ trigger_action not in ["","None"] }}
+action:
+  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
+  # therefore previous runs must wait for the debounce delay before executing any other action
+  # if the delay expires and the automation is still running it means it's the last run and execution can continue
+  - delay:
+      milliseconds: !input helper_debounce_delay
+  # extract button event from the trigger
+  # provide a single string value to check against
+  - variables:
+      trigger_action: >-
+        {%- if integration_id == "zigbee2mqtt" -%}
+        {{ trigger.event.data.new_state.state }}
+        {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.endpoint_id }}_{{ trigger.event.data.cluster_id }}_{{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "1970-01-01 00:00:00")) * 1000 }}'
+  # update helper
+  - service: input_text.set_value
+    data:
+      entity_id: !input helper_last_controller_event
+      value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+  # choose the sequence to run based on the received button event
+  - choose:
+      - conditions: '{{ trigger_action | string in button_1_short }}'
+        sequence:
+          - choose:
+              # if double press event is enabled
+              - conditions: '{{ button_1_double_press }}'
+                sequence:
+                  - choose:
+                      # if previous event was a short press
+                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                        sequence:
+                          # store the double press event in the last controller event helper
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                          # run the double press action
+                          # fire the event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: button_1_double
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_button_1_double
+                    # previous event was not a short press
+                    default:
+                      # wait for the double press event to occur, within the provided delay
+                      # if the second press is received, automation is restarted
+                      - delay:
+                          milliseconds: '{{ adjusted_double_press_delay }}'
+                      # if delay expires, no second press was received, therefore run the short press action
+                      # run the short press action
+                      # fire the event
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: button_1_short
+                      # run the custom action
+                      - choose:
+                          - conditions: []
+                            sequence: !input action_button_1_short
+            # if double press event is disabled run the action for the single short press
+            default:
+              # fire the event
+              - event: ahb_controller_event
+                event_data:
+                  controller: '{{ controller_id }}'
+                  action: button_1_short
+              # run the custom action
+              - choose:
+                  - conditions: []
+                    sequence: !input action_button_1_short
+      - conditions: '{{ trigger_action | string in button_1_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_1_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_1_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_1_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_1_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_1_long
+      - conditions:
+          - '{{ trigger_action | string in button_1_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_1_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_1_release
+      - conditions: '{{ trigger_action | string in button_2_short }}'
+        sequence:
+          - choose:
+              # if double press event is enabled
+              - conditions: '{{ button_2_double_press }}'
+                sequence:
+                  - choose:
+                      # if previous event was a short press
+                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                        sequence:
+                          # store the double press event in the last controller event helper
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                          # run the double press action
+                          # fire the event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: button_2_double
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_button_2_double
+                    # previous event was not a short press
+                    default:
+                      # wait for the double press event to occur, within the provided delay
+                      # if the second press is received, automation is restarted
+                      - delay:
+                          milliseconds: '{{ adjusted_double_press_delay }}'
+                      # if delay expires, no second press was received, therefore run the short press action
+                      # run the short press action
+                      # fire the event
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: button_2_short
+                      # run the custom action
+                      - choose:
+                          - conditions: []
+                            sequence: !input action_button_2_short
+            # if double press event is disabled run the action for the single short press
+            default:
+              # fire the event
+              - event: ahb_controller_event
+                event_data:
+                  controller: '{{ controller_id }}'
+                  action: button_2_short
+              # run the custom action
+              - choose:
+                  - conditions: []
+                    sequence: !input action_button_2_short
+      - conditions: '{{ trigger_action | string in button_2_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_2_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_2_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_2_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_2_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_2_long
+      - conditions:
+          - '{{ trigger_action | string in button_2_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_2_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_2_release
+      - conditions: '{{ trigger_action | string in button_3_short }}'
+        sequence:
+          - choose:
+              # if double press event is enabled
+              - conditions: '{{ button_3_double_press }}'
+                sequence:
+                  - choose:
+                      # if previous event was a short press
+                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                        sequence:
+                          # store the double press event in the last controller event helper
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                          # run the double press action
+                          # fire the event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: button_3_double
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_button_3_double
+                    # previous event was not a short press
+                    default:
+                      # wait for the double press event to occur, within the provided delay
+                      # if the second press is received, automation is restarted
+                      - delay:
+                          milliseconds: '{{ adjusted_double_press_delay }}'
+                      # if delay expires, no second press was received, therefore run the short press action
+                      # run the short press action
+                      # fire the event
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: button_3_short
+                      # run the custom action
+                      - choose:
+                          - conditions: []
+                            sequence: !input action_button_3_short
+            # if double press event is disabled run the action for the single short press
+            default:
+              # fire the event
+              - event: ahb_controller_event
+                event_data:
+                  controller: '{{ controller_id }}'
+                  action: button_3_short
+              # run the custom action
+              - choose:
+                  - conditions: []
+                    sequence: !input action_button_3_short
+      - conditions: '{{ trigger_action | string in button_3_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_3_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_3_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_3_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_3_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_3_long
+      - conditions:
+          - '{{ trigger_action | string in button_3_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_3_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_3_release
+      - conditions: '{{ trigger_action | string in button_4_short }}'
+        sequence:
+          - choose:
+              # if double press event is enabled
+              - conditions: '{{ button_4_double_press }}'
+                sequence:
+                  - choose:
+                      # if previous event was a short press
+                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                        sequence:
+                          # store the double press event in the last controller event helper
+                          - service: input_text.set_value
+                            data:
+                              entity_id: !input helper_last_controller_event
+                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                          # run the double press action
+                          # fire the event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: button_4_double
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_button_4_double
+                    # previous event was not a short press
+                    default:
+                      # wait for the double press event to occur, within the provided delay
+                      # if the second press is received, automation is restarted
+                      - delay:
+                          milliseconds: '{{ adjusted_double_press_delay }}'
+                      # if delay expires, no second press was received, therefore run the short press action
+                      # run the short press action
+                      # fire the event
+                      - event: ahb_controller_event
+                        event_data:
+                          controller: '{{ controller_id }}'
+                          action: button_4_short
+                      # run the custom action
+                      - choose:
+                          - conditions: []
+                            sequence: !input action_button_4_short
+            # if double press event is disabled run the action for the single short press
+            default:
+              # fire the event
+              - event: ahb_controller_event
+                event_data:
+                  controller: '{{ controller_id }}'
+                  action: button_4_short
+              # run the custom action
+              - choose:
+                  - conditions: []
+                    sequence: !input action_button_4_short
+      - conditions: '{{ trigger_action | string in button_4_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_4_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_4_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_4_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_4_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_4_long
+      - conditions:
+          - '{{ trigger_action | string in button_4_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_4_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_4_release
