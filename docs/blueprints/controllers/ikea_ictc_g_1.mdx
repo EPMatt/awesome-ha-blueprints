@@ -33,7 +33,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/ICTC-G-1.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
 
 </Requirement>
-<Requirement  name='Input Text Integration' required='ZHA, Zigbee2MQTT'>
+<Requirement  name='Input Text Integration' required>
 
 This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
