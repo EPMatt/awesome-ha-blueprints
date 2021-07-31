@@ -51,13 +51,13 @@ This integration provides the entity which will be used to store the last button
   name='Controller Device'
   description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
   selector='device'
-  required='(deCONZ, ZHA)'
+  required='deCONZ, ZHA'
 />
 <Input
   name='Controller Entity'
   description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
   selector='entity'
-  required='(Zigbee2MQTT)'
+  required='Zigbee2MQTT'
 />
 <Input
   name='Left button - short press'
