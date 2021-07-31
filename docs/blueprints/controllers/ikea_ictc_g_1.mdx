@@ -62,6 +62,12 @@ This integration provides the entity which will be used to store the last button
   required='Zigbee2MQTT'
 />
 <Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
+/>
+<Input
   name='Rotate left'
   description='Action to run on rotate left.'
   selector='action'
@@ -100,12 +106,6 @@ This integration provides the entity which will be used to store the last button
   name='Rotate right - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
-/>
-<Input
-  name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
-  selector='entity'
-  required
 />
 <Input
   name='Helper - Debounce delay'

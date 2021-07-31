@@ -53,6 +53,12 @@ This integration provides the entity which will be used to store the last button
   required='deCONZ, ZHA'
 />
 <Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
+/>
+<Input
   name='Button - short press'
   description='Action to run on short button press.'
   selector='action'
@@ -86,12 +92,6 @@ This integration provides the entity which will be used to store the last button
   name='Expose button double press event'
   description='Choose whether or not to expose the virtual double press event for the button. Turn this on if you are providing an action for the button double press event.'
   selector='boolean'
-/>
-<Input
-  name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
-  selector='entity'
-  required
 />
 <Input
   name='Helper - Double Press delay'
