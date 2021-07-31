@@ -13,7 +13,7 @@ blueprint:
   domain: automation
   input:
     integration:
-      name: Integration
+      name: (Required) Integration
       description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
       selector:
         select:
@@ -98,7 +98,7 @@ blueprint:
           step: 1
     # helpers used to properly recognize the remote button events
     helper_last_controller_event:
-      name: Helper - Last Controller Event
+      name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.
       default: ''
       selector:
