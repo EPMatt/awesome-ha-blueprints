@@ -28,7 +28,7 @@ The stored info is used in many different ways to implement the blueprint's core
 - **Action Recognition**: Some controllers use the info contained in the helper to recognize some actions. This varies between different controller models and integrations. Since natively the device doesn't allow to distinguish between certain events, the blueprint needs to store the last event, and take advantage of this information to identify subsequent actions.
 - **Virtual Events**: The last controller event is used to implement virtual events. You can read more about them [here](#virtual-events).
 
-Before setting up the automation, create a brand new `input_text` entity in your Home Assistant instance, then provide it to the blueprint while configuring the automation.
+This field requires that you have an existing text helper. Therefore, before setting up the automation, manually create a brand new `input_text` entity in your Home Assistant instance (e.g. from [the Helpers configuration page](https://my.home-assistant.io/redirect/helpers/)), then provide it to the blueprint while configuring the automation.
 
 :::caution
 Make sure the text input is not altered by any other agents. The provided entity is used as a permanent storage area for the controller automation; any change to its state not carried out by the respective automation could lead to inconsistencies and unexpected behaviour.
