@@ -31,7 +31,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 <Requirement id='deconz'  />
 <Requirement id='zha'  />
 <Requirement id='zigbee2mqtt'  />
-<Requirement  name='Input Text Integration' required='ZHA, Double press action'>
+<Requirement  name='Input Text Integration' required>
 
 This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
@@ -51,13 +51,19 @@ This integration provides the entity which will be used to store the last button
   name='Controller Device'
   description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
   selector='device'
-  required='(deCONZ, ZHA)'
+  required='deCONZ, ZHA'
 />
 <Input
   name='Controller Entity'
   description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
   selector='entity'
-  required='(Zigbee2MQTT)'
+  required='Zigbee2MQTT'
+/>
+<Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
 />
 <Input
   name='Left button - short press'
@@ -220,12 +226,6 @@ This integration provides the entity which will be used to store the last button
   selector='boolean'
 />
 <Input
-  name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
-  selector='entity'
-  required
-/>
-<Input
   name='Helper - Double Press delay'
   description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
   selector='number'
@@ -340,3 +340,4 @@ If you notice your controller is not behaving as expected please remove the batt
   - Fix for Zigbee2MQTT reporting null state changes
 
 - **2021-07-04**: Fix deCONZ button release events not being properly recognized
+- **2021-08-02**: Improve inputs documentation and organization

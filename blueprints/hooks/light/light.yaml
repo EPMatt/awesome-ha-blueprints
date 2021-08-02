@@ -12,20 +12,20 @@ blueprint:
   domain: automation
   input:
     controller_device:
-      name: Controller Device
+      name: (Required) Controller Device
       description: The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         device:
     controller_entity:
-      name: Controller Entity
+      name: (Required) Controller Entity
       description: The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         entity:
           domain: sensor
     controller_model:
-      name: Controller model
+      name: (Required) Controller model
       description: The model for the controller used in this automation.
       selector:
         select:
@@ -39,7 +39,7 @@ blueprint:
             - Philips Hue Dimmer switch
             - Philips Hue Smart Button
     light:
-      name: Light
+      name: (Required) Light
       description: Light which will be controlled with this automation.
       selector:
         entity:

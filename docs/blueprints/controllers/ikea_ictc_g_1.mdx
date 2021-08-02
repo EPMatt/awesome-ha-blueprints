@@ -33,7 +33,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/ICTC-G-1.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
 
 </Requirement>
-<Requirement  name='Input Text Integration' required='ZHA, Zigbee2MQTT'>
+<Requirement  name='Input Text Integration' required>
 
 This integration provides the entity which will be used to store the last button event. It's required when using ZHA to integrate the remote, as well as when using double press events. This should be activated by default so unless you tweaked the default configuration you're good to go.
 
@@ -53,13 +53,19 @@ This integration provides the entity which will be used to store the last button
   name='Controller Device'
   description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
   selector='device'
-  required='(deCONZ, ZHA)'
+  required='deCONZ, ZHA'
 />
 <Input
   name='Controller Entity'
   description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
   selector='entity'
-  required='(Zigbee2MQTT)'
+  required='Zigbee2MQTT'
+/>
+<Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
 />
 <Input
   name='Rotate left'
@@ -100,12 +106,6 @@ This integration provides the entity which will be used to store the last button
   name='Rotate right - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
-/>
-<Input
-  name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.'
-  selector='entity'
-  required
 />
 <Input
   name='Helper - Debounce delay'
@@ -164,3 +164,4 @@ This blueprint provides beta support for controllers integrated with deCONZ, sin
   - Fix for Zigbee2MQTT reporting null state changes
 
 - **2021-07-04**: Fix deCONZ rotation stop events not being properly recognized
+- **2021-08-02**: Improve inputs documentation and organization

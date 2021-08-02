@@ -13,7 +13,7 @@ blueprint:
   domain: automation
   input:
     integration:
-      name: Integration
+      name: (Required) Integration
       description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
       selector:
         select:
@@ -34,6 +34,13 @@ blueprint:
       selector:
         entity:
           domain: sensor
+    helper_last_controller_event:
+      name: (Required) Helper - Last Controller Event
+      description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
+      default: ''
+      selector:
+        entity:
+          domain: input_text
     # inputs for custom actions
     action_button_left_short:
       name: (Optional) Left button - short press
@@ -254,13 +261,6 @@ blueprint:
       selector:
         boolean:
     # helpers used to properly recognize the remote button events
-    helper_last_controller_event:
-      name: Helper - Last Controller Event
-      description: Input Text used to store the last event fired by the controller. See the blueprint Additional Notes for more.
-      default: ''
-      selector:
-        entity:
-          domain: input_text
     helper_double_press_delay:
       name: (Optional) Helper - Double Press delay
       description: Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.
