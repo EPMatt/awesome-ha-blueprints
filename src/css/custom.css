@@ -40,35 +40,3 @@ html[data-theme='dark'] {
     margin-right: 3rem;
   }
 }
-
-.admonition-tip *,
-.admonition-info *,
-.admonition-tip a,
-.admonition-info a {
-  color: white;
-}
-
-.admonition-tip code,
-.admonition-info code {
-  background-color: rgb(68, 73, 80);
-}
-
-.admonition-tip .admonition-icon > svg,
-.admonition-info .admonition-icon > svg {
-  fill: white;
-  stroke: white;
-}
-
-.admonition-caution *,
-.admonition-caution a {
-  color: black;
-}
-
-.admonition-caution code {
-  background-color: rgb(235, 237, 240);
-}
-
-.admonition-caution .admonition-icon > svg {
-  fill: black;
-  stroke: black;
-}
