@@ -330,7 +330,7 @@ variables:
     zha:
       button_left_short: [press_257_13_0]
       button_left_long: [hold_3329_0]
-      button_left_release: [release, release_1150]
+      button_left_release: [release, release_5813]
       button_right_short: [press_256_13_0]
       button_right_long: [hold_3328_0]
       button_right_release: [release, release_1159]
