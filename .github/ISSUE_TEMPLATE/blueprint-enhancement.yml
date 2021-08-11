@@ -1,0 +1,49 @@
+name: Blueprint Enhancement
+description: Propose a new feature/improvement for an existing blueprint
+title: 'Enhancement - '
+labels:
+  - blueprint
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report here! :tada:
+
+        Please do not delete any part of the template, since keeping the provided structure will help maintainers to process your request more rapidly.
+
+        This template should only be used to propose a new feature or enhancement for an existing blueprint. If this is not your case, you can [choose a different issue template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). If you have a question instead, please open a discussion [here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
+  - type: input
+    attributes:
+      label: Blueprint name
+      description: The name of the blueprint you're opening this issue for.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the enhancement or new feature consists of.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Automation YAML config
+      description: If the suggested feature or improvement requires to apply changes to the blueprint inputs section, please provide the sample yaml configuration for an automation using the updated blueprint.
+      render: yaml
+  - type: textarea
+    attributes:
+      label: Implementation
+      description: If you've an idea on how this could be implemented, post here an informal description of the steps necessary for reaching the wanted goal.
+  - type: checkboxes
+    attributes:
+      label: Additional Details
+      options:
+        - label: I'd like to help developing this feature/improvement.
+  - type: textarea
+    attributes:
+      label: Useful resources
+      description: Any blueprint/automation or resource not included in this project which achieves the same/similar goal. Include links/references to them.
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Add any other context about the new blueprint here (corner cases which should be handled, different approaches which can be considered, etc.).

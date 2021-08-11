@@ -13,20 +13,20 @@ blueprint:
   domain: automation
   input:
     controller_device:
-      name: Controller device
+      name: (Required) Controller device
       description: The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         device:
     controller_entity:
-      name: Controller entity
+      name: (Required) Controller entity
       description: The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         entity:
           domain: sensor
     controller_model:
-      name: Controller model
+      name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
       selector:
         select:
@@ -38,8 +38,9 @@ blueprint:
             - IKEA ICTC-G-1 TRADFRI wireless dimmer
             - Osram SMART+ Switch Mini
             - Philips Hue Dimmer switch
+            - Philips Hue Smart Button
     media_player:
-      name: Media Player
+      name: (Required) Media Player
       description: Media player which will be controlled with this automation.
       selector:
         entity:
@@ -83,6 +84,7 @@ variables:
     IKEA ICTC-G-1 TRADFRI wireless dimmer: ikea_ictc_g_1
     Osram SMART+ Switch Mini: osram_ac025xx00nj
     Philips Hue Dimmer switch: philips_324131092621
+    Philips Hue Smart Button: philips_8718699693985
   controller_mapping:
     ikea_e1524_e1810:
       volume_up: button_up_short
@@ -131,6 +133,9 @@ variables:
       volume_down_repeat: button_down_long
       next_track: button_on_long
       prev_track: button_off_long
+    philips_8718699693985:
+      play_pause: button_short
+      next_track: button_double
   # extract controller ids
   controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller

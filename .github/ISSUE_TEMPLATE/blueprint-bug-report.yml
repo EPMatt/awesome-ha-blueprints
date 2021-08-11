@@ -1,0 +1,87 @@
+name: Blueprint Bug Report
+description: Create a bug report for a blueprint included in our collection.
+title: 'Bug - '
+labels:
+  - blueprint
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report here! :tada:
+
+        Please do not delete any part of the template, since keeping the provided structure will help maintainers to process your request more rapidly.
+
+        This template should only be used to report a bug with a blueprint. If this is not your case, you can [choose a different issue template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). If you have a question instead, please open a discussion [here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
+  - type: input
+    attributes:
+      label: Blueprint name
+      description: The name of the blueprint you're opening this issue for.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Home Assistant Core Version
+      description: The Home Assistant Core Version installed on the system you're experiencing issues with.
+      placeholder: e.g. 2020.12.0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Home Assistant Installation Type
+      options:
+        - Home Assistant Operating System
+        - Home Assistant Container
+        - Home Assistant Supervised
+        - Home Assistant Core
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Automation YAML config
+      description: The YAML code for the automation you're having problems with. This will allow to reproduce your issue.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the issue
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Trigger the automation '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual Behaviour
+      description: A clear and concise description of what it's actually happening, in contrast with the expected behaviour.
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Additional Details
+      options:
+        - label: I'd like to help developing a fix for this issue.
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.

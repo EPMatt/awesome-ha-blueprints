@@ -1,0 +1,64 @@
+name: New Controller Support
+description: Submit a request for supporting a new controller and help us implement it
+title: 'New Controller - '
+labels:
+  - blueprint
+  - new
+  - controller
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report here! :tada:
+
+        Please do not delete any part of the template, since keeping the provided structure will help maintainers to process your request more rapidly.
+
+        This template should only be used to propose support for a a new Controller blueprint. If this is not your case, you can [choose a different issue template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). If you have a question instead, please open a discussion [here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
+  - type: input
+    attributes:
+      label: Manufacturer
+      placeholder: e.g. IKEA
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Model
+      placeholder: e.g. E1810
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Short Description
+      placeholder: e.g. TRÅDFRI Wireless 5-Button Remote
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Image
+      description: Image which will be used to develop the blueprint, as well as in the documentation website.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actions
+      description: |
+        If possible, provide here mappings for actions which can be triggered with this controller.
+        Specify the integration these mappings refer to. If you want to provide mappings for multiple integrations, you can duplicate the following section as needed.
+      value: |
+        ### [Integration] (e.g. deCONZ, ZHA, Zigbee2MQTT)
+
+        - `action_name (e.g. button_press)`: action description (e.g. sent when pressing the button)
+        - etc.
+  - type: checkboxes
+    attributes:
+      label: Additional Details
+      options:
+        - label: I'd like to help developing this blueprint.
+  - type: textarea
+    attributes:
+      label: Useful resources
+      description: Any blueprint/automation or resource not included in this project which integrates this controller. Include links/references to them.
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Add any other context about the controller here (pitfalls in the device, checks which should be implemented to provide a fully working integration for the device, etc.).
