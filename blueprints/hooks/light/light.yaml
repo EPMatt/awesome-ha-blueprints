@@ -376,7 +376,7 @@ action:
                       while: '{{ true }}'
                       sequence:
                         - choose:
-                            - conditions: '{{ state_attr(light,"brightness") == min_brightness }}'
+                            - conditions: '{{ state_attr(light,"brightness") == min_brightness or state_attr(light,"brightness") == none }}'
                               sequence:
                                 - service: light.turn_off
                                   data:
