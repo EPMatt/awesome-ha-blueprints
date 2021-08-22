@@ -1,7 +1,12 @@
 # Blueprint metadata
 blueprint:
   name: Send Web UI persistent notifications to Mobile Devices
-  description: Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+  description: |
+    Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+    
+    Full documentation for this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/persistent_notification_to_mobile).
+    
+    Version 2021-08-22
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/persistent_notification_to_mobile/persistent_notification_to_mobile.yaml
   domain: automation
   input:
