@@ -10,7 +10,7 @@ blueprint:
 
     Full documentation and a list of Controllers supported by this Hook are available [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/light).
 
-    Version 2021-08-22
+    Version: 2021.08.22
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/light/light.yaml
   domain: automation
   input:
@@ -406,8 +406,8 @@ action:
                                 brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
                                 transition: 0.25
                                 entity_id: !input light
-                            - delay:
-                                milliseconds: 250
+                        - delay:
+                            milliseconds: 250
             default:
               - repeat:
                   while: '{{ true }}'
