@@ -330,7 +330,7 @@ action:
                 sequence:
                   - service: light.turn_on
                     data:
-                      transition: '{{ light_transition / 1000 }}'
+                      transition: 0.25
                       entity_id: !input light
             default:
               - service: light.turn_on
@@ -362,7 +362,7 @@ action:
                   - service: light.turn_on
                     data:
                       brightness: !input min_brightness
-                      transition: '{{ light_transition / 1000 }}'
+                      transition: 0.25
                       entity_id: !input light
                   - delay:
                       milliseconds: 250
@@ -370,7 +370,7 @@ action:
                 sequence:
                   - service: light.turn_on
                     data:
-                      transition: '{{ light_transition / 1000 }}'
+                      transition: 0.25
                       entity_id: !input light
                   - delay:
                       milliseconds: 250
@@ -398,7 +398,7 @@ action:
                               sequence:
                                 - service: light.turn_off
                                   data:
-                                    transition: '{{ light_transition / 1000 }}'
+                                    transition: 0.25
                                     entity_id: !input light
                           default:
                             - service: light.turn_on
