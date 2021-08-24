@@ -182,7 +182,7 @@ variables:
     Philips Hue Dimmer switch: philips_324131092621
     Philips Hue Smart Button: philips_8718699693985
   supported_controllers_extended:
-    #suffix to the controller_mapping added through supported_controllers. ie ikea_e1743_layout1
+    # suffix to the controller_mapping added through supported_controllers. ie ikea_e1743_layout1
     ikea_e1743:
       Default (Mapping 1): _layout1
       Mapping 2: _layout2
