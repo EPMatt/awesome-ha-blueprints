@@ -1,16 +1,21 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - IKEA ICTC-G-1 TRADFRI wireless dimmer
+  name: Controller - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
   description: |
-    Controller automation for executing any kind of action triggered by an IKEA ICTC-G-1 TRADFRI wireless dimmer. Allows to optionally loop a custom action during controller rotation.
+    # Controller - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
+
+    Controller automation for executing any kind of action triggered by the provided IKEA ICTC-G-1 TRÅDFRI wireless dimmer. Allows to optionally loop a custom action during controller rotation.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_ictc_g_1#available-hooks) for additional details.
 
-    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_ictc_g_1).
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_ictc_g_1).
 
-    Version: 2021.08.22
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.08.02
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_ictc_g_1/ikea_ictc_g_1.yaml
   domain: automation
   input:
@@ -52,7 +57,7 @@ blueprint:
         action:
     action_rotate_left_stop:
       name: (Optional) Rotate left stop
-      description: Action to run on when stopping to rotate left the remote.
+      description: Action to run when stopping to rotate left the remote.
       default: []
       selector:
         action:
@@ -64,7 +69,7 @@ blueprint:
         action:
     action_rotate_right_stop:
       name: (Optional) Rotate right stop
-      description: Action to run on when stopping to rotate right the remote.
+      description: Action to run when stopping to rotate right the remote.
       default: []
       selector:
         action:
@@ -108,9 +113,9 @@ blueprint:
     # helpers used to properly recognize the remote button events
     helper_debounce_delay:
       name: (Optional) Helper - Debounce delay
-      description: >-
-        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value
-        if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.
+      description:
+        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced,
+        usually a value of 100 is enough to remove all duplicate events.
       default: 0
       selector:
         number:
@@ -154,7 +159,6 @@ variables:
   controller_entity: !input controller_entity
   controller_device: !input controller_device
   controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-# mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
 trigger:
@@ -166,8 +170,8 @@ trigger:
   # trigger for other integrations
   - platform: event
     event_type:
-      - zha_event
       - deconz_event
+      - zha_event
     event_data:
       device_id: !input controller_device
 condition:

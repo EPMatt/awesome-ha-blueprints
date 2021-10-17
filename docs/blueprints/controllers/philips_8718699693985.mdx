@@ -1,6 +1,6 @@
 ---
-title: Philips Hue Smart Button
-description: Controller automation for executing any kind of action triggered by the provided Philips Hue Smart Button. Supports deCONZ, ZHA.
+title: Controller - Philips 8718699693985 Hue Smart Button
+description: Controller automation for executing any kind of action triggered by the provided Philips 8718699693985 Hue Smart Button. Supports deCONZ, ZHA.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided Philips Hue Smart Button. Supports controllers integrated with deCONZ, ZHA. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided Philips 8718699693985 Hue Smart Button. Supports controllers integrated with deCONZ, ZHA. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -28,9 +28,9 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'  />
-<Requirement id='zha'  />
-<Requirement  name='Input Text Integration' required>
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
 
@@ -59,32 +59,32 @@ This integration provides the entity which must be provided to the blueprint in 
   required
 />
 <Input
-  name='Button - short press'
+  name='Button short press'
   description='Action to run on short button press.'
   selector='action'
 />
 <Input
-  name='Button - long press'
+  name='Button long press'
   description='Action to run on long button press.'
   selector='action'
 />
 <Input
-  name='Button - release after long press'
-  description='Action to run on button release after a long press.'
+  name='Button release'
+  description='Action to run on button release after long press.'
   selector='action'
 />
 <Input
-  name='Button - double press'
+  name='Button double press'
   description='Action to run on double button press.'
   selector='action'
 />
 <Input
-  name='Long button press - loop until release'
-  description='Loop the action until the button is released.'
+  name='Button long press - loop until release'
+  description='Loop the button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long button press - Maximum loop repeats'
+  name='Button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
@@ -106,9 +106,16 @@ This integration provides the entity which must be provided to the blueprint in 
 
 ## Available Hooks
 
+:::note Virtual double press actions
+Some of the following mappings might include actions for virtual double press events, which are disabled by default.
+If you are using a hook mapping which provides an action for a virtual double press event, please make sure to enable support for virtual double press on the corresponding buttons with the corresponding blueprint input.
+:::
+
 ### Light
 
 This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+
+#### Default Mapping
 
 - Button short press -> Toggle
 
@@ -118,8 +125,10 @@ This Hook blueprint allows to build a controller-based automation to control a l
 
 This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
 
+#### Default Mapping
+
 - Button short press -> Play/Pause
-- Button double press -> Next Track
+- Button double press -> Next track
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
@@ -137,4 +146,3 @@ It's also important to note that the controller doesn't natively support double 
 
 - **2021-07-14**: first blueprint version :tada:
 - **2021-08-02**: Improve inputs documentation and organization
-- **2021-08-22**: Add version to description. No functionality change.

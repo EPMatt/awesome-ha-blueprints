@@ -1,6 +1,6 @@
 ---
-title: IKEA ICTC-G-1 TRADFRI wireless dimmer
-description: Controller automation for executing any kind of action triggered by the provided IKEA ICTC-G-1 TRADFRI wireless dimmer. Supports deCONZ, ZHA, Zigbee2MQTT.
+title: Controller - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
+description: Controller automation for executing any kind of action triggered by the provided IKEA ICTC-G-1 TRÅDFRI wireless dimmer. Supports deCONZ, ZHA, Zigbee2MQTT.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA ICTC-G-1 TRADFRI wireless dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA ICTC-G-1 TRÅDFRI wireless dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to optionally loop the rotate actions while the remote is rotating either left or right. Once the remote stops rotating, the loop stops as well. This is useful when rotating the controller should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -26,14 +26,14 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'  />
-<Requirement id='zha'  />
-<Requirement id='zigbee2mqtt'  >
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'>
 
 When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/ICTC-G-1.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
 
 </Requirement>
-<Requirement  name='Input Text Integration' required>
+<Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
 
@@ -74,7 +74,7 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Rotate left stop'
-  description='Action to run on when stopping to rotate left the remote.'
+  description='Action to run when stopping to rotate left the remote.'
   selector='action'
 />
 <Input
@@ -84,7 +84,7 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Rotate right stop'
-  description='Action to run on when stopping to rotate right the remote.'
+  description='Action to run when stopping to rotate right the remote.'
   selector='action'
 />
 <Input
@@ -119,13 +119,18 @@ This integration provides the entity which must be provided to the blueprint in 
 
 This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 
+#### Default Mapping
+
 - Rotate left -> Brightness down (continuous, until stop)
 - Rotate right -> Brightness up (continuous, until stop)
-  [Light Hook docs](/docs/blueprints/hooks/light)
+
+[Light Hook docs](/docs/blueprints/hooks/light)
 
 ### Media Player
 
 This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
+
+#### Default Mapping
 
 - Rotate left -> Volume down (continuous, until stop)
 - Rotate right -> Volume up (continuous, until stop)
@@ -165,4 +170,3 @@ This blueprint provides beta support for controllers integrated with deCONZ, sin
 
 - **2021-07-04**: Fix deCONZ rotation stop events not being properly recognized
 - **2021-08-02**: Improve inputs documentation and organization
-- **2021-08-22**: Add version to description. No functionality change.

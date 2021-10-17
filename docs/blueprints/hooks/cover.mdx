@@ -1,5 +1,5 @@
 ---
-title: Cover
+title: Hook - Cover
 description: This Hook blueprint allows to build a controller-based automation to control a cover. Supports opening, closing and tilting the cover.
 ---
 
@@ -19,16 +19,13 @@ This Hook blueprint allows to build a controller-based automation to control a c
 :::info
 An automation created with this blueprint must be linked to a [Controller](/docs/blueprints/controllers) automation. Controllers are blueprints which allow to easily integrate a wide range of controllers and use them to run a set of actions when interacting with them. They expose an abstract interface used by Hooks to create controller-based automations.
 
-See the list of [Controllers supported by this Hook](/docs/blueprints/hooks/cover#supported-controllers) for additional details.
+See the list of [Controllers supported by this Hook](#supported-controllers) for additional details.
 :::
 
 ## Requirements
 
-<Requirement
-id='controller'
-required
-/>
-<Requirement  name='Cover Integration' required>
+<Requirement id='controller' required/>
+<Requirement name='Cover Integration' required>
 
 This integration provides the entity which represents a cover in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
 
@@ -39,14 +36,14 @@ This integration provides the entity which represents a cover in Home Assistant.
 ## Inputs
 
 <Input
-  name='Controller device'
-  description='The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.'
+  name='Controller Device'
+  description='The controller device which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.'
   selector='device'
   required
 />
 <Input
-  name='Controller entity'
-  description='The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.'
+  name='Controller Entity'
+  description='The controller entity which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.'
   selector='entity'
   required
 />
@@ -65,17 +62,16 @@ This integration provides the entity which represents a cover in Home Assistant.
 
 ## Supported Controllers
 
-- [IKEA E1524/E1810 5-Button Remote](/docs/blueprints/controllers/ikea_e1524_e1810)
-- [IKEA E1743 On/Off Switch & Dimmer](/docs/blueprints/controllers/ikea_e1743)
-- [IKEA E1812 Shortcut button](/docs/blueprints/controllers/ikea_e1812)
+- [IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote](/docs/blueprints/controllers/ikea_e1524_e1810))
+- [IKEA E1743 TRÅDFRI On/Off Switch & Dimmer](/docs/blueprints/controllers/ikea_e1743))
+- [IKEA E1812 TRÅDFRI Shortcut button](/docs/blueprints/controllers/ikea_e1812))
 
 ## Additional Notes
 
-If you want to link multiple covers to the same controller you can either use [Cover Groups](https://www.home-assistant.io/integrations/cover.group/) or build multiple Hooks linked to the same Controller.
+undefined
 
 ## Changelog
 
 - **2021-03-26**: first blueprint version :tada:
 - **2021-04-19**: remove unused variable, fix warnings for undefined variables in Home Assistant Core >=2021.4.0
 - **2021-08-02**: Improve inputs documentation and organization
-- **2021-08-22**: Added mapping functionality to allow multiple mappings for a remote. Refer to documentation of your controller for details.

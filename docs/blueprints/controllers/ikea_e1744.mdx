@@ -1,5 +1,5 @@
 ---
-title: IKEA E1744 SYMFONISK Rotary Remote
+title: Controller - IKEA E1744 SYMFONISK Rotary Remote
 description: Controller automation for executing any kind of action triggered by the provided IKEA E1744 SYMFONISK Rotary Remote. Supports deCONZ, ZHA, Zigbee2MQTT.
 ---
 
@@ -26,14 +26,14 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'  />
-<Requirement id='zha'  />
-<Requirement id='zigbee2mqtt'  >
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'>
 
 When configuring the remote with Zigbee2MQTT make sure to disable the legacy integration for it, as reported [here](https://www.zigbee2mqtt.io/devices/E1744.html#legacy-integration). This blueprint won't work with controllers with a legacy integration due to their instability and fundamental problems.
 
 </Requirement>
-<Requirement  name='Input Text Integration' required>
+<Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
 
@@ -74,7 +74,7 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Rotate left stop'
-  description='Action to run on when stopping to rotate left the remote.'
+  description='Action to run when stopping to rotate left the remote.'
   selector='action'
 />
 <Input
@@ -84,21 +84,21 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Rotate right stop'
-  description='Action to run on when stopping to rotate right the remote.'
+  description='Action to run when stopping to rotate right the remote.'
   selector='action'
 />
 <Input
-  name='Remote - short press'
+  name='Remote short press'
   description='Action to run on short remote press.'
   selector='action'
 />
 <Input
-  name='Remote - double press'
+  name='Remote double press'
   description='Action to run on double remote press.'
   selector='action'
 />
 <Input
-  name='Remote - triple press'
+  name='Remote triple press'
   description='Action to run on triple remote press.'
   selector='action'
 />
@@ -134,11 +134,13 @@ This integration provides the entity which must be provided to the blueprint in 
 
 This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 
+#### Default Mapping
+
 - Rotate left -> Brightness down (continuous, until stop)
 - Rotate right -> Brightness up (continuous, until stop)
-- Click -> Toggle
-- Double click -> Color up
-- Triple click -> Color down
+- Remote short press -> Toggle
+- Remote double press -> Color up
+- Remote triple press -> Color down
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
@@ -146,11 +148,13 @@ This Hook blueprint allows to build a controller-based automation to control a l
 
 This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
 
+#### Default Mapping
+
 - Rotate left -> Volume down (continuous, until stop)
 - Rotate right -> Volume up (continuous, until stop)
-- Click -> Play/Pause
-- Double click -> Next track
-- Triple click -> Previous track
+- Remote short press -> Play/Pause
+- Remote double press -> Next track
+- Remote triple press -> Previous track
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
@@ -196,4 +200,3 @@ The helper is used to determine stop rotation events when the controller is inte
 - **2021-05-26**: Fix for Zigbee2MQTT reporting null state changes
 - **2021-07-04**: Fix deCONZ rotation stop events not being properly recognized
 - **2021-08-02**: Improve inputs documentation and organization
-- **2021-08-22**: Add version to description. No functionality change.

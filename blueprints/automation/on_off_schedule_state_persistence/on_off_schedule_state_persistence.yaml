@@ -2,42 +2,45 @@
 blueprint:
   name: On-Off schedule with state persistence
   description: |
+    # On-Off schedule with state persistence
+
     A simple on-off schedule, with the addition of state persistence across disruptive events, making sure the target device is always in the expected state.
 
-    Full documentation for this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/on_off_schedule_state_persistence).
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/on_off_schedule_state_persistence).
 
-    Version: 2021.08.22
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.02.01
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/on_off_schedule_state_persistence/on_off_schedule_state_persistence.yaml
   domain: automation
   input:
     automation_target:
-      name: Automation target
+      name: (Required) Automation target
       description: The target which the automation will turn on and off based on the provided schedule.
       selector:
         target:
     on_time:
-      name: On Time
+      name: (Required) On Time
       description: Time when the target should be placed in the on state.
-      default: '00:00'
       selector:
         time:
     off_time:
-      name: Off Time
+      name: (Required) Off Time
       description: Time when the target should be placed in the off state.
-      default: '00:00'
       selector:
         time:
     custom_trigger_event:
-      name: Custom Trigger Event
-      description: (Optional) A custom event which can trigger the state check (eg. a powercut event reported by external integrations).
+      name: (Optional) Custom Trigger Event
+      description: A custom event which can trigger the state check (eg. a powercut event reported by external integrations).
       default: ''
+      selector:
+        text:
     trigger_at_homeassistant_startup:
-      name: Trigger at Home Assistant startup
+      name: (Optional) Trigger at Home Assistant startup
       description: Trigger the target state check and enforcement at Home Assistant startup.
       default: false
       selector:
         boolean:
-
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates

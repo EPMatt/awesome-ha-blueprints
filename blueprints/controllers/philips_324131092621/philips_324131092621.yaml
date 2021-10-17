@@ -1,16 +1,21 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Philips Hue Dimmer switch
+  name: Controller - Philips 324131092621 Hue Dimmer switch
   description: |
-    Controller automation for executing any kind of action triggered by an Philips Hue Dimmer switch. Allows to optionally loop an action on a button long press.
+    # Controller - Philips 324131092621 Hue Dimmer switch
+
+    Controller automation for executing any kind of action triggered by the provided Philips 324131092621 Hue Dimmer switch. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_324131092621#available-hooks) for additional details.
 
-    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_324131092621).
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_324131092621).
 
-    Version: 2021.08.22
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.08.02
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/philips_324131092621/philips_324131092621.yaml
   domain: automation
   input:
@@ -45,110 +50,110 @@ blueprint:
           domain: input_text
     # inputs for custom actions
     action_button_on_short:
-      name: (Optional) On button - short press
+      name: (Optional) On button short press
       description: Action to run on short on button press.
       default: []
       selector:
         action:
     action_button_on_long:
-      name: (Optional) On button - long press
+      name: (Optional) On button long press
       description: Action to run on long on button press.
       default: []
       selector:
         action:
     action_button_on_release:
-      name: (Optional) On button - release after long press
-      description: Action to run on on button release after a long press.
+      name: (Optional) On button release
+      description: Action to run on on button release after long press.
       default: []
       selector:
         action:
     action_button_on_double:
-      name: (Optional) On button - double press
+      name: (Optional) On button double press
       description: Action to run on double on button press.
       default: []
       selector:
         action:
     action_button_off_short:
-      name: (Optional) Off button - short press
+      name: (Optional) Off button short press
       description: Action to run on short off button press.
       default: []
       selector:
         action:
     action_button_off_long:
-      name: (Optional) Off button - long press
+      name: (Optional) Off button long press
       description: Action to run on long off button press.
       default: []
       selector:
         action:
     action_button_off_release:
-      name: (Optional) Off button - release after long press
-      description: Action to run on off button release after a long press.
+      name: (Optional) Off button release
+      description: Action to run on off button release after long press.
       default: []
       selector:
         action:
     action_button_off_double:
-      name: (Optional) Off button - double press
+      name: (Optional) Off button double press
       description: Action to run on double off button press.
       default: []
       selector:
         action:
     action_button_up_short:
-      name: (Optional) Up button - short press
+      name: (Optional) Up button short press
       description: Action to run on short up button press.
       default: []
       selector:
         action:
     action_button_up_long:
-      name: (Optional) Up button - long press
+      name: (Optional) Up button long press
       description: Action to run on long up button press.
       default: []
       selector:
         action:
     action_button_up_release:
-      name: (Optional) Up button - release after long press
-      description: Action to run on up button release after a long press.
+      name: (Optional) Up button release
+      description: Action to run on up button release after long press.
       default: []
       selector:
         action:
     action_button_up_double:
-      name: (Optional) Up button - double press
+      name: (Optional) Up button double press
       description: Action to run on double up button press.
       default: []
       selector:
         action:
     action_button_down_short:
-      name: (Optional) Down button - short press
+      name: (Optional) Down button short press
       description: Action to run on short down button press.
       default: []
       selector:
         action:
     action_button_down_long:
-      name: (Optional) Down button - long press
+      name: (Optional) Down button long press
       description: Action to run on long down button press.
       default: []
       selector:
         action:
     action_button_down_release:
-      name: (Optional) Down button - release after long press
-      description: Action to run on down button release after a long press.
+      name: (Optional) Down button release
+      description: Action to run on down button release after long press.
       default: []
       selector:
         action:
     action_button_down_double:
-      name: (Optional) Down button - double press
+      name: (Optional) Down button double press
       description: Action to run on double down button press.
       default: []
       selector:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     button_on_long_loop:
-      name: (Optional) Long on button press - loop until release
-      description: Loop the action until the on button is released.
+      name: (Optional) On button long press - loop until release
+      description: Loop the on button action until the button is released.
       default: false
       selector:
         boolean:
     button_on_long_max_loop_repeats:
-      name: (Optional) Long on button press - Maximum loop repeats
+      name: (Optional) On button long press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -160,13 +165,13 @@ blueprint:
           mode: slider
           step: 1
     button_off_long_loop:
-      name: (Optional) Long off button press - loop until release
-      description: Loop the action until the off button is released.
+      name: (Optional) Off button long press - loop until release
+      description: Loop the off button action until the button is released.
       default: false
       selector:
         boolean:
     button_off_long_max_loop_repeats:
-      name: (Optional) Long off button press - Maximum loop repeats
+      name: (Optional) Off button long press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -178,13 +183,13 @@ blueprint:
           mode: slider
           step: 1
     button_up_long_loop:
-      name: (Optional) Long up button press - loop until release
-      description: Loop the action until the up button is released.
+      name: (Optional) Up button long press - loop until release
+      description: Loop the up button action until the button is released.
       default: false
       selector:
         boolean:
     button_up_long_max_loop_repeats:
-      name: (Optional) Long up button press - Maximum loop repeats
+      name: (Optional) Up button long press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -196,13 +201,13 @@ blueprint:
           mode: slider
           step: 1
     button_down_long_loop:
-      name: (Optional) Long down button press - loop until release
-      description: Loop the action until the down button is released.
+      name: (Optional) Down button long press - loop until release
+      description: Loop the down button action until the button is released.
       default: false
       selector:
         boolean:
     button_down_long_max_loop_repeats:
-      name: (Optional) Long down button press - Maximum loop repeats
+      name: (Optional) Down button long press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -252,9 +257,9 @@ blueprint:
           step: 10
     helper_debounce_delay:
       name: (Optional) Helper - Debounce delay
-      description: >-
-        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value
-        if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.
+      description:
+        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced,
+        usually a value of 100 is enough to remove all duplicate events.
       default: 0
       selector:
         number:
@@ -346,7 +351,6 @@ variables:
   controller_entity: !input controller_entity
   controller_device: !input controller_device
   controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-# mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
 trigger:
@@ -358,8 +362,8 @@ trigger:
   # trigger for other integrations
   - platform: event
     event_type:
-      - zha_event
       - deconz_event
+      - zha_event
     event_data:
       device_id: !input controller_device
 condition:
@@ -474,8 +478,7 @@ action:
                       sequence: !input action_button_on_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_on_long
-      - conditions:
-          - '{{ trigger_action | string in button_on_release }}'
+      - conditions: '{{ trigger_action | string in button_on_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -555,8 +558,7 @@ action:
                       sequence: !input action_button_off_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_off_long
-      - conditions:
-          - '{{ trigger_action | string in button_off_release }}'
+      - conditions: '{{ trigger_action | string in button_off_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -636,8 +638,7 @@ action:
                       sequence: !input action_button_up_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_up_long
-      - conditions:
-          - '{{ trigger_action | string in button_up_release }}'
+      - conditions: '{{ trigger_action | string in button_up_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -717,8 +718,7 @@ action:
                       sequence: !input action_button_down_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_down_long
-      - conditions:
-          - '{{ trigger_action | string in button_down_release }}'
+      - conditions: '{{ trigger_action | string in button_down_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event

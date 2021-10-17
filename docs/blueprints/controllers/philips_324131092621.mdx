@@ -1,6 +1,6 @@
 ---
-title: Philips Hue Dimmer switch
-description: Controller automation for executing any kind of action triggered by the provided Philips Hue Dimmer switch. Supports deCONZ, ZHA, Zigbee2MQTT.
+title: Controller - Philips 324131092621 Hue Dimmer switch
+description: Controller automation for executing any kind of action triggered by the provided Philips 324131092621 Hue Dimmer switch. Supports deCONZ, ZHA, Zigbee2MQTT.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided Philips Hue Dimmer switch. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided Philips 324131092621 Hue Dimmer switch. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -28,10 +28,10 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'  />
-<Requirement id='zha'  />
-<Requirement id='zigbee2mqtt'  />
-<Requirement  name='Input Text Integration' required>
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'/>
+<Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
 
@@ -66,122 +66,122 @@ This integration provides the entity which must be provided to the blueprint in 
   required
 />
 <Input
-  name='On button - short press'
+  name='On button short press'
   description='Action to run on short on button press.'
   selector='action'
 />
 <Input
-  name='On button - long press'
+  name='On button long press'
   description='Action to run on long on button press.'
   selector='action'
 />
 <Input
-  name='On button - release after long press'
-  description='Action to run on on button release after a long press.'
+  name='On button release'
+  description='Action to run on on button release after long press.'
   selector='action'
 />
 <Input
-  name='On button - double press'
+  name='On button double press'
   description='Action to run on double on button press.'
   selector='action'
 />
 <Input
-  name='Off button - short press'
+  name='Off button short press'
   description='Action to run on short off button press.'
   selector='action'
 />
 <Input
-  name='Off button - long press'
+  name='Off button long press'
   description='Action to run on long off button press.'
   selector='action'
 />
 <Input
-  name='Off button - release after long press'
-  description='Action to run on off button release after a long press.'
+  name='Off button release'
+  description='Action to run on off button release after long press.'
   selector='action'
 />
 <Input
-  name='Off button - double press'
+  name='Off button double press'
   description='Action to run on double off button press.'
   selector='action'
 />
 <Input
-  name='Up button - short press'
+  name='Up button short press'
   description='Action to run on short up button press.'
   selector='action'
 />
 <Input
-  name='Up button - long press'
+  name='Up button long press'
   description='Action to run on long up button press.'
   selector='action'
 />
 <Input
-  name='Up button - release after long press'
-  description='Action to run on up button release after a long press.'
+  name='Up button release'
+  description='Action to run on up button release after long press.'
   selector='action'
 />
 <Input
-  name='Up button - double press'
+  name='Up button double press'
   description='Action to run on double up button press.'
   selector='action'
 />
 <Input
-  name='Down button - short press'
+  name='Down button short press'
   description='Action to run on short down button press.'
   selector='action'
 />
 <Input
-  name='Down button - long press'
+  name='Down button long press'
   description='Action to run on long down button press.'
   selector='action'
 />
 <Input
-  name='Down button - release after long press'
-  description='Action to run on down button release after a long press.'
+  name='Down button release'
+  description='Action to run on down button release after long press.'
   selector='action'
 />
 <Input
-  name='Down button - double press'
+  name='Down button double press'
   description='Action to run on double down button press.'
   selector='action'
 />
 <Input
-  name='Long on button press - loop until release'
-  description='Loop the action until the on button is released.'
+  name='On button long press - loop until release'
+  description='Loop the on button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long on button press - Maximum loop repeats'
+  name='On button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
 <Input
-  name='Long off button press - loop until release'
-  description='Loop the action until the off button is released.'
+  name='Off button long press - loop until release'
+  description='Loop the off button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long off button press - Maximum loop repeats'
+  name='Off button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
 <Input
-  name='Long up button press - loop until release'
-  description='Loop the action until the up button is released.'
+  name='Up button long press - loop until release'
+  description='Loop the up button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long up button press - Maximum loop repeats'
+  name='Up button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
 <Input
-  name='Long down button press - loop until release'
-  description='Loop the action until the down button is released.'
+  name='Down button long press - loop until release'
+  description='Loop the down button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long down button press - Maximum loop repeats'
+  name='Down button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
@@ -218,18 +218,25 @@ This integration provides the entity which must be provided to the blueprint in 
 
 ## Available Hooks
 
+:::note Virtual double press actions
+Some of the following mappings might include actions for virtual double press events, which are disabled by default.
+If you are using a hook mapping which provides an action for a virtual double press event, please make sure to enable support for virtual double press on the corresponding buttons with the corresponding blueprint input.
+:::
+
 ### Light
 
 This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 
+#### Default Mapping
+
 - On button short press -> Turn on
-- On button long press & hold -> Color up (continuous, until release)
+- On button long press -> Color up (continuous, until release)
 - Off button short press -> Turn off
-- Off button long press & hold -> Color down (continuous, until release)
+- Off button long press -> Color down (continuous, until release)
 - Up button short press -> Brightness up
-- Up button long press & hold -> Brightness up (continuous, until release)
+- Up button long press -> Brightness up (continuous, until release)
 - Down button short press -> Brightness down
-- Down button long press & hold -> Brightness down (continuous, until release)
+- Down button long press -> Brightness down (continuous, until release)
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
@@ -237,14 +244,16 @@ This Hook blueprint allows to build a controller-based automation to control a l
 
 This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
 
+#### Default Mapping
+
 - On button short press -> Play/Pause
-- On button long press & hold -> Next Track
+- On button long press -> Next track
 - Off button short press -> Stop
-- Off button long press & hold -> Previous track
+- Off button long press -> Previous track
 - Up button short press -> Volume up
-- Up button long press & hold -> Volume up (continuous, until release)
+- Up button long press -> Volume up (continuous, until release)
 - Down button short press -> Volume down
-- Down button long press & hold -> Volume down (continuous, until release)
+- Down button long press -> Volume down (continuous, until release)
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
@@ -279,4 +288,3 @@ It's also important to note that the controller doesn't natively support double 
   - Fix for Zigbee2MQTT reporting null state changes
 
 - **2021-08-02**: Improve inputs documentation and organization
-- **2021-08-22**: Add version to description. No functionality change.
