@@ -97,3 +97,8 @@ Not all media players support the customization of the number of steps for volum
 - **2021-05-16**: Add support for Osram SMART+ Switch Mini
 - **2021-07-03**: Add support for Philips Hue Smart Button
 - **2021-08-02**: Improve inputs documentation and organization
+- **2021-10-18**:
+  - Standardize blueprints structure and inputs naming across the whole collection.
+  - Improve blueprint documentation.
+  - :tada: Add support for alternate mappings. Additional mappings for currently supported controllers will be added from now on. Refer to the documentation of your controller for more details.
+  - :warning: **Breaking Change**: update controller names in the `Controller Model` input, to match the full name of controllers, prevent ambiguities and enable support for alternate mappings. After updating this blueprint, please reconfigure your automations by selecting again the value for the `Controller Model` input, matching the full name of the controller you're using with this hook.
