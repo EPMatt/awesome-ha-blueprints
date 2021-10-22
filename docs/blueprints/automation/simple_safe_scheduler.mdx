@@ -1,0 +1,178 @@
+---
+title: Simple Safe Scheduler
+description: A simple scheduler which executes a certain action at a given time, checking and eventually re-executing the action if the automation did not run at the expected time (e.g. due to a disruptive event).
+---
+
+import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+
+<ImportCard id='simple_safe_scheduler' category='automation' />
+
+<br />
+
+## Description
+
+Scheduling a periodic action in Home Assistant might be trickier than what it looks at first glance. Not only the available automation triggers are limited to only time-based schedules (requiring the user to either use template triggers or install additional integrations for more complex scheduling options), but they also do not guarantee that the automation is executed at the provided time.
+
+As an example, let's assume automation _A_ is scheduled to run at 12:00. If the Home Assistant server goes down at 11:59 due to a disruptive event (e.g. power outage, planned maintenance, hardware failure etc.) and comes back up at 12:01, the _A_ automation run scheduled for 12:00 would simply be skipped, without any warning to the user.
+
+The Simple Safe Scheduler blueprint tries to mitigate scheduling limitations in Home Assistant by providing an easy interface to configure periodic actions, with built-in safety checks to ensure the action actually runs even in case of a disruptive event.
+
+The configured automation acts as a simple scheduler, allowing to flexibly program any kind of action based on the following parameters:
+
+- Time of the day (dynamically provided as an `input_datetime` entity);
+- Day of the week (multiple days can be selected);
+- Week frequency (allowing to schedule the action to run i.e. every 2 weeks).
+
+In addition, the blueprint implements useful checks to make sure that, in case of a disruptive event (e.g power outage, Home Assistant server outage etc.) happening at the scheduled automation run time, the action is executed as soon as the system restores its state. These checks can be configured to be performed both when Home Assistant boots up and when a custom event is fired (e.g. from another automation or integration). Such safety checks might be particularly important for critical automations, which need to run as close as possible to the scheduled time (e.g. watering plants, configuring an alarm system, etc.).
+
+## Requirements
+
+<Requirement name='Input Datetime Integration' required>
+
+This integration provides the entity which represents a datetime input in Home Assistant. It should be activated by default so unless you tweaked the default configuration you're good to go.
+
+[Input Datetime Docs](https://www.home-assistant.io/integrations/input_datetime/)
+
+</Requirement>
+
+## Inputs
+
+<Input
+  name='Action'
+  description='The action which needs to be executed by this automation at the provided day and time.'
+  selector='action'
+  required
+/>
+<Input
+  name='Helper - Storage'
+  description='A text helper which will be used by the automation to store information regarding the last successful run. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
+/>
+<Input
+  name='Run every N weeks'
+  description='The number of weeks between a successful run and the next one.'
+  selector='number'
+/>
+<Input
+  name='Run on Monday'
+  description='Run the action on Monday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Tuesday'
+  description='Run the action on Tuesday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Wednesday'
+  description='Run the action on Wednesday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Thursday'
+  description='Run the action on Thursday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Friday'
+  description='Run the action on Friday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Saturday'
+  description='Run the action on Saturday.'
+  selector='boolean'
+/>
+<Input
+  name='Run on Sunday'
+  description='Run the action on Sunday.'
+  selector='boolean'
+/>
+<Input
+  name='Run Time Entity'
+  description='Entity which describes the time when the action should run. Provide an entity with only time information configured (has_time: true, has_date: false).'
+  selector='entity'
+  required
+/>
+<Input
+  name='Custom Trigger Event'
+  description='A custom event which can trigger the execution check (eg. a powercut event reported by external integrations).'
+  selector='text'
+/>
+<Input
+  name='Trigger at Home Assistant startup'
+  description='Trigger the execution check at Home Assistant startup.'
+  selector='boolean'
+/>
+<Input
+  name='Block late execution'
+  description='Prevent the action to be executed too late, when a given period of time passed since the expected run time.'
+  selector='boolean'
+/>
+<Input
+  name='Block late execution - Max elapsed time'
+  description='Threshold which is used to determine a late execution: if the provided amount of time passed since the expected run time and block late execution is enabled, the action will not be executed in any case.'
+  selector='number'
+/>
+
+## Additional Notes
+
+### Helper - Storage Input
+
+The `helper_storage` (Helper - Storage) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. When setting up this blueprint, manually create a new `input_text` entity and provide it in the inputs section.
+:::caution
+Make sure the text input is not altered by any other agent. The provided entity is used as a permanent storage area for just a single automation; any change to its state not carried out by the respective automation could lead to inconsistencies and unexpected behaviour. Therefore, you should create a **separate text input for each automation you're configuring with this blueprint**.
+:::
+
+### Advanced scheduling
+
+For more advanced scheduling options you can configure multiple automation with this blueprint, having the same action but with a different scheduling configuration.
+Let's say that you want to set up an action to run every two weeks on Monday, at 12:00 and also every week on Wednesday, at 13:00. You can setup two distinct automations with the same action and the following scheduling configuration (only scheduling-relevant inputs are provided):
+
+Automation 1: Every two weeks, on Monday, at 12:00:
+
+```yaml
+weeks_frequency: 2
+day_monday: true
+time_entity: input_datetime.automation_1 # its value need to be set at 12:00
+```
+
+Automation 2: Every week, on Wednesday, at 13:00:
+
+```yaml
+weeks_frequency: 1
+day_wednesday: true
+time_entity: input_datetime.automation_2 # its value need to be set at 13:00
+```
+
+### Dynamic scheduling (e.g. sunrise/sunset)
+
+Using an `input_datetime` entity to provide the time the automation should run allows to flexibly configure the scheduled time, without providing an hardcoded value. This can be really useful when configuring schedules based on a dynamic time of the day, such as sunrise or sunset based automations. In the latter case, you can provide an `input_datetime` entity configured as follows:
+
+```yaml
+# input_datetime configuration
+input_datetime:
+  automation_1:
+    name: Automation 1 Execution Time
+    has_date: false
+    has_time: true
+
+# your automations.yaml file
+- id: automation_1_datetime_update
+  # whenever you want to update the automation dynamic execution time
+  # in this case at sunset
+  trigger:
+    - platform: sun
+      event: sunset
+  action:
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.automation_1
+      data:
+        time: "{{ now().strftime('%H:%M:%S') }}"
+```
+
+## Changelog
+
+- **2021-10-22**: first blueprint version :tada:
