@@ -69,7 +69,12 @@ This integration provides the entity which represents a light in Home Assistant.
 />
 <Input
   name='Light Transition'
-  description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
+  description='Time (in milliseconds) the light should take turn on or off, if the light supports it.'
+  selector='number'
+/>
+<Input
+  name='Step Duration'
+  description='Time duration (in milliseconds) for each step, both when controlling brightness and color. Tweaking it might result in a smoother control experience, depending on the light model.'
   selector='number'
 />
 <Input
