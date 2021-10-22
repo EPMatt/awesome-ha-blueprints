@@ -195,7 +195,7 @@ condition:
 
         {% macro day_offset(day) -%}
           {%- if days[day] -%}
-            {{ 7 if cwd == day and cdt.time() < idt.time() else (cwd-day)%7 }} 
+            {{ 7 if cwd == day and cdt.time() < idt.time() else (cwd-day)%7 }}
           {%- else -%}
             -1
           {%- endif -%}
