@@ -1,0 +1,223 @@
+# Blueprint metadata
+blueprint:
+  name: Simple Safe Scheduler
+  description: >
+    # Simple Safe Scheduler
+
+
+    Scheduling a periodic action in Home Assistant might be trickier than what it looks at first glance. Not only the available automation triggers are limited to only time-based schedules (requiring the user to either use template triggers or install additional integrations for more complex scheduling options), but they also do not guarantee that the automation is executed at the provided time.
+
+
+    As an example, let's assume automation _A_ is scheduled to run at 12:00. If the Home Assistant server goes down at 11:59 due to a disruptive event (e.g. power outage, planned maintenance, hardware failure etc.) and comes back up at 12:01, the _A_ automation run scheduled for 12:00 would simply be skipped, without any warning to the user.
+
+
+    The Simple Safe Scheduler blueprint tries to mitigate scheduling limitations in Home Assistant by providing an easy interface to configure periodic actions, with built-in safety checks to ensure the action actually runs even in case of a disruptive event.
+
+
+    The configured automation acts as a simple scheduler, allowing to flexibly program any kind of action based on the following parameters:
+
+
+    - Time of the day (dynamically provided as an `input_datetime` entity);
+
+    - Day of the week (multiple days can be selected);
+
+    - Week frequency (allowing to schedule the action to run i.e. every 2 weeks).
+
+
+    In addition, the blueprint implements useful checks to make sure that, in case of a disruptive event (e.g power outage, Home Assistant server outage etc.) happening at the scheduled automation run time, the action is executed as soon as the system restores its state. These checks can be configured to be performed both when Home Assistant boots up and when a custom event is fired (e.g. from another automation or integration). Such safety checks might be particularly important for critical automations, which need to run as close as possible to the scheduled time (e.g. watering plants, configuring an alarm system, etc.).
+
+
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/simple_safe_scheduler).
+
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+
+    ℹ️ Version 2021.10.22
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/simple_safe_scheduler/simple_safe_scheduler.yaml
+  domain: automation
+  input:
+    action:
+      name: (Required) Action
+      description: The action which needs to be executed by this automation at the provided day and time.
+      selector:
+        action:
+    helper_storage:
+      name: (Required) Helper - Storage
+      description: A text helper which will be used by the automation to store information regarding the last successful run. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
+      selector:
+        entity:
+          domain: input_text
+    weeks_frequency:
+      name: (Optional) Run every N weeks
+      description: The number of weeks between a successful run and the next one.
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 52
+          mode: slider
+          unit_of_measurement: weeks
+    day_monday:
+      name: (Optional) Run on Monday
+      description: Run the action on Monday.
+      default: false
+      selector:
+        boolean:
+    day_tuesday:
+      name: (Optional) Run on Tuesday
+      description: Run the action on Tuesday.
+      default: false
+      selector:
+        boolean:
+    day_wednesday:
+      name: (Optional) Run on Wednesday
+      description: Run the action on Wednesday.
+      default: false
+      selector:
+        boolean:
+    day_thursday:
+      name: (Optional) Run on Thursday
+      description: Run the action on Thursday.
+      default: false
+      selector:
+        boolean:
+    day_friday:
+      name: (Optional) Run on Friday
+      description: Run the action on Friday.
+      default: false
+      selector:
+        boolean:
+    day_saturday:
+      name: (Optional) Run on Saturday
+      description: Run the action on Saturday.
+      default: false
+      selector:
+        boolean:
+    day_sunday:
+      name: (Optional) Run on Sunday
+      description: Run the action on Sunday.
+      default: false
+      selector:
+        boolean:
+    time_entity:
+      name: (Required) Run Time Entity
+      description: 'Entity which describes the time when the action should run. Provide an entity with only time information configured (has_time: true, has_date: false).'
+      selector:
+        entity:
+          domain: input_datetime
+    custom_trigger_event:
+      name: (Optional) Custom Trigger Event
+      description: A custom event which can trigger the execution check (eg. a powercut event reported by external integrations).
+      default: ''
+      selector:
+        text:
+    trigger_at_homeassistant_startup:
+      name: (Optional) Trigger at Home Assistant startup
+      description: Trigger the execution check at Home Assistant startup.
+      default: true
+      selector:
+        boolean:
+    block_late_execution:
+      name: (Optional) Block late execution
+      description: Prevent the action to be executed too late, when a given period of time passed since the expected run time.
+      default: false
+      selector:
+        boolean:
+    block_late_execution_max_elapsed_time:
+      name: (Optional) Block late execution - Max elapsed time
+      description: 'Threshold which is used to determine a late execution: if the provided amount of time passed since the expected run time and block late execution is enabled, the action will not be executed in any case.'
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 10080
+          unit_of_measurement: minutes
+          mode: slider
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  day_monday: !input day_monday
+  day_tuesday: !input day_tuesday
+  day_wednesday: !input day_wednesday
+  day_thursday: !input day_thursday
+  day_friday: !input day_friday
+  day_saturday: !input day_saturday
+  day_sunday: !input day_sunday
+  weeks_frequency: !input weeks_frequency
+  time_entity: !input time_entity
+  helper_storage: !input helper_storage
+  trigger_at_homeassistant_startup: !input trigger_at_homeassistant_startup
+  block_late_execution: !input block_late_execution
+  block_late_execution_max_elapsed_time: !input block_late_execution_max_elapsed_time
+  # time format used by strptime
+  time_fmt: '%H:%M:%S'
+  # regex to identify whether a value represents a JSON object
+  json_regex: '^\{(\".*\": ((\".*\")|(.*))(, )?)*\}$'
+mode: single
+max_exceeded: silent
+
+trigger:
+  # at specified time, every day
+  - id: run_time
+    platform: time
+    at:
+      - !input time_entity
+  # at home assistant startup
+  - id: homeassistant_start
+    platform: homeassistant
+    event: start
+  # when the custom event is fired
+  - id: custom_trigger_event
+    platform: event
+    event_type: !input custom_trigger_event
+condition:
+  # if triggered by the homeassistant platform check if the automation should be run, as specified by the user
+  # if triggered by something else, just continue
+  - condition: and
+    conditions:
+      # if triggered by the run time, check that the automation is allowed to run today
+      - >-
+        {%- set today = now().weekday() -%} {{ trigger.id != "run_time" or today == 0 and day_monday or today == 1 and day_tuesday or today == 2 and day_wednesday or today == 3 and day_thursday or today == 4 and day_friday or today == 5 and day_saturday or today == 6 and day_sunday }}
+      # if triggered due to home assistant startup, check that the feature is enabled
+      - '{{ trigger.id != "homeassistant_start" or trigger_at_homeassistant_startup }}'
+      # if triggered due to home assistant startup or to a custom trigger event, perform the execution check
+      # check whether the automation run at or after the expected run time
+      # if this is the case, there's no need to run the automation again
+      # else, the automation was not able to run at the expected time, and was not executed after it, hence run it now
+      # if block late execution is enabled, check also that no more than the provided max elapsed time has passed since the expected run time
+      - >-
+        {%- set cdt = now() | as_timestamp | timestamp_local | as_datetime -%}
+        {%- set lsrdt = ((states(helper_storage) | from_json).last_triggered if (states(helper_storage) | regex_match(json_regex)) else 0) | timestamp_local | as_datetime -%}
+        {%- set idt = strptime(states(time_entity),time_fmt) -%}
+        {%- set days = [day_monday, day_tuesday, day_wednesday, day_thursday, day_friday, day_saturday, day_sunday] -%}
+        {%- set cwd = cdt.weekday() -%}
+
+        {% macro day_offset(day) -%}
+          {%- if days[day] -%}
+            {{ 7 if cwd == day and cdt.time() < idt.time() else (cwd-day)%7 }}
+          {%- else -%}
+            -1
+          {%- endif -%}
+        {%- endmacro %}
+
+        {%- set weekdays = [day_offset(0)|int, day_offset(1)|int, day_offset(2)|int, day_offset(3)|int, day_offset(4)|int, day_offset(5)|int, day_offset(6)|int] | select("ge",0) | list -%}
+
+        {%- if weekdays | length > 0 -%}
+          {%- set closest_weekday = weekdays | min -%}
+          {%- set day_diff = timedelta(weeks=weeks_frequency-1, days=closest_weekday) -%}
+          {%- set edt = (cdt - day_diff - timedelta(hours=cdt.hour, minutes=cdt.minute, seconds = cdt.second) + timedelta(hours=idt.hour, minutes=idt.minute, seconds = idt.second)) | as_timestamp | timestamp_local | as_datetime -%}
+          {{ trigger.id not in ["homeassistant_start","custom_trigger_event"] or lsrdt < edt and (not block_late_execution or edt >= cdt - timedelta(minutes=block_late_execution_max_elapsed_time))  }}
+        {%- else -%}
+          {{ false }}
+        {%- endif -%}
+action:
+  # store the current datetime into the helper, since the automation was successfully triggered
+  - service: input_text.set_value
+    data:
+      entity_id: !input helper_storage
+      value: '{{ {"last_triggered": now() | as_timestamp } | to_json }}'
+  # run the user provided action
+  - choose:
+      - conditions: []
+        sequence: !input action

@@ -2,25 +2,33 @@
 blueprint:
   name: Hook - Cover
   description: |
-    Hook automation which allows to control a cover. Supports opening, closing and tilting the cover. Features may vary depending on the selected Controller and cover.
+    # Hook - Cover
+
+    Hook automation which allows to control a cover. Supports opening, closing and tilting the cover. Features may vary depending on the selected cover. Features may vary depending on the selected Controller.
 
     An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
     Controllers are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them.
     They expose an abstract interface used by Hooks to create controller-based automations.
 
-    Full documentation and a list of Controllers supported by this Hook are available [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/cover).
+    A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover#supported-controllers).
+
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.10.26
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
     controller_device:
-      name: (Required) Controller device
-      description: The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
+      name: (Required) Controller Device
+      description: The controller device which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         device:
     controller_entity:
-      name: (Required) Controller entity
-      description: The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
+      name: (Required) Controller Entity
+      description: The controller entity which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         entity:
@@ -31,58 +39,46 @@ blueprint:
       selector:
         select:
           options:
-            - IKEA E1524/E1810 5-Button remote
-            - IKEA E1743 On/Off Switch & Dimmer
-            - IKEA E1812 Shortcut button
+            - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
+            - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
+            - IKEA E1812 TRÅDFRI Shortcut button
     cover:
       name: (Required) Cover
       description: Cover which will be controlled with this automation.
       selector:
         entity:
           domain: cover
-
 # Automation schema
 variables:
   # convert blueprint inputs into variables to be used in templates
   controller_model: !input controller_model
-  # Blueprint data
-  supported_controllers:
-    IKEA E1524/E1810 5-Button remote: ikea_e1524_e1810
-    IKEA E1743 On/Off Switch & Dimmer: ikea_e1743
-    IKEA E1812 Shortcut button: ikea_e1812
+  # supported controllers and mappings
   controller_mapping:
-    ikea_e1524_e1810:
+    IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       open_cover: button_up_short
       close_cover: button_down_short
-      open_cover_tilt: button_right_short
       close_cover_tilt: button_left_short
+      open_cover_tilt: button_right_short
       stop_cover_all: button_center_short
-    ikea_e1743:
+    IKEA E1743 TRÅDFRI On/Off Switch & Dimmer:
       open_cover: button_up_short
       open_cover_tilt: button_up_long
       close_cover: button_down_short
       close_cover_tilt: button_down_long
       stop_cover_all: button_down_double
-    ikea_e1812:
+    IKEA E1812 TRÅDFRI Shortcut button:
       open_cover: button_short
-      close_cover: button_double
       stop_cover_all: button_long
-  # extract controller ids
-  controller_model_id: '{{ supported_controllers[controller_model] }}'
+      close_cover: button_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
-  open_cover: '{{ controller_mapping[controller_model_id]["open_cover"] | default(None) }}'
-  close_cover: '{{ controller_mapping[controller_model_id]["close_cover"] | default(None) }}'
-  stop_cover: '{{ controller_mapping[controller_model_id]["stop_cover"] | default(None) }}'
-  open_cover_tilt: '{{ controller_mapping[controller_model_id]["open_cover_tilt"] | default(None) }}'
-  close_cover_tilt: '{{ controller_mapping[controller_model_id]["close_cover_tilt"] | default(None) }}'
-  stop_cover_tilt: '{{ controller_mapping[controller_model_id]["stop_cover_tilt"] | default(None) }}'
-  stop_cover_all: '{{ controller_mapping[controller_model_id]["stop_cover_all"] | default(None) }}'
-
-# mode restart ensures long actions are interrupted when the release action is received
+  open_cover: '{{ controller_mapping[controller_model]["open_cover"] | default(None) }}'
+  close_cover: '{{ controller_mapping[controller_model]["close_cover"] | default(None) }}'
+  open_cover_tilt: '{{ controller_mapping[controller_model]["open_cover_tilt"] | default(None) }}'
+  close_cover_tilt: '{{ controller_mapping[controller_model]["close_cover_tilt"] | default(None) }}'
+  stop_cover_all: '{{ controller_mapping[controller_model]["stop_cover_all"] | default(None) }}'
 mode: restart
 max_exceeded: silent
-
 trigger:
   - platform: event
     event_type: ahb_controller_event
@@ -92,7 +88,7 @@ trigger:
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_entity
-condition:
+condition: []
 action:
   - variables:
       action: '{{ trigger.event.data.action }}'
