@@ -1,14 +1,21 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - IKEA E1812 Shortcut button
+  name: Controller - IKEA E1812 TRÅDFRI Shortcut button
   description: |
-    Controller automation for executing any kind of action triggered by an IKEA E1812 Shortcut button. Allows to optionally loop an action on a button long press.
+    # Controller - IKEA E1812 TRÅDFRI Shortcut button
+
+    Controller automation for executing any kind of action triggered by the provided IKEA E1812 TRÅDFRI Shortcut button. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1812#available-hooks) for additional details.
 
-    Full documentation for this controller and list of available Hooks [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1812).
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1812).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.10.26
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1812/ikea_e1812.yaml
   domain: automation
   input:
@@ -43,38 +50,38 @@ blueprint:
           domain: input_text
     # inputs for custom actions
     action_button_short:
-      name: (Optional) Button - short press
+      name: (Optional) Button short press
       description: Action to run on short button press.
       default: []
       selector:
         action:
     action_button_long:
-      name: (Optional) Button - long press
+      name: (Optional) Button long press
       description: Action to run on long button press.
       default: []
       selector:
         action:
     action_button_release:
-      name: (Optional) Button - release after long press
-      description: Action to run on button release after a long press.
+      name: (Optional) Button release
+      description: Action to run on button release after long press.
       default: []
       selector:
         action:
     action_button_double:
-      name: (Optional) Button - double press
+      name: (Optional) Button double press
       description: Action to run on double button press.
       default: []
       selector:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
     button_long_loop:
-      name: (Optional) Long button press - loop until release
-      description: Loop the action until the button is released.
+      name: (Optional) Button long press - loop until release
+      description: Loop the button action until the button is released.
       default: false
       selector:
         boolean:
     button_long_max_loop_repeats:
-      name: (Optional) Long button press - Maximum loop repeats
+      name: (Optional) Button long press - Maximum loop repeats
       description: >-
         Maximum number of repeats for the custom action, when looping is enabled.
         Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
@@ -106,9 +113,9 @@ blueprint:
           step: 10
     helper_debounce_delay:
       name: (Optional) Helper - Debounce delay
-      description: >-
-        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value
-        if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.
+      description:
+        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced,
+        usually a value of 100 is enough to remove all duplicate events.
       default: 0
       selector:
         number:
@@ -155,7 +162,6 @@ variables:
   controller_entity: !input controller_entity
   controller_device: !input controller_device
   controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-# mode restart ensures hold actions are interrupted when the corresponding release action is received
 mode: restart
 max_exceeded: silent
 trigger:
@@ -167,8 +173,8 @@ trigger:
   # trigger for other integrations
   - platform: event
     event_type:
-      - zha_event
       - deconz_event
+      - zha_event
     event_data:
       device_id: !input controller_device
 condition:
@@ -283,8 +289,7 @@ action:
                       sequence: !input action_button_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_long
-      - conditions:
-          - '{{ trigger_action | string in button_release }}'
+      - conditions: '{{ trigger_action | string in button_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event

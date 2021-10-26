@@ -1,32 +1,56 @@
 # Blueprint metadata
 blueprint:
   name: Send Web UI persistent notifications to Mobile Devices
-  description: Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+  description: |
+    # Send Web UI persistent notifications to Mobile Devices
+
+    Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.
+
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/automation/persistent_notification_to_mobile).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.10.26
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/persistent_notification_to_mobile/persistent_notification_to_mobile.yaml
   domain: automation
   input:
     notification_id:
-      name: Notification ID
+      name: (Optional) Notification ID
       description: The notification ID of persistent notifications which must be sent to mobile devices. Empty for all notifications.
       default: ''
+      selector:
+        text:
     mobile_notify_service:
-      name: Mobile devices notification service
-      description: The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>). You can provide both a notify group or a single notify device here.
+      name: (Required) Mobile devices notification service
+      description: >-
+        The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>).
+        You can provide both a notify group or a single notify device here.
+      selector:
+        text:
     replace_notifications:
-      name: Replace notifications with same ID
+      name: (Optional) Replace notifications with same ID
       description: Replace existing notifications with the same notification ID.
       default: false
       selector:
         boolean:
     android_notification_channel:
-      name: Android notification channel
-      description: Android notification channel. Allows to group notifications to then apply custom settings for sound, vibration, etc. Leave blank if you do not want to use this feature.
+      name: (Optional) (Android only) Notification channel
+      description: >-
+        Android notification channel. Allows to group notifications to
+        then apply custom settings for sound, vibration, etc. Leave blank if you do
+        not want to use this feature.
       default: ''
+      selector:
+        text:
     notification_group:
-      name: Notification group
-      description: Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.
+      name: (Optional) Notification group
+      description: >-
+        Notification group for the notifications sent with this automation.
+        Use this to group notifications in the notification tray. Leave blank if you
+        do not want to use this feature.
       default: ''
-
+      selector:
+        text:
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates

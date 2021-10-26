@@ -2,25 +2,33 @@
 blueprint:
   name: Hook - Media Player
   description: |
+    # Hook - Media Player
+
     Hook automation which allows to control a media player. Supports volume setting, play/pause and track selection. Features may vary depending on the selected Controller.
 
     An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
     Controllers are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them.
     They expose an abstract interface used by Hooks to create controller-based automations.
 
-    Full documentation and a list of Controllers supported by this Hook are available [here](https://epmatt.github.io/awesome-ha-blueprints/blueprints/hooks/media_player).
+    A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player#supported-controllers).
+
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+
+    ℹ️ Version 2021.10.26
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:
     controller_device:
-      name: (Required) Controller device
-      description: The controller device which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
+      name: (Required) Controller Device
+      description: The controller device which will control the Media Player. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         device:
     controller_entity:
-      name: (Required) Controller entity
-      description: The controller entity which will control the light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
+      name: (Required) Controller Entity
+      description: The controller entity which will control the Media Player. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
       default: ''
       selector:
         entity:
@@ -31,14 +39,14 @@ blueprint:
       selector:
         select:
           options:
-            - IKEA E1524/E1810 5-Button remote
-            - IKEA E1743 On/Off Switch & Dimmer
-            - IKEA E1744 SYMFONISK rotary remote
-            - IKEA E1812 Shortcut button
-            - IKEA ICTC-G-1 TRADFRI wireless dimmer
-            - Osram SMART+ Switch Mini
-            - Philips Hue Dimmer switch
-            - Philips Hue Smart Button
+            - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
+            - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
+            - IKEA E1744 SYMFONISK Rotary Remote
+            - IKEA E1812 TRÅDFRI Shortcut button
+            - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
+            - OSRAM AC025XX00NJ SMART+ Switch Mini
+            - Philips 324131092621 Hue Dimmer switch
+            - Philips 8718699693985 Hue Smart Button
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -67,94 +75,79 @@ blueprint:
           step: 1
           unit_of_measurement: steps
           mode: box
-
 # Automation schema
 variables:
   # convert blueprint inputs into variables to be used in templates
   controller_model: !input controller_model
-  volume_steps_short: !input volume_steps_short
-  volume_steps_long: !input volume_steps_long
-  media_player: !input media_player
-  # Blueprint data
-  supported_controllers:
-    IKEA E1524/E1810 5-Button remote: ikea_e1524_e1810
-    IKEA E1743 On/Off Switch & Dimmer: ikea_e1743
-    IKEA E1744 SYMFONISK rotary remote: ikea_e1744
-    IKEA E1812 Shortcut button: ikea_e1812
-    IKEA ICTC-G-1 TRADFRI wireless dimmer: ikea_ictc_g_1
-    Osram SMART+ Switch Mini: osram_ac025xx00nj
-    Philips Hue Dimmer switch: philips_324131092621
-    Philips Hue Smart Button: philips_8718699693985
+  # supported controllers and mappings
   controller_mapping:
-    ikea_e1524_e1810:
+    IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       volume_up: button_up_short
       volume_up_repeat: button_up_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
-      next_track: button_right_short
       prev_track: button_left_short
-      stop: button_center_hold
+      next_track: button_right_short
       play_pause: button_center_short
-    ikea_e1743:
+      stop: button_center_long
+    IKEA E1743 TRÅDFRI On/Off Switch & Dimmer:
       volume_up: button_up_short
       volume_up_repeat: button_up_long
-      volume_down: button_down_short
-      volume_down_repeat: button_down_long
       next_track: button_up_double
+      volume_down: button_down_long
       play_pause: button_down_double
-    ikea_e1744:
-      volume_up_repeat: rotate_right
+    IKEA E1744 SYMFONISK Rotary Remote:
       volume_down_repeat: rotate_left
+      volume_up_repeat: rotate_right
+      play_pause: click_short
       next_track: click_double
       prev_track: click_triple
-      play_pause: click_short
-    ikea_e1812:
-      next_track: button_double
-      stop: button_long
+    IKEA E1812 TRÅDFRI Shortcut button:
       play_pause: button_short
-    ikea_ictc_g_1:
-      volume_up_repeat: rotate_right
+      stop: button_long
+      next_track: button_double
+    IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       volume_down_repeat: rotate_left
-    osram_ac025xx00nj:
+      volume_up_repeat: rotate_right
+    OSRAM AC025XX00NJ SMART+ Switch Mini:
       volume_up: button_up_short
       volume_up_repeat: button_up_long
       next_track: button_up_double
-      play_pause: button_click_short
-      toggle: button_click_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
       prev_track: button_down_double
-    philips_324131092621:
+      play_pause: button_center_short
+      toggle: button_center_long
+    Philips 324131092621 Hue Dimmer switch:
       play_pause: button_on_short
+      next_track: button_on_long
       stop: button_off_short
+      prev_track: button_off_long
       volume_up: button_up_short
       volume_up_repeat: button_up_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
-      next_track: button_on_long
-      prev_track: button_off_long
-    philips_8718699693985:
+    Philips 8718699693985 Hue Smart Button:
       play_pause: button_short
       next_track: button_double
-  # extract controller ids
-  controller_model_id: '{{ supported_controllers[controller_model] }}'
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
-  volume_up: '{{ controller_mapping[controller_model_id]["volume_up"] | default(None) }}'
-  volume_up_repeat: '{{ controller_mapping[controller_model_id]["volume_up_repeat"] | default(None) }}'
-  volume_down: '{{ controller_mapping[controller_model_id]["volume_down"] | default(None) }}'
-  volume_down_repeat: '{{ controller_mapping[controller_model_id]["volume_down_repeat"] | default(None) }}'
-  next_track: '{{ controller_mapping[controller_model_id]["next_track"] | default(None) }}'
-  prev_track: '{{ controller_mapping[controller_model_id]["prev_track"] | default(None) }}'
-  stop: '{{ controller_mapping[controller_model_id]["stop"] | default(None) }}'
-  play_pause: '{{ controller_mapping[controller_model_id]["play_pause"] | default(None) }}'
+  volume_up: '{{ controller_mapping[controller_model]["volume_up"] | default(None) }}'
+  volume_up_repeat: '{{ controller_mapping[controller_model]["volume_up_repeat"] | default(None) }}'
+  volume_down: '{{ controller_mapping[controller_model]["volume_down"] | default(None) }}'
+  volume_down_repeat: '{{ controller_mapping[controller_model]["volume_down_repeat"] | default(None) }}'
+  next_track: '{{ controller_mapping[controller_model]["next_track"] | default(None) }}'
+  prev_track: '{{ controller_mapping[controller_model]["prev_track"] | default(None) }}'
+  stop: '{{ controller_mapping[controller_model]["stop"] | default(None) }}'
+  play_pause: '{{ controller_mapping[controller_model]["play_pause"] | default(None) }}'
+  toggle: '{{ controller_mapping[controller_model]["toggle"] | default(None) }}'
+  volume_steps_short: !input volume_steps_short
+  volume_steps_long: !input volume_steps_long
+  media_player: !input media_player
   volume_step_value_short: '{{ 1/volume_steps_short }}'
   volume_step_value_long: '{{ 1/volume_steps_long }}'
-
-# mode restart ensures long actions are interrupted when the release action is received
 mode: restart
 max_exceeded: silent
-
 trigger:
   - platform: event
     event_type: ahb_controller_event
@@ -164,10 +157,10 @@ trigger:
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_entity
-condition:
+condition: []
 action:
   - variables:
-      action: '{{trigger.event.data.action}}'
+      action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == play_pause }}'
         sequence:

@@ -1,6 +1,6 @@
 ---
-title: IKEA E1743 On/Off Switch & Dimmer
-description: Controller automation for executing any kind of action triggered by the provided IKEA E1743 On/Off Switch & Dimmer. Supports deCONZ, ZHA, Zigbee2MQTT.
+title: Controller - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
+description: Controller automation for executing any kind of action triggered by the provided IKEA E1743 TRÅDFRI On/Off Switch & Dimmer. Supports deCONZ, ZHA, Zigbee2MQTT.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1743 On/Off Switch & Dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1743 TRÅDFRI On/Off Switch & Dimmer. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -28,10 +28,10 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'  />
-<Requirement id='zha'  />
-<Requirement id='zigbee2mqtt'  />
-<Requirement  name='Input Text Integration' required>
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'/>
+<Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
 
@@ -66,62 +66,62 @@ This integration provides the entity which must be provided to the blueprint in 
   required
 />
 <Input
-  name='Up button - short press'
+  name='Up button short press'
   description='Action to run on short up button press.'
   selector='action'
 />
 <Input
-  name='Up button - long press'
+  name='Up button long press'
   description='Action to run on long up button press.'
   selector='action'
 />
 <Input
-  name='Up button - release after long press'
-  description='Action to run on up button release after a long press.'
+  name='Up button release'
+  description='Action to run on up button release after long press.'
   selector='action'
 />
 <Input
-  name='Up button - double press'
+  name='Up button double press'
   description='Action to run on double up button press.'
   selector='action'
 />
 <Input
-  name='Down button - short press'
+  name='Down button short press'
   description='Action to run on short down button press.'
   selector='action'
 />
 <Input
-  name='Down button - long press'
+  name='Down button long press'
   description='Action to run on long down button press.'
   selector='action'
 />
 <Input
-  name='Down button - release after long press'
-  description='Action to run on down button release after a long press.'
+  name='Down button release'
+  description='Action to run on down button release after long press.'
   selector='action'
 />
 <Input
-  name='Down button - double press'
+  name='Down button double press'
   description='Action to run on double down button press.'
   selector='action'
 />
 <Input
-  name='Long up button press - loop until release'
-  description='Loop the action until the up button is released.'
+  name='Up button long press - loop until release'
+  description='Loop the up button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long up button press - Maximum loop repeats'
+  name='Up button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
 <Input
-  name='Long down button press - loop until release'
-  description='Loop the action until the down button is released.'
+  name='Down button long press - loop until release'
+  description='Loop the down button action until the button is released.'
   selector='boolean'
 />
 <Input
-  name='Long down button press - Maximum loop repeats'
+  name='Down button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
@@ -148,30 +148,46 @@ This integration provides the entity which must be provided to the blueprint in 
 
 ## Available Hooks
 
+:::note Virtual double press actions
+Some of the following mappings might include actions for virtual double press events, which are disabled by default.
+If you are using a hook mapping which provides an action for a virtual double press event, please make sure to enable support for virtual double press on the corresponding buttons with the corresponding blueprint input.
+:::
+
 ### Light
 
 This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
-Please enable double press events for the Up and Down button to use all the available actions.
+
+#### Default Mapping
 
 - Up button short press -> Turn on
-- Up button long press & hold -> Brightness up (continuous, until release)
-- Up button double press -> Color Up
+- Up button long press -> Brightness up (continuous, until release)
+- Up button double press -> Color up
 - Down button short press -> Turn off
-- Down button long pres & hold -> Brightness down (continuous, until release)
-- Down button double press -> Color Down
+- Down button long press -> Brightness down (continuous, until release)
+- Down button double press -> Color down
+
+#### Mapping #2
+
+- Up button short press -> Brightness up
+- Up button long press -> Brightness up (continuous, until release)
+- Up button double press -> Turn on
+- Down button short press -> Brightness down
+- Down button long press -> Brightness down (continuous, until release)
+- Down button double press -> Turn off
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
 ### Media Player
 
 This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
-Please enable double press events for the Up and Down button to use all the available actions.
+
+#### Default Mapping
 
 - Up button short press -> Volume up
-- Up button long press & hold -> Volume up (continuous, until release)
+- Up button long press -> Volume up (continuous, until release)
 - Up button double press -> Next track
 - Down button short press -> Volume down
-- Down button long press & hold -> Volume down (continuous, until release)
+- Down button long press -> Volume down
 - Down button double press -> Play/Pause
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
@@ -179,12 +195,13 @@ Please enable double press events for the Up and Down button to use all the avai
 ### Cover
 
 This Hook blueprint allows to build a controller-based automation to control a cover. Supports opening, closing and tilting the cover.
-Please enable double press events for the Down button to use all the available actions.
+
+#### Default Mapping
 
 - Up button short press -> Open cover
-- Up button long press -> Open cover tilt
+- Up button long press -> Open the cover tilt
 - Down button short press -> Close cover
-- Down button long press -> Close cover tilt
+- Down button long press -> Close the cover tilt
 - Down button double press -> Stop cover and cover tilt
 
 [Cover Hook docs](/docs/blueprints/hooks/cover)
@@ -238,3 +255,4 @@ It's also important to note that the controller doesn't natively support double 
 
 - **2021-07-04**: Fix deCONZ button release events not being properly recognized
 - **2021-08-02**: Improve inputs documentation and organization
+- **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. No functionality change.

@@ -7,6 +7,8 @@ import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
 
 <ImportCard id='on_off_schedule_state_persistence' category='automation' />
 
+<br />
+
 ## Description
 
 This blueprint provides a simple on-off schedule, with the addition of state persistence across server reboots, powercuts, or other disruptive events which could potentially alter the expected state of the targeted entities. The automation makes sure the target is always in the expected state, even in these situations, but always leaving the freedom to manually toggle the target state as desired. It can be used on critical targets which require a simple on-off schedule during every single day.
@@ -30,8 +32,8 @@ If you optionally want to supply a custom event type to the blueprint, you shoul
 ## Inputs
 
 <Input
-  name='Automation Target'
-  description='The target which the automation will turn on and off based on the provided schedule. This include whatever can be specified as a target.'
+  name='Automation target'
+  description='The target which the automation will turn on and off based on the provided schedule.'
   selector='target'
   required
 />
@@ -49,14 +51,20 @@ If you optionally want to supply a custom event type to the blueprint, you shoul
 />
 <Input
   name='Custom Trigger Event'
-  description='A custom event which can trigger the state check (eg. a powercut event reported by external integrations). If you do not want to provide a custom event, simply leave this input blank.'
+  description='A custom event which can trigger the state check (eg. a powercut event reported by external integrations).'
+  selector='text'
 />
 <Input
   name='Trigger at Home Assistant startup'
-  description='Trigger the target state check and enforcement at Home Assistant startup. Disabled by default.'
+  description='Trigger the target state check and enforcement at Home Assistant startup.'
   selector='boolean'
 />
 
 ## Additional Notes
 
 This automation only provides a simple On-Off schedule. More complex situations could require a different approach to the problem. Also, be aware that running multiple automations generated with this blueprint against the same target could result in unexpected behaviour.
+
+## Changelog
+
+- **2021-02-01**: first blueprint version :tada:
+- **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. Remove default value from required inputs. No functionality change.
