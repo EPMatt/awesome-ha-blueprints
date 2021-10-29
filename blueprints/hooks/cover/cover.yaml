@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.10.26
+    ℹ️ Version 2021.10.29
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -41,6 +41,7 @@ blueprint:
           options:
             - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
+            - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
     cover:
       name: (Required) Cover
@@ -65,6 +66,10 @@ variables:
       open_cover_tilt: button_up_long
       close_cover: button_down_short
       close_cover_tilt: button_down_long
+      stop_cover_all: button_down_double
+    IKEA E1766 TRÅDFRI Open/Close Remote:
+      open_cover: button_up_short
+      close_cover: button_down_short
       stop_cover_all: button_down_double
     IKEA E1812 TRÅDFRI Shortcut button:
       open_cover: button_short
