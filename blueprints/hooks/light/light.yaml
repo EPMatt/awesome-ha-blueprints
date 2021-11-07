@@ -59,7 +59,7 @@ blueprint:
           domain: light
     light_color_mode:
       name: (Optional) Light color mode
-      description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".
+      description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.
       default: Auto
       selector:
         select:
@@ -67,6 +67,7 @@ blueprint:
             - Auto
             - Color Temperature
             - Hue - Saturation
+            - None
     light_transition:
       name: (Optional) Light Transition
       description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.
@@ -255,13 +256,15 @@ variables:
   on_brightness: !input on_brightness
   smooth_power_on: !input smooth_power_on
   smooth_power_off: !input smooth_power_off
-  supported_color_modes:
+  color_modes:
     Auto: auto
     Color Temperature: color_temp
     Hue - Saturation: hs_color
+    None: none
   # extract light color mode id
   light_color_mode_id: >-
-    {% if light_color_mode == "Auto" %} {{ supported_color_modes["Hue - Saturation"] if state_attr(light, "hs_color") != None else supported_color_modes["Color Temperature"] }} {% else %} {{ supported_color_modes[light_color_mode] }} {% endif %}
+    {%- if light_color_mode == "Auto" -%} {% set supported_color_modes = state_attr(light, "supported_color_modes") -%} {%- if "hs" in supported_color_modes or "xy" in supported_color_modes or "rgbw" in supported_color_modes or "rgbww" in supported_color_modes -%} {{
+    color_modes["Hue - Saturation"] }} {%- elif "color_temp" in supported_color_modes -%} {{ color_modes["Color Temperature"] }} {%- else -%} {{ color_modes["None"] }} {%- endif -%} {%- else -%} {{ color_modes[light_color_mode] }} {%- endif -%}
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
 mode: restart
@@ -432,7 +435,7 @@ action:
                         entity_id: !input light
                     - delay:
                         milliseconds: 250
-      - conditions: '{{ action == color_up }}'
+      - conditions: '{{ action == color_up and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -449,7 +452,7 @@ action:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + 15) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
-      - conditions: '{{ action == color_down }}'
+      - conditions: '{{ action == color_down and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -466,7 +469,7 @@ action:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
-      - conditions: '{{ action == color_up_repeat }}'
+      - conditions: '{{ action == color_up_repeat and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -493,7 +496,7 @@ action:
                         entity_id: !input light
                       - delay:
                           milliseconds: 250
-      - conditions: '{{ action == color_down_repeat }}'
+      - conditions: '{{ action == color_down_repeat and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'

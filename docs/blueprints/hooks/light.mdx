@@ -61,7 +61,7 @@ This integration provides the entity which represents a light in Home Assistant.
 />
 <Input
   name='Light color mode'
-  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".'
+  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.'
   selector='select'
 />
 <Input
@@ -155,4 +155,7 @@ If you want to link multiple lights to the same controller you can either use [L
   - Fix for remembering brightness level when turning on, where brightness level unavailable when light off.
   - Added secondary mapping for IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
 - **2021-10-29**: Add support for IKEA E1766 TRÅDFRI Open/Close Remote.
-- **2021-11-07**: Add support for IKEA E2001/E2002 STYRBAR Remote control.
+- **2021-11-07**:
+  - Add support for IKEA E2001/E2002 STYRBAR Remote control.
+  - Fix color mode automatic detection not working properly with color temperature lights.
+  - Add "None" color mode to completely disable color control features.
