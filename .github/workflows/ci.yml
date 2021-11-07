@@ -121,7 +121,7 @@ jobs:
       - name: Website - Build
         run: cd website && npm run build
       - name: Create .nojekyll file
-        run: touch build/.nojekyll
+        run: touch website/build/.nojekyll
       - name: Deploy to GitHub Pages
         uses: s0/git-publish-subdir-action@v2.5.0
         env:
