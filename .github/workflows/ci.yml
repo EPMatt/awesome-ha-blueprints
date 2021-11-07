@@ -47,9 +47,10 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
-          eslint_flags: --ext js,jsx ./website
+          eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
+          workdir: website
 
   prettier:
     name: Prettier - Enforce code style

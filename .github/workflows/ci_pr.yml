@@ -46,9 +46,10 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
-          eslint_flags: --ext js,jsx ./website
+          eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
+          workdir: website
 
   prettier-lint:
     name: Prettier - Check code style
@@ -76,7 +77,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Website - Install dependencies
-        run: cd website && npm ci      
+        run: cd website && npm ci
       - id: prettier
         name: Prettier Check
         uses: creyD/prettier_action@v3.3
