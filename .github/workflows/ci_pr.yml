@@ -5,25 +5,8 @@ name: CI - PR
     branches:
       - main
 jobs:
-  yamllint:
-    name: Yamllint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-      - id: yamllint
-        name: Yamllint
-        uses: reviewdog/action-yamllint@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-check
-          yamllint_flags: '.'
-          fail_on_error: true
-          filter_mode: nofilter
-
-  eslint:
-    name: ESLint
+  lint:
+    name: Run Linters
     runs-on: ubuntu-latest
 
     steps:
@@ -45,15 +28,25 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Install dependencies
-        run: npm ci
-      - id: eslint
+      - name: Website - Install dependencies
+        run: cd website && npm ci
+      - id: yamllint
+        name: Yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          yamllint_flags: '.'
+          fail_on_error: true
+          filter_mode: nofilter
+      - if: always()
+        id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          eslint_flags: --ext js,jsx .
+          reporter: github-pr-check
+          eslint_flags: --ext js,jsx ./website
           fail_on_error: true
           filter_mode: nofilter
 
@@ -82,6 +75,8 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
+      - name: Website - Install dependencies
+        run: cd website && npm ci      
       - id: prettier
         name: Prettier Check
         uses: creyD/prettier_action@v3.3
