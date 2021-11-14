@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.10.29
+    ℹ️ Version 2021.11.15
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -43,6 +43,12 @@ blueprint:
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
+            - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
     cover:
       name: (Required) Cover
       description: Cover which will be controlled with this automation.
@@ -75,6 +81,42 @@ variables:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
+    Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
+      open_cover: button_1_short
+      open_cover_tilt: button_1_long
+      close_cover: button_2_short
+      close_cover_tilt: button_2_long
+      stop_cover_all: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote:
+      open_cover: button_1_short
+      open_cover_tilt: button_1_long
+      close_cover: button_2_short
+      close_cover_tilt: button_2_long
+      stop_cover_all: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2):
+      open_cover: button_3_short
+      open_cover_tilt: button_3_long
+      close_cover: button_4_short
+      close_cover_tilt: button_4_long
+      stop_cover_all: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote:
+      open_cover: button_1_short
+      open_cover_tilt: button_1_long
+      close_cover: button_2_short
+      close_cover_tilt: button_2_long
+      stop_cover_all: button_2_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2):
+      open_cover: button_3_short
+      open_cover_tilt: button_3_long
+      close_cover: button_4_short
+      close_cover_tilt: button_4_long
+      stop_cover_all: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3):
+      open_cover: button_5_short
+      open_cover_tilt: button_5_long
+      close_cover: button_6_short
+      close_cover_tilt: button_6_long
+      stop_cover_all: button_6_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   open_cover: '{{ controller_mapping[controller_model]["open_cover"] | default(None) }}'
