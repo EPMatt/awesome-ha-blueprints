@@ -9,5 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions-ecosystem/action-remove-labels@v1
+        if: 'contains(github.event.issue.labels.*.name, "status: waiting for feedback")'
         with:
           labels: 'status: waiting for feedback'
