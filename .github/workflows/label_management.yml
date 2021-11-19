@@ -1,6 +1,6 @@
 name: Issues & PRs label management
 
-on: [issue_comment]
+'on': [issue_comment]
 
 jobs:
   # Remove 'status: waiting for feedback' label once a user comments on an issue or PR currently marked as waiting for feedback
