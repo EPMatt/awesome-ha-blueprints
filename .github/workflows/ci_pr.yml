@@ -86,3 +86,53 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
+
+  pr-commenter-ci-success:
+    name: Report CI Success
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - prettier-lint
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          list-files: true
+          filters: |
+            blueprints:
+            - 'blueprints/**.yaml'
+      - uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress
+          message: |
+            Hey @${{ github.actor }}, thank you so much for opening this PR! 🚀
+
+            *This comment keeps track of the status of this PR. We'll update this comment with progress regarding this PR, providing you guidance if additional actions need to be performed before your contribution is reviewed and merged.*
+
+            ✅ Your contribution passed all the checks, awesome!
+            A maintainer will soon review your submission and provide additional feedback regarding your changes.
+            Thanks again for dedicating your precious time to this project. 🔥
+      - if: steps.changes.outputs.blueprints == 'true'
+        id: blueprints_urls
+        env:
+          FILES: ${{ steps.changes.outputs.blueprints_files }}
+          REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          urls=$(for f in $FILES; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/$i"; done)
+          echo "::set-output name=urls::${urls}"
+      - if: steps.changes.outputs.blueprints == 'true'
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress
+          append: true
+          message: |
+
+            📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
+
+            ${{ join(steps.blueprints_urls.outputs.urls, '\n\n') }}

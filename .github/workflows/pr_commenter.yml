@@ -1,0 +1,27 @@
+name: PR Commenter
+
+'on':
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+jobs:
+  thank-you-message:
+    name: Thank you message
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress
+          message: |
+            Hey @${{ github.actor }}, thank you so much for opening this PR! 🚀
+
+            *This comment keeps track of the status of this PR. We'll update this comment with progress regarding this PR, providing you guidance if additional actions need to be performed before your contribution is reviewed and merged.*
+
+            🔄 We're currently running a few checks to make sure that everything is great with your contribution. If this is your first PR here, your submission needs to be approved before checks can run, so the process might take a little longer.
+            Check results are coming soon, stay tuned!
