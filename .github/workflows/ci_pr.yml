@@ -100,20 +100,19 @@ jobs:
           list-files: json
           filters: |
             blueprints:
-            - 'blueprints/**.yaml'
+            - 'blueprints/**/*.yaml'
       - uses: hasura/comment-progress@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           number: ${{ github.event.number }}
-          id: ci-pr-progress
+          id: ci-pr-progress-${{ github.sha }}
           message: |
-            Hey @${{ github.actor }}, thank you so much for opening this PR! 🚀
-
-            *This comment keeps track of the status of this PR. We'll update this comment with progress regarding this PR, providing you guidance if additional actions need to be performed before your contribution is reviewed and merged.*
+            Hey @${{ github.actor }}, thank you so much for your contribution! 🚀
 
             ✅ Your contribution passed all the checks, awesome!
             A maintainer will soon review your submission and provide additional feedback regarding your changes.
+
             Thanks again for dedicating your precious time to this project. 🔥
       - if: steps.changes.outputs.blueprints == 'true'
         id: blueprints_urls
@@ -129,7 +128,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           number: ${{ github.event.number }}
-          id: ci-pr-progress
+          id: ci-pr-progress-${{ github.sha }}
           append: true
           message: |
 
