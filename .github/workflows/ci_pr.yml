@@ -97,7 +97,7 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: changes
         with:
-          list-files: true
+          list-files: json
           filters: |
             blueprints:
             - 'blueprints/**.yaml'
