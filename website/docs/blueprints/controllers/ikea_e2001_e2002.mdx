@@ -267,6 +267,12 @@ The helper is used to determine button release events when the controller is int
 
 It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
 
+### Issues with Zigbee2MQTT and the device firing duplicate events
+
+It has been reported that IKEA E2001/E2002 controllers integrated with Zigbee2MQTT might fire duplicate events from time to time, during interaction. This issue is not relative to the blueprint itself.
+
+If you notice your controller is not behaving as expected please reset the device and repeat the pairing process with Zigbee2MQTT, then try again.
+
 ## Changelog
 
 - **2021-11-07**: first blueprint version :tada:
