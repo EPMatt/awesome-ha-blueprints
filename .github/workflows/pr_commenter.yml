@@ -9,6 +9,7 @@ jobs:
   thank-you-message:
     name: Thank you message
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
 
     steps:
       - name: PR opened or not
@@ -17,8 +18,6 @@ jobs:
           if [$TYPE == 'opened']
           then
               echo "::set-output name=additional_text::'If this is your first PR here, your submission needs to be approved before checks can run, so the process might take a little longer.'"
-          else
-              echo "::set-output name=additional_text::''"
           fi
         env:
           TYPE: ${{ github.event.action }}
@@ -32,6 +31,6 @@ jobs:
             Hey @${{ github.actor }}, thank you so much for your contribution! 🚀
 
             🔄 We're currently running a few checks to make sure that everything is great with your contribution. ${{ steps.pr_opened.outputs.additional_text }}
-            This comment keeps track of the status of your submission. We'll update this comment with progress regarding your changes, providing you guidance if additional actions need to be performed before your contribution is reviewed and merged.
+            We'll update this comment with progress regarding your changes. If additional actions need to be performed before your contribution can be reviewed, additional guidance will be provided below.
 
             Results are coming soon, stay tuned!

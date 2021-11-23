@@ -50,6 +50,19 @@ jobs:
           fail_on_error: true
           filter_mode: nofilter
           workdir: website
+      - if: ${{ failure() and github.actor != 'dependabot[bot]' }}
+        name: PR Commenter - Report linters failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress-${{ github.sha }}
+          append: true
+          message: |
+
+
+            ❌ It looks like there are some code style issues in your contribution. We invite you to inspect the output of the Pull Request checks and fix reported errors and warnings.
 
   prettier-lint:
     name: Prettier - Check code style
@@ -86,10 +99,24 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
+      - if: ${{ failure() and github.actor != 'dependabot[bot]' }}
+        name: PR Commenter - Report Prettier lint failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress-${{ github.sha }}
+          append: true
+          message: |
+
+
+            ❌ It looks like your files are not properly formatted. Did you remember to run `npm run format` before submitting your changes?
 
   pr-commenter-ci-success:
-    name: Report CI Success
+    name: PR Commenter - Report CI Success
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs:
       - lint
       - prettier-lint
@@ -120,7 +147,7 @@ jobs:
           FILES: ${{ steps.changes.outputs.blueprints_files }}
           REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
-          urls=$(for f in $FILES; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/$i"; done)
+          urls=$(for f in $FILES; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/${f}"; done)
           echo "::set-output name=urls::${urls}"
       - if: steps.changes.outputs.blueprints == 'true'
         uses: hasura/comment-progress@v2
@@ -131,6 +158,7 @@ jobs:
           id: ci-pr-progress-${{ github.sha }}
           append: true
           message: |
+
 
             📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
 
