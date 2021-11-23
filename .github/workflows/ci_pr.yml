@@ -50,7 +50,7 @@ jobs:
           fail_on_error: true
           filter_mode: nofilter
           workdir: website
-      - if: ${{ failure() and github.actor != 'dependabot[bot]' }}
+      - if: ${{ failure() && github.actor != 'dependabot[bot]' }}
         name: PR Commenter - Report linters failure
         uses: hasura/comment-progress@v2
         with:
@@ -99,7 +99,7 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-      - if: ${{ failure() and github.actor != 'dependabot[bot]' }}
+      - if: ${{ failure() && github.actor != 'dependabot[bot]' }}
         name: PR Commenter - Report Prettier lint failure
         uses: hasura/comment-progress@v2
         with:
@@ -163,3 +163,5 @@ jobs:
             📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
 
             ${{ join(steps.blueprints_urls.outputs.urls, '\n\n') }}
+      - if: ${{ !github.event.pull_request.draft }}
+        uses: kentaro-m/auto-assign-action@v1.2.1
