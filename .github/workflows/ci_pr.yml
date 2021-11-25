@@ -147,7 +147,7 @@ jobs:
           FILES: ${{ steps.changes.outputs.blueprints_files }}
           REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
-          mapfile -t files < <( jq '.[]' < < (echo ${FILES}) )
+          mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
           urls=$(for f in $files; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/${f}"; done)
           echo "::set-output name=urls::${urls}"
       - if: steps.changes.outputs.blueprints == 'true'
