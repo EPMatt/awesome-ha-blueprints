@@ -56,6 +56,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
+            - Friends of Hue Double Switch
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -196,6 +197,15 @@ variables:
       next_track: button_5_double
       volume_down: button_6_long
       play_pause: button_6_double
+    Friends of Hue Double Switch:
+      play_pause: button_1_short
+      stop: button_2_short
+      volume_up: button_3_short
+      volume_up_repeat: button_3_long
+      volume_down: button_4_short
+      volume_down_repeat: button_4_long
+      next_track: button_1_long
+      prev_track: button_2_long
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   volume_up: '{{ controller_mapping[controller_model]["volume_up"] | default(None) }}'
