@@ -109,6 +109,16 @@ This integration provides the entity which represents a light in Home Assistant.
   description='Allow a brightness down command (single or continuous) to turn off the light when at minimum brightness. Disabling this will prevent the light from being turned off by brightness down commands.'
   selector='boolean'
 />
+<Input
+  name='Use Adaptive Lighting'
+  description='Integrate with [Adaptive Lighting](https://github.com/basnijholt/adaptive-lighting) custom integration to provide flicker-free powering on experience. Light will be powered with proper parameters, providing instantaneous settings for brightness and color temperature.
+  selector='boolean'
+/>
+<Input
+  name='Entity of Adaptive Lighting switch'
+  description='Specify entity created by Adaptive Lighting integration. For example: `switch.adaptive_lighting_bedroom`'
+  selector='select'
+/>
 
 ## Supported Controllers
 
@@ -160,4 +170,6 @@ If you want to link multiple lights to the same controller you can either use [L
   - Add support for IKEA E2001/E2002 STYRBAR Remote control.
   - Fix color mode automatic detection not working properly with color temperature lights.
   - Add "None" color mode to completely disable color control features.
-- **2021-11-21**: Add support for Philips 929002398602 Hue Dimmer switch v2.
+- **2021-11-21**:
+  - Add support for Philips 929002398602 Hue Dimmer switch v2.
+  - Add support for the Adaptive Lighting Integration.
