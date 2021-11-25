@@ -148,7 +148,7 @@ jobs:
           REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
-          urls=$(for f in $files; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/${f}"; done)
+          urls=$(for f in $files; do echo "https://github.com/${REPO}/${GITHUB_HEAD_REF}/$(f | tr -d '"')"; done)
           echo "::set-output name=urls::${urls}"
       - if: steps.changes.outputs.blueprints == 'true'
         uses: hasura/comment-progress@v2
