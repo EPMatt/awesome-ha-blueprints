@@ -57,7 +57,7 @@ jobs:
         run: echo "eslint" >> results.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: lint-failure
+          name: lint
           path: results.txt
           retention-days: 5
           if-no-files-found: ignore
@@ -104,7 +104,7 @@ jobs:
         run: echo "prettier" >> results.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: format-lint-failure
+          name: format-lint
           path: results.txt
           if-no-files-found: ignore
 
