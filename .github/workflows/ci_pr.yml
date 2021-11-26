@@ -51,9 +51,9 @@ jobs:
           filter_mode: nofilter
           workdir: website
         continue-on-error: true
-      - if: ${{ steps.yamllint.outcome == "failure" }}
+      - if: ${{ steps.yamllint.outcome == 'failure' }}
         run: echo "yamllint" >> results.txt
-      - if: ${{ steps.eslint.outcome == "failure" }}
+      - if: ${{ steps.eslint.outcome == 'failure' }}
         run: echo "eslint" >> results.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -61,7 +61,7 @@ jobs:
           path: results.txt
           if-no-files-found: ignore
       - name: Report linters error
-        if: ${{ steps.yamllint.outcome == "failure" or steps.eslint.outcome == "failure" }}
+        if: ${{ steps.yamllint.outcome == 'failure' or steps.eslint.outcome == 'failure' }}
         run: exit 1
 
   format-lint:
@@ -99,7 +99,7 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-      - if: ${{ always() && steps.prettier.outcome == "failure" }}
+      - if: ${{ always() && steps.prettier.outcome == 'failure' }}
         run: echo "prettier" >> results.txt
       - uses: actions/upload-artifact@v2
         with:
