@@ -42,7 +42,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ ${{ steps.pr_info.outputs.num }} }}
+          number: ${{ steps.pr_info.outputs.num }}
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
@@ -70,7 +70,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ ${{ steps.pr_info.outputs.num }} }}
+          number: ${{ steps.pr_info.outputs.num }}
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           message: |
             Hey @${{ github.actor }},
@@ -84,7 +84,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ ${{ steps.pr_info.outputs.num }} }}
+          number: ${{ steps.pr_info.outputs.num }}
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
@@ -96,7 +96,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ ${{ steps.pr_info.outputs.num }} }}
+          number: ${{ steps.pr_info.outputs.num }}
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
@@ -106,7 +106,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ ${{ steps.pr_info.outputs.num }} }}
+          number: ${{ steps.pr_info.outputs.num }}
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
