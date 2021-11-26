@@ -31,6 +31,6 @@ jobs:
             Hey @${{ github.actor }}, thank you so much for your contribution! 🚀
 
             🔄 We're currently running a few checks to make sure that everything is great with your contribution. ${{ steps.pr_opened.outputs.additional_text }}
-            We'll update this comment with progress regarding your changes. If additional actions need to be performed before your contribution can be reviewed, additional guidance will be provided below.
+            If further actions need to be performed before your contribution can be reviewed, additional guidance will be provided to you in the next comment.
 
             Results are coming soon, stay tuned!

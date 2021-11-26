@@ -39,8 +39,8 @@ jobs:
           yamllint_flags: '.'
           fail_on_error: true
           filter_mode: nofilter
-      - if: always()
-        id: eslint
+        continue-on-error: true
+      - id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
@@ -50,22 +50,22 @@ jobs:
           fail_on_error: true
           filter_mode: nofilter
           workdir: website
-      - if: ${{ failure() && github.actor != 'dependabot[bot]' }}
-        name: PR Commenter - Report linters failure
-        uses: hasura/comment-progress@v2
+        continue-on-error: true
+      - if: 'steps.yamllint.outcome == "failure"'
+        run: echo "yamllint" >> results.txt
+      - if: 'steps.eslint.outcome == "failure"'
+        run: echo "eslint" >> results.txt
+      - uses: actions/upload-artifact@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ github.event.number }}
-          id: ci-pr-progress-${{ github.sha }}
-          append: true
-          message: |
+          name: lint-failure
+          path: results.txt
+          if-no-files-found: ignore
+      - name: Report linters error
+        if: 'steps.yamllint.outcome == "failure" or steps.eslint.outcome == "failure"'
+        run: exit 1
 
-
-            ❌ It looks like there are some code style issues in your contribution. We invite you to inspect the output of the Pull Request checks and fix reported errors and warnings.
-
-  prettier-lint:
-    name: Prettier - Check code style
+  format-lint:
+    name: Run formatters to check code formatting
     runs-on: ubuntu-latest
 
     steps:
@@ -99,28 +99,21 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-      - if: ${{ failure() && github.actor != 'dependabot[bot]' }}
-        name: PR Commenter - Report Prettier lint failure
-        uses: hasura/comment-progress@v2
+      - if: 'always() && steps.prettier.outcome == "failure"'
+        run: echo "prettier" >> results.txt
+      - uses: actions/upload-artifact@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ github.event.number }}
-          id: ci-pr-progress-${{ github.sha }}
-          append: true
-          message: |
+          name: format-lint-failure
+          path: results.txt
+          if-no-files-found: ignore
 
-
-            ❌ It looks like your files are not properly formatted. Did you remember to run `npm run format` before submitting your changes?
-
-  pr-commenter-ci-success:
-    name: PR Commenter - Report CI Success
+  changes:
+    name: Analyze changes
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    needs:
-      - lint
-      - prettier-lint
+
     steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
       - uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -128,19 +121,6 @@ jobs:
           filters: |
             blueprints:
             - 'blueprints/**/*.yaml'
-      - uses: hasura/comment-progress@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ github.event.number }}
-          id: ci-pr-progress-${{ github.sha }}
-          message: |
-            Hey @${{ github.actor }}, thank you so much for your contribution! 🚀
-
-            ✅ Your contribution passed all the checks, awesome!
-            A maintainer will soon review your submission and provide additional feedback regarding your changes.
-
-            Thanks again for dedicating your precious time to this project. 🔥
       - if: steps.changes.outputs.blueprints == 'true'
         id: blueprints_urls
         env:
@@ -149,20 +129,9 @@ jobs:
         run: |
           mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
           urls=$(for f in $files; do echo "https://github.com/${REPO}/blob/${GITHUB_HEAD_REF}/$(echo $f | tr -d '"')"; done)
-          echo "::set-output name=urls::${urls}"
-      - if: steps.changes.outputs.blueprints == 'true'
-        uses: hasura/comment-progress@v2
+          echo $urls > blueprints.txt
+      - uses: actions/upload-artifact@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ github.event.number }}
-          id: ci-pr-progress-${{ github.sha }}
-          append: true
-          message: |
-
-
-            📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
-
-            ${{ join(steps.blueprints_urls.outputs.urls, '\n\n') }}
-      - if: ${{ !github.event.pull_request.draft }}
-        uses: kentaro-m/auto-assign-action@v1.2.1
+          name: changes
+          path: blueprints.txt
+          if-no-files-found: ignore
