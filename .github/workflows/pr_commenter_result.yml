@@ -62,6 +62,7 @@ jobs:
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
+          workflow_conclusion: failure
       - name: Create comment to report failure
         uses: hasura/comment-progress@v2
         with:
@@ -108,6 +109,6 @@ jobs:
           append: true
           message: |
 
-            Please fix reported issues, then submit your updates here. If you have any questions or doubts, you can always contact a project maintainer. :) 
+            Please fix reported issues, then submit your updates here. If you have any questions or doubts, you can always contact a project maintainer. :)
 
             Thanks!
