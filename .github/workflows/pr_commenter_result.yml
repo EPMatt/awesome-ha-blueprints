@@ -47,7 +47,8 @@ jobs:
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
-            <br><br>
+            <br>
+            
             📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
 
             ${{ join(steps.blueprints.outputs.urls, '\n\n') }}
@@ -110,7 +111,8 @@ jobs:
           id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
           append: true
           message: |
-            <br><br>
+            <br>
+
             Please fix reported issues, then submit your updates here. If you have any questions or doubts, you can always contact a project maintainer. :)
 
             Thanks!
