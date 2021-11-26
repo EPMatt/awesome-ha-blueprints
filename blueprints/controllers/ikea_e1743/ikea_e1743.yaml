@@ -1,7 +1,7 @@
 # Blueprint                  metadata
 blueprint:
   name: Controller - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
-  description: |
+   description: |
     # Controller - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
 
     Controller automation for executing any kind of action triggered by the provided IKEA E1743 TRÅDFRI On/Off Switch & Dimmer. Allows to optionally loop an action on a button long press.
