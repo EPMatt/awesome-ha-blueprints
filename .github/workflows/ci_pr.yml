@@ -59,6 +59,7 @@ jobs:
         with:
           name: lint-failure
           path: results.txt
+          retention-days: 5
           if-no-files-found: ignore
       - name: Report linters error
         if: ${{ steps.yamllint.outcome == 'failure' || steps.eslint.outcome == 'failure' }}
@@ -130,8 +131,17 @@ jobs:
           mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
           urls=$(for f in $files; do echo "https://github.com/${REPO}/blob/${GITHUB_HEAD_REF}/$(echo $f | tr -d '"')"; done)
           echo $urls > blueprints.txt
+      - env:
+          PR_NUM: ${{ github.event.number }}
+        run: echo $PR_NUM > pr_num.txt
       - uses: actions/upload-artifact@v2
         with:
           name: changes
           path: blueprints.txt
+          retention-days: 5
           if-no-files-found: ignore
+      - uses: actions/upload-artifact@v2
+        with:
+          name: changes
+          path: pr_num.txt
+          retention-days: 5
