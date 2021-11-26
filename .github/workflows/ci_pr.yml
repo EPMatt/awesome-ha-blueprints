@@ -61,7 +61,7 @@ jobs:
           path: results.txt
           if-no-files-found: ignore
       - name: Report linters error
-        if: ${{ steps.yamllint.outcome == 'failure' or steps.eslint.outcome == 'failure' }}
+        if: ${{ steps.yamllint.outcome == 'failure' || steps.eslint.outcome == 'failure' }}
         run: exit 1
 
   format-lint:
