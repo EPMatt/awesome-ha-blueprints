@@ -48,7 +48,7 @@ jobs:
           append: true
           message: |
             <br>
-            
+
             📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
 
             ${{ join(steps.blueprints.outputs.urls, '\n\n') }}

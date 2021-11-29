@@ -1,6 +1,6 @@
 name: 'Thread Locker'
 
-on:
+'on':
   schedule:
     - cron: '0 0 * * *'
 
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v3
-        with: 
+        with:
           # 6 months
           issue-inactive-days: 182
           pr-inactive-days: 182
@@ -29,7 +29,7 @@ jobs:
             🔒 This issue has been automatically locked since there has not been any recent activity.
             Please open a new ticket for related bugs.
 
-            Thanks! 
+            Thanks!
           pr-comment: |
             Hi there,
 
