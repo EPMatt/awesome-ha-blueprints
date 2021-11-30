@@ -79,7 +79,7 @@ jobs:
         run: npm ci
       - id: prettier
         name: Prettier
-        uses: creyD/prettier_action@v3.3
+        uses: creyD/prettier_action@v4.1
         with:
           prettier_options: --write .
           commit_message: 🤖 Enforce Code Style
