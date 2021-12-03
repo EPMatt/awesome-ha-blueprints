@@ -37,7 +37,7 @@ jobs:
             Thanks again for dedicating your precious time to this project. 🔥
       - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
         id: blueprints
-        run: echo "::set-output name=urls::$(cat changes/blueprints.txt)"
+        run: echo "::set-output name=urls::$(cat changes/blueprints.txt | python3 -c 'import sys; print(sys.stdin.read().replace("\\","\\\\").replace("\"","\\\"").replace("\n","\\n"))' )\n"
       - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
         uses: hasura/comment-progress@v2
         with:
