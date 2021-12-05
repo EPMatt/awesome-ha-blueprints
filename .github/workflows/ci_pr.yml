@@ -130,8 +130,7 @@ jobs:
           REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
-          urls=$(for f in $files; do echo "https://github.com/${REPO}/blob/${GITHUB_HEAD_REF}/$(echo $f | tr -d '"')"; done)
-          echo $urls > blueprints.txt
+          for f in ${files[@]}; do echo "https://github.com/${REPO}/blob/${GITHUB_HEAD_REF}/$(echo $f | tr -d '"')" >> blueprints.txt; done
       - env:
           PR_NUM: ${{ github.event.number }}
         run: echo $PR_NUM > pr_num.txt

@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.11.21
+    ℹ️ Version 2021.12.03
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:
@@ -50,6 +50,12 @@ blueprint:
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
+            - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -154,6 +160,42 @@ variables:
       volume_up_repeat: button_up_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
+    Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
+      volume_up: button_1_short
+      volume_up_repeat: button_1_long
+      next_track: button_1_double
+      volume_down: button_2_long
+      play_pause: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote:
+      volume_up: button_1_short
+      volume_up_repeat: button_1_long
+      next_track: button_1_double
+      volume_down: button_2_long
+      play_pause: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2):
+      volume_up: button_3_short
+      volume_up_repeat: button_3_long
+      next_track: button_3_double
+      volume_down: button_4_long
+      play_pause: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote:
+      volume_up: button_1_short
+      volume_up_repeat: button_1_long
+      next_track: button_1_double
+      volume_down: button_2_long
+      play_pause: button_2_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2):
+      volume_up: button_3_short
+      volume_up_repeat: button_3_long
+      next_track: button_3_double
+      volume_down: button_4_long
+      play_pause: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3):
+      volume_up: button_5_short
+      volume_up_repeat: button_5_long
+      next_track: button_5_double
+      volume_down: button_6_long
+      play_pause: button_6_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   volume_up: '{{ controller_mapping[controller_model]["volume_up"] | default(None) }}'
