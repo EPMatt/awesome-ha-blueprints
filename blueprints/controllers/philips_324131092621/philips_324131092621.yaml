@@ -5,7 +5,7 @@ blueprint:
     # Controller - Philips 324131092621 Hue Dimmer switch
 
     Controller automation for executing any kind of action triggered by the provided Philips 324131092621 Hue Dimmer switch. Allows to optionally loop an action on a button long press.
-    Supports deCONZ, ZHA, Zigbee2MQTT and HUE.
+    Supports deCONZ, Hue, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
