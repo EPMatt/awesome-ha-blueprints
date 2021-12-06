@@ -91,7 +91,7 @@ blueprint:
       description: Action to run on off button release after long press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_off_double:
       name: (Optional) Off button double press
       description: Action to run on double off button press.
