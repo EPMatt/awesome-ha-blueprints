@@ -224,7 +224,7 @@ blueprint:
       description: Choose whether or not to expose the virtual double press event for the on button. Turn this on if you are providing an action for the on button double press event.
       default: false
       selector:
-        boolean: {}
+        boolean:
     button_off_double_press:
       name: (Optional) Expose off button double press event
       description: Choose whether or not to expose the virtual double press event for the off button. Turn this on if you are providing an action for the off button double press event.
