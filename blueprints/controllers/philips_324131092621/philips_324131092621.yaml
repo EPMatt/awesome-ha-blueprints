@@ -115,7 +115,7 @@ blueprint:
       description: Action to run on up button release after long press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_up_double:
       name: (Optional) Up button double press
       description: Action to run on double up button press.
