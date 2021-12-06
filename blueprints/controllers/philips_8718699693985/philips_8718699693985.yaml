@@ -5,7 +5,7 @@ blueprint:
     # Controller - Philips 8718699693985 Hue Smart Button
 
     Controller automation for executing any kind of action triggered by the provided Philips 8718699693985 Hue Smart Button. Allows to optionally loop an action on a button long press.
-    Supports deCONZ, ZHA and HUE.
+    Supports deCONZ, Hue, ZHA.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
@@ -29,7 +29,7 @@ blueprint:
             - Hue
             - ZHA
     controller_device:
-      name: (deCONZ, ZHA, Hue) Controller Device
+      name: (deCONZ, Hue, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
       default: ''
       selector:
@@ -161,8 +161,8 @@ trigger:
   - platform: event
     event_type:
       - deconz_event
-      - zha_event
       - hue_event
+      - zha_event
     event_data:
       device_id: !input controller_device
 condition:
