@@ -187,7 +187,7 @@ blueprint:
       description: Loop the up button action until the button is released.
       default: false
       selector:
-        boolean: {}
+        boolean:
     button_up_long_max_loop_repeats:
       name: (Optional) Up button long press - Maximum loop repeats
       description: >-
