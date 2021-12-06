@@ -103,7 +103,7 @@ blueprint:
       description: Action to run on short up button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_up_long:
       name: (Optional) Up button long press
       description: Action to run on long up button press.
