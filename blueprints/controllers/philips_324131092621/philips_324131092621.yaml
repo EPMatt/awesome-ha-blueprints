@@ -79,7 +79,7 @@ blueprint:
       description: Action to run on short off button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_off_long:
       name: (Optional) Off button long press
       description: Action to run on long off button press.
