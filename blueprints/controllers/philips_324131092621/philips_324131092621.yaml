@@ -139,7 +139,7 @@ blueprint:
       description: Action to run on down button release after long press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_down_double:
       name: (Optional) Down button double press
       description: Action to run on double down button press.
