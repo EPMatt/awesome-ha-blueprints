@@ -236,7 +236,7 @@ blueprint:
       description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
       default: false
       selector:
-        boolean: {}
+        boolean:
     button_down_double_press:
       name: (Optional) Expose down button double press event
       description: Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.
