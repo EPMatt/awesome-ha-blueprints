@@ -55,7 +55,7 @@ blueprint:
       description: Action to run on short on button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_on_long:
       name: (Optional) On button long press
       description: Action to run on long on button press.
