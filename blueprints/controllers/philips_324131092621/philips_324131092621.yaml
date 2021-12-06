@@ -121,7 +121,7 @@ blueprint:
       description: Action to run on double up button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_down_short:
       name: (Optional) Down button short press
       description: Action to run on short down button press.
