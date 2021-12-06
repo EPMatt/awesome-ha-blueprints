@@ -67,7 +67,7 @@ blueprint:
       description: Action to run on on button release after long press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_on_double:
       name: (Optional) On button double press
       description: Action to run on double on button press.
