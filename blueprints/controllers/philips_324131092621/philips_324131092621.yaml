@@ -205,7 +205,7 @@ blueprint:
       description: Loop the down button action until the button is released.
       default: false
       selector:
-        boolean: {}
+        boolean:
     button_down_long_max_loop_repeats:
       name: (Optional) Down button long press - Maximum loop repeats
       description: >-
