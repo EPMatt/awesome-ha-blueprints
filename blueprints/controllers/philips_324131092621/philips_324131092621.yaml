@@ -145,7 +145,7 @@ blueprint:
       description: Action to run on double down button press.
       default: []
       selector:
-        action: {}
+        action:
     button_on_long_loop:
       name: (Optional) On button long press - loop until release
       description: Loop the on button action until the button is released.
