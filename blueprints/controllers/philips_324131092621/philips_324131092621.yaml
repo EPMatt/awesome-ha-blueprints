@@ -73,7 +73,7 @@ blueprint:
       description: Action to run on double on button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_off_short:
       name: (Optional) Off button short press
       description: Action to run on short off button press.
