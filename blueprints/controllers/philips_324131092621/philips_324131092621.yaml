@@ -109,7 +109,7 @@ blueprint:
       description: Action to run on long up button press.
       default: []
       selector:
-        action: {}
+        action:
     action_button_up_release:
       name: (Optional) Up button release
       description: Action to run on up button release after long press.
