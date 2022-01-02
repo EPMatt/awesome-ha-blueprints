@@ -19,7 +19,7 @@ This blueprint provides universal support for running any custom action when a b
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
-The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
+The blueprint also adds support for hardware double button press events, exposed by the controller itself.
 
 :::tip
 Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
@@ -32,12 +32,6 @@ Hooks allow to easily create controller-based automations for interacting with m
 <Requirement id='zha'/>
 <Requirement id='zigbee2mqtt'/>
 <Requirement name='Input Text Integration' required>
-
-This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
-
-[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
-
-</Requirement>
 
 ## Inputs
 
@@ -96,27 +90,12 @@ This integration provides the entity which must be provided to the blueprint in 
   selector='number'
 />
 <Input
-  name='Expose button double press event'
-  description='Choose whether or not to expose the virtual double press event for the button. Turn this on if you are providing an action for the button double press event.'
-  selector='boolean'
-/>
-<Input
-  name='Helper - Double Press delay'
-  description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
-  selector='number'
-/>
-<Input
   name='Helper - Debounce delay'
   description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
   selector='number'
 />
 
 ## Available Hooks
-
-:::note Virtual double press actions
-Some of the following mappings might include actions for virtual double press events, which are disabled by default.
-If you are using a hook mapping which provides an action for a virtual double press event, please make sure to enable support for virtual double press on the corresponding buttons with the corresponding blueprint input.
-:::
 
 ### Light
 
@@ -159,10 +138,6 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
 
-### Virtual double press events
-
-It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
-
 ## Changelog
 
 - **2021-03-14**: first blueprint version :tada:
@@ -191,3 +166,4 @@ It's also important to note that the controller doesn't natively support double 
 - **2021-05-26**: Fix for Zigbee2MQTT reporting null state changes
 - **2021-08-02**: Improve inputs documentation and organization
 - **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. No functionality change.
+- **2022-01-02**: Support E1812 native double-click support introduced by IKEA in 2021. Removed need of helper for storing last action.
