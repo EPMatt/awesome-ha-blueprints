@@ -31,12 +31,12 @@ blueprint:
     dimmer_model:
       name: (Requried) Dimmer Model
       description: Model number of the Philips Hue dimmer switch.
-      default: 324131092621
+      default: '324131092621'
       selector:
         select:
           options:
-            - 324131092621
-            - 324131137411
+            - '324131092621'
+            - '324131137411'
     controller_device:
       name: (deCONZ, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
