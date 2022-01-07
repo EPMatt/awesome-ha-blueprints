@@ -1,0 +1,121 @@
+name: PR Commenter
+
+'on':
+  workflow_run:
+    workflows:
+      - "CI - PR"
+    types:
+      - completed
+
+jobs:
+  pr-commenter-ci-success:
+    name: Report CI Success
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Download changes analysis
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          commit: ${{ github.event.workflow_run.head_sha }}
+          workflow: ci_pr.yml
+          name: changes
+          path: changes
+      - id: pr_info
+        run: echo "::set-output name=num::$(cat changes/pr_num.txt)"
+      - uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          message: |
+            Hey @${{ github.actor }},
+
+            ✅ Your contribution passed all the checks, awesome!
+            A maintainer will soon review your submission and provide additional feedback regarding your changes.
+
+            Thanks again for dedicating your precious time to this project. 🔥
+      - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
+        id: blueprints
+        run: |
+          myblueprints=$(< changes/blueprints.txt)
+          urls=$(printf '%s' "$myblueprints" | jq --raw-input --slurp '.')
+          echo "::set-output name=urls::$urls"
+      - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          append: true
+          message: |
+            <br>
+
+            📝 Updated blueprints included in this PR can be tested by importing them in Home Assistant via the following links.
+
+            ${{ join(fromJSON(steps.blueprints.outputs.urls), '\n\n') }}
+
+  pr-commenter-ci-failure:
+    name: Report CI Failure
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Download failure reports
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          commit: ${{ github.event.workflow_run.head_sha }}
+          workflow: ci_pr.yml
+          workflow_conclusion: failure
+      - id: pr_info
+        run: echo "::set-output name=num::$(cat changes/pr_num.txt)"
+      - name: Create comment to report failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          message: |
+            Hey @${{ github.actor }},
+
+            ❌ It looks like there are some issues with your contribution. Don't worry, here's some additional information and guidance on how to solve them.
+
+      # if the artifact exists, linters failed
+      - if: ${{ hashFiles('lint/results.txt') != '' }}
+        name: Report linters failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          append: true
+          message: |
+            * Your submission includes some code style issues. We invite you to inspect the output of the Pull Request checks and fix reported errors and warnings.
+      # if the artifact exists, formatters failed
+      - if: ${{ hashFiles('format-lint/results.txt') != '' }}
+        name: Report formatters failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          append: true
+          message: |
+            * Your files are not properly formatted. Did you remember to run `npm run format` before submitting your changes?
+      - name: Create comment to report failure
+        uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ steps.pr_info.outputs.num }}
+          id: ci-pr-result-${{ github.event.workflow_run.head_sha }}
+          append: true
+          message: |
+            <br>
+
+            Please fix reported issues, then submit your updates here. If you have any questions or doubts, you can always contact a project maintainer. :)
+
+            Thanks!

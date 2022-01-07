@@ -61,7 +61,7 @@ This integration provides the entity which represents a light in Home Assistant.
 />
 <Input
   name='Light color mode'
-  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".'
+  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.'
   selector='select'
 />
 <Input
@@ -117,10 +117,15 @@ This integration provides the entity which represents a light in Home Assistant.
 - [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)
 - [IKEA E1766 TRÅDFRI Open/Close Remote](/docs/blueprints/controllers/ikea_e1766)
 - [IKEA E1812 TRÅDFRI Shortcut button](/docs/blueprints/controllers/ikea_e1812)
+- [IKEA E2001/E2002 STYRBAR Remote control](/docs/blueprints/controllers/ikea_e2001_e2002)
 - [IKEA ICTC-G-1 TRÅDFRI wireless dimmer](/docs/blueprints/controllers/ikea_ictc_g_1)
 - [OSRAM AC025XX00NJ SMART+ Switch Mini](/docs/blueprints/controllers/osram_ac025xx00nj)
 - [Philips 324131092621 Hue Dimmer switch](/docs/blueprints/controllers/philips_324131092621)
 - [Philips 8718699693985 Hue Smart Button](/docs/blueprints/controllers/philips_8718699693985)
+- [Philips 929002398602 Hue Dimmer switch v2](/docs/blueprints/controllers/philips_929002398602)
+- [Xiaomi WXCJKG11LM Aqara Opple 2 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg11lm)
+- [Xiaomi WXCJKG12LM Aqara Opple 4 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg12lm)
+- [Xiaomi WXCJKG13LM Aqara Opple 6 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg13lm)
 
 ## Additional Notes
 
@@ -154,3 +159,10 @@ If you want to link multiple lights to the same controller you can either use [L
   - Fix for remembering brightness level when turning on, where brightness level unavailable when light off.
   - Added secondary mapping for IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
 - **2021-10-29**: Add support for IKEA E1766 TRÅDFRI Open/Close Remote.
+- **2021-11-07**:
+  - Add support for IKEA E2001/E2002 STYRBAR Remote control.
+  - Fix color mode automatic detection not working properly with color temperature lights.
+  - Add "None" color mode to completely disable color control features.
+- **2021-11-21**: Add support for Philips 929002398602 Hue Dimmer switch v2.
+- **2021-12-03**: Add support for Xiaomi WXCJKG11LM, WXCJKG12LM, WXCJKG13LM.
+- **2021-12-05**: Added secondary mapping for IKEA E2001/E2002

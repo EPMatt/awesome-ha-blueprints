@@ -29,8 +29,8 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Install dependencies
-        run: npm ci
+      - name: Website - Install dependencies
+        run: cd website && npm ci
       - id: yamllint
         name: Yamllint
         uses: reviewdog/action-yamllint@v1
@@ -50,6 +50,7 @@ jobs:
           eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
+          workdir: website
 
   prettier:
     name: Prettier - Enforce code style
@@ -115,16 +116,18 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
-      - name: Build
-        run: npm run build
+      - name: Website - Install dependencies
+        run: cd website && npm ci
+      - name: Website - Build
+        run: cd website && npm run build
       - name: Create .nojekyll file
-        run: touch build/.nojekyll
+        run: touch website/build/.nojekyll
       - name: Deploy to GitHub Pages
         uses: s0/git-publish-subdir-action@v2.5.0
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: website/build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: '🤖 Deploy static site for change: {msg}'
           SKIP_EMPTY_COMMITS: true

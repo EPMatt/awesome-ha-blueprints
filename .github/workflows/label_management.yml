@@ -1,0 +1,18 @@
+name: Issues & PRs label management
+
+'on':
+  issue_comment:
+    types:
+      - created
+      - edited
+
+jobs:
+  # Remove 'status: waiting for feedback' label once a user comments on an issue or PR currently marked as waiting for feedback
+  remove_feedback_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ contains(github.event.issue.labels.*.name, 'status - waiting for feedback') }}
+        with:
+          labels: 'status - waiting for feedback'

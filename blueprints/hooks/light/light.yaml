@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.10.29
+    ℹ️ Version 2021.12.05
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/light/light.yaml
   domain: automation
   input:
@@ -46,10 +46,19 @@ blueprint:
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1766 TRÅDFRI Open/Close Remote (#2)
             - IKEA E1812 TRÅDFRI Shortcut button
+            - IKEA E2001/E2002 STYRBAR Remote control
+            - IKEA E2001/E2002 STYRBAR Remote control (#2)
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
+            - Philips 929002398602 Hue Dimmer switch v2
+            - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
+            - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
+            - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
     light:
       name: (Required) Light
       description: Light which will be controlled with this automation.
@@ -58,7 +67,7 @@ blueprint:
           domain: light
     light_color_mode:
       name: (Optional) Light color mode
-      description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto".
+      description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.
       default: Auto
       selector:
         select:
@@ -66,6 +75,7 @@ blueprint:
             - Auto
             - Color Temperature
             - Hue - Saturation
+            - None
     light_transition:
       name: (Optional) Light Transition
       description: Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.
@@ -199,6 +209,26 @@ variables:
     IKEA E1812 TRÅDFRI Shortcut button:
       toggle: button_short
       color_up: button_double
+    IKEA E2001/E2002 STYRBAR Remote control:
+      turn_on: button_up_short
+      brightness_up_repeat: button_up_long
+      turn_off: button_down_short
+      brightness_down_repeat: button_down_long
+      color_down: button_left_short
+      color_down_repeat: button_left_long
+      color_up: button_right_short
+      color_up_repeat: button_right_long
+    IKEA E2001/E2002 STYRBAR Remote control (#2):
+      brightness_up: button_up_short
+      brightness_up_repeat: button_up_long
+      turn_on: button_up_double
+      brightness_down: button_down_short
+      brightness_down_repeat: button_down_long
+      turn_off: button_down_double
+      color_down: button_left_short
+      color_down_repeat: button_left_long
+      color_up: button_right_short
+      color_up_repeat: button_right_long
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       brightness_down_repeat: rotate_left
       brightness_up_repeat: rotate_right
@@ -221,6 +251,57 @@ variables:
       brightness_down_repeat: button_down_long
     Philips 8718699693985 Hue Smart Button:
       toggle: button_short
+    Philips 929002398602 Hue Dimmer switch v2:
+      turn_on: button_on_short
+      color_up_repeat: button_on_long
+      turn_off: button_off_short
+      color_down_repeat: button_off_long
+      brightness_up: button_up_short
+      brightness_up_repeat: button_up_long
+      brightness_down: button_down_short
+      brightness_down_repeat: button_down_long
+    Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
+      turn_on: button_1_short
+      brightness_up_repeat: button_1_long
+      color_up: button_1_double
+      turn_off: button_2_short
+      brightness_down_repeat: button_2_long
+      color_down: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote:
+      turn_on: button_1_short
+      brightness_up_repeat: button_1_long
+      color_up: button_1_double
+      turn_off: button_2_short
+      brightness_down_repeat: button_2_long
+      color_down: button_2_double
+    Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2):
+      turn_on: button_3_short
+      brightness_up_repeat: button_3_long
+      color_up: button_3_double
+      turn_off: button_4_short
+      brightness_down_repeat: button_4_long
+      color_down: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote:
+      turn_on: button_1_short
+      brightness_up_repeat: button_1_long
+      color_up: button_1_double
+      turn_off: button_2_short
+      brightness_down_repeat: button_2_long
+      color_down: button_2_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2):
+      turn_on: button_3_short
+      brightness_up_repeat: button_3_long
+      color_up: button_3_double
+      turn_off: button_4_short
+      brightness_down_repeat: button_4_long
+      color_down: button_4_double
+    Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3):
+      turn_on: button_5_short
+      brightness_up_repeat: button_5_long
+      color_up: button_5_double
+      turn_off: button_6_short
+      brightness_down_repeat: button_6_long
+      color_down: button_6_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   brightness_up: '{{ controller_mapping[controller_model]["brightness_up"] | default(None) }}'
@@ -245,13 +326,15 @@ variables:
   on_brightness: !input on_brightness
   smooth_power_on: !input smooth_power_on
   smooth_power_off: !input smooth_power_off
-  supported_color_modes:
+  color_modes:
     Auto: auto
     Color Temperature: color_temp
     Hue - Saturation: hs_color
+    None: none
   # extract light color mode id
   light_color_mode_id: >-
-    {% if light_color_mode == "Auto" %} {{ supported_color_modes["Hue - Saturation"] if state_attr(light, "hs_color") != None else supported_color_modes["Color Temperature"] }} {% else %} {{ supported_color_modes[light_color_mode] }} {% endif %}
+    {%- if light_color_mode == "Auto" -%} {% set supported_color_modes = state_attr(light, "supported_color_modes") -%} {%- if "hs" in supported_color_modes or "xy" in supported_color_modes or "rgbw" in supported_color_modes or "rgbww" in supported_color_modes -%} {{
+    color_modes["Hue - Saturation"] }} {%- elif "color_temp" in supported_color_modes -%} {{ color_modes["Color Temperature"] }} {%- else -%} {{ color_modes["None"] }} {%- endif -%} {%- else -%} {{ color_modes[light_color_mode] }} {%- endif -%}
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
 mode: restart
@@ -422,7 +505,7 @@ action:
                         entity_id: !input light
                     - delay:
                         milliseconds: 250
-      - conditions: '{{ action == color_up }}'
+      - conditions: '{{ action == color_up and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -439,7 +522,7 @@ action:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + 15) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
-      - conditions: '{{ action == color_down }}'
+      - conditions: '{{ action == color_down and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -456,7 +539,7 @@ action:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
-      - conditions: '{{ action == color_up_repeat }}'
+      - conditions: '{{ action == color_up_repeat and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'
@@ -483,7 +566,7 @@ action:
                         entity_id: !input light
                       - delay:
                           milliseconds: 250
-      - conditions: '{{ action == color_down_repeat }}'
+      - conditions: '{{ action == color_down_repeat and light_color_mode_id != "none" }}'
         sequence:
           choose:
             - conditions: '{{ light_color_mode_id == "color_temp" }}'

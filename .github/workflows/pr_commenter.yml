@@ -1,0 +1,36 @@
+name: PR Commenter
+
+'on':
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  thank-you-message:
+    name: Thank you message
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+
+    steps:
+      - name: PR opened or not
+        id: pr_opened
+        run: |
+          if [$TYPE == 'opened']
+          then
+              echo "::set-output name=additional_text::'If this is your first PR here, your submission needs to be approved before checks can run, so the process might take a little longer.'"
+          fi
+        env:
+          TYPE: ${{ github.event.action }}
+      - uses: hasura/comment-progress@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ github.event.number }}
+          id: ci-pr-progress-${{ github.sha }}
+          message: |
+            Hey @${{ github.actor }}, thank you so much for your contribution! 🚀
+
+            🔄 We're currently running a few checks to make sure that everything is great with your contribution. ${{ steps.pr_opened.outputs.additional_text }}
+            If further actions need to be performed before your contribution can be reviewed, additional guidance will be provided to you in the next comment.
+
+            Results are coming soon, stay tuned!

@@ -5,60 +5,68 @@ name: CI - PR
     branches:
       - main
 jobs:
-  yamllint:
-    name: Yamllint
+  lint:
+    name: Run Linters
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Setup Node.JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Website - Install dependencies
+        run: cd website && npm ci
       - id: yamllint
         name: Yamllint
         uses: reviewdog/action-yamllint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-check
+          reporter: github-pr-check
           yamllint_flags: '.'
           fail_on_error: true
           filter_mode: nofilter
-
-  eslint:
-    name: ESLint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-      - name: Setup Node.JS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install dependencies
-        run: npm ci
+        continue-on-error: true
       - id: eslint
         name: ESLint
         uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
+          reporter: github-pr-check
           eslint_flags: --ext js,jsx .
           fail_on_error: true
           filter_mode: nofilter
+          workdir: website
+        continue-on-error: true
+      - if: ${{ steps.yamllint.outcome == 'failure' }}
+        run: echo "yamllint" >> results.txt
+      - if: ${{ steps.eslint.outcome == 'failure' }}
+        run: echo "eslint" >> results.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: lint
+          path: results.txt
+          retention-days: 5
+          if-no-files-found: ignore
+      - name: Report linters error
+        if: ${{ steps.yamllint.outcome == 'failure' || steps.eslint.outcome == 'failure' }}
+        run: exit 1
 
-  prettier-lint:
-    name: Prettier - Check code style
+  format-lint:
+    name: Run formatters to check code formatting
     runs-on: ubuntu-latest
 
     steps:
@@ -82,6 +90,8 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
+      - name: Website - Install dependencies
+        run: cd website && npm ci
       - id: prettier
         name: Prettier Check
         uses: creyD/prettier_action@v3.3
@@ -90,3 +100,48 @@ jobs:
           prettier_options: --write .
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
+      - if: ${{ always() && steps.prettier.outcome == 'failure' }}
+        run: echo "prettier" >> results.txt
+      - if: ${{ always() && steps.prettier.outcome == 'failure' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: format-lint
+          path: results.txt
+          if-no-files-found: ignore
+
+  changes:
+    name: Analyze changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          list-files: json
+          filters: |
+            blueprints:
+            - 'blueprints/**/*.yaml'
+      - if: ${{ steps.changes.outputs.blueprints == 'true' }}
+        id: blueprints_urls
+        env:
+          FILES: ${{ steps.changes.outputs.blueprints_files }}
+          REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          mapfile -t files < <( jq '.[]' < <(echo ${FILES}) )
+          for f in ${files[@]}; do echo "https://github.com/${REPO}/blob/${GITHUB_HEAD_REF}/$(echo $f | tr -d '"')" >> blueprints.txt; done
+      - env:
+          PR_NUM: ${{ github.event.number }}
+        run: echo $PR_NUM > pr_num.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: changes
+          path: blueprints.txt
+          retention-days: 5
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v2
+        with:
+          name: changes
+          path: pr_num.txt
+          retention-days: 5
