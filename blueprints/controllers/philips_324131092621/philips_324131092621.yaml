@@ -31,12 +31,12 @@ blueprint:
     dimmer_model:
       name: (Requried) Dimmer Model
       description: Model number of the Philips Hue dimmer switch.
-      default: '324131092621'
+      default: philips_324131092621
       selector:
         select:
           options:
-            - '324131092621'
-            - '324131137411'
+            - philips_324131092621
+            - philips_324131137411
     controller_device:
       name: (deCONZ, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
@@ -305,7 +305,7 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      '324131092621':
+      philips_324131092621:
         button_on_short: ['1000']
         button_on_long: ['1001']
         button_on_release: ['1003']
@@ -318,7 +318,7 @@ variables:
         button_down_short: ['3000']
         button_down_long: ['3001']
         button_down_release: ['3003']
-      '324131137411':
+      philips_324131137411:
         button_on_short: ['1000'] # NOT TESTED
         button_on_long: ['1001']
         button_on_release: ['1003']
@@ -332,7 +332,7 @@ variables:
         button_down_long: ['3001']
         button_down_release: ['3003']
     zha:
-      '324131092621':
+      philips_324131092621:
         button_on_short: [on_long_release]
         button_on_long: [on_hold]
         button_on_release: [on_long_release]
@@ -345,7 +345,7 @@ variables:
         button_down_short: [down_long_release]
         button_down_long: [down_hold]
         button_down_release: [down_long_release]
-      '324131137411':
+      philips_324131137411:
         button_on_short: [on_press]
         button_on_long: [on_hold]
         button_on_release: [on_long_release]
@@ -359,7 +359,7 @@ variables:
         button_down_long: [down_hold]
         button_down_release: [down_long_release]
     zigbee2mqtt:
-      '324131092621':
+      philips_324131092621:
         button_on_short: [on-press]
         button_on_long: [on-hold]
         button_on_release: [on-hold-release]
@@ -372,7 +372,7 @@ variables:
         button_down_short: [down-press]
         button_down_long: [down-hold]
         button_down_release: [down-hold-release]
-      '324131137411':
+      philips_324131137411:
         button_on_short: [on-press] # NOT TESTED
         button_on_long: [on-hold]
         button_on_release: [on-hold-release]
