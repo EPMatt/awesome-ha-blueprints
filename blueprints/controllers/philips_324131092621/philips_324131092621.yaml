@@ -29,9 +29,8 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     dimmer_model:
-      name: (Requried) Dimmer Model
+      name: (Required) Dimmer Model
       description: Model number of the Philips Hue dimmer switch.
-      default: philips_324131092621
       selector:
         select:
           options:
