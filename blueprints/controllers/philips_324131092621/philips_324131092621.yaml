@@ -1,10 +1,10 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Philips 324131137411 Hue Dimmer switch 
+  name: Controller - Philips 324131092621/324131137411 Hue Dimmer switch 
   description: |
-    # Controller - Philips 324131137411 Hue Dimmer switch
+    # Controller - Philips 324131092621/324131137411 Hue Dimmer switch
 
-    Controller automation for executing any kind of action triggered by the provided Philips 324131137411 Hue Dimmer switch. Allows to optionally loop an action on a button long press.
+    Controller automation for executing any kind of action triggered by the provided Philips 324131092621/324131137411 Hue Dimmer switch. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
@@ -28,6 +28,15 @@ blueprint:
             - deCONZ
             - ZHA
             - Zigbee2MQTT
+    dimmer_model:
+      name: (Requried) Dimmer Model
+      description: Model number of the Philips Hue dimmer switch.
+      default: 324131092621
+      selector:
+        select:
+          options:
+            - 324131092621
+            - 324131137411
     controller_device:
       name: (deCONZ, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
@@ -272,6 +281,7 @@ blueprint:
 variables:
   # convert input tags to variables, to be used in templates
   integration: !input integration
+  dimmer_model: !input dimmer_model
   button_on_long_loop: !input button_on_long_loop
   button_on_long_max_loop_repeats: !input button_on_long_max_loop_repeats
   button_on_double_press: !input button_on_double_press
@@ -295,58 +305,100 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     deconz:
-      button_on_short: ['1000']
-      button_on_long: ['1001']
-      button_on_release: ['1003']
-      button_off_short: ['4000']
-      button_off_long: ['4001']
-      button_off_release: ['4003']
-      button_up_short: ['2000']
-      button_up_long: ['2001']
-      button_up_release: ['2003']
-      button_down_short: ['3000']
-      button_down_long: ['3001']
-      button_down_release: ['3003']
+      '324131092621':
+        button_on_short: ['1000']
+        button_on_long: ['1001']
+        button_on_release: ['1003']
+        button_off_short: ['4000']
+        button_off_long: ['4001']
+        button_off_release: ['4003']
+        button_up_short: ['2000']
+        button_up_long: ['2001']
+        button_up_release: ['2003']
+        button_down_short: ['3000']
+        button_down_long: ['3001']
+        button_down_release: ['3003']
+      '324131137411':
+        button_on_short: ['1000']       # NOT TESTED
+        button_on_long: ['1001']
+        button_on_release: ['1003']
+        button_off_short: ['4000']      # NOT TESTED
+        button_off_long: ['4001']
+        button_off_release: ['4003']
+        button_up_short: ['2000']       # NOT TESTED
+        button_up_long: ['2001']
+        button_up_release: ['2003']
+        button_down_short: ['3000']     # NOT TESTED       
+        button_down_long: ['3001']
+        button_down_release: ['3003']
     zha:
-      button_on_short: [on_press]
-      button_on_long: [on_hold]
-      button_on_release: [on_long_release]
-      button_off_short: [off_press]
-      button_off_long: [off_hold]
-      button_off_release: [off_long_release]
-      button_up_short: [up_press]
-      button_up_long: [up_hold]
-      button_up_release: [up_long_release]
-      button_down_short: [down_press]
-      button_down_long: [down_hold]
-      button_down_release: [down_long_release]
+      '324131092621':
+        button_on_short: [on_long_release]
+        button_on_long: [on_hold]
+        button_on_release: [on_long_release]
+        button_off_short: [off_long_release]
+        button_off_long: [off_hold]
+        button_off_release: [off_long_release]
+        button_up_short: [up_long_release]
+        button_up_long: [up_hold]
+        button_up_release: [up_long_release]
+        button_down_short: [down_long_release]
+        button_down_long: [down_hold]
+        button_down_release: [down_long_release]
+      '324131137411':
+        button_on_short: [on_press]
+        button_on_long: [on_hold]
+        button_on_release: [on_long_release]
+        button_off_short: [off_press]
+        button_off_long: [off_hold]
+        button_off_release: [off_long_release]
+        button_up_short: [up_press]
+        button_up_long: [up_hold]
+        button_up_release: [up_long_release]
+        button_down_short: [down_press]
+        button_down_long: [down_hold]
+        button_down_release: [down_long_release]
     zigbee2mqtt:
-      button_on_short: [on-press]
-      button_on_long: [on-hold]
-      button_on_release: [on-hold-release]
-      button_off_short: [off-press]
-      button_off_long: [off-hold]
-      button_off_release: [off-hold-release]
-      button_up_short: [up-press]
-      button_up_long: [up-hold]
-      button_up_release: [up-hold-release]
-      button_down_short: [down-press]
-      button_down_long: [down-hold]
-      button_down_release: [down-hold-release]
+      '324131092621':
+        button_on_short: [on-press]
+        button_on_long: [on-hold]
+        button_on_release: [on-hold-release]
+        button_off_short: [off-press]
+        button_off_long: [off-hold]
+        button_off_release: [off-hold-release]
+        button_up_short: [up-press]
+        button_up_long: [up-hold]
+        button_up_release: [up-hold-release]
+        button_down_short: [down-press]
+        button_down_long: [down-hold]
+        button_down_release: [down-hold-release]
+      '324131137411':
+        button_on_short: [on-press]             # NOT TESTED  
+        button_on_long: [on-hold]
+        button_on_release: [on-hold-release]
+        button_off_short: [off-press]           # NOT TESTED 
+        button_off_long: [off-hold]
+        button_off_release: [off-hold-release]
+        button_up_short: [up-press]             # NOT TESTED  
+        button_up_long: [up-hold]
+        button_up_release: [up-hold-release]
+        button_down_short: [down-press]         # NOT TESTED  
+        button_down_long: [down-hold]
+        button_down_release: [down-hold-release]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
-  button_on_short: '{{ actions_mapping[integration_id]["button_on_short"] }}'
-  button_on_long: '{{ actions_mapping[integration_id]["button_on_long"] }}'
-  button_on_release: '{{ actions_mapping[integration_id]["button_on_release"] }}'
-  button_off_short: '{{ actions_mapping[integration_id]["button_off_short"] }}'
-  button_off_long: '{{ actions_mapping[integration_id]["button_off_long"] }}'
-  button_off_release: '{{ actions_mapping[integration_id]["button_off_release"] }}'
-  button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
-  button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
-  button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
-  button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
-  button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
-  button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
+  button_on_short:  '{{ actions_mapping[integration_id][dimmer_model]["button_on_short"] }}'
+  button_on_long: '{{ actions_mapping[integration_id][dimmer_model]["button_on_long"] }}'
+  button_on_release: '{{ actions_mapping[integration_id][dimmer_model]["button_on_release"] }}'
+  button_off_short: '{{ actions_mapping[integration_id][dimmer_model]["button_off_short"] }}'
+  button_off_long: '{{ actions_mapping[integration_id][dimmer_model]["button_off_long"] }}'
+  button_off_release: '{{ actions_mapping[integration_id][dimmer_model]["button_off_release"] }}'
+  button_up_short: '{{ actions_mapping[integration_id][dimmer_model]["button_up_short"] }}'
+  button_up_long: '{{ actions_mapping[integration_id][dimmer_model]["button_up_long"] }}'
+  button_up_release: '{{ actions_mapping[integration_id][dimmer_model]["button_up_release"] }}'
+  button_down_short: '{{ actions_mapping[integration_id][dimmer_model]["button_down_short"] }}'
+  button_down_long: '{{ actions_mapping[integration_id][dimmer_model]["button_down_long"] }}'
+  button_down_release: '{{ actions_mapping[integration_id][dimmer_model]["button_down_release"] }}'
   # build data to send within a controller event
   controller_entity: !input controller_entity
   controller_device: !input controller_device
