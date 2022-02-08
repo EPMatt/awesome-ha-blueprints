@@ -42,7 +42,7 @@ jobs:
         continue-on-error: true
       - id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1
+        uses: reviewdog/action-eslint@v1.15
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
@@ -94,7 +94,7 @@ jobs:
         run: cd website && npm ci
       - id: prettier
         name: Prettier Check
-        uses: creyD/prettier_action@v3.3
+        uses: creyD/prettier_action@v4.2
         with:
           dry: true
           prettier_options: --write .
