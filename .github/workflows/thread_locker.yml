@@ -1,3 +1,7 @@
+# yamllint disable rule:document-start
+# yamllint disable rule:line-length
+# Automatically locks old closed issues and PRs which did not receive any update recently
+# Take care also of removing any relevant label from threads before locking them
 name: 'Thread Locker'
 
 'on':
@@ -17,25 +21,20 @@ jobs:
     steps:
       - uses: dessant/lock-threads@v3
         with:
-          # 6 months
-          issue-inactive-days: 182
-          pr-inactive-days: 182
-          # temporarily exclude old tickets which need to be addressed asap
-          exclude-issue-created-before: '2021-08-01T00:00:00Z'
-          exclude-pr-created-before: '2021-08-01T00:00:00Z'
+          # 30 days of inactivity both for closed issues and PRs
+          issue-inactive-days: 30
+          pr-inactive-days: 30
           issue-comment: |
             Hi there,
 
-            🔒 This issue has been automatically locked since there has not been any recent activity.
+            🔒 This issue has been automatically locked since there has not been any recent activity after it was closed.
             Please open a new ticket for related bugs.
 
             Thanks!
           pr-comment: |
             Hi there,
 
-            🔒 This pull request has been automatically locked since there has not been any recent activity.
+            🔒 This pull request has been automatically locked since there has not been any recent activity after it was closed.
             Please open a new issue for related bugs. If you want to submit a contribution to the project, you can open a new PR.
 
             Thanks!
-          remove-issue-labels: 'status - waiting for feedback'
-          remove-pr-labels: 'status - waiting for feedback'

@@ -1,18 +1,41 @@
+# yamllint disable rule:document-start
+# yamllint disable rule:line-length
+# Workflows which handle labels in repository issues and PRs
 name: Issues & PRs label management
 
 'on':
+  issues:
+    types:
+      - closed
+  pull_request:
+    types:
+      - closed
   issue_comment:
     types:
       - created
       - edited
 
 jobs:
-  # Remove 'status: waiting for feedback' label once a user comments on an issue or PR currently marked as waiting for feedback
-  remove_feedback_label:
+  # Remove 'status: waiting for feedback' label once a user comments on an issue
+  # or PR currently marked as waiting for feedback
+  # Do not take into account comments posted by the github-actions bot
+  remove_feedback_label_commented:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'issue_comment' && github.actor != 'github-actions[bot]' }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions-ecosystem/action-remove-labels@v1
         if: ${{ contains(github.event.issue.labels.*.name, 'status - waiting for feedback') }}
+        with:
+          labels: 'status - waiting for feedback'
+
+  # Remove 'status: waiting for feedback' label once an issue or a PR are closed
+  remove_feedback_label_closed:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'issues' || github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'status - waiting for feedback') || github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'status - waiting for feedback') }}
         with:
           labels: 'status - waiting for feedback'
