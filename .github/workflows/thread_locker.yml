@@ -24,6 +24,7 @@ jobs:
           # 30 days of inactivity both for closed issues and PRs
           issue-inactive-days: 30
           pr-inactive-days: 30
+          issue-lock-reason: ''
           issue-comment: |
             Hi there,
 
@@ -31,6 +32,7 @@ jobs:
             Please open a new ticket for related bugs.
 
             Thanks!
+          pr-lock-reason: ''
           pr-comment: |
             Hi there,
 
