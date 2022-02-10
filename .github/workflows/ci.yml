@@ -81,8 +81,8 @@ jobs:
         name: Prettier
         uses: creyD/prettier_action@v4.2
         with:
+          dry: true
           prettier_options: --write .
-          commit_message: 🤖 Enforce Code Style
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
 
