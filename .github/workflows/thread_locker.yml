@@ -28,15 +28,13 @@ jobs:
           issue-comment: |
             Hi there,
 
-            🔒 This issue has been automatically locked since there has not been any recent activity after it was closed.
-            Please open a new ticket for related bugs.
+            🔒 This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new ticket for related bugs.
 
             Thanks!
           pr-lock-reason: ''
           pr-comment: |
             Hi there,
 
-            🔒 This pull request has been automatically locked since there has not been any recent activity after it was closed.
-            Please open a new issue for related bugs. If you want to submit a contribution to the project, you can open a new PR.
+            🔒 This pull request has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs. If you want to submit a contribution to the project, you can open a new PR.
 
             Thanks!

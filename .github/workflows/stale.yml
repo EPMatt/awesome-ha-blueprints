@@ -29,13 +29,10 @@ jobs:
           stale-issue-message: |
             Hi,
 
-            there hasn't been any activity on this issue recently. Due to the
-            high number of incoming tickets, we have to clean some of the old issues which didn't receive any update from the people involved,
-            following a feedback request.
+            there hasn't been any activity on this issue recently. Due to the high number of incoming tickets, we have to clean some of the old issues which didn't receive any update from the people involved, following a feedback request.
             Please make sure to update to the latest version. Let us know if that works for you by adding a comment. 👍
 
-            This issue has now been marked as stale and will be closed if no
-            further activity occurs within 14 days.
+            This issue has now been marked as stale and will be closed if no further activity occurs within 14 days.
 
             Thank you for your precious contribution. 🚀
           stale-pr-label: 'stale'
@@ -43,11 +40,8 @@ jobs:
           stale-pr-message: |
             Hi,
 
-            There hasn't been any activity on this pull request recently. Due to the high number of incoming tickets, we have to clean some
-            of the old pull requests which didn't receive any update from
-            the people involved, following a feedback request.
+            There hasn't been any activity on this pull request recently. Due to the high number of incoming tickets, we have to clean some of the old pull requests which didn't receive any update from the people involved, following a feedback request.
 
-            This pull request has been automatically marked as stale and will be closed
-            if no further activity occurs within 14 days.
+            This pull request has been automatically marked as stale and will be closed if no further activity occurs within 14 days.
 
             Thank you for your precious contribution. 🚀
