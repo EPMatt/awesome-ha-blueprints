@@ -43,7 +43,7 @@ jobs:
       - if: always()
         id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1.15
+        uses: reviewdog/action-eslint@v1.16
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
