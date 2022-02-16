@@ -116,8 +116,6 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
       - name: Setup Node.JS
         uses: actions/setup-node@v2
         with:
