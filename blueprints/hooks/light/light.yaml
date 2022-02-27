@@ -75,6 +75,7 @@ blueprint:
             - Auto
             - Color Temperature
             - Hue - Saturation
+            - Hue - Saturation and Color Temperature
             - None
     light_transition:
       name: (Optional) Light Transition
@@ -330,6 +331,7 @@ variables:
     Auto: auto
     Color Temperature: color_temp
     Hue - Saturation: hs_color
+    Hue - Saturation and Color Temperature: hs_and_temp    
     None: none
   # extract light color mode id
   light_color_mode_id: >-
@@ -522,6 +524,22 @@ action:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) + 15) % 360, 100] }}'
                     transition: 0.25
                   entity_id: !input light
+            - conditions: '{{ light_color_mode_id == "hs_and_temp" }}'
+              sequence:
+                - service: light.turn_on
+                  data: >-
+                      {% if state_attr(light, 'color_mode') == 'hs' and (state_attr(light, 'hs_color') != (0,100) and state_attr(light, 'hs_color') != (360,100)) %}
+                        {{ {'hs_color':[((state_attr(light,"hs_color")[0] or 0) + 15) % 360, 100],'transition':0.25} }}
+                      {% elif state_attr(light, 'color_mode') == 'hs' and (state_attr(light, 'hs_color') == (0,100) or state_attr(light, 'hs_color') == (360,100)) %}
+                        {{ {'color_temp':153,'transition':0.25} }} 
+                      {% elif state_attr(light, 'color_mode') == 'color_temp' and (state_attr(light, 'color_temp') >= 153 and state_attr(light, 'color_temp') < 500) %}
+                        {{ {'color_temp':[state_attr(light,"color_temp")|int + 50, 500]|min,'transition':0.25} }}
+                      {% elif state_attr(light, 'color_mode') == 'color_temp' and state_attr(light, 'color_temp') == 500 %}
+                        {{ {'hs_color':[15,100],'transition':0.25} }}
+                      {% else %}
+                        {{ {} }}
+                      {% endif %}
+                  entity_id: !input light
       - conditions: '{{ action == color_down and light_color_mode_id != "none" }}'
         sequence:
           choose:
@@ -538,6 +556,22 @@ action:
                   data:
                     hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100] }}'
                     transition: 0.25
+                  entity_id: !input light
+            - conditions: '{{ light_color_mode_id == "hs_and_temp" }}'
+              sequence:
+                - service: light.turn_on
+                  data: >-
+                      {% if state_attr(light, 'color_mode') == 'hs' and state_attr(light, 'hs_color') != (15,100) %}
+                        {{ {'hs_color':[((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100],'transition':0.25} }}
+                      {% elif state_attr(light, 'color_mode') == 'hs' and state_attr(light, 'hs_color') == (15,100) %}
+                        {{ {'color_temp':500,'transition':0.25} }} 
+                      {% elif state_attr(light, 'color_mode') == 'color_temp' and (state_attr(light, 'color_temp') > 153 and state_attr(light, 'color_temp') <= 500) %}
+                        {{ {'color_temp':[state_attr(light,"color_temp")|int - 50, 153]|max,'transition':0.25} }}
+                      {% elif state_attr(light, 'color_mode') == 'color_temp' and state_attr(light, 'color_temp') == 153 %}
+                        {{ {'hs_color':[0,100],'transition':0.25} }}
+                      {% else %}
+                        {{ {} }}
+                      {% endif %}
                   entity_id: !input light
       - conditions: '{{ action == color_up_repeat and light_color_mode_id != "none" }}'
         sequence:
@@ -566,6 +600,27 @@ action:
                         entity_id: !input light
                       - delay:
                           milliseconds: 250
+            - conditions: '{{ light_color_mode_id == "hs_and_temp" }}'
+              sequence:
+                - repeat:
+                    while: '{{ true }}'
+                    sequence:
+                      - service: light.turn_on
+                        data: >-
+                            {% if state_attr(light, 'color_mode') == 'hs' and (state_attr(light, 'hs_color') != (0,100) and state_attr(light, 'hs_color') != (360,100)) %}
+                              {{ {'hs_color':[((state_attr(light,"hs_color")[0] or 0) + 15) % 360, 100],'transition':0.25} }}
+                            {% elif state_attr(light, 'color_mode') == 'hs' and (state_attr(light, 'hs_color') == (0,100) or state_attr(light, 'hs_color') == (360,100)) %}
+                              {{ {'color_temp':153,'transition':0.25} }} 
+                            {% elif state_attr(light, 'color_mode') == 'color_temp' and (state_attr(light, 'color_temp') >= 153 and state_attr(light, 'color_temp') < 500) %}
+                              {{ {'color_temp':[state_attr(light,"color_temp")|int + 50, 500]|min,'transition':0.25} }}
+                            {% elif state_attr(light, 'color_mode') == 'color_temp' and state_attr(light, 'color_temp') == 500 %}
+                              {{ {'hs_color':[15,100],'transition':0.25} }}
+                            {% else %}
+                              {{ {} }}
+                            {% endif %}
+                        entity_id: !input light
+                      - delay:
+                          milliseconds: 250
       - conditions: '{{ action == color_down_repeat and light_color_mode_id != "none" }}'
         sequence:
           choose:
@@ -590,6 +645,27 @@ action:
                         data:
                           hs_color: '{{ [((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100] }}'
                           transition: 0.25
+                        entity_id: !input light
+                      - delay:
+                          milliseconds: 250
+            - conditions: '{{ light_color_mode_id == "hs_and_temp" }}'
+              sequence:
+                - repeat:
+                    while: '{{ true }}'
+                    sequence:
+                      - service: light.turn_on
+                        data: >-
+                            {% if state_attr(light, 'color_mode') == 'hs' and state_attr(light, 'hs_color') != (15,100) %}
+                              {{ {'hs_color':[((state_attr(light,"hs_color")[0] or 0) - 15) % 360, 100],'transition':0.25} }}
+                            {% elif state_attr(light, 'color_mode') == 'hs' and state_attr(light, 'hs_color') == (15,100) %}
+                              {{ {'color_temp':500,'transition':0.25} }} 
+                            {% elif state_attr(light, 'color_mode') == 'color_temp' and (state_attr(light, 'color_temp') > 153 and state_attr(light, 'color_temp') <= 500) %}
+                              {{ {'color_temp':[state_attr(light,"color_temp")|int - 50, 153]|max,'transition':0.25} }}
+                            {% elif state_attr(light, 'color_mode') == 'color_temp' and state_attr(light, 'color_temp') == 153 %}
+                              {{ {'hs_color':[0,100],'transition':0.25} }}
+                            {% else %}
+                              {{ {} }}
+                            {% endif %}
                         entity_id: !input light
                       - delay:
                           milliseconds: 250
