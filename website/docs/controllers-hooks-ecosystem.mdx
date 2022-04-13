@@ -33,7 +33,7 @@ This field requires that you have an existing text helper. Therefore, before set
 :::caution
 Make sure the text input is not altered by any other agents. The provided entity is used as a permanent storage area for the controller automation; any change to its state not carried out by the respective automation could lead to inconsistencies and unexpected behaviour.
 
-Therefore, you should create **a separate text input for each Controller blueprint** you're configuring.
+Therefore, you should create **a separate text input for each Controller blueprint** you're configuring. Additionally, **you need to set the maximum length of the input to 255** as the default length of 100 will lead to troubles.
 :::
 
 ### Virtual Events
