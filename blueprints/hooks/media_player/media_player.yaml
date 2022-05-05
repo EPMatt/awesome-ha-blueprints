@@ -56,6 +56,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
+            - Xiaomi WXKG11LM Aqara button
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -196,6 +197,10 @@ variables:
       next_track: button_5_double
       volume_down: button_6_long
       play_pause: button_6_double
+    Xiaomi WXKG11LM Aqara button:
+      play_pause: button_short
+      stop: button_long
+      next_track: button_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   volume_up: '{{ controller_mapping[controller_model]["volume_up"] | default(None) }}'
