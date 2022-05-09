@@ -164,12 +164,12 @@ variables:
       click_double: ['1004']
       click_triple: ['1005']
     zha:
-      rotate_left: [move_1_195]
-      rotate_stop: [stop]
-      rotate_right: [move_0_195]
+      rotate_left: [move_MoveMode.Down_195_bitmap8.0_bitmap8.0]
+      rotate_stop: [stop_bitmap8.0_bitmap8.0]
+      rotate_right: [move_MoveMode.Up_195_bitmap8.0_bitmap8.0]
       click_short: [toggle]
-      click_double: [step_0_1_0]
-      click_triple: [step_1_1_0]
+      click_double: [step_StepMode.Up_1_0_bitmap8.0_bitmap8.0]
+      click_triple: [step_StepMode.Down_1_0_bitmap8.0_bitmap8.0]
     zigbee2mqtt:
       rotate_left: [brightness_move_down]
       rotate_stop: [brightness_stop]
