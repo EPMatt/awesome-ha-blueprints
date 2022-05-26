@@ -5,7 +5,7 @@ blueprint:
     # Controller - Philips 8718699693985 Hue Smart Button
 
     Controller automation for executing any kind of action triggered by the provided Philips 8718699693985 Hue Smart Button. Allows to optionally loop an action on a button long press.
-    Supports deCONZ, ZHA.
+    Supports deCONZ, Hue, ZHA.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
@@ -26,9 +26,10 @@ blueprint:
         select:
           options:
             - deCONZ
+            - Hue
             - ZHA
     controller_device:
-      name: (deCONZ, ZHA) Controller Device
+      name: (deCONZ, Hue, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
       default: ''
       selector:
@@ -133,6 +134,10 @@ variables:
   adjusted_double_press_delay: '{{ [helper_double_press_delay - helper_debounce_delay, 100] | max }}'
   # mapping between actions and integrations
   actions_mapping:
+    hue:
+      button_short: ['1000']
+      button_long: ['1001']
+      button_release: ['1003']
     deconz:
       button_short: ['1000']
       button_long: ['1001']
@@ -156,6 +161,7 @@ trigger:
   - platform: event
     event_type:
       - deconz_event
+      - hue_event
       - zha_event
     event_data:
       device_id: !input controller_device
@@ -166,6 +172,8 @@ condition:
     {%- if integration_id == "zigbee2mqtt" -%}
     {{ trigger.event.data.new_state.state }}
     {%- elif integration_id == "deconz" -%}
+    {{ trigger.event.data.event }}
+    {%- elif integration_id == "hue" -%}
     {{ trigger.event.data.event }}
     {%- elif integration_id == "zha" -%}
     {{ trigger.event.data.command }}
@@ -185,6 +193,8 @@ action:
         {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
+        {{ trigger.event.data.event }}
+        {%- elif integration_id == "hue" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}

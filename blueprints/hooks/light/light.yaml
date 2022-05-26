@@ -59,6 +59,9 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
+            - Friends of Hue Double Switch
+            - Friends of Hue Left Switch
+            - Friends of Hue Right Switch
     light:
       name: (Required) Light
       description: Light which will be controlled with this automation.
@@ -302,6 +305,25 @@ variables:
       turn_off: button_6_short
       brightness_down_repeat: button_6_long
       color_down: button_6_double
+    Friends of Hue Double Switch:
+      turn_on: button_1_short
+      turn_off: button_2_short
+      brightness_up: button_3_short
+      brightness_up_repeat: button_3_long
+      brightness_down: button_4_short
+      brightness_down_repeat: button_4_long
+      color_up_repeat: button_1_long
+      color_down_repeat: button_2_long
+    Friends of Hue Left Switch:
+      turn_on: button_1_short
+      turn_off: button_2_short
+      brightness_up_repeat: button_1_long
+      brightness_down_repeat: button_2_long
+    Friends of Hue Right Switch:
+      turn_on: button_3_short
+      turn_off: button_4_short
+      brightness_up_repeat: button_3_long
+      brightness_down_repeat: button_4_long
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   brightness_up: '{{ controller_mapping[controller_model]["brightness_up"] | default(None) }}'
