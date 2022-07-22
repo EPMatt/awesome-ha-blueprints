@@ -1,10 +1,10 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Xiaomi WXKG11LM Aqara button
+  name: Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
   description: |
-    # Controller - Xiaomi WXKG11LM Aqara button
+    # Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
 
-    Controller automation for executing any kind of action triggered by the provided Xiaomi WXKG11LM Aqara button. Allows to optionally loop an action on a button long press.
+    Controller automation for executing any kind of action triggered by the provided Xiaomi WXKG11LM Aqara Wireless Switch Mini. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.05.05
+    ℹ️ Version 2022.07.22
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/xiaomi_wxkg11lm/xiaomi_wxkg11lm.yaml
   domain: automation
   input:
@@ -92,6 +92,7 @@ blueprint:
           max: 5000
           mode: slider
           step: 1
+    # helpers used to properly recognize the remote button events
     helper_debounce_delay:
       name: (Optional) Helper - Debounce delay
       description:
@@ -119,25 +120,25 @@ variables:
   actions_mapping:
     deconz:
       button_short: ['1002']
-      button_double: ['1004']
       button_long: ['1001']
       button_release: ['1003']
+      button_double: ['1004']
     zha:
-      button_short: ['single_value']
-      button_double: ['double_value']
-      button_long: ['hold_value']
-      button_release: ['release_value']
+      button_short: [single_value]
+      button_long: [hold_value]
+      button_release: [release_value]
+      button_double: [double_value]
     zigbee2mqtt:
-      button_short: ['single']
-      button_double: ['double']
-      button_long: ['hold']
-      button_release: ['release']
+      button_short: [single]
+      button_long: [hold]
+      button_release: [release]
+      button_double: [double]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
-  button_double: '{{ actions_mapping[integration_id]["button_double"] }}'
   button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
+  button_double: '{{ actions_mapping[integration_id]["button_double"] }}'
   # build data to send within a controller event
   controller_entity: !input controller_entity
   controller_device: !input controller_device
@@ -211,17 +212,6 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_short
-      - conditions: '{{ trigger_action | string in button_double }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_double
-          # run the custom action
-          - choose:
-              - conditions: []
-                sequence: !input action_button_double
       - conditions: '{{ trigger_action | string in button_long }}'
         sequence:
           # fire the event only once before looping the action
@@ -249,3 +239,14 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_release
+      - conditions: '{{ trigger_action | string in button_double }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_double
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_double
