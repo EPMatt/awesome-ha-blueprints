@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.12.03
+    ℹ️ Version 2022.07.22
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -49,6 +49,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
+            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
     cover:
       name: (Required) Cover
       description: Cover which will be controlled with this automation.
@@ -117,6 +118,10 @@ variables:
       close_cover: button_6_short
       close_cover_tilt: button_6_long
       stop_cover_all: button_6_double
+    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+      open_cover: button_short
+      stop_cover_all: button_long
+      close_cover: button_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   open_cover: '{{ controller_mapping[controller_model]["open_cover"] | default(None) }}'

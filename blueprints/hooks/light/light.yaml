@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.12.05
+    ℹ️ Version 2022.07.22
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/light/light.yaml
   domain: automation
   input:
@@ -59,6 +59,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
+            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
     light:
       name: (Required) Light
       description: Light which will be controlled with this automation.
@@ -302,6 +303,9 @@ variables:
       turn_off: button_6_short
       brightness_down_repeat: button_6_long
       color_down: button_6_double
+    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+      toggle: button_short
+      color_up: button_double
   # pre-choose actions for buttons based on configured controller
   # no need to perform this task at automation runtime
   brightness_up: '{{ controller_mapping[controller_model]["brightness_up"] | default(None) }}'
