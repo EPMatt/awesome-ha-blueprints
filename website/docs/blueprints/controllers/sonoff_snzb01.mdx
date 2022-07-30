@@ -125,6 +125,10 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
 
+### Behaviour of button long press
+
+Please note that the long press action for this controller is triggered after the button is pressed and held for approximately 3 seconds. Since the device does not fire an event when the button is released, the blueprint does not support looping an action over a long press.
+
 ## Changelog
 
-- **2022-07-22**: first blueprint version :tada:
+- **2022-07-30**: first blueprint version :tada:
