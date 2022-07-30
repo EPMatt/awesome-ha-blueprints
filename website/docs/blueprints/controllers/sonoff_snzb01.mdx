@@ -1,0 +1,134 @@
+---
+title: Controller - SONOFF SNZB-01 Wireless Switch
+description: Controller automation for executing any kind of action triggered by the provided SONOFF SNZB-01 Wireless Switch. Supports deCONZ, ZHA, Zigbee2MQTT.
+---
+
+import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+
+<ImportCard id='sonoff_snzb01' category='controllers' />
+
+<br />
+
+:::tip
+This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
+:::
+
+## Description
+
+This blueprint provides universal support for running any custom action when a button is pressed on the provided SONOFF SNZB-01 Wireless Switch. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+
+:::tip
+Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
+Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](/docs/blueprints/controllers/sonoff_snzb01#available-hooks) for additional details.
+:::
+
+## Requirements
+
+<Requirement id='deconz'/>
+<Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'/>
+<Requirement name='Input Text Integration' required>
+
+This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
+
+[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
+
+</Requirement>
+
+## Inputs
+
+<Input
+  name='Integration'
+  description='Integration used for connecting the remote with Home Assistant. Select one of the available values.'
+  selector='select'
+  required
+/>
+<Input
+  name='Controller Device'
+  description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
+  selector='device'
+  required='deCONZ, ZHA'
+/>
+<Input
+  name='Controller Entity'
+  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+  selector='entity'
+  required='Zigbee2MQTT'
+/>
+<Input
+  name='Helper - Last Controller Event'
+  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
+  selector='entity'
+  required
+/>
+<Input
+  name='Button short press'
+  description='Action to run on short button press.'
+  selector='action'
+/>
+<Input
+  name='Button long press'
+  description='Action to run on long button press.'
+  selector='action'
+/>
+<Input
+  name='Button double press'
+  description='Action to run on double button press.'
+  selector='action'
+/>
+<Input
+  name='Helper - Debounce delay'
+  description='Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced, usually a value of 100 is enough to remove all duplicate events.'
+  selector='number'
+/>
+
+## Available Hooks
+
+### Light
+
+This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
+
+#### Default Mapping
+
+- Button short press -> Toggle
+- Button double press -> Color up
+
+[Light Hook docs](/docs/blueprints/hooks/light)
+
+### Media Player
+
+This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.
+
+#### Default Mapping
+
+- Button short press -> Play/Pause
+- Button long press -> Stop
+- Button double press -> Next track
+
+[Media Player Hook docs](/docs/blueprints/hooks/media_player)
+
+### Cover
+
+This Hook blueprint allows to build a controller-based automation to control a cover. Supports opening, closing and tilting the cover.
+
+#### Default Mapping
+
+- Button short press -> Open cover
+- Button long press -> Stop cover and cover tilt
+- Button double press -> Close cover
+
+[Cover Hook docs](/docs/blueprints/hooks/cover)
+
+## Additional Notes
+
+### Helper - Last Controller Event
+
+The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
+
+### Behaviour of button long press
+
+Please note that the long press action for this controller is triggered after the button is pressed and held for approximately 3 seconds. Since the device does not fire an event when the button is released, the blueprint does not support looping an action over a long press.
+
+## Changelog
+
+- **2022-07-30**: first blueprint version :tada:

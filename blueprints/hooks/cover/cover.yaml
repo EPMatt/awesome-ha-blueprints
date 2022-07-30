@@ -16,7 +16,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.07.22
+    ℹ️ Version 2022.07.30
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -43,6 +43,7 @@ blueprint:
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
+            - SONOFF SNZB-01 Wireless Switch
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
@@ -79,6 +80,10 @@ variables:
       close_cover: button_down_short
       stop_cover_all: button_down_double
     IKEA E1812 TRÅDFRI Shortcut button:
+      open_cover: button_short
+      stop_cover_all: button_long
+      close_cover: button_double
+    SONOFF SNZB-01 Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
