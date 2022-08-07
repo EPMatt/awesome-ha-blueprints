@@ -380,7 +380,7 @@ variables:
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   button_center_short: '{{ actions_mapping[integration_id]["button_center_short"] }}'
   button_center_long: '{{ actions_mapping[integration_id]["button_center_long"] }}'
-  # integrations which need to store the previous long press event to determine which button was released
+  # integrations which need to store the previous press event to determine which button was released
   integrations_with_prev_event_storage: [zha]
   # build data to send within a controller event
   controller_entity: !input controller_entity
