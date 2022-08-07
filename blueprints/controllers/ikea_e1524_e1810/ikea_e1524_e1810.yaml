@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.10.26
+    ℹ️ Version 2022.08.08
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1524_e1810/ikea_e1524_e1810.yaml
   domain: automation
   input:
@@ -380,7 +380,7 @@ variables:
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   button_center_short: '{{ actions_mapping[integration_id]["button_center_short"] }}'
   button_center_long: '{{ actions_mapping[integration_id]["button_center_long"] }}'
-  # integrations which need to store the previous long press event to determine which button was released
+  # integrations which need to store the previous press event to determine which button was released
   integrations_with_prev_event_storage: [zha]
   # build data to send within a controller event
   controller_entity: !input controller_entity
@@ -436,13 +436,13 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "1970-01-01 00:00:00")) * 1000 }}'
-      last_controller_event: '{{ (states(helper_last_controller_event) | from_json).trigger_action if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "" }}'
+      trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
+      last_controller_event: '{{ (states(helper_last_controller_event) | from_json).a if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else "" }}'
   # update helper
   - service: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
-      value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in button_left_short }}'
@@ -459,7 +459,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -542,7 +542,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -625,7 +625,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -708,7 +708,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -791,7 +791,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"trigger_action":"double_press","last_triggered":now() | string} | to_json }}'
+                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event

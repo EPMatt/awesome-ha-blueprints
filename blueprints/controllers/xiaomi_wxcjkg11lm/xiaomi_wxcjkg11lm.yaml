@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2021.12.03
+    ℹ️ Version 2022.08.08
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/xiaomi_wxcjkg11lm/xiaomi_wxcjkg11lm.yaml
   domain: automation
   input:
@@ -273,12 +273,12 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event) | from_json).last_triggered if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "1970-01-01 00:00:00")) * 1000 }}'
+      trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
   # update helper
   - service: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
-      value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json }}'
+      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in button_1_short }}'
