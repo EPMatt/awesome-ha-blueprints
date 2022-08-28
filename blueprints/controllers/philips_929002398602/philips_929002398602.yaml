@@ -406,7 +406,7 @@ action:
       value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action | string in button_on_short }}'
+      - conditions: '{{ trigger_action | string in button_on_short or "button_on_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -420,7 +420,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"button_on_double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -486,7 +486,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_on_release
-      - conditions: '{{ trigger_action | string in button_off_short }}'
+      - conditions: '{{ trigger_action | string in button_off_short or "button_off_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -500,7 +500,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"button_off_double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -566,7 +566,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_off_release
-      - conditions: '{{ trigger_action | string in button_up_short }}'
+      - conditions: '{{ trigger_action | string in button_up_short or "button_up_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -580,7 +580,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"button_up_double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -646,7 +646,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_up_release
-      - conditions: '{{ trigger_action | string in button_down_short }}'
+      - conditions: '{{ trigger_action | string in button_down_short or "button_down_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
               # if double press event is enabled
@@ -660,7 +660,7 @@ action:
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"button_down_double_press","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
