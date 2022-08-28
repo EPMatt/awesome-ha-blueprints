@@ -54,15 +54,21 @@ blueprint:
       default: []
       selector:
         action:
+    action_button_on_short_release:
+      name: (Optional) On button short release
+      description: Action to run on release after on button short press.
+      default: []
+      selector:
+        action:
     action_button_on_long:
       name: (Optional) On button long press
       description: Action to run on long on button press.
       default: []
       selector:
         action:
-    action_button_on_release:
-      name: (Optional) On button release
-      description: Action to run on on button release after long press.
+    action_button_on_long_release:
+      name: (Optional) On button long release
+      description: Action to run on release after on button long press.
       default: []
       selector:
         action:
@@ -78,15 +84,21 @@ blueprint:
       default: []
       selector:
         action:
+    action_button_off_short_release:
+      name: (Optional) Off button short release
+      description: Action to run on release after off button short press.
+      default: []
+      selector:
+        action:
     action_button_off_long:
       name: (Optional) Off button long press
       description: Action to run on long off button press.
       default: []
       selector:
         action:
-    action_button_off_release:
-      name: (Optional) Off button release
-      description: Action to run on off button release after long press.
+    action_button_off_long_release:
+      name: (Optional) Off button long release
+      description: Action to run on release after off button long press.
       default: []
       selector:
         action:
@@ -102,15 +114,21 @@ blueprint:
       default: []
       selector:
         action:
+    action_button_up_short_release:
+      name: (Optional) Up button short release
+      description: Action to run on release after up button short press.
+      default: []
+      selector:
+        action:
     action_button_up_long:
       name: (Optional) Up button long press
       description: Action to run on long up button press.
       default: []
       selector:
         action:
-    action_button_up_release:
-      name: (Optional) Up button release
-      description: Action to run on up button release after long press.
+    action_button_up_long_release:
+      name: (Optional) Up button long release
+      description: Action to run on release after up button long press.
       default: []
       selector:
         action:
@@ -126,15 +144,21 @@ blueprint:
       default: []
       selector:
         action:
+    action_button_down_short_release:
+      name: (Optional) Down button short release
+      description: Action to run on release after down button short press.
+      default: []
+      selector:
+        action:
     action_button_down_long:
       name: (Optional) Down button long press
       description: Action to run on long down button press.
       default: []
       selector:
         action:
-    action_button_down_release:
-      name: (Optional) Down button release
-      description: Action to run on down button release after long press.
+    action_button_down_long_release:
+      name: (Optional) Down button long release
+      description: Action to run on release after down button long press.
       default: []
       selector:
         action:
