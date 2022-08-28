@@ -483,6 +483,17 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_on_short
+      - conditions: '{{ trigger_action | string in button_on_short_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_on_short_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_on_short_release
       - conditions: '{{ trigger_action | string in button_on_long }}'
         sequence:
           # fire the event only once before looping the action
@@ -499,17 +510,17 @@ action:
                       sequence: !input action_button_on_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_on_long
-      - conditions: '{{ trigger_action | string in button_on_release }}'
+      - conditions: '{{ trigger_action | string in button_on_long_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
-              action: button_on_release
+              action: button_on_long_release
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input action_button_on_release
+                sequence: !input action_button_on_long_release
       - conditions: '{{ trigger_action | string in button_off_short or "button_off_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
@@ -563,6 +574,17 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_off_short
+      - conditions: '{{ trigger_action | string in button_off_short_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_off_short_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_off_short_release
       - conditions: '{{ trigger_action | string in button_off_long }}'
         sequence:
           # fire the event only once before looping the action
@@ -579,17 +601,17 @@ action:
                       sequence: !input action_button_off_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_off_long
-      - conditions: '{{ trigger_action | string in button_off_release }}'
+      - conditions: '{{ trigger_action | string in button_off_long_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
-              action: button_off_release
+              action: button_off_long_release
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input action_button_off_release
+                sequence: !input action_button_off_long_release
       - conditions: '{{ trigger_action | string in button_up_short or "button_up_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
@@ -643,6 +665,17 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_up_short
+      - conditions: '{{ trigger_action | string in button_up_short_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_up_short_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_up_short_release
       - conditions: '{{ trigger_action | string in button_up_long }}'
         sequence:
           # fire the event only once before looping the action
@@ -659,17 +692,17 @@ action:
                       sequence: !input action_button_up_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_up_long
-      - conditions: '{{ trigger_action | string in button_up_release }}'
+      - conditions: '{{ trigger_action | string in button_up_long_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
-              action: button_up_release
+              action: button_up_long_release
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input action_button_up_release
+                sequence: !input action_button_up_long_release
       - conditions: '{{ trigger_action | string in button_down_short or "button_down_double_press" in states(helper_last_controller_event) }}'
         sequence:
           - choose:
@@ -723,6 +756,17 @@ action:
               - choose:
                   - conditions: []
                     sequence: !input action_button_down_short
+      - conditions: '{{ trigger_action | string in button_down_short_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_down_short_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_down_short_release
       - conditions: '{{ trigger_action | string in button_down_long }}'
         sequence:
           # fire the event only once before looping the action
@@ -739,14 +783,14 @@ action:
                       sequence: !input action_button_down_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_down_long
-      - conditions: '{{ trigger_action | string in button_down_release }}'
+      - conditions: '{{ trigger_action | string in button_down_long_release }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
-              action: button_down_release
+              action: button_down_long_release
           # run the custom action
           - choose:
               - conditions: []
-                sequence: !input action_button_down_release
+                sequence: !input action_button_down_long_release
