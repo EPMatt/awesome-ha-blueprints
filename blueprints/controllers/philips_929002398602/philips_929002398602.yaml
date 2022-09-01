@@ -391,7 +391,7 @@ action:
   - service: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
-      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
+      value: '{{ {"a":trigger_action|string,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in button_on_short }}'
