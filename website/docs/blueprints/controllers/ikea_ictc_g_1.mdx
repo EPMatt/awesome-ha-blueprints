@@ -78,6 +78,11 @@ This integration provides the entity which must be provided to the blueprint in 
   selector='action'
 />
 <Input
+  name='Rotate left quick'
+  description='Action to run when rotating left the remote quickly.'
+  selector='action'
+/>
+<Input
   name='Rotate right'
   description='Action to run on rotate right.'
   selector='action'
@@ -85,6 +90,11 @@ This integration provides the entity which must be provided to the blueprint in 
 <Input
   name='Rotate right stop'
   description='Action to run when stopping to rotate right the remote.'
+  selector='action'
+/>
+<Input
+  name='Rotate right quick'
+  description='Action to run when rotating right the remote quickly.'
   selector='action'
 />
 <Input
@@ -123,6 +133,8 @@ This Hook blueprint allows to build a controller-based automation to control a l
 
 - Rotate left -> Brightness down (continuous, until stop)
 - Rotate right -> Brightness up (continuous, until stop)
+- Rotate left quick -> Turn off
+- Rotate right quick -> Turn on
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
@@ -134,6 +146,8 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 - Rotate left -> Volume down (continuous, until stop)
 - Rotate right -> Volume up (continuous, until stop)
+- Rotate left quick -> Previous track
+- Rotate right quick -> Next track
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 

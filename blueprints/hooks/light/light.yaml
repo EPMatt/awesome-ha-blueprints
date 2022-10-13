@@ -234,6 +234,8 @@ variables:
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       brightness_down_repeat: rotate_left
       brightness_up_repeat: rotate_right
+      turn_on: rotate_left_quick
+      turn_off: rotate_right_quick
     OSRAM AC025XX00NJ SMART+ Switch Mini:
       brightness_up: button_up_short
       brightness_up_repeat: button_up_long
