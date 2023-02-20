@@ -94,7 +94,7 @@ jobs:
         run: cd website && npm ci
       - id: prettier
         name: Prettier Check
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           dry: true
           prettier_options: --write .

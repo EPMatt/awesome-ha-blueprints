@@ -79,7 +79,7 @@ jobs:
         run: npm ci
       - id: prettier
         name: Prettier
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           dry: true
           prettier_options: --write .
