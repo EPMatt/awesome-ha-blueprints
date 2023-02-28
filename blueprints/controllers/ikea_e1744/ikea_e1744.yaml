@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.08.08
+    ℹ️ Version 2023.02.28
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1744/ikea_e1744.yaml
   domain: automation
   input:
@@ -164,12 +164,12 @@ variables:
       click_double: ['1004']
       click_triple: ['1005']
     zha:
-      rotate_left: [move_1_195]
-      rotate_stop: [stop]
-      rotate_right: [move_0_195]
+      rotate_left: [move1]
+      rotate_stop: [stop0]
+      rotate_right: [move0]
       click_short: [toggle]
-      click_double: [step_0_1_0]
-      click_triple: [step_1_1_0]
+      click_double: [step0]
+      click_triple: [step1]
     zigbee2mqtt:
       rotate_left: [brightness_move_down]
       rotate_stop: [brightness_stop]
@@ -215,7 +215,7 @@ condition:
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {{ trigger.event.data.command }}{{ trigger.event.data.args[0].value if trigger.event.data.args }}
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
@@ -237,7 +237,7 @@ action:
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {{ trigger.event.data.command }}{{ trigger.event.data.args[0].value if trigger.event.data.args }}
         {%- endif -%}
       trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
       last_controller_event: '{{ (states(helper_last_controller_event) | from_json).a if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else "" }}'
