@@ -3,18 +3,13 @@ blueprint:
   name: Controller - IKEA E2001/E2002 STYRBAR Remote control
   description: |
     # Controller - IKEA E2001/E2002 STYRBAR Remote control
-
     Controller automation for executing any kind of action triggered by the provided IKEA E2001/E2002 STYRBAR Remote control. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
-
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2001_e2002#available-hooks) for additional details.
-
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2001_e2002).
-
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
-
     ℹ️ Version PR411
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2001_e2002/ikea_e2001_e2002.yaml
   domain: automation
@@ -482,8 +477,8 @@ action:
             # if looping is not enabled run the custom action only once
             default: !input action_button_left_long
       - conditions:
-          - '{{ trigger_action | string in button_left_release }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{% if integration_id == "zha" %} {{ trigger_action[:7] | string in button_left_release }}
+            {% else %} {{ trigger_action | string in button_left_release }} {% endif %}'          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_left_long }}'
         sequence:
           # fire the event
@@ -565,7 +560,8 @@ action:
             # if looping is not enabled run the custom action only once
             default: !input action_button_right_long
       - conditions:
-          - '{{ trigger_action | string in button_right_release }}'
+          - '{% if integration_id == "zha" %} {{ trigger_action[:7] | string in button_right_release }}
+            {% else %} {{ trigger_action | string in button_right_release }} {% endif %}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_right_long }}'
         sequence:
