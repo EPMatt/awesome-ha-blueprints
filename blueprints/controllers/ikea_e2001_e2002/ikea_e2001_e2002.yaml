@@ -1,7 +1,7 @@
 # Blueprint metadata
 blueprint:
   homeassistant:
-    min_version: "2023.5.0"
+    min_version: "2023.6.0"
   name: Controller - IKEA E2001/E2002 STYRBAR Remote control
   description: |
     # Controller - IKEA E2001/E2002 STYRBAR Remote control
