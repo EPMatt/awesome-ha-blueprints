@@ -5,6 +5,7 @@ blueprint:
   name: Controller - IKEA E2001/E2002 STYRBAR Remote control
   description: |
     # Controller - IKEA E2001/E2002 STYRBAR Remote control
+    *This blueprint is reported to work with IKEA Rodret (E2201)*
 
     Controller automation for executing any kind of action triggered by the provided IKEA E2001/E2002 STYRBAR Remote control. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
@@ -17,7 +18,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version PR411, Copied from with no modification: https://github.com/lsismeiro/awesome-ha-blueprints/tree/AHoran/2023.6.3
+    ℹ️ Version PR411
     Includes fixes for button actions and space evaluation post 2023.5.0
     Includes fixes for button down hold actions [since 2023-06-11](https://community.home-assistant.io/t/zha-deconz-zigbee2mqtt-ikea-e2001-e2002-styrbar-remote-control-universal-blueprint-all-actions-double-click-events-control-lights-media-players-and-more-with-hooks/354176/109)
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2001_e2002/ikea_e2001_e2002.yaml
@@ -323,7 +324,7 @@ variables:
       button_up_release: [stop_with_on_off]
       button_down_short: ['off']
       button_down_long: [move_MoveMode.Down_83_0_0]
-      button_down_release: [stop_0_0]
+      button_down_release: [stop_with_on_off]
     zigbee2mqtt:
       button_left_short: [arrow_left_click]
       button_left_long: [arrow_left_hold]
