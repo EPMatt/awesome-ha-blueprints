@@ -1,4 +1,6 @@
 blueprint:
+  homeassistant:
+    min_version: "2023.6.0"
   name: Controller - IKEA E2001/E2002 STYRBAR Remote control
   description: '# Controller - IKEA E2001/E2002 STYRBAR Remote control
 
@@ -27,7 +29,7 @@ blueprint:
     project**.
 
 
-    ℹ️ Version 2021.11.07
+    ℹ️ Version 2023.10.12
 
     '
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2001_e2002/ikea_e2001_e2002.yaml
@@ -368,7 +370,7 @@ variables:
       button_down_short:
       - 'off'
       button_down_long:
-      - move_MoveMode.Down_83_bitmap8.0_bitmap8.0
+      - move_MoveMode.Down_83_0_0
       button_down_release:
       - stop_with_on_off
     zigbee2mqtt:
@@ -434,33 +436,44 @@ trigger:
 condition:
 - condition: and
   conditions:
-  - '{%- set trigger_action -%} {%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
-    }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
-    elif integration_id == "zha" -%} {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length
-    > 0}}{{ trigger.event.data.args|join("_") }} {%- endif -%} {%- endset -%} {{ trigger_action
-    not in ["","None"] }}'
-  - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state
-    }}'
+  - >-
+    {%- set trigger_action -%}
+    {%- if integration_id == "zigbee2mqtt" -%}
+    {{ trigger.event.data.new_state.state }}
+    {%- elif integration_id == "deconz" -%}
+    {{ trigger.event.data.event }}
+    {%- elif integration_id == "zha" -%}
+    {{ trigger.event.data.command }}
+    {{"_" if trigger.event.data.args|length > 0}}
+    {{ trigger.event.data.args|join("_") }}
+    {%- endif -%}
+    {%- endset -%}
+    {{ trigger_action not in ["","None"] }}
+  - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
 - delay:
     milliseconds: !input 'helper_debounce_delay'
 - variables:
-    trigger_action: '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.event.data.new_state.state
-      }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
-      elif integration_id == "zha" -%} {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length
-      > 0}}{{ trigger.event.data.args|join("_") }} {%- endif -%}'
-    trigger_delta: '{{ (as_timestamp(now()) - as_timestamp((states(helper_last_controller_event)
-      | from_json).last_triggered if helper_last_controller_event is not none and
-      (states(helper_last_controller_event) | regex_match("^\{(\".*\": \".*\"(, )?)*\}$"))
-      else "1970-01-01 00:00:00")) * 1000 }}'
+    trigger_action: >-
+      {%- if integration_id == "zigbee2mqtt" -%}
+      {{ trigger.event.data.new_state.state }}
+      {%- elif integration_id == "deconz" -%}
+      {{ trigger.event.data.event }}
+      {%- elif integration_id == "zha" -%}
+      {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+      {%- endif -%}
+    trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).timestamp
+      if helper_last_controller_event is not none and (states(helper_last_controller_event) |
+      regex_match("^\{((\"trigger_action\":\".*\"|\"timestamp\":\d+\.\d+)(,)?){2}\}$"))
+      else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
     last_controller_event: '{{ (states(helper_last_controller_event) | from_json).trigger_action
-      if helper_last_controller_event is not none and (states(helper_last_controller_event)
-      | regex_match("^\{(\".*\": \".*\"(, )?)*\}$")) else "" }}'
+      if helper_last_controller_event is not none and (states(helper_last_controller_event) |
+      regex_match("^\{((\"trigger_action\":\".*\"|\"timestamp\":\d+\.\d+)(,)?){2}\}$"))
+      else "" }}'
 - service: input_text.set_value
   data:
     entity_id: !input 'helper_last_controller_event'
-    value: '{{ {"trigger_action":trigger_action,"last_triggered":now()|string} | to_json
-      }}'
+    value: '{{ {"trigger_action":trigger_action,"timestamp":as_timestamp(now())} | to_json }}'
 - choose:
   - conditions: '{{ trigger_action | string in button_left_short }}'
     sequence:
@@ -474,8 +487,7 @@ action:
             - service: input_text.set_value
               data:
                 entity_id: !input 'helper_last_controller_event'
-                value: '{{ {"trigger_action":"double_press","last_triggered":now()
-                  | string} | to_json }}'
+                value: '{{ {"trigger_action":"double_press","timestamp":as_timestamp(now())} | to_json }}'
             - event: ahb_controller_event
               event_data:
                 controller: '{{ controller_id }}'
@@ -515,10 +527,13 @@ action:
             sequence: !input 'action_button_left_long'
       default: !input 'action_button_left_long'
   - conditions:
-    - '{% if integration_id == "zha" %} {{ trigger_action[:7] | string in button_left_release }}
-      {% else %} {{ trigger_action | string in button_left_release }} {% endif %}'
-    - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event
-      | string in button_left_long }}'
+    - >-
+      {% if integration_id == "zha" %}
+      {{ trigger_action[:7] | string in button_left_release }}
+      {% else %}
+      {{ trigger_action | string in button_left_release }}
+      {% endif %}
+    - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_left_long }}'
     sequence:
     - event: ahb_controller_event
       event_data:
@@ -539,8 +554,7 @@ action:
             - service: input_text.set_value
               data:
                 entity_id: !input 'helper_last_controller_event'
-                value: '{{ {"trigger_action":"double_press","last_triggered":now()
-                  | string} | to_json }}'
+                value: '{{ {"trigger_action":"double_press","timestamp":as_timestamp(now())} | to_json }}'
             - event: ahb_controller_event
               event_data:
                 controller: '{{ controller_id }}'
@@ -580,10 +594,13 @@ action:
             sequence: !input 'action_button_right_long'
       default: !input 'action_button_right_long'
   - conditions:
-    - '{% if integration_id == "zha" %} {{ trigger_action[:7] | string in button_right_release }}
-      {% else %} {{ trigger_action | string in button_right_release }} {% endif %}'
-    - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event
-      | string in button_right_long }}'
+    - >-
+      {% if integration_id == "zha" %}
+      {{ trigger_action[:7] | string in button_right_release }}
+      {% else %}
+      {{ trigger_action | string in button_right_release }}
+      {% endif %}
+    - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_right_long }}'
     sequence:
     - event: ahb_controller_event
       event_data:
@@ -604,8 +621,7 @@ action:
             - service: input_text.set_value
               data:
                 entity_id: !input 'helper_last_controller_event'
-                value: '{{ {"trigger_action":"double_press","last_triggered":now()
-                  | string} | to_json }}'
+                value: '{{ {"trigger_action":"double_press","timestamp":as_timestamp(now())} | to_json }}'
             - event: ahb_controller_event
               event_data:
                 controller: '{{ controller_id }}'
@@ -668,8 +684,7 @@ action:
             - service: input_text.set_value
               data:
                 entity_id: !input 'helper_last_controller_event'
-                value: '{{ {"trigger_action":"double_press","last_triggered":now()
-                  | string} | to_json }}'
+                value: '{{ {"trigger_action":"double_press","timestamp":as_timestamp(now())} | to_json }}'
             - event: ahb_controller_event
               event_data:
                 controller: '{{ controller_id }}'
