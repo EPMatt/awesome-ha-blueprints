@@ -35,7 +35,7 @@ export default function Home() {
               <Link
                 className={clsx(
                   'button button button--secondary button--lg margin-horiz--sm',
-                  styles.getStarted
+                  styles.getStarted,
                 )}
                 to={useBaseUrl('docs/introduction')}
               >
@@ -46,7 +46,7 @@ export default function Home() {
               <Link
                 className={clsx(
                   'button button button--secondary button--lg margin-horiz--sm',
-                  styles.getStarted
+                  styles.getStarted,
                 )}
                 to={useBaseUrl('docs/blueprints')}
               >

@@ -27,7 +27,7 @@ function BlueprintImportCard({ category, id }) {
             <p>
               <a
                 href={`https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=${escape(
-                  url
+                  url,
                 )}`}
                 target='_blank'
                 rel='noreferrer'
