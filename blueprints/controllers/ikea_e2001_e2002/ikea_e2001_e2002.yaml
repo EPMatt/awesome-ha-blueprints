@@ -483,8 +483,6 @@ action:
             default: !input action_button_left_long
       - conditions:
           - '{{ trigger_action | string in button_left_release }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_left_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -566,8 +564,6 @@ action:
             default: !input action_button_right_long
       - conditions:
           - '{{ trigger_action | string in button_right_release }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_right_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -649,8 +645,6 @@ action:
             default: !input action_button_up_long
       - conditions:
           - '{{ trigger_action | string in button_up_release }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_up_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -732,8 +726,6 @@ action:
             default: !input action_button_down_long
       - conditions:
           - '{{ trigger_action | string in button_down_release }}'
-          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
-          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_down_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
