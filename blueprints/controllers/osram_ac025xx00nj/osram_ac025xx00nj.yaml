@@ -264,15 +264,16 @@ variables:
       button_down_long: [move]
       button_down_release: [stop]
     zigbee2mqtt:
-      button_up_short: [up]
-      button_up_long: [up_hold]
-      button_up_release: [up_release]
-      button_center_short: [circle_click]
-      button_center_long: [circle_hold]
-      button_center_release: [circle_release]
-      button_down_short: [down]
-      button_down_long: [down_hold]
-      button_down_release: [down_release]
+      # source: https://www.zigbee2mqtt.io/devices/AC0251100NJ_AC0251600NJ_AC0251700NJ.html#actions
+      button_up_short: ['on']
+      button_up_long: [brightness_move_up]
+      button_up_release: [brightness_stop]
+      button_center_short: [brightness_move_to_level]
+      button_center_long: [move_to_saturation]
+      button_center_release: [hue_stop]
+      button_down_short: ['off']
+      button_down_long: [brightness_move_down]
+      button_down_release: [brightness_stop]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
