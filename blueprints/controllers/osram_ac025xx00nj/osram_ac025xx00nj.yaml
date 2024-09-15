@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.08.08
+    ℹ️ Version 2024.09.15
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/osram_ac025xx00nj/osram_ac025xx00nj.yaml
   domain: automation
   input:

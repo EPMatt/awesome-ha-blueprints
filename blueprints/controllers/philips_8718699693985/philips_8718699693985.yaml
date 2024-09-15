@@ -5,7 +5,7 @@ blueprint:
     # Controller - Philips 8718699693985 Hue Smart Button
 
     Controller automation for executing any kind of action triggered by the provided Philips 8718699693985 Hue Smart Button. Allows to optionally loop an action on a button long press.
-    Supports deCONZ, ZHA.
+    Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.08.08
+    ℹ️ Version 2024.09.15
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/philips_8718699693985/philips_8718699693985.yaml
   domain: automation
   input:
@@ -27,12 +27,20 @@ blueprint:
           options:
             - deCONZ
             - ZHA
+            - Zigbee2MQTT
     controller_device:
       name: (deCONZ, ZHA) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
       default: ''
       selector:
         device:
+    controller_entity:
+      name: (Zigbee2MQTT) Controller Entity
+      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      default: ''
+      selector:
+        entity:
+          domain: sensor
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
@@ -141,17 +149,28 @@ variables:
       button_short: [on_short_release]
       button_long: [on_hold]
       button_release: [on_long_release]
+    zigbee2mqtt:
+      # source: https://www.zigbee2mqtt.io/devices/8718699693985.html#action-enum
+      button_short: [press]
+      button_long: [hold]
+      button_release: [release]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   button_short: '{{ actions_mapping[integration_id]["button_short"] }}'
   button_long: '{{ actions_mapping[integration_id]["button_long"] }}'
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
   # build data to send within a controller event
+  controller_entity: !input controller_entity
   controller_device: !input controller_device
-  controller_id: '{{controller_device}}'
+  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
 mode: restart
 max_exceeded: silent
 trigger:
+  # trigger for zigbee2mqtt
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: !input controller_entity
   # trigger for other integrations
   - platform: event
     event_type:
@@ -172,6 +191,10 @@ condition:
     {%- endif -%}
     {%- endset -%}
     {{ trigger_action not in ["","None"] }}
+  # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
+  # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
+  - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
+
 action:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
