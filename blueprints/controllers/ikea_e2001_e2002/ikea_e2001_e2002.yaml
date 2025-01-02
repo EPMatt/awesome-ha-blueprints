@@ -482,6 +482,7 @@ action:
             # if looping is not enabled run the custom action only once
             default: !input action_button_left_long
       - conditions:
+          # target all release events without considering the event suffix
           - '{{ trigger_action.split("_")[0] in button_left_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_left_long }}'
@@ -565,6 +566,7 @@ action:
             # if looping is not enabled run the custom action only once
             default: !input action_button_right_long
       - conditions:
+          # target all release events without considering the event suffix
           - '{{  trigger_action.split("_")[0]in button_right_release }}'
           # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
           - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_right_long }}'
