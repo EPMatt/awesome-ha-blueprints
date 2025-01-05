@@ -30,6 +30,7 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 <Requirement id='deconz'/>
 <Requirement id='zha'/>
+<Requirement id='zigbee2mqtt'/>
 <Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
@@ -51,6 +52,12 @@ This integration provides the entity which must be provided to the blueprint in 
   description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
   selector='device'
   required='deCONZ, ZHA'
+/>
+<Input
+  name='Controller Entity'
+  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
+  selector='entity'
+  required='Zigbee2MQTT'
 />
 <Input
   name='Helper - Last Controller Event'
@@ -148,3 +155,6 @@ It's also important to note that the controller doesn't natively support double 
 - **2021-08-02**: Improve inputs documentation and organization
 - **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. No functionality change.
 - **2022-08-08**: Optimize characters usage for the `helper_last_controller_event` text input.
+- **2025-01-05**:
+  - Added support for Zigbee2MQTT. ([@alexdelprete](https://github.com/alexdelprete))
+  - Fix regex for updated helper JSON serialization starting from Home Assistant 2023.5.0.
