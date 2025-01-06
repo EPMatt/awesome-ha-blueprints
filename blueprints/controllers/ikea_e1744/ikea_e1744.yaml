@@ -35,12 +35,12 @@ blueprint:
       selector:
         device:
     controller_entity:
-      name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      name: (Zigbee2MQTT) Controller Event Entity
+      description: The event entity of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
       default: ''
       selector:
         entity:
-          domain: sensor
+          domain: event
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
@@ -211,7 +211,7 @@ condition:
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.event.data.new_state.attributes.event_type }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
@@ -221,7 +221,7 @@ condition:
         {{ trigger_action not in ["","None"] }}
       # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
-      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
+      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.attributes.event_type != trigger.event.data.old_state.attributes.event_type }}'
 action:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
@@ -233,7 +233,7 @@ action:
   - variables:
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.event.data.new_state.attributes.event_type }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
