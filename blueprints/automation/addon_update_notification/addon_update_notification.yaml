@@ -53,7 +53,9 @@ blueprint:
         The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>).
         You can provide both a notify group or a single notify device here.
       selector:
-        text:
+        device:
+          integration: mobile_app
+          multiple: true
     notification_title:
       name: (Optional) Notification title
       description: >-
