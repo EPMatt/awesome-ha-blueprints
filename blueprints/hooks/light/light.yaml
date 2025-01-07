@@ -456,9 +456,9 @@ actions:
                       entity_id: !input light
                   - delay:
                       milliseconds: !input light_transition
-          # else move on to the loop for increasing the light brightness
+          # else move on to the loop for increasing the light brightness until the maximum brightness is reached
           - repeat:
-              while: '{{ true }}'
+              while: '{{ state_attr(light,"brightness") < max_brightness }}'
               sequence:
                 - action: light.turn_on
                   data:
@@ -498,8 +498,8 @@ actions:
                                 milliseconds: 250
             default:
               - repeat:
-                  # continue lowering brightness until the light turns off
-                  while: '{{ states(light) != "off" }}'
+                  # continue lowering brightness until the light hits the minimum brightness
+                  while: '{{ state_attr(light,"brightness") > min_brightness }}'
                   sequence:
                     # lower the light's brightness. since smooth power off is disabled, never let the brightness move below the user-provided minimum
                     - action: light.turn_on
