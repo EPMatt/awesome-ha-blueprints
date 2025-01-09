@@ -54,8 +54,10 @@ blueprint:
               model: TRADFRI on/off switch
           multiple: false
     controller_entity:
-      name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      name: (Zigbee2MQTT)(Deprecated) Controller Entity
+      description: >-
+        The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT and Legacy Action Sensors are enabled.
+        This input is deprecated in favor of the Controller Device input, and will be removed in a future release.
       default: ''
       selector:
         entity:
