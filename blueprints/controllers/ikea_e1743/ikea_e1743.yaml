@@ -31,32 +31,28 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      # **YAR** - ADD START - To Support zigbee2mqtt mqtt device triggers when legacy=false
       name: (deCONZ, ZHA, Zigbee2MQTT) Controller Device
-      # **YAR** - ADD END -
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
-      # **YAR** - ADD START - Selector for devices to choose from
       selector:
         device:
           filter:
-          # **YAR** - source: https://www.zigbee2mqtt.io/devices/E1743.html#ikea-e1743
+          # source: https://www.zigbee2mqtt.io/devices/E1743.html#ikea-e1743
           - integration: mqtt
             manufacturer: IKEA
             model: TRADFRI on/off switch
-          # **For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+          # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
           - integration: mqtt
             manufacturer: IKEA
             model: TRADFRI on/off switch (E1743)
-          # **YAR** - source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
           - integration: zha
             manufacturer: IKEA of Sweden
             model: TRADFRI on/off switch
+          # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
           - integration: deconz
             manufacturer: IKEA of Sweden
             model: TRADFRI on/off switch
           multiple: false
-      # **YAR** - ADD END -
     controller_entity:
       name: (Zigbee2MQTT) Controller Entity
       description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
@@ -250,12 +246,9 @@ variables:
   # build data to send within a controller event
   controller_entity: !input controller_entity
   controller_device: !input controller_device
-  # **YAR** - ADD START - Logic to handle z2m legacy
-  # **YAR** If user provided input for controller_entity assume legacy **Maybe There Is A Better Way To Do This**
-  # **YAR** setting z2m_legacy to true with below code and set controller_id accordingly
+  # if integration is zigbee2mqtt and input for controller_entity is set, assume legacy mode
   z2m_legacy: '{{ integration_id == "zigbee2mqtt" and controller_entity not in ["", None, undefined] }}'
   controller_id: '{% if z2m_legacy %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
-  # **YAR** - ADD END -
 mode: restart
 max_exceeded: silent
 trigger:
@@ -264,7 +257,6 @@ trigger:
     event_type: state_changed
     event_data:
       entity_id: !input controller_entity
-  # **YAR** - ADD START - zigbee2mqtt mqtt device action triggers
   # triggers for zigbee2mqtt mqtt device action
   - platform: device
     domain: mqtt
@@ -291,7 +283,6 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: brightness_stop
-  # **YAR** - ADD END -
   # trigger for other integrations
   - platform: event
     event_type:
@@ -303,7 +294,6 @@ condition:
   - condition: and
     conditions:
       # check that the button event is not empty
-      # **YAR** - ADD START - zigbee2mqtt checks for device or entity
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" and z2m_legacy == false -%}
@@ -320,7 +310,6 @@ condition:
       # only for zigbee2mqtt in legacy mode, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
       # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
       - '{{ not (integration_id == "zigbee2mqtt" and z2m_legacy) or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
-      # **YAR** - ADD END -
 action:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
@@ -330,7 +319,6 @@ action:
   # extract button event from the trigger
   # provide a single string value to check against
   - variables:
-      # **YAR** - ADD START - zigbee2mqtt actions for device or entity
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" and z2m_legacy == false -%}
         {{ trigger.payload }}
@@ -341,7 +329,6 @@ action:
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      # **YAR** - ADD END -
       trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
       last_controller_event: '{{ (states(helper_last_controller_event) | from_json).a if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else "" }}'
   # update helper
