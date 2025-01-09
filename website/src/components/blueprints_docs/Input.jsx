@@ -52,7 +52,7 @@ const styles = {
   },
 }
 
-function Input({ selector, required, name, description }) {
+function Input({ selector, required, name, description, deprecated }) {
   const selectorVal = selector ? selectors[selector] : selectors.none
   return (
     <div>
@@ -62,7 +62,8 @@ function Input({ selector, required, name, description }) {
           <Badge variant='warning'>{required} Required</Badge>
         ) : (
           <Badge variant='info'>Optional</Badge>
-        )}
+        )}{' '}
+        {deprecated && <Badge variant='danger'>Deprecated</Badge>}
       </span>
       <br />
       <p style={styles.inputDescription} className='margin-top--sm'>
