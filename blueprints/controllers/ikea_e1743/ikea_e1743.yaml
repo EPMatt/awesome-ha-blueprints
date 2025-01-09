@@ -298,9 +298,9 @@ condition:
       # check that the button event is not empty
       - >-
         {%- set trigger_action -%}
-        {%- if integration_id == "zigbee2mqtt" and z2m_legacy == false -%}
+        {%- if integration_id == "zigbee2mqtt" and not z2m_legacy -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy == true -%}
+        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy -%}
         {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
@@ -322,9 +322,9 @@ action:
   # provide a single string value to check against
   - variables:
       trigger_action: >-
-        {%- if integration_id == "zigbee2mqtt" and z2m_legacy == false -%}
+        {%- if integration_id == "zigbee2mqtt" and not z2m_legacy -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy == true -%}
+        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy -%}
         {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
