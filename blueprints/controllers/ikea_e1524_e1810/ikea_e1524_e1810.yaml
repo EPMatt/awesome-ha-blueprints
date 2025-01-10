@@ -403,7 +403,7 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: 'toggle'
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
@@ -413,7 +413,7 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: arrow_left_hold
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
@@ -428,7 +428,7 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: arrow_right_hold
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
@@ -438,12 +438,12 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: 'brightness_down_click'
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_down_hold
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
@@ -458,7 +458,7 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: brightness_up_hold
- - platform: device
+  - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
