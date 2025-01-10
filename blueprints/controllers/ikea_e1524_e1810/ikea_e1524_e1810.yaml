@@ -392,11 +392,37 @@ variables:
 mode: restart
 max_exceeded: silent
 trigger:
-  # trigger for zigbee2mqtt
+  # trigger for legacyzigbee2mqtt
   - platform: event
     event_type: state_changed
     event_data:
       entity_id: !input controller_entity
+  # triggers for zigbee2mqtt mqtt device action
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: 'toggle'
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: 'brightness_down_click'
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_up_click
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_left_click
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_right_click
   # trigger for other integrations
   - platform: event
     event_type:
