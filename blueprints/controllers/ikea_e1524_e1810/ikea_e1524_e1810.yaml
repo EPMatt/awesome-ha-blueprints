@@ -15,7 +15,7 @@ blueprint:
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2025.01.04
+    ℹ️ Version 2025.01.05
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1524_e1810/ikea_e1524_e1810.yaml
   domain: automation
   homeassistant:
@@ -403,11 +403,51 @@ trigger:
     device_id: !input controller_device
     type: action
     subtype: 'toggle'
+ - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_left_click
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_left_hold
+ - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_left_release
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_right_click
+  - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_right_hold
+ - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: arrow_right_release
   - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'brightness_down_click'
+ - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_down_hold
+ - platform: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_down_release
   - platform: device
     domain: mqtt
     device_id: !input controller_device
@@ -417,12 +457,12 @@ trigger:
     domain: mqtt
     device_id: !input controller_device
     type: action
-    subtype: arrow_left_click
-  - platform: device
+    subtype: brightness_up_hold
+ - platform: device
     domain: mqtt
     device_id: !input controller_device
     type: action
-    subtype: arrow_right_click
+    subtype: brightness_up_release
   # trigger for other integrations
   - platform: event
     event_type:
