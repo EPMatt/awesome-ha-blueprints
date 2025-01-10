@@ -37,18 +37,18 @@ blueprint:
       selector:
         device:
           filter:
-            # source: https://www.zigbee2mqtt.io/devices/E1743.html#ikea-e1743
-            - integration: mqtt
-              manufacturer: IKEA
-              model: TRADFRI on/off switch
-            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            # For backwards compatibility with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
             - integration: mqtt
               manufacturer: IKEA
               model: TRADFRI on/off switch (E1743)
+            # source: https://www.zigbee2mqtt.io/devices/E1743.html#ikea-e1743
+            # source: https://zigbee.blakadder.com/Ikea_E1743.html
+            - integration: mqtt
+              manufacturer: IKEA
+              model: TRADFRI on/off switch
             - integration: zha
               manufacturer: IKEA of Sweden
               model: TRADFRI on/off switch
-            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
             - integration: deconz
               manufacturer: IKEA of Sweden
               model: TRADFRI on/off switch
