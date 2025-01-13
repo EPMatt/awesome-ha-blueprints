@@ -146,7 +146,7 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v3
         id: changes
         with:
           list-files: json
