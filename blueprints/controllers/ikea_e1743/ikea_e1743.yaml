@@ -11,11 +11,14 @@ blueprint:
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743#available-hooks) for additional details.
 
-    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743).
+    ## More Info
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    ℹ️ Version 2025.01.15
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743/#changelog)
+    📕 [Full documentation](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743)
 
-    ℹ️ Version 2025.01.12
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+    
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1743/ikea_e1743.yaml
   domain: automation
   homeassistant:
