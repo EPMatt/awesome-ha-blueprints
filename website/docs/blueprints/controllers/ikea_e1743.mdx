@@ -258,4 +258,11 @@ It's also important to note that the controller doesn't natively support double 
 - **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. No functionality change.
 - **2022-08-08**: Optimize characters usage for the `helper_last_controller_event` text input.
 - **2025-01-02**: Remove spaces to match new helper format in Home Assistant 2023.5.x. ([@LordSushiPhoenix](https://github.com/LordSushiPhoenix))
-- **2025-01-10**: Add Support for Zigbee2MQTT MQTT device triggers, preserving backwards compatability with legacy sensor action events. ([@yarafie](https://github.com/yarafie))
+- **2025-01-15**:
+
+  :warning: **Breaking Change**:
+
+  Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
+  The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
+  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
+  To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
