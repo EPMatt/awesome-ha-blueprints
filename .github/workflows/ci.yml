@@ -12,13 +12,13 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
       - name: Cache node modules
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v4.2.0
         env:
           cache-name: cache-node-modules
         with:
@@ -43,7 +43,7 @@ jobs:
       - if: always()
         id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1.18
+        uses: reviewdog/action-eslint@v1.33
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
@@ -58,13 +58,13 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
       - name: Cache node modules
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v4.2.0
         env:
           cache-name: cache-node-modules
         with:
@@ -95,15 +95,15 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
       - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
       - name: Cache node modules
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v4.2.0
         env:
           cache-name: cache-node-modules
         with:
