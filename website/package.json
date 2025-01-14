@@ -19,7 +19,7 @@
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.2.1",
     "react": "^18.1.0",
-    "react-bootstrap-icons": "^1.10.2",
+    "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^18.1.0"
   },
   "browserslist": {
