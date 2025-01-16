@@ -150,6 +150,28 @@ blueprint:
           step: 1
           unit_of_measurement: brightness
           mode: slider
+    color_temp_steps_short:
+      name: (Optional) Light color temperature steps - short actions
+      description: Number of steps from min to max color temperature when controlling color temperature with short actions (eg. button press). Color Temperature light color mode must be supported.
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: steps
+          mode: box
+    color_temp_steps_long:
+      name: (Optional) Light color temperature steps - long actions
+      description: Number of steps from min to max color temperature when controlling color temperature with long actions (eg. button hold or controller rotation). Color Temperature light color mode must be supported.
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: steps
+          mode: box
     smooth_power_on:
       name: (Optional) Smooth power on
       description: Force the light to turn on at minimum brightness when a brightness up command (single or continuous) is triggered and light is off.
@@ -345,6 +367,12 @@ variables:
     color_modes["Hue - Saturation"] }} {%- elif "color_temp" in supported_color_modes -%} {{ color_modes["Color Temperature"] }} {%- else -%} {{ color_modes["None"] }} {%- endif -%} {%- else -%} {{ color_modes[light_color_mode] }} {%- endif -%}
   step_short: '{{ (max_brightness-min_brightness)/brightness_steps_short }}'
   step_long: '{{ (max_brightness-min_brightness)/brightness_steps_long }}'
+  color_temp_kelvin_min: '{{ state_attr(light, "min_color_temp_kelvin") | default(2702) | int }}'
+  color_temp_kelvin_max: '{{ state_attr(light, "max_color_temp_kelvin") | default(6535) | int }}'
+  color_temp_steps_short: !input color_temp_steps_short
+  color_temp_steps_long: !input color_temp_steps_long
+  color_temp_kelvin_step_short: '{{ (color_temp_kelvin_max-color_temp_kelvin_min)/color_temp_steps_short }}'
+  color_temp_kelvin_step_long: '{{ (color_temp_kelvin_max-color_temp_kelvin_min)/color_temp_steps_long }}'
 mode: restart
 max_exceeded: silent
 trigger:
@@ -520,7 +548,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ state_attr(light,"color_temp")|int + 50 }}'
+                    color_temp_kelvin: '{{ [state_attr(light,"color_temp_kelvin")|int + color_temp_kelvin_step_short, color_temp_kelvin_max]|min }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
@@ -537,7 +565,7 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
-                    color_temp: '{{ [state_attr(light,"color_temp")|int - 50, 1]|max }}'
+                    color_temp_kelvin: '{{ [state_attr(light,"color_temp_kelvin")|int - color_temp_kelvin_step_short, color_temp_kelvin_min]|max }}'
                     transition: 0.25
                   entity_id: !input light
             - conditions: '{{ light_color_mode_id == "hs_color" }}'
@@ -557,7 +585,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ state_attr(light,"color_temp")|int + 50 }}'
+                          color_temp_kelvin: '{{ [state_attr(light,"color_temp_kelvin")|int - color_temp_kelvin_step_long, color_temp_kelvin_max]|min }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
@@ -584,7 +612,7 @@ action:
                     sequence:
                       - service: light.turn_on
                         data:
-                          color_temp: '{{ [state_attr(light,"color_temp")|int - 50, 1]|max }}'
+                          color_temp_kelvin: '{{ [state_attr(light,"color_temp_kelvin")|int - color_temp_kelvin_step_long, color_temp_kelvin_min]|max }}'
                           transition: 0.25
                         entity_id: !input light
                       - delay:
