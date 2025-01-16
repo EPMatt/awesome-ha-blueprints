@@ -34,7 +34,7 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (deCONZ, ZHA, Zigbee2MQTT) Controller Device
+      name: (Required) (deCONZ, ZHA, Zigbee2MQTT) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
@@ -57,15 +57,6 @@ blueprint:
               manufacturer: IKEA of Sweden
               model: TRADFRI on/off switch
           multiple: false
-    controller_entity:
-      name: (Optional)(Deprecated) Controller Entity
-      description: >-
-        The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT and Legacy Action Sensors are enabled.
-        This input is deprecated in favor of the Controller Device input, and will be removed in a future release.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
@@ -250,19 +241,10 @@ variables:
   # integrations which need to store the previous press event to determine which button was released
   integrations_with_prev_event_storage: [zha, zigbee2mqtt]
   # build data to send within a controller event
-  controller_entity: !input controller_entity
-  controller_device: !input controller_device
-  # if integration is zigbee2mqtt and input for controller_entity is set, assume legacy mode
-  z2m_legacy: '{{ integration_id == "zigbee2mqtt" and controller_entity not in ["", None, undefined] }}'
-  controller_id: '{% if z2m_legacy %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
+  controller_id: !input controller_device
 mode: restart
 max_exceeded: silent
 trigger:
-  # trigger for zigbee2mqtt entity sensor action events (legacy)
-  - platform: event
-    event_type: state_changed
-    event_data:
-      entity_id: !input controller_entity
   # triggers for zigbee2mqtt mqtt device action
   - platform: device
     domain: mqtt
@@ -302,10 +284,8 @@ condition:
       # check that the button event is not empty
       - >-
         {%- set trigger_action -%}
-        {%- if integration_id == "zigbee2mqtt" and not z2m_legacy -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy -%}
-        {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
@@ -313,9 +293,6 @@ condition:
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
-      # only for zigbee2mqtt in legacy mode, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
-      # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
-      - '{{ not (integration_id == "zigbee2mqtt" and z2m_legacy) or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
 action:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
@@ -326,10 +303,8 @@ action:
   # provide a single string value to check against
   - variables:
       trigger_action: >-
-        {%- if integration_id == "zigbee2mqtt" and not z2m_legacy -%}
+        {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "zigbee2mqtt" and z2m_legacy -%}
-        {{ trigger.event.data.new_state.state }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
