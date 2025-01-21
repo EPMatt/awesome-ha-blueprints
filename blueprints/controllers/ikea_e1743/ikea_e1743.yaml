@@ -22,7 +22,7 @@ blueprint:
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e1743/ikea_e1743.yaml
   domain: automation
   homeassistant:
-    min_version: 2023.5.0
+    min_version: 2024.10.0
   input:
     integration:
       name: (Required) Integration
@@ -244,41 +244,41 @@ variables:
   controller_id: !input controller_device
 mode: restart
 max_exceeded: silent
-trigger:
+triggers:
   # triggers for zigbee2mqtt mqtt device action
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'on'
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'off'
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_up
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_down
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_stop
-  # trigger for other integrations
-  - platform: event
+  # triggers for other integrations
+  - trigger: event
     event_type:
       - deconz_event
       - zha_event
     event_data:
       device_id: !input controller_device
-condition:
+conditions:
   - condition: and
     conditions:
       # check that the button event is not empty
@@ -293,7 +293,7 @@ condition:
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
-action:
+actions:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
   # if the delay expires and the automation is still running it means it's the last run and execution can continue
@@ -313,7 +313,7 @@ action:
       trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
       last_controller_event: '{{ (states(helper_last_controller_event) | from_json).a if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else "" }}'
   # update helper
-  - service: input_text.set_value
+  - action: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
       value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
@@ -330,7 +330,7 @@ action:
                       - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
                               value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
@@ -413,7 +413,7 @@ action:
                       - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
                               value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
