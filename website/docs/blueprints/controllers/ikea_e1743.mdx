@@ -54,12 +54,6 @@ This integration provides the entity which must be provided to the blueprint in 
   required='deCONZ, ZHA, Zigbee2MQTT'
 />
 <Input
-  name='Controller Entity'
-  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT and Legacy Action Sensors are enabled. This input is deprecated in favor of the Controller Device input, and will be removed in a future release.'
-  selector='entity'
-  deprecated
-/>
-<Input
   name='Helper - Last Controller Event'
   description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
   selector='entity'
@@ -258,7 +252,7 @@ It's also important to note that the controller doesn't natively support double 
 - **2021-10-26**: Standardize blueprints structure and inputs naming across the whole collection. Improve blueprint documentation. No functionality change.
 - **2022-08-08**: Optimize characters usage for the `helper_last_controller_event` text input.
 - **2025-01-02**: Remove spaces to match new helper format in Home Assistant 2023.5.x. ([@LordSushiPhoenix](https://github.com/LordSushiPhoenix))
-- **2025-01-15**:
+- **2025-01-23**:
 
   :warning: **Breaking Change**:
 
