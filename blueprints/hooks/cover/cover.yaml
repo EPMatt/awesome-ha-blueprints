@@ -12,11 +12,14 @@ blueprint:
 
     A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover#supported-controllers).
 
+    ## More Info
+
+    ℹ️ Version 2025.01.23
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
 
-    ℹ️ Version 2022.07.30
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -26,13 +29,6 @@ blueprint:
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Required) Controller Entity
-      description: The controller entity which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
     controller_model:
       name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
@@ -136,47 +132,43 @@ variables:
   stop_cover_all: '{{ controller_mapping[controller_model]["stop_cover_all"] | default(None) }}'
 mode: restart
 max_exceeded: silent
-trigger:
-  - platform: event
+triggers:
+  - trigger: event
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_device
-  - platform: event
-    event_type: ahb_controller_event
-    event_data:
-      controller: !input controller_entity
-condition: []
-action:
+conditions: []
+actions:
   - variables:
       action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == open_cover }}'
         sequence:
-          - service: cover.open_cover
+          - action: cover.open_cover
             entity_id: !input cover
       - conditions: '{{ action == close_cover }}'
         sequence:
-          - service: cover.close_cover
+          - action: cover.close_cover
             entity_id: !input cover
       - conditions: '{{ action == stop_cover }}'
         sequence:
-          - service: cover.stop_cover
+          - action: cover.stop_cover
             entity_id: !input cover
       - conditions: '{{ action == open_cover_tilt }}'
         sequence:
-          - service: cover.open_cover_tilt
+          - action: cover.open_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == close_cover_tilt }}'
         sequence:
-          - service: cover.close_cover_tilt
+          - action: cover.close_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == stop_cover_tilt }}'
         sequence:
-          - service: cover.stop_cover_tilt
+          - action: cover.stop_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == stop_cover_all }}'
         sequence:
-          - service: cover.stop_cover
+          - action: cover.stop_cover
             entity_id: !input cover
-          - service: cover.stop_cover_tilt
+          - action: cover.stop_cover_tilt
             entity_id: !input cover
