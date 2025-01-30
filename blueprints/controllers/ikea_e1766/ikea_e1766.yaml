@@ -233,13 +233,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_up","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -300,13 +300,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
                           - service: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_down","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
