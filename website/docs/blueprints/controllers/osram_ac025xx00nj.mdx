@@ -1,6 +1,6 @@
 ---
 title: Controller - OSRAM AC025XX00NJ SMART+ Switch Mini
-description: Controller automation for executing any kind of action triggered by the provided OSRAM AC025XX00NJ SMART+ Switch Mini. Supports deCONZ, ZHA, Zigbee2MQTT.
+description: Controller automation for executing any kind of action triggered by the provided OSRAM AC025XX00NJ SMART+ Switch Mini. Supports Zigbee2MQTT, ZHA, deCONZ.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided OSRAM AC025XX00NJ SMART+ Switch Mini. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided OSRAM AC025XX00NJ SMART+ Switch Mini. Supports controllers integrated with Zigbee2MQTT, ZHA, deCONZ. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -28,9 +28,9 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'/>
-<Requirement id='zha'/>
 <Requirement id='zigbee2mqtt'/>
+<Requirement id='zha'/>
+<Requirement id='deconz'/>
 <Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
@@ -49,15 +49,9 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Controller Device'
-  description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
+  description='The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.'
   selector='device'
-  required='deCONZ, ZHA'
-/>
-<Input
-  name='Controller Entity'
-  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
-  selector='entity'
-  required='Zigbee2MQTT'
+  required='Zigbee2MQTT, ZHA, deCONZ'
 />
 <Input
   name='Helper - Last Controller Event'
@@ -84,6 +78,7 @@ This integration provides the entity which must be provided to the blueprint in 
   name='Up button double press'
   description='Action to run on double up button press.'
   selector='action'
+  virtual
 />
 <Input
   name='Center button short press'
@@ -104,6 +99,7 @@ This integration provides the entity which must be provided to the blueprint in 
   name='Center button double press'
   description='Action to run on double center button press.'
   selector='action'
+  virtual
 />
 <Input
   name='Down button short press'
@@ -124,6 +120,7 @@ This integration provides the entity which must be provided to the blueprint in 
   name='Down button double press'
   description='Action to run on double down button press.'
   selector='action'
+  virtual
 />
 <Input
   name='Up button long press - loop until release'
@@ -196,10 +193,10 @@ This Hook blueprint allows to build a controller-based automation to control a l
 
 - Up button short press -> Brightness up
 - Up button long press -> Brightness up (continuous, until release)
-- Up button double press -> Color up
+- Up button double press `Virtual` -> Color up
 - Down button short press -> Brightness down
 - Down button long press -> Brightness down (continuous, until release)
-- Down button double press -> Color down
+- Down button double press `Virtual` -> Color down
 - Center button short press -> Toggle
 
 [Light Hook docs](/docs/blueprints/hooks/light)
@@ -212,10 +209,10 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 - Up button short press -> Volume up
 - Up button long press -> Volume up (continuous, until release)
-- Up button double press -> Next track
+- Up button double press `Virtual` -> Next track
 - Down button short press -> Volume down
 - Down button long press -> Volume down (continuous, until release)
-- Down button double press -> Previous track
+- Down button double press `Virtual` -> Previous track
 - Center button short press -> Play/Pause
 - Center button long press -> Toggle
 
@@ -243,3 +240,12 @@ This blueprint supports any variant of the Osram SMART+ Switch Mini controller (
 - **2025-01-05**:
   - Updated Actions Mapping as per Z2M [docs](https://www.zigbee2mqtt.io/devices/AC0251100NJ_AC0251600NJ_AC0251700NJ.html#actions) for the device. ([@alexdelprete](https://github.com/alexdelprete))
   - Fix regex for updated helper JSON serialization starting from Home Assistant 2023.5.0.
+- **2025-01-23**:
+
+  :warning: **Breaking Change**:
+
+  Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
+
+  The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
+  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
+  To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.

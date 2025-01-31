@@ -39,7 +39,7 @@ function BlueprintImportCard({ category, id }) {
                 />
               </a>
               <br />
-              <small>(Home Assistant 2021.3.0 or higher)</small>
+              <small>(Home Assistant 2024.10.0 or higher)</small>
             </p>
           </div>
           <div className='col col--6'>

@@ -48,7 +48,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/EPMatt/awesome-ha-blueprints',
+          href: 'https://github.com/EPMatt/awesome-ha-blueprints/',
           label: 'GitHub',
           position: 'right',
         },
@@ -65,7 +65,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/EPMatt/awesome-ha-blueprints/edit/main/',
+          editUrl:
+            'https://github.com/EPMatt/awesome-ha-blueprints/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

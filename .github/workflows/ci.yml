@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.JS
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '22'
       - name: Cache node modules
         uses: actions/cache@v4.2.0
         env:
@@ -38,7 +38,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           yamllint_flags: '.'
-          fail_on_error: true
+          fail_level: error
           filter_mode: nofilter
       - if: always()
         id: eslint
@@ -48,7 +48,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           eslint_flags: --ext js,jsx .
-          fail_on_error: true
+          fail_level: error
           filter_mode: nofilter
           workdir: website
 
@@ -62,7 +62,7 @@ jobs:
       - name: Setup Node.JS
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '22'
       - name: Cache node modules
         uses: actions/cache@v4.2.0
         env:
@@ -101,7 +101,7 @@ jobs:
       - name: Setup Node.JS
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '22'
       - name: Cache node modules
         uses: actions/cache@v4.2.0
         env:

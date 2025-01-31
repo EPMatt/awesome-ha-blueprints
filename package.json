@@ -1,11 +1,11 @@
 {
   "name": "awesome-ha-blueprints",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "prettier": "^2.8.4"
+    "prettier": "^3.4.2"
   }
 }

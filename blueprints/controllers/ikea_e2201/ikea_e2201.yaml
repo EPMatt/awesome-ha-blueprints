@@ -1,60 +1,54 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - OSRAM AC025XX00NJ SMART+ Switch Mini
+  name: Controller (Testing) - IKEA E2201 RODRET Dimmer
   description: |
-    # Controller - OSRAM AC025XX00NJ SMART+ Switch Mini
+    # Controller - IKEA E2201 RODRET Dimmer
 
-    Controller automation for executing any kind of action triggered by the provided OSRAM AC025XX00NJ SMART+ Switch Mini. Allows to optionally loop an action on a button long press.
-    Supports deCONZ, ZHA, Zigbee2MQTT.
+    Controller automation for executing any kind of action triggered by the provided IKEA E2201 RODRET Dimmer. Allows to optionally loop an action on a button long press.
+    Supports Zigbee2MQTT, ZHA, deCONZ.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
-    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/osram_ac025xx00nj#available-hooks) for additional details.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743#available-hooks) for additional details.
 
     ## More Info
 
-    ℹ️ Version 2025.01.23
-    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/osram_ac025xx00nj/#changelog)
-    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/osram_ac025xx00nj).
+    ℹ️ Version 2025.01.30
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201).
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/osram_ac025xx00nj/osram_ac025xx00nj.yaml
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2201/ikea_e2201.yaml
   domain: automation
   homeassistant:
     min_version: 2024.10.0
+  # Input Block
   input:
-    integration:
-      name: (Required) Integration
-      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
-      selector:
-        select:
-          options:
-            - deCONZ
-            - ZHA
-            - Zigbee2MQTT
     controller_device:
-      name: (Required) (deCONZ, ZHA, Zigbee2MQTT) Controller Device
-      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
+      name: (Required) (Zigbee2MQTT, ZHA, deCONZ) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.
       default: ''
       selector:
+        # source: https://zigbee.blakadder.com/Ikea_E2201.html
         device:
           filter:
-            # source: https://www.zigbee2mqtt.io/devices/AC0251100NJ_AC0251600NJ_AC0251700NJ.html#osram-ac0251100nj-ac0251600nj-ac0251700nj
+            # source: https://www.zigbee2mqtt.io/devices/E2201.html#ikea-e2201
             - integration: mqtt
-              manufacturer: OSRAM
-              model: Smart+ switch mini
-            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+              manufacturer: IKEA
+              model: RODRET wireless dimmer/power switch
+            # For backwards compatibility with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
             - integration: mqtt
-              manufacturer: OSRAM
-              model: Smart+ switch mini (AC0251100NJ/AC0251600NJ/AC0251700NJ)
-            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
+              manufacturer: IKEA
+              model: RODRET wireless dimmer/power switch (E2201)
+            # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/twobtnremote.py#L206
             - integration: zha
-            # **TBConfirmed** manufacturer: OSRAM
-            # **TBConfirmed** model: Lightify Switch Mini
+              manufacturer: IKEA of Sweden
+              model: RODRET Dimmer
+            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L236
             - integration: deconz
-            # **TBConfirmed** manufacturer: OSRAM
-            # **TBConfirmed** model: Lightify Switch Mini
+              manufacturer: IKEA of Sweden
+              model: RODRET Dimmer
           multiple: false
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
@@ -85,30 +79,6 @@ blueprint:
     action_button_up_double:
       name: (Optional) Up button double press
       description: Action to run on double up button press.
-      default: []
-      selector:
-        action:
-    action_button_center_short:
-      name: (Optional) Center button short press
-      description: Action to run on short center button press.
-      default: []
-      selector:
-        action:
-    action_button_center_long:
-      name: (Optional) Center button long press
-      description: Action to run on long center button press.
-      default: []
-      selector:
-        action:
-    action_button_center_release:
-      name: (Optional) Center button release
-      description: Action to run on center button release after long press.
-      default: []
-      selector:
-        action:
-    action_button_center_double:
-      name: (Optional) Center button double press
-      description: Action to run on double center button press.
       default: []
       selector:
         action:
@@ -155,24 +125,6 @@ blueprint:
           max: 5000
           mode: slider
           step: 1
-    button_center_long_loop:
-      name: (Optional) Center button long press - loop until release
-      description: Loop the center button action until the button is released.
-      default: false
-      selector:
-        boolean:
-    button_center_long_max_loop_repeats:
-      name: (Optional) Center button long press - Maximum loop repeats
-      description: >-
-        Maximum number of repeats for the custom action, when looping is enabled.
-        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
-      default: 500
-      selector:
-        number:
-          min: 1
-          max: 5000
-          mode: slider
-          step: 1
     button_down_long_loop:
       name: (Optional) Down button long press - loop until release
       description: Loop the down button action until the button is released.
@@ -195,12 +147,6 @@ blueprint:
     button_up_double_press:
       name: (Optional) Expose up button double press event
       description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
-      default: false
-      selector:
-        boolean:
-    button_center_double_press:
-      name: (Optional) Expose center button double press event
-      description: Choose whether or not to expose the virtual double press event for the center button. Turn this on if you are providing an action for the center button double press event.
       default: false
       selector:
         boolean:
@@ -235,16 +181,13 @@ blueprint:
           unit_of_measurement: milliseconds
           mode: box
           step: 10
+#
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
-  integration: !input integration
   button_up_long_loop: !input button_up_long_loop
   button_up_long_max_loop_repeats: !input button_up_long_max_loop_repeats
   button_up_double_press: !input button_up_double_press
-  button_center_long_loop: !input button_center_long_loop
-  button_center_long_max_loop_repeats: !input button_center_long_max_loop_repeats
-  button_center_double_press: !input button_center_double_press
   button_down_long_loop: !input button_down_long_loop
   button_down_long_max_loop_repeats: !input button_down_long_max_loop_repeats
   button_down_double_press: !input button_down_double_press
@@ -252,132 +195,192 @@ variables:
   helper_double_press_delay: !input helper_double_press_delay
   helper_debounce_delay: !input helper_debounce_delay
   # integration id used to select items in the action mapping
-  integration_id: '{{ integration | lower }}'
+  # set the integration type from trigger.id
+  integration_id: '{{ trigger.id.split("-")[0] }}'
   # adjusted debounce delay so that the resulting double press delay is exactly as specified by the user when running the action, taking also account of debouncing
   # make sure it never goes below the minimum double press delay
   adjusted_double_press_delay: '{{ [helper_double_press_delay - helper_debounce_delay, 100] | max }}'
   # mapping between actions and integrations
   actions_mapping:
-    deconz:
-      button_up_short: ['1002']
-      button_up_long: ['1001']
-      button_up_release: ['1003']
-      button_center_short: ['3002']
-      button_center_long: ['3001']
-      button_center_release: ['3003']
-      button_down_short: ['2002']
-      button_down_long: ['2001']
-      button_down_release: ['2003']
-    zha:
+    z2m:
+      # source: https://www.zigbee2mqtt.io/devices/E2201.html#ikea-e2201
       button_up_short: ['on']
-      button_up_long: [move_with_on_off]
-      button_up_release: [stop]
-      button_center_short: [move_to_level_with_on_off]
-      button_center_long: [move_to_saturation]
-      button_center_release: [move_hue]
       button_down_short: ['off']
-      button_down_long: [move]
-      button_down_release: [stop]
-    zigbee2mqtt:
-      # source: https://www.zigbee2mqtt.io/devices/AC0251100NJ_AC0251600NJ_AC0251700NJ.html#actions
-      button_up_short: ['on']
       button_up_long: [brightness_move_up]
       button_up_release: [brightness_stop]
-      button_center_short: [brightness_move_to_level]
-      button_center_long: [move_to_saturation]
-      button_center_release: [hue_stop]
-      button_down_short: ['off']
       button_down_long: [brightness_move_down]
       button_down_release: [brightness_stop]
-  # pre-choose actions for buttons based on configured integration
-  # no need to perform this task at automation runtime
-  button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
-  button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
-  button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
-  button_center_short: '{{ actions_mapping[integration_id]["button_center_short"] }}'
-  button_center_long: '{{ actions_mapping[integration_id]["button_center_long"] }}'
-  button_center_release: '{{ actions_mapping[integration_id]["button_center_release"] }}'
-  button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
-  button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
-  button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
+    zha:
+      # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/twobtnremote.py#L206
+      button_up_short: ['on']
+      button_down_short: ['off']
+      button_up_long: [move_with_on_off]
+      button_up_release: [stop_with_on_off]
+      button_down_long: [move]
+      button_down_release: [stop]
+    dcz:
+      # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L236
+      button_up_short: ['1002']
+      button_down_short: ['2002']
+      button_up_long: ['1001']
+      button_up_release: ['1003']
+      button_down_long: ['2001']
+      button_down_release: ['2003']
+  # integrations which need to store the previous press event to determine which button was released
+  integrations_with_prev_event_storage: [z2m, zha]
   # build data to send within a controller event
   controller_id: !input controller_device
+#
+# Mode Block
 mode: restart
 max_exceeded: silent
+#
+# Triggers Block
 triggers:
-  # triggers for zigbee2mqtt mqtt device action
+  # triggers for zigbee2mqtt
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'on'
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: brightness_move_up
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: brightness_stop
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: brightness_move_to_level
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: move_to_saturation
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: hue_stop
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: down
+    id: z2m-e2201-press-on
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'off'
+    id: z2m-e2201-press-off
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_move_up
+    id: z2m-e2201-hold-on
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_down
+    id: z2m-e2201-hold-off
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_stop
-  # triggers for other integrations
+    id: z2m-e2201-release
+  # triggers for ZHA
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: 'on'
+      cluster_id: 6
+      endpoint_id: 1
+    id: zha-e2201-press-on
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: 'off'
+      cluster_id: 6
+      endpoint_id: 1
+    id: zha-e2201-press-off
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: 'move_with_on_off'
+      cluster_id: 8
+      endpoint_id: 1
+      args: [0, 83]
+    id: zha-e2201-hold-on
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: 'move'
+      cluster_id: 8
+      endpoint_id: 1
+      args: [1, 83, 0, 0]
+    id: zha-e2201-hold-off
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      cluster_id: 8
+      endpoint_id: 1
+      command: stop_with_on_off
+    id: zha-e2201-release
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      cluster_id: 8
+      endpoint_id: 1
+      command: stop
+    id: zha-e2201-release
+  # triggers for deCONZ
   - trigger: event
     event_type:
       - deconz_event
-      - zha_event
     event_data:
       device_id: !input controller_device
+      event: '1002'
+    id: dcz-e2201-press-on
+  - trigger: event
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '2002'
+    id: dcz-e2201-press-off
+  - trigger: event
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '1001'
+    id: dcz-e2201-hold-on
+  - trigger: event
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '2001'
+    id: dcz-e2201-hold-off
+  - trigger: event
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '1003'
+    id: dcz-e2201-release
+  - trigger: event
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '2003'
+    id: dcz-e2201-release
+#
+# Conditions Block
 conditions:
   - condition: and
     conditions:
       # check that the button event is not empty
       - >-
         {%- set trigger_action -%}
-        {%- if integration_id == "zigbee2mqtt" -%}
+        {%- if integration_id == "z2m" -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- elif integration_id == "dcz" -%}
+        {{ trigger.event.data.event }}
         {%- endif -%}
         {%- endset -%}
-        {{ trigger_action not in ["","None"] }}
+        {{ trigger_action not in ["","None","unknown"] }}
+#
+# Actions Block
 actions:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
@@ -387,15 +390,28 @@ actions:
   # extract button event from the trigger
   # provide a single string value to check against
   - variables:
+      # integration id used to select items in the action mapping
+      # set the integration type from trigger.id
+      integration_id: '{{ trigger.id.split("-")[0] }}'
+      # set the trigger_action based on trigger.id
       trigger_action: >-
-        {%- if integration_id == "zigbee2mqtt" -%}
+        {%- if integration_id == "z2m" -%}
         {{ trigger.payload }}
-        {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- elif integration_id == "dcz" -%}
+        {{ trigger.event.data.event }}
         {%- endif -%}
       trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
+      last_controller_event: '{{ (states(helper_last_controller_event) | from_json).a if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\":\".*\"|\"t\":\d+\.\d+)(,)?){2}\}$")) else "" }}'
+      # pre-choose actions for buttons based on configured integration
+      # mainly used to pass to hooks through ahb_controller_event
+      button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
+      button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
+      button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
+      button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
+      button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
+      button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   # update helper
   - action: input_text.set_value
     data:
@@ -403,7 +419,13 @@ actions:
       value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
-      - conditions: '{{ trigger_action | string in button_up_short }}'
+      # Actions for up button single or double press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-press-on
+              - zha-e2201-press-on
+              - dcz-e2201-press-on
         sequence:
           - choose:
               # if double press event is enabled
@@ -456,7 +478,13 @@ actions:
               - choose:
                   - conditions: []
                     sequence: !input action_button_up_short
-      - conditions: '{{ trigger_action | string in button_up_long }}'
+      # Actions for up button long press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-hold-on
+              - zha-e2201-hold-on
+              - dcz-e2201-hold-on
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -472,7 +500,15 @@ actions:
                       sequence: !input action_button_up_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_up_long
-      - conditions: '{{ trigger_action | string in button_up_release }}'
+      # Actions for up button long press released
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-release
+              - zha-e2201-release
+              - dcz-e2201-release
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_up_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
@@ -483,87 +519,13 @@ actions:
           - choose:
               - conditions: []
                 sequence: !input action_button_up_release
-      - conditions: '{{ trigger_action | string in button_center_short }}'
-        sequence:
-          - choose:
-              # if double press event is enabled
-              - conditions: '{{ button_center_double_press }}'
-                sequence:
-                  - choose:
-                      # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
-                        sequence:
-                          # store the double press event in the last controller event helper
-                          - action: input_text.set_value
-                            data:
-                              entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
-                          # run the double press action
-                          # fire the event
-                          - event: ahb_controller_event
-                            event_data:
-                              controller: '{{ controller_id }}'
-                              action: button_center_double
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_center_double
-                    # previous event was not a short press
-                    default:
-                      # wait for the double press event to occur, within the provided delay
-                      # if the second press is received, automation is restarted
-                      - delay:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
-                      # if delay expires, no second press was received, therefore run the short press action
-                      # run the short press action
-                      # fire the event
-                      - event: ahb_controller_event
-                        event_data:
-                          controller: '{{ controller_id }}'
-                          action: button_center_short
-                      # run the custom action
-                      - choose:
-                          - conditions: []
-                            sequence: !input action_button_center_short
-            # if double press event is disabled run the action for the single short press
-            default:
-              # fire the event
-              - event: ahb_controller_event
-                event_data:
-                  controller: '{{ controller_id }}'
-                  action: button_center_short
-              # run the custom action
-              - choose:
-                  - conditions: []
-                    sequence: !input action_button_center_short
-      - conditions: '{{ trigger_action | string in button_center_long }}'
-        sequence:
-          # fire the event only once before looping the action
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_center_long
-          - choose:
-              # if looping is enabled, loop the action for a finite number of iterations
-              - conditions: '{{ button_center_long_loop }}'
-                sequence:
-                  - repeat:
-                      while: '{{ repeat.index < button_center_long_max_loop_repeats | int }}'
-                      sequence: !input action_button_center_long
-            # if looping is not enabled run the custom action only once
-            default: !input action_button_center_long
-      - conditions: '{{ trigger_action | string in button_center_release }}'
-        sequence:
-          # fire the event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_center_release
-          # run the custom action
-          - choose:
-              - conditions: []
-                sequence: !input action_button_center_release
-      - conditions: '{{ trigger_action | string in button_down_short }}'
+      # Actions for down button single or double press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-press-off
+              - zha-e2201-press-off
+              - dcz-e2201-press-off
         sequence:
           - choose:
               # if double press event is enabled
@@ -616,7 +578,13 @@ actions:
               - choose:
                   - conditions: []
                     sequence: !input action_button_down_short
-      - conditions: '{{ trigger_action | string in button_down_long }}'
+      # Actions for down button long press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-hold-off
+              - zha-e2201-hold-off
+              - dcz-e2201-hold-off
         sequence:
           # fire the event only once before looping the action
           - event: ahb_controller_event
@@ -632,7 +600,15 @@ actions:
                       sequence: !input action_button_down_long
             # if looping is not enabled run the custom action only once
             default: !input action_button_down_long
-      - conditions: '{{ trigger_action | string in button_down_release }}'
+      # Actions for down button long release
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-e2201-release
+              - zha-e2201-release
+              - dcz-e2201-release
+          # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
+          - '{{ not integration_id in integrations_with_prev_event_storage or last_controller_event | string in button_down_long }}'
         sequence:
           # fire the event
           - event: ahb_controller_event
