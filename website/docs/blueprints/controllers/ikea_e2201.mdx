@@ -28,16 +28,9 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='zigbee2mqtt'/>
-<Requirement id='zha'/>
-<Requirement id='deconz'/>
-<Requirement name='Input Text Integration' required>
-
-This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
-
-[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
-
-</Requirement>
+<Requirement id='zigbee2mqtt' />
+<Requirement id='zha' />
+<Requirement id='deconz' />
 
 ## Inputs
 
@@ -46,12 +39,6 @@ This integration provides the entity which must be provided to the blueprint in 
   description='The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.'
   selector='device'
   required='Zigbee2MQTT, ZHA, deCONZ'
-/>
-<Input
-  name='Helper - Last Controller Event'
-  description='Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.'
-  selector='entity'
-  required
 />
 <Input
   name='Up button short press'
@@ -96,23 +83,18 @@ This integration provides the entity which must be provided to the blueprint in 
   virtual
 />
 <Input
-  name='Up button long press - loop until release'
-  description='Loop the up button action until the button is released.'
-  selector='boolean'
-/>
-<Input
   name='Up button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
   selector='number'
 />
 <Input
-  name='Down button long press - loop until release'
-  description='Loop the down button action until the button is released.'
-  selector='boolean'
-/>
-<Input
   name='Down button long press - Maximum loop repeats'
   description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
+  selector='number'
+/>
+<Input
+  name='Helper Up/Down button - Long Press Delay'
+  description='Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.'
   selector='number'
 />
 <Input
@@ -198,15 +180,9 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 ## Additional Notes
 
-### Helper - Last Controller Event
-
-The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
-
-The helper is used to determine button release events when the controller is integrated with Zigbee2MQTT, ZHA, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button.
-
 ### Virtual double press events
 
-It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
+It's important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
 
 ## Changelog
 
