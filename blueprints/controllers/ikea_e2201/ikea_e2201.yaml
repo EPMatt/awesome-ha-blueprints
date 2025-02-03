@@ -233,31 +233,31 @@ triggers:
     device_id: !input controller_device
     type: action
     subtype: 'on'
-    id: z2m-e2201-press-on
+    id: z2m-button-up-short
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'off'
-    id: z2m-e2201-press-off
+    id: z2m-button-down-short
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_up
-    id: z2m-e2201-hold-on
+    id: z2m-button-up-long
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_down
-    id: z2m-e2201-hold-off
+    id: z2m-button-down-long
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_stop
-    id: z2m-e2201-release
+    id: z2m-button-release
   # triggers for ZHA
   - trigger: event
     event_type: zha_event
@@ -266,7 +266,7 @@ triggers:
       command: 'on'
       cluster_id: 6
       endpoint_id: 1
-    id: zha-e2201-press-on
+    id: zha-button-up-short
   - trigger: event
     event_type: zha_event
     event_data:
@@ -274,7 +274,7 @@ triggers:
       command: 'off'
       cluster_id: 6
       endpoint_id: 1
-    id: zha-e2201-press-off
+    id: zha-button-down-short
   - trigger: event
     event_type: zha_event
     event_data:
@@ -283,7 +283,7 @@ triggers:
       cluster_id: 8
       endpoint_id: 1
       args: [0, 83]
-    id: zha-e2201-hold-on
+    id: zha-button-up-long
   - trigger: event
     event_type: zha_event
     event_data:
@@ -292,7 +292,7 @@ triggers:
       cluster_id: 8
       endpoint_id: 1
       args: [1, 83, 0, 0]
-    id: zha-e2201-hold-off
+    id: zha-button-down-long
   - trigger: event
     event_type: zha_event
     event_data:
@@ -300,7 +300,7 @@ triggers:
       command: 'stop_with_on_off'
       cluster_id: 8
       endpoint_id: 1
-    id: zha-e2201-release
+    id: zha-button-release
   - trigger: event
     event_type: zha_event
     event_data:
@@ -308,7 +308,7 @@ triggers:
       command: 'stop'
       cluster_id: 8
       endpoint_id: 1
-    id: zha-e2201-release
+    id: zha-button-release
   # triggers for deCONZ
   - trigger: event
     event_type:
@@ -316,42 +316,42 @@ triggers:
     event_data:
       device_id: !input controller_device
       event: '1002'
-    id: dcz-e2201-press-on
+    id: dcz-button-up-short
   - trigger: event
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2002'
-    id: dcz-e2201-press-off
+    id: dcz-button-down-short
   - trigger: event
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '1001'
-    id: dcz-e2201-hold-on
+    id: dcz-button-up-long
   - trigger: event
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2001'
-    id: dcz-e2201-hold-off
+    id: dcz-button-down-long
   - trigger: event
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '1003'
-    id: dcz-e2201-release
+    id: dcz-button-release
   - trigger: event
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2003'
-    id: dcz-e2201-release
+    id: dcz-button-release
 #
 # Conditions Block
 conditions:
@@ -408,9 +408,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-press-on
-              - zha-e2201-press-on
-              - dcz-e2201-press-on
+              - z2m-button-up-short
+              - zha-button-up-short
+              - dcz-button-up-short
         sequence:
           - if:
               - condition: template
@@ -420,7 +420,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - z2m-e2201-press-on
+                          - z2m-button-up-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: device
@@ -453,7 +453,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - zha-e2201-press-on
+                          - zha-button-up-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: event
@@ -488,7 +488,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - dcz-e2201-press-on
+                          - dcz-button-up-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: event
@@ -539,9 +539,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-press-off
-              - zha-e2201-press-off
-              - dcz-e2201-press-off
+              - z2m-button-down-short
+              - zha-button-down-short
+              - dcz-button-down-short
         sequence:
           - if:
               - condition: template
@@ -551,7 +551,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - z2m-e2201-press-off
+                          - z2m-button-down-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: device
@@ -584,7 +584,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - zha-e2201-press-off
+                          - zha-button-down-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: event
@@ -619,7 +619,7 @@ actions:
                   - conditions:
                       - condition: trigger
                         id:
-                          - dcz-e2201-press-off
+                          - dcz-button-down-short
                     sequence:
                       - wait_for_trigger:
                           - trigger: event
@@ -670,9 +670,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-hold-on
-              - zha-e2201-hold-on
-              - dcz-e2201-hold-on
+              - z2m-button-up-long
+              - zha-button-up-long
+              - dcz-button-up-long
         sequence:
           - repeat:
               count: !input button_up_long_max_loop_repeats
@@ -691,7 +691,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - z2m-e2201-hold-on
+                                    - z2m-button-up-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: device
@@ -714,7 +714,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - zha-e2201-hold-on
+                                    - zha-button-up-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: event
@@ -739,7 +739,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - dcz-e2201-hold-on
+                                    - dcz-button-up-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: event
@@ -764,9 +764,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-hold-off
-              - zha-e2201-hold-off
-              - dcz-e2201-hold-off
+              - z2m-button-down-long
+              - zha-button-down-long
+              - dcz-button-down-long
         sequence:
           - repeat:
               count: !input button_down_long_max_loop_repeats
@@ -785,7 +785,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - z2m-e2201-hold-off
+                                    - z2m-button-down-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: device
@@ -808,7 +808,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - zha-e2201-hold-off
+                                    - zha-button-down-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: event
@@ -833,7 +833,7 @@ actions:
                             - conditions:
                                 - condition: trigger
                                   id:
-                                    - dcz-e2201-hold-off
+                                    - dcz-button-down-long
                               sequence:
                                 - wait_for_trigger:
                                     - trigger: event
@@ -858,9 +858,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-release
-              - zha-e2201-release
-              - dcz-e2201-release
+              - z2m-button-release
+              - zha-button-release
+              - dcz-button-release
         # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
         sequence:
           # fire the event
@@ -877,9 +877,9 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - z2m-e2201-release
-              - zha-e2201-release
-              - dcz-e2201-release
+              - z2m-button-release
+              - zha-button-release
+              - dcz-button-release
         # for integrations which need to store the last controller event, need to check the previous button event, stored in the provided input_text
         sequence:
           # fire the event
