@@ -9,7 +9,7 @@ blueprint:
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
-    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743#available-hooks) for additional details.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201#available-hooks) for additional details.
 
     ## More Info
 
