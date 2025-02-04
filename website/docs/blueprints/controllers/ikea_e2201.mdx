@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E2201 RODRET Dimmer. Supports controllers integrated with Zigbee2MQTT, ZHA, deCONZ. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E2201 RODRET Dimmer. Supports controllers integrated with Zigbee2MQTT, ZHA, deCONZ. The blueprint will automagically detect the integration type and take care of all the rest.
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
@@ -24,6 +24,7 @@ The blueprint also adds support for virtual double button press events, which ar
 :::tip
 Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
 Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](/docs/blueprints/controllers/ikea_e2201#available-hooks) for additional details.
+A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
 :::
 
 ## Requirements
