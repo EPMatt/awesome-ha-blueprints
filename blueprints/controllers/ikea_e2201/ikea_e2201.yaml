@@ -1,6 +1,6 @@
 # Blueprint metadata
 blueprint:
-  name: Controller (Testing v2) - IKEA E2201 RODRET Dimmer
+  name: Controller (Pre-Release) - IKEA E2201 RODRET Dimmer
   description: |
     # Controller - IKEA E2201 RODRET Dimmer
 
@@ -100,79 +100,76 @@ blueprint:
       selector:
         action:
     # inputs for looping custom actions on long button press events until the corresponding release event is received
-    button_up_long_max_loop_repeats:
-      name: (Optional) Up button long press - Maximum loop repeats
-      description: >-
-        Maximum number of repeats for the custom action, when looping is enabled.
-        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
-      default: 20
-      selector:
-        number:
-          min: 1.0
-          max: 1000.0
-          mode: slider
-          step: 1.0
-    button_down_long_max_loop_repeats:
-      name: (Optional) Down button long press - Maximum loop repeats
-      description: >-
-        Maximum number of repeats for the custom action, when looping is enabled.
-        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
-      default: 20
-      selector:
-        number:
-          min: 1.0
-          max: 1000.0
-          mode: slider
-          step: 1.0
-    helper_long_press_delay:
-      name: (Optional) Helper - Long Press delay
-      description: Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.
-      default: 250
-      selector:
-        number:
-          min: 100.0
-          max: 5000.0
-          unit_of_measurement: milliseconds
-          mode: box
-          step: 10.0
+    long_press_options_section:
+      name: Long Press options
+      icon: mdi:remote
+      collapsed: true
+      input:
+        button_up_long_max_loop_repeats:
+          name: (Optional) Up button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_down_long_max_loop_repeats:
+          name: (Optional) Down button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        helper_long_press_delay:
+          name: (Optional) Helper - Long Press delay
+          description: Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.
+          default: 250
+          selector:
+            number:
+              min: 100.0
+              max: 5000.0
+              unit_of_measurement: milliseconds
+              mode: box
+              step: 10.0
     # inputs for enabling double press events
-    button_up_double_press:
-      name: (Optional) Expose up button double press event
-      description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
-      default: false
-      selector:
-        boolean:
-    button_down_double_press:
-      name: (Optional) Expose down button double press event
-      description: Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.
-      default: false
-      selector:
-        boolean:
-    # helpers used to properly recognize the remote button events
-    helper_double_press_delay:
-      name: (Optional) Helper - Double Press delay
-      description: Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.
-      default: 250
-      selector:
-        number:
-          min: 100.0
-          max: 5000.0
-          unit_of_measurement: milliseconds
-          mode: box
-          step: 10.0
-    helper_debounce_delay:
-      name: (Optional) Helper - Debounce delay
-      description:
-        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced,
-        usually a value of 100 is enough to remove all duplicate events.
-      default: 0
-      selector:
-        number:
-          min: 0.0
-          max: 1000.0
-          unit_of_measurement: milliseconds
-          mode: box
-          step: 10.0
+    double_press_options_section:
+      name: Double Press options
+      icon: mdi:remote
+      collapsed: true
+      input:
+        button_up_double_press_exposed:
+          name: (Optional) Expose up button double press event
+          description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
+          default: false
+          selector:
+            boolean:
+        button_down_double_press_exposed:
+          name: (Optional) Expose down button double press event
+          description: Choose whether or not to expose the virtual double press event for the down button. Turn this on if you are providing an action for the down button double press event.
+          default: false
+          selector:
+            boolean:
+        # helpers used to properly recognize the remote button events
+        helper_double_press_delay:
+          name: (Optional) Helper - Double Press delay
+          description: Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.
+          default: 250
+          selector:
+            number:
+              min: 100.0
+              max: 5000.0
+              unit_of_measurement: milliseconds
+              mode: box
+              step: 10.0
 #
 # Automation schema
 variables:
@@ -180,16 +177,12 @@ variables:
   helper_long_press_delay: !input helper_long_press_delay
   button_up_long_max_loop_repeats: !input button_up_long_max_loop_repeats
   button_down_long_max_loop_repeats: !input button_down_long_max_loop_repeats
-  button_up_double_press: !input button_up_double_press
-  button_down_double_press: !input button_down_double_press
+  button_up_double_press_exposed: !input button_up_double_press_exposed
+  button_down_double_press_exposed: !input button_down_double_press_exposed
   helper_double_press_delay: !input helper_double_press_delay
-  helper_debounce_delay: !input helper_debounce_delay
   # integration id used to select items in the action mapping
-  # set the integration type from trigger.id
+  # integration type is set from trigger.id
   integration_id: '{{ trigger.id.split("-")[0] }}'
-  # adjusted debounce delay so that the resulting double press delay is exactly as specified by the user when running the action, taking also account of debouncing
-  # make sure it never goes below the minimum double press delay
-  adjusted_double_press_delay: '{{ [helper_double_press_delay - helper_debounce_delay, 100] | max }}'
   # mapping between actions and integrations
   actions_mapping:
     z2m:
@@ -216,8 +209,14 @@ variables:
       button_up_release: ['1003']
       button_down_long: ['2001']
       button_down_release: ['2003']
-  # integrations which need to store the previous press event to determine which button was released
-  integrations_with_prev_event_storage: [z2m, zha]
+      # pre-choose actions for buttons based on configured integration
+      # mainly used to pass to hooks through ahb_controller_event
+  button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
+  button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
+  button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
+  button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
+  button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
+  button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   # build data to send within a controller event
   controller_id: !input controller_device
 #
@@ -229,53 +228,54 @@ max_exceeded: silent
 triggers:
   # triggers for zigbee2mqtt
   - trigger: device
+    id: z2m-button-up-short
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'on'
-    id: z2m-button-up-short
   - trigger: device
+    id: z2m-button-down-short
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: 'off'
-    id: z2m-button-down-short
   - trigger: device
+    id: z2m-button-up-long
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_up
-    id: z2m-button-up-long
   - trigger: device
+    id: z2m-button-down-long
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_move_down
-    id: z2m-button-down-long
   - trigger: device
+    id: z2m-button-release
     domain: mqtt
     device_id: !input controller_device
     type: action
     subtype: brightness_stop
-    id: z2m-button-release
   # triggers for ZHA
   - trigger: event
+    id: zha-button-up-short
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: 'on'
       cluster_id: 6
       endpoint_id: 1
-    id: zha-button-up-short
   - trigger: event
+    id: zha-button-down-short
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: 'off'
       cluster_id: 6
       endpoint_id: 1
-    id: zha-button-down-short
   - trigger: event
+    id: zha-button-up-long
     event_type: zha_event
     event_data:
       device_id: !input controller_device
@@ -283,8 +283,8 @@ triggers:
       cluster_id: 8
       endpoint_id: 1
       args: [0, 83]
-    id: zha-button-up-long
   - trigger: event
+    id: zha-button-down-long
     event_type: zha_event
     event_data:
       device_id: !input controller_device
@@ -292,66 +292,65 @@ triggers:
       cluster_id: 8
       endpoint_id: 1
       args: [1, 83, 0, 0]
-    id: zha-button-down-long
   - trigger: event
+    id: zha-button-release
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: 'stop_with_on_off'
       cluster_id: 8
       endpoint_id: 1
-    id: zha-button-release
   - trigger: event
+    id: zha-button-release
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: 'stop'
       cluster_id: 8
       endpoint_id: 1
-    id: zha-button-release
   # triggers for deCONZ
   - trigger: event
+    id: dcz-button-up-short
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '1002'
-    id: dcz-button-up-short
   - trigger: event
+    id: dcz-button-down-short
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2002'
-    id: dcz-button-down-short
   - trigger: event
+    id: dcz-button-up-long
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '1001'
-    id: dcz-button-up-long
   - trigger: event
+    id: dcz-button-down-long
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2001'
-    id: dcz-button-down-long
   - trigger: event
+    id: dcz-button-release
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '1003'
-    id: dcz-button-release
   - trigger: event
+    id: dcz-button-release
     event_type:
       - deconz_event
     event_data:
       device_id: !input controller_device
       event: '2003'
-    id: dcz-button-release
 #
 # Conditions Block
 conditions:
@@ -372,34 +371,6 @@ conditions:
 #
 # Actions Block
 actions:
-  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
-  # therefore previous runs must wait for the debounce delay before executing any other action
-  # if the delay expires and the automation is still running it means it's the last run and execution can continue
-  - delay:
-      milliseconds: !input helper_debounce_delay
-  # extract button event from the trigger
-  # provide a single string value to check against
-  - variables:
-      # integration id used to select items in the action mapping
-      # set the integration type from trigger.id
-      integration_id: '{{ trigger.id.split("-")[0] }}'
-      # set the trigger_action based on trigger.id
-      trigger_action: >-
-        {%- if integration_id == "z2m" -%}
-        {{ trigger.payload }}
-        {%- elif integration_id == "zha" -%}
-        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
-        {%- elif integration_id == "dcz" -%}
-        {{ trigger.event.data.event }}
-        {%- endif -%}
-      # pre-choose actions for buttons based on configured integration
-      # mainly used to pass to hooks through ahb_controller_event
-      button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
-      button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
-      button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
-      button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
-      button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
-      button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   #
   # choose the sequence to run based on the received button event
   - choose:
@@ -414,9 +385,11 @@ actions:
         sequence:
           - if:
               - condition: template
-                value_template: '{{ button_up_double_press }}'
+                value_template: '{{ button_up_double_press_exposed }}'
+            # Handle Up Double Press Event
             then:
               - choose:
+                  # z2m triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -429,7 +402,7 @@ actions:
                             type: action
                             subtype: 'on'
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -450,6 +423,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_up_short
+                  # zha triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -464,7 +438,7 @@ actions:
                               cluster_id: 6
                               endpoint_id: 1
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -485,6 +459,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_up_short
+                  # dcz triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -497,7 +472,7 @@ actions:
                               device_id: !input controller_device
                               event: '1002'
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -518,14 +493,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_up_short
-                default:
-                  - event: ahb_controller_event
-                    event_data:
-                      controller: '{{ controller_id }}'
-                      action: button_up_short
-                  - choose:
-                      - conditions: []
-                        sequence: !input action_button_up_short
+            # Not Up Double Handle Up Single Press Event
             else:
               - event: ahb_controller_event
                 event_data:
@@ -545,9 +513,11 @@ actions:
         sequence:
           - if:
               - condition: template
-                value_template: '{{ button_down_double_press }}'
+                value_template: '{{ button_down_double_press_exposed }}'
+            # Handle Down Double Press Event
             then:
               - choose:
+                  # z2m triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -560,7 +530,7 @@ actions:
                             type: action
                             subtype: 'off'
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -581,6 +551,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_down_short
+                  # zha triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -595,7 +566,7 @@ actions:
                               cluster_id: 6
                               endpoint_id: 1
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -616,6 +587,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_down_short
+                  # dcz triggers
                   - conditions:
                       - condition: trigger
                         id:
@@ -628,7 +600,7 @@ actions:
                               device_id: !input controller_device
                               event: '2002'
                         timeout:
-                          milliseconds: '{{ adjusted_double_press_delay }}'
+                          milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
                       - if:
                           - condition: template
@@ -649,14 +621,7 @@ actions:
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_down_short
-                default:
-                  - event: ahb_controller_event
-                    event_data:
-                      controller: '{{ controller_id }}'
-                      action: button_down_short
-                  - choose:
-                      - conditions: []
-                        sequence: !input action_button_down_short
+            # Not Down Double Handle Down Single Press Event
             else:
               - event: ahb_controller_event
                 event_data:
