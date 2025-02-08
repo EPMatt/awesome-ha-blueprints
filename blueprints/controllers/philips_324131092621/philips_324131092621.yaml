@@ -44,7 +44,6 @@ blueprint:
             - integration: mqtt
               manufacturer: Philips
               model: Hue dimmer switch
-              model_id: 324131092621
             # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
             - integration: mqtt
               manufacturer: Philips
