@@ -10,12 +10,16 @@ import CookieConsent from 'react-cookie-consent'
 import { useLocation } from '@docusaurus/router'
 
 export default function Home() {
+  const [consent, setConsent] = React.useState(false)
   const location = useLocation()
   React.useEffect(() => {
-    // check if dataLayer exists i.e can we track or not?
-    if (typeof dataLayer !== 'undefined') {
-      // send new event to Google Tag Manager
-      dataLayer.push({ event: 'pageview' })
+    // only if consent
+    if (consent) {
+      // check if dataLayer exists i.e can we track or not?
+      if (typeof dataLayer !== 'undefined') {
+        // send new event to Google Tag Manager
+        dataLayer.push({ event: 'pageview' })
+      }
     }
   }, [location])
 
@@ -32,8 +36,9 @@ export default function Home() {
         expires={150}
         enableDeclineButton
         declineButtonText='Reject cookies'
+        onAccept={() => setConsent(true)}
       >
-        This website uses cookies to enhance the user experience.
+        This website uses cookies to improve the user experience.
       </CookieConsent>
       <Layout
         title={`${siteConfig.title}`}
