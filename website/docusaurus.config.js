@@ -9,6 +9,7 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'EPMatt',
   projectName: 'awesome-ha-blueprints',
+  scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
   themeConfig: {
     announcementBar: {
       id: 'support_us',

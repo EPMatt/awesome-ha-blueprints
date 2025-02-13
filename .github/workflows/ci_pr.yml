@@ -52,9 +52,9 @@ jobs:
           workdir: website
         continue-on-error: true
       - if: ${{ steps.yamllint.outcome == 'failure' }}
-        run: echo "yamllint" >> results.txt
+        run: mkdir -p lint && echo "yamllint" >> lint/results.txt
       - if: ${{ steps.eslint.outcome == 'failure' }}
-        run: echo "eslint" >> results.txt
+        run: mkdir -p lint && echo "eslint" >> lint/results.txt
       - uses: actions/upload-artifact@v4
         with:
           name: lint
@@ -102,7 +102,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
-        run: echo "prettier" >> results.txt
+        run: mkdir -p format-lint && echo "prettier" >> format-lint/results.txt
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
         uses: actions/upload-artifact@v4
         with:
