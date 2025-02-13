@@ -58,7 +58,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: lint
-          path: results.txt
+          path: lint/results.txt
           retention-days: 5
           if-no-files-found: ignore
       - name: Report linters error
@@ -98,6 +98,7 @@ jobs:
         with:
           dry: true
           prettier_options: --write .
+          prettier_version: 3.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
@@ -106,7 +107,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: format-lint
-          path: results.txt
+          path: format-lint/results.txt
           if-no-files-found: ignore
 
   build:
