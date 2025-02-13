@@ -39,7 +39,6 @@ blueprint:
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
-            - IKEA E2201 RODRET Dimmer
             - SONOFF SNZB-01 Wireless Switch
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
@@ -80,12 +79,6 @@ variables:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
-    IKEA E2201 RODRET Dimmer:
-      open_cover: button_up_short
-      open_cover_tilt: button_up_long
-      close_cover: button_down_short
-      close_cover_tilt: button_down_long
-      stop_cover_all: button_down_double
     SONOFF SNZB-01 Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
