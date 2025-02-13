@@ -5,41 +5,40 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
-import CookieConsent, { Cookies } from "react-cookie-consent";
+import CookieConsent, { Cookies } from 'react-cookie-consent'
 import { useLocation } from '@docusaurus/router'
 
 export default function Home() {
-
-  let location = useLocation();
+  let location = useLocation()
 
   React.useEffect(() => {
-
     // check if dataLayer exists i.e can we track or not?
     if (typeof dataLayer !== 'undefined') {
-
       // send new event to Google Tag Manager
-      dataLayer.push({ event: 'pageview' });
-
+      dataLayer.push({ event: 'pageview' })
     }
-  }, [location]);
+  }, [location])
 
   const context = useDocusaurusContext()
   const { siteConfig = {} } = context
   return (
     <>
       <CookieConsent
-        location="bottom"
-        buttonText="Accept cookies"
-        cookieName="AnalyticsConsent"
-        style={{ background: "#2B373B" }}
-        buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+        location='bottom'
+        buttonText='Accept cookies'
+        cookieName='AnalyticsConsent'
+        style={{ background: '#2B373B' }}
+        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
         expires={150}
         enableDeclineButton
-        declineButtonText="Reject cookies"
+        declineButtonText='Reject cookies'
       >
         This website uses cookies to enhance the user experience.
       </CookieConsent>
-      <Layout title={`${siteConfig.title}`} description={`${siteConfig.tagline}`}>
+      <Layout
+        title={`${siteConfig.title}`}
+        description={`${siteConfig.tagline}`}
+      >
         <header
           className={clsx('hero hero--primary', styles.heroBanner)}
           style={{ minHeight: '70vh' }}
@@ -85,7 +84,7 @@ export default function Home() {
             </div>
           </div>
         </header>
-      </Layout >
+      </Layout>
     </>
   )
 }
