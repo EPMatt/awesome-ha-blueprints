@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import clsx from 'clsx'
 import Layout from '@theme/Layout'
@@ -5,12 +6,11 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
-import CookieConsent, { Cookies } from 'react-cookie-consent'
+import CookieConsent from 'react-cookie-consent'
 import { useLocation } from '@docusaurus/router'
 
 export default function Home() {
-  let location = useLocation()
-
+  const location = useLocation()
   React.useEffect(() => {
     // check if dataLayer exists i.e can we track or not?
     if (typeof dataLayer !== 'undefined') {
