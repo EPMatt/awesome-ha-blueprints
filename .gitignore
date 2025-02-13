@@ -14,6 +14,3 @@ yarn-error.log*
 
 # Temporary files
 /temp
-
-# ignore local yarafie
-.github/README.md
