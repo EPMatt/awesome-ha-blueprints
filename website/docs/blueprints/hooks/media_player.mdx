@@ -72,6 +72,7 @@ This integration provides the entity which represents a media player in Home Ass
 - [IKEA E1766 TRÅDFRI Open/Close Remote](/docs/blueprints/controllers/ikea_e1766)
 - [IKEA E1812 TRÅDFRI Shortcut button](/docs/blueprints/controllers/ikea_e1812)
 - [IKEA E2001/E2002 STYRBAR Remote control](/docs/blueprints/controllers/ikea_e2001_e2002)
+- [IKEA E2201 RODRET Dimmer](/docs/blueprints/controllers/ikea_e2201)
 - [IKEA ICTC-G-1 TRÅDFRI wireless dimmer](/docs/blueprints/controllers/ikea_ictc_g_1)
 - [OSRAM AC025XX00NJ SMART+ Switch Mini](/docs/blueprints/controllers/osram_ac025xx00nj)
 - [Philips 324131092621 Hue Dimmer switch](/docs/blueprints/controllers/philips_324131092621)
@@ -120,3 +121,5 @@ Not all media players support the customization of the number of steps for volum
   The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
   If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
+
+- **2025-02-14**: Added support for IKEA E2201 RODRET Dimmer. ([@yarafie](https://github.com/yarafie))
