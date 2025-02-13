@@ -12,11 +12,14 @@ blueprint:
 
     A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player#supported-controllers).
 
+    ## More Info
+
+    ℹ️ Version 2025.01.30
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-    ℹ️ Version 2022.07.30
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:
@@ -26,13 +29,6 @@ blueprint:
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Required) Controller Entity
-      description: The controller entity which will control the Media Player. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
     controller_model:
       name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
@@ -224,39 +220,35 @@ variables:
   volume_step_value_long: '{{ 1/volume_steps_long }}'
 mode: restart
 max_exceeded: silent
-trigger:
-  - platform: event
+triggers:
+  - trigger: event
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_device
-  - platform: event
-    event_type: ahb_controller_event
-    event_data:
-      controller: !input controller_entity
 condition: []
-action:
+actions:
   - variables:
       action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == play_pause }}'
         sequence:
-          - service: media_player.media_play_pause
+          - action: media_player.media_play_pause
             entity_id: !input media_player
       - conditions: '{{ action == stop }}'
         sequence:
-          - service: media_player.media_stop
+          - action: media_player.media_stop
             entity_id: !input media_player
       - conditions: '{{ action == next_track }}'
         sequence:
-          - service: media_player.media_next_track
+          - action: media_player.media_next_track
             entity_id: !input media_player
       - conditions: '{{ action == prev_track }}'
         sequence:
-          - service: media_player.media_previous_track
+          - action: media_player.media_previous_track
             entity_id: !input media_player
       - conditions: '{{ action == toggle }}'
         sequence:
-          - service: media_player.toggle
+          - action: media_player.toggle
             entity_id: !input media_player
       - conditions: '{{ action == volume_up }}'
         sequence:
@@ -264,13 +256,13 @@ action:
               # if the volume level can be read from the media player, increase the volume by the custom step value
               - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                 sequence:
-                  - service: media_player.volume_set
+                  - action: media_player.volume_set
                     entity_id: !input media_player
                     data:
                       volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_short, 1 ] | min  }}'
             # if the volume level is not available, fallback to the media_player.volume_up service
             default:
-              - service: media_player.volume_up
+              - action: media_player.volume_up
                 entity_id: !input media_player
       - conditions: '{{ action == volume_down }}'
         sequence:
@@ -278,13 +270,13 @@ action:
               # if the volume level can be read from the media player, decrease the volume by the custom step value
               - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                 sequence:
-                  - service: media_player.volume_set
+                  - action: media_player.volume_set
                     entity_id: !input media_player
                     data:
                       volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_short, 0 ] | max }}'
             # if the volume level is not available, fallback to the media_player.volume_down service
             default:
-              - service: media_player.volume_down
+              - action: media_player.volume_down
                 entity_id: !input media_player
       - conditions: '{{ action == volume_up_repeat }}'
         sequence:
@@ -295,13 +287,13 @@ action:
                     # if the volume level can be read from the media player, increase the volume by the custom step value
                     - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                       sequence:
-                        - service: media_player.volume_set
+                        - action: media_player.volume_set
                           entity_id: !input media_player
                           data:
                             volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_long, 1 ] | min  }}'
                   # if the volume level is not available, fallback to the media_player.volume_up service
                   default:
-                    - service: media_player.volume_up
+                    - action: media_player.volume_up
                       entity_id: !input media_player
                 - delay:
                     milliseconds: 250
@@ -314,13 +306,13 @@ action:
                     # if the volume level can be read from the media player, decrease the volume by the custom step value
                     - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                       sequence:
-                        - service: media_player.volume_set
+                        - action: media_player.volume_set
                           entity_id: !input media_player
                           data:
                             volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_long, 0 ] | max }}'
                   # if the volume level is not available, fallback to the media_player.volume_down service
                   default:
-                    - service: media_player.volume_down
+                    - action: media_player.volume_down
                       entity_id: !input media_player
                 - delay:
                     milliseconds: 250

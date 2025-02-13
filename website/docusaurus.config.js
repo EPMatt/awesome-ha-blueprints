@@ -48,7 +48,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/EPMatt/awesome-ha-blueprints',
+          href: 'https://github.com/EPMatt/awesome-ha-blueprints/',
           label: 'GitHub',
           position: 'right',
         },

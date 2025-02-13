@@ -1,6 +1,6 @@
 ---
 title: Controller - IKEA E1766 TRÅDFRI Open/Close Remote
-description: Controller automation for executing any kind of action triggered by the provided IKEA E1766 TRÅDFRI Open/Close Remote. Supports deCONZ, ZHA, Zigbee2MQTT.
+description: Controller automation for executing any kind of action triggered by the provided IKEA E1766 TRÅDFRI Open/Close Remote. Supports Zigbee2MQTT, ZHA, deCONZ.
 ---
 
 import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
@@ -15,7 +15,7 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 ## Description
 
-This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1766 TRÅDFRI Open/Close Remote. Supports controllers integrated with deCONZ, ZHA, Zigbee2MQTT. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
+This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E1766 TRÅDFRI Open/Close Remote. Supports controllers integrated with Zigbee2MQTT, ZHA, deCONZ. Just specify the integration used to connect the remote to Home Assistant when setting up the automation, and the blueprint will take care of all the rest.
 
 The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
 
@@ -26,9 +26,9 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='deconz'/>
-<Requirement id='zha'/>
 <Requirement id='zigbee2mqtt'/>
+<Requirement id='zha'/>
+<Requirement id='deconz'/>
 <Requirement name='Input Text Integration' required>
 
 This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
@@ -47,15 +47,9 @@ This integration provides the entity which must be provided to the blueprint in 
 />
 <Input
   name='Controller Device'
-  description='The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.'
+  description='The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.'
   selector='device'
-  required='deCONZ, ZHA'
-/>
-<Input
-  name='Controller Entity'
-  description='The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.'
-  selector='entity'
-  required='Zigbee2MQTT'
+  required='Zigbee2MQTT, ZHA, deCONZ'
 />
 <Input
   name='Helper - Last Controller Event'
@@ -77,6 +71,7 @@ This integration provides the entity which must be provided to the blueprint in 
   name='Up button double press'
   description='Action to run on double up button press.'
   selector='action'
+  virtual
 />
 <Input
   name='Down button short press'
@@ -92,6 +87,7 @@ This integration provides the entity which must be provided to the blueprint in 
   name='Down button double press'
   description='Action to run on double down button press.'
   selector='action'
+  virtual
 />
 <Input
   name='Expose up button double press event'
@@ -128,16 +124,16 @@ This Hook blueprint allows to build a controller-based automation to control a l
 #### Default Mapping
 
 - Up button short press -> Brightness up
-- Up button double press -> Turn on
+- Up button double press `Virtual` -> Turn on
 - Down button short press -> Brightness down
-- Down button double press -> Turn off
+- Down button double press `Virtual` -> Turn off
 
 #### Mapping #2
 
 - Up button short press -> Brightness up
-- Up button double press -> Color up
+- Up button double press `Virtual` -> Color up
 - Down button short press -> Brightness down
-- Down button double press -> Color down
+- Down button double press `Virtual` -> Color down
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
@@ -148,9 +144,9 @@ This Hook blueprint allows to build a controller-based automation to control a m
 #### Default Mapping
 
 - Up button short press -> Volume up
-- Up button double press -> Next track
+- Up button double press `Virtual` -> Next track
 - Down button short press -> Volume down
-- Down button double press -> Play/Pause
+- Down button double press `Virtual` -> Play/Pause
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
@@ -162,7 +158,7 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 - Up button short press -> Open cover
 - Down button short press -> Close cover
-- Down button double press -> Stop cover and cover tilt
+- Down button double press `Virtual` -> Stop cover and cover tilt
 
 [Cover Hook docs](/docs/blueprints/hooks/cover)
 
@@ -184,3 +180,12 @@ Due to the controller not exposing long press events but only short and release 
 
 - **2021-10-29**: first blueprint version :tada:
 - **2022-08-08**: Optimize characters usage for the `helper_last_controller_event` text input.
+- **2025-02-13**:
+
+  :warning: **Breaking Change**:
+
+  Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
+
+  The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
+  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
+  To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
