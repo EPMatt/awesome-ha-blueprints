@@ -66,6 +66,7 @@ jobs:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
           workflow_conclusion: failure
+          allow_forks: true
       - id: pr_info
         run: echo "::set-output name=num::$(cat changes_pr_num/pr_num.txt)"
       - name: Create comment to report failure
