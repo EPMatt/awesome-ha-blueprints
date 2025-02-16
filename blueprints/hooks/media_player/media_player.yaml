@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.01.30
+    ℹ️ Version 2025.02.16
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
@@ -35,6 +35,7 @@ blueprint:
       selector:
         select:
           options:
+            - Aqara WXKG11LM Wireless Mini Switch
             - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1744 SYMFONISK Rotary Remote
@@ -53,7 +54,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
-            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+            - Xiaomi WXKG01LM Mi Wireless Switch
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -88,6 +89,10 @@ variables:
   controller_model: !input controller_model
   # supported controllers and mappings
   controller_mapping:
+    Aqara WXKG11LM Wireless Mini Switch:
+      play_pause: button_short
+      stop: button_long
+      next_track: button_double
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       volume_up: button_up_short
       volume_up_repeat: button_up_long
@@ -198,7 +203,7 @@ variables:
       next_track: button_5_double
       volume_down: button_6_long
       play_pause: button_6_double
-    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+    Xiaomi WXKG01LM Mi Wireless Switch:
       play_pause: button_short
       stop: button_long
       next_track: button_double

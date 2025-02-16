@@ -1,10 +1,10 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+  name: Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
   description: |
-    # Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+    # Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
 
-    Controller automation for executing any kind of action triggered by the provided Xiaomi WXKG11LM Aqara Wireless Switch Mini. Allows to optionally loop an action on a button long press.
+    Controller automation for executing any kind of action triggered by the provided Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.13
+    ℹ️ Version 2025.02.16
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm).
 
@@ -41,6 +41,7 @@ blueprint:
         device:
           filter:
             # source: https://www.zigbee2mqtt.io/devices/WXKG01LM.html#xiaomi-wxkg01lm
+            # Xiaomi WXKG01LM
             - integration: mqtt
               manufacturer: Xiaomi
               model: Mi wireless switch
@@ -48,6 +49,15 @@ blueprint:
             - integration: mqtt
               manufacturer: Xiaomi
               model: Mi wireless switch (WXKG01LM)
+            # source: https://www.zigbee2mqtt.io/devices/WXKG11LM.html#aqara-wxkg11lm
+            # Aqara WXKG11LM
+            - integration: mqtt
+              manufacturer: Aqara
+              model: Wireless mini switch
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Aqara
+              model: Wireless mini switch (WXKG11LM)
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
             - integration: zha
             # **TBConfirmed** manufacturer: Xiaomi
@@ -145,6 +155,7 @@ variables:
       button_double: [double_value]
     zigbee2mqtt:
       # source: https://www.zigbee2mqtt.io/devices/WXKG01LM.html#xiaomi-wxkg01lm
+      # source: https://www.zigbee2mqtt.io/devices/WXKG11LM.html#aqara-wxkg11lm
       button_short: [single]
       button_long: [hold]
       button_release: [release]

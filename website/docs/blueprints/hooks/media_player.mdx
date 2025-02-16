@@ -66,6 +66,7 @@ This integration provides the entity which represents a media player in Home Ass
 
 ## Supported Controllers
 
+- [Aqara WXKG11LM Wireless Mini Switch](/docs/blueprints/controllers/xiaomi_wxkg11lm)
 - [IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote](/docs/blueprints/controllers/ikea_e1524_e1810)
 - [IKEA E1743 TRÅDFRI On/Off Switch & Dimmer](/docs/blueprints/controllers/ikea_e1743)
 - [IKEA E1744 SYMFONISK Rotary Remote](/docs/blueprints/controllers/ikea_e1744)
@@ -81,7 +82,7 @@ This integration provides the entity which represents a media player in Home Ass
 - [Xiaomi WXCJKG11LM Aqara Opple 2 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg11lm)
 - [Xiaomi WXCJKG12LM Aqara Opple 4 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg12lm)
 - [Xiaomi WXCJKG13LM Aqara Opple 6 button remote](/docs/blueprints/controllers/xiaomi_wxcjkg13lm)
-- [Xiaomi WXKG11LM Aqara Wireless Switch Mini](/docs/blueprints/controllers/xiaomi_wxkg11lm)
+- [Xiaomi WXKG01LM Mi Wireless Switch](/docs/blueprints/controllers/xiaomi_wxkg11lm)
 
 ## Additional Notes
 
@@ -120,3 +121,12 @@ Not all media players support the customization of the number of steps for volum
   The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
   If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
+
+- **2025-02-16**:
+
+  :warning: **Breaking Change**:
+
+  Add support for Xiaomi WXKG01LM Mi Wireless Switch, rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch
+
+  If you had configured the `controller_model` input to `Xiaomi WXKG11LM Aqara Wireless Switch Mini`, please change it to `Aqara WXKG11LM Wireless Mini Switch`.
+  The change has been implemented to match the controller with the correct manufacturer name (Aqara).
