@@ -20,6 +20,7 @@ jobs:
           workflow: ci_pr.yml
           name: changes
           path: changes
+          allow_forks: true
       - id: pr_info
         run: echo "::set-output name=num::$(cat changes/pr_num.txt)"
       - uses: hasura/comment-progress@v2
