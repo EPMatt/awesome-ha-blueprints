@@ -1,10 +1,10 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+  name: Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
   description: |
-    # Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+    # Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
 
-    Controller automation for executing any kind of action triggered by the provided Xiaomi WXKG11LM Aqara Wireless Switch Mini. Allows to optionally loop an action on a button long press.
+    Controller automation for executing any kind of action triggered by the provided Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.13
+    ℹ️ Version 2025.02.16
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm).
 

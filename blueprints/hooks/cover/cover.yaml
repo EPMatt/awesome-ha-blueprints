@@ -35,6 +35,7 @@ blueprint:
       selector:
         select:
           options:
+            - Aqara WXKG11LM Wireless Mini Switch
             - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
@@ -46,7 +47,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
-            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+            - Xiaomi WXKG01LM Mi Wireless Switch
     cover:
       name: (Required) Cover
       description: Cover which will be controlled with this automation.
@@ -59,6 +60,10 @@ variables:
   controller_model: !input controller_model
   # supported controllers and mappings
   controller_mapping:
+    Aqara WXKG11LM Wireless Mini Switch:
+      open_cover: button_short
+      stop_cover_all: button_long
+      close_cover: button_double
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       open_cover: button_up_short
       close_cover: button_down_short
@@ -119,7 +124,7 @@ variables:
       close_cover: button_6_short
       close_cover_tilt: button_6_long
       stop_cover_all: button_6_double
-    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+    Xiaomi WXKG01LM Mi Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
