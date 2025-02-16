@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">Hook - Media Player | Awesome HA Blueprints</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Hook - Media Player | Awesome HA Blueprints"><meta data-rh="true" name="description" content="This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection."><meta data-rh="true" property="og:description" content="This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection."><link data-rh="true" rel="icon" href="/awesome-ha-blueprints/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player"><link data-rh="true" rel="alternate" href="https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player" hreflang="en"><link data-rh="true" rel="alternate" href="https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player" hreflang="x-default"><script src="/awesome-ha-blueprints/js/google-tag-manager.js"></script><link rel="stylesheet" href="/awesome-ha-blueprints/assets/css/styles.7b58db89.css">
-<script src="/awesome-ha-blueprints/assets/js/runtime~main.0ca344ce.js" defer="defer"></script>
+<script src="/awesome-ha-blueprints/assets/js/runtime~main.d840a410.js" defer="defer"></script>
 <script src="/awesome-ha-blueprints/assets/js/main.2b64f6ef.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -25,6 +25,7 @@
 <div><span style="font-weight:600">Volume steps - long actions<!-- --> <span class="badge badge--primary">Number</span> <span class="badge badge--info">Optional</span> </span><br><p style="font-size:0.9rem" class="margin-top--sm">Number of steps from min to max volume when controlling volume with long actions (eg. button hold or controller rotation), if the media player supports it.</p><hr></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="supported-controllers">Supported Controllers<a href="#supported-controllers" class="hash-link" aria-label="Direct link to Supported Controllers" title="Direct link to Supported Controllers">​</a></h2>
 <ul>
+<li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm">Aqara WXKG11LM Wireless Mini Switch</a></li>
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1524_e1810">IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote</a></li>
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1743">IKEA E1743 TRÅDFRI On/Off Switch &amp; Dimmer</a></li>
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1744">IKEA E1744 SYMFONISK Rotary Remote</a></li>
@@ -40,7 +41,7 @@
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxcjkg11lm">Xiaomi WXCJKG11LM Aqara Opple 2 button remote</a></li>
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxcjkg12lm">Xiaomi WXCJKG12LM Aqara Opple 4 button remote</a></li>
 <li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxcjkg13lm">Xiaomi WXCJKG13LM Aqara Opple 6 button remote</a></li>
-<li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm">Xiaomi WXKG11LM Aqara Wireless Switch Mini</a></li>
+<li><a href="/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm">Xiaomi WXKG01LM Mi Wireless Switch</a></li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="additional-notes">Additional Notes<a href="#additional-notes" class="hash-link" aria-label="Direct link to Additional Notes" title="Direct link to Additional Notes">​</a></h2>
 <p>Not all media players support the customization of the number of steps for volume control, due to the fact that some of them do not expose their current volume level to Home Assistant. In these situations, the automation will fallback to the <code>media_player.volume_up</code> and <code>media_player.volume_down</code> services.</p>
@@ -111,6 +112,13 @@
 <p>The <code>controller_entity</code> input has been deprecated, and <code>controller_device</code> is now mandatory.
 If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the <code>controller_entity</code> input from your automation config and add the device ID of your controller to the <code>controller_device</code> input.
 To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the <code>controller_device</code> input to select your controller.</p>
+</li>
+<li>
+<p><strong>2025-02-16</strong>:</p>
+<p>⚠️<!-- --> <strong>Breaking Change</strong>:</p>
+<p>Add support for Xiaomi WXKG01LM Mi Wireless Switch, rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch</p>
+<p>If you had configured the <code>controller_model</code> input to <code>Xiaomi WXKG11LM Aqara Wireless Switch Mini</code>, please change it to <code>Aqara WXKG11LM Wireless Mini Switch</code>.
+The change has been implemented to match the controller with the correct manufacturer name (Aqara).</p>
 </li>
 </ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/EPMatt/awesome-ha-blueprints/edit/main/docs/blueprints/hooks/media_player.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#description" class="table-of-contents__link toc-highlight">Description</a></li><li><a href="#requirements" class="table-of-contents__link toc-highlight">Requirements</a></li><li><a href="#inputs" class="table-of-contents__link toc-highlight">Inputs</a></li><li><a href="#supported-controllers" class="table-of-contents__link toc-highlight">Supported Controllers</a></li><li><a href="#additional-notes" class="table-of-contents__link toc-highlight">Additional Notes</a></li><li><a href="#changelog" class="table-of-contents__link toc-highlight">Changelog</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Awesome HA Blueprints is maintained by <a href="https://github.com/EPMatt">Matteo Agnoletto</a>.<br>Licensed under the <a href="https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE">GPL-3.0 License</a></div></div></div></footer></div>
 </body>
