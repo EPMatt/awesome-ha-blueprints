@@ -121,11 +121,12 @@ Not all media players support the customization of the number of steps for volum
   The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
   If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
+
 - **2025-02-16**:
 
   :warning: **Breaking Change**:
 
   Add support for Xiaomi WXKG01LM Mi Wireless Switch, rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch
-  
+
   If you had configured the `controller_model` input to `Xiaomi WXKG11LM Aqara Wireless Switch Mini`, please change it to `Aqara WXKG11LM Wireless Mini Switch`.
   The change has been implemented to match the controller with the correct manufacturer name (Aqara).
