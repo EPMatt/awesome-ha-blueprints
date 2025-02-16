@@ -167,13 +167,12 @@ jobs:
         run: echo $PR_NUM > pr_num.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: changes
+          name: changes_blueprints
           path: blueprints.txt
           retention-days: 5
           if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
-          name: changes
+          name: changes_pr_num
           path: pr_num.txt
           retention-days: 5
-          overwrite: true
