@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.16
+    ℹ️ Version 2025.02.20
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
@@ -42,6 +42,7 @@ blueprint:
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
             - IKEA E2001/E2002 STYRBAR Remote control
+            - IKEA E2201 RODRET Dimmer
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
@@ -130,6 +131,12 @@ variables:
       volume_down_repeat: button_down_long
       prev_track: button_left_short
       next_track: button_right_short
+    IKEA E2201 RODRET Dimmer:
+      volume_up: button_up_short
+      volume_up_repeat: button_up_long
+      next_track: button_up_double
+      volume_down: button_down_long
+      play_pause: button_down_double
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       volume_down_repeat: rotate_left
       volume_up_repeat: rotate_right
