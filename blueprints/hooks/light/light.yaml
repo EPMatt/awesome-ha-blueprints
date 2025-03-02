@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.16
+    ℹ️ Version 2025.03.01
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
 
@@ -45,6 +45,8 @@ blueprint:
             - IKEA E1812 TRÅDFRI Shortcut button
             - IKEA E2001/E2002 STYRBAR Remote control
             - IKEA E2001/E2002 STYRBAR Remote control (#2)
+            - IKEA E2213 SOMRIG shortcut button
+            - IKEA E2213 SOMRIG shortcut button (#2)
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
@@ -231,6 +233,20 @@ variables:
       color_down_repeat: button_left_long
       color_up: button_right_short
       color_up_repeat: button_right_long
+    IKEA E2213 SOMRIG shortcut button:
+      turn_on: button_dots1_short
+      brightness_up_repeat: button_dots1_long
+      color_up: button_dots1_double
+      turn_off: button_dots2_short
+      brightness_down_repeat: button_dots2_long
+      color_down: button_dots2_double
+    IKEA E2213 SOMRIG shortcut button (#2):
+      brightness_up: button_dots1_short
+      brightness_up_repeat: button_dots1_long
+      turn_on: button_dots1_double
+      brightness_down: button_dots2_short
+      brightness_down_repeat: button_dots2_long
+      turn_off: button_dots2_double
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       brightness_down_repeat: rotate_left
       brightness_up_repeat: rotate_right
@@ -456,9 +472,9 @@ actions:
                       entity_id: !input light
                   - delay:
                       milliseconds: !input light_transition
-          # else move on to the loop for increasing the light brightness
+          # else move on to the loop for increasing the light brightness until the maximum brightness is reached
           - repeat:
-              while: '{{ true }}'
+              while: '{{ state_attr(light,"brightness") < max_brightness }}'
               sequence:
                 - action: light.turn_on
                   data:
@@ -498,8 +514,8 @@ actions:
                                 milliseconds: 250
             default:
               - repeat:
-                  # continue lowering brightness until the light turns off
-                  while: '{{ states(light) != "off" }}'
+                  # continue lowering brightness until the light hits the minimum brightness
+                  while: '{{ state_attr(light,"brightness") > min_brightness }}'
                   sequence:
                     # lower the light's brightness. since smooth power off is disabled, never let the brightness move below the user-provided minimum
                     - action: light.turn_on
