@@ -1,0 +1,1011 @@
+# Blueprint Metadata
+blueprint:
+  name: Controller - IKEA E2123 SYMFONISK sound remote, gen 2
+  description: |
+    # Controller - IKEA E2123 SYMFONISK sound remote, gen 2
+
+    Controller automation for executing any kind of action triggered by the provided IKEA E2123 SYMFONISK sound remote, gen 2.
+    The blueprint handles double button press events natively as it is supported by the controller device itself.
+    Supports Zigbee2MQTT, ZHA, deCONZ.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
+    See the list of [Hooks available for this controller](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2123#available-hooks) for additional details.
+
+    A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
+
+    ## More Info
+
+    ℹ️ Version 2025.03.02
+    📝 [Changelog](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2123/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2123).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://yarafie.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+
+  source_url: https://github.com/yarafie/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2123/ikea_e2123.yaml
+  domain: automation
+  homeassistant:
+    min_version: 2024.10.0
+  # Device Selector
+  input:
+    controller_device:
+      name: (Required) (Zigbee2MQTT, ZHA, deCONZ) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.
+      default: ''
+      selector:
+        # source: https://zigbee.blakadder.com/Ikea_E2123.html
+        device:
+          filter:
+            # source: https://www.zigbee2mqtt.io/devices/E2123.html
+            - integration: mqtt
+              manufacturer: IKEA
+              model: SYMFONISK sound remote, gen 2
+            # For backwards compatibility with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: IKEA
+              model: SYMFONISK sound remote, gen 2 (E2123)
+            # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/symfonisk2.py
+            - integration: zha
+              manufacturer: IKEA of Sweden
+              model: SYMFONISK sound remote gen2
+            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/master/devices/ikea/symfonisk_sound_remote_gen2.json
+            - integration: deconz
+              manufacturer: IKEA of Sweden
+              model: SYMFONISK sound remote gen2
+          multiple: false
+    # inputs for custom actions
+    action_button_up_short:
+      name: (Optional) Up button short press
+      description: Action to run on short up button press.
+      default: []
+      selector:
+        action:
+    action_button_up_long:
+      name: (Optional) Up button long press
+      description: Action to run on long up button press.
+      default: []
+      selector:
+        action:
+    action_button_down_short:
+      name: (Optional) Down button short press
+      description: Action to run on short down button press.
+      default: []
+      selector:
+        action:
+    action_button_down_long:
+      name: (Optional) Down button long press
+      description: Action to run on long down button press.
+      default: []
+      selector:
+        action:
+    action_button_right_short:
+      name: (Optional) Right button short press
+      description: Action to run on short right button press.
+      default: []
+      selector:
+        action:
+    action_button_left_short:
+      name: (Optional) Left button short press
+      description: Action to run on short left button press.
+      default: []
+      selector:
+        action:
+    action_button_center_short:
+      name: (Optional) Center button short press
+      description: Action to run on short center button press.
+      default: []
+      selector:
+        action:
+    action_button_dots1_short:
+      name: (Optional) Dots1 button short press
+      description: Action to run on short dots1 button press.
+      default: []
+      selector:
+        action:
+    action_button_dots1_long:
+      name: (Optional) Dots1 button long press
+      description: Action to run on long dots1 button press.
+      default: []
+      selector:
+        action:
+    action_button_dots1_release:
+      name: (Optional) Dots1 button release
+      description: Action to run on dots1 button release after long press.
+      default: []
+      selector:
+        action:
+    action_button_dots1_double:
+      name: (Optional) Dots1 button double press
+      description: Action to run on double dots1 button press.
+      default: []
+      selector:
+        action:
+    action_button_dots2_short:
+      name: (Optional) Dots2 button short press
+      description: Action to run on short dots2 button press.
+      default: []
+      selector:
+        action:
+    action_button_dots2_long:
+      name: (Optional) Dots2 button long press
+      description: Action to run on long dots2 button press.
+      default: []
+      selector:
+        action:
+    action_button_dots2_release:
+      name: (Optional) Dots2 button release
+      description: Action to run on dots2 button release after long press.
+      default: []
+      selector:
+        action:
+    action_button_dots2_double:
+      name: (Optional) Dots2 button double press
+      description: Action to run on double dots2 button press.
+      default: []
+      selector:
+        action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
+    long_press_options_section:
+      name: Long Press options
+      icon: mdi:remote
+      collapsed: true
+      input:
+        button_up_long_loop:
+          name: (Optional) Up button long press - loop until release
+          description: Loop the up button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_up_long_max_loop_repeats:
+          name: (Optional) Up button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_down_long_loop:
+          name: (Optional) Down button long press - loop until release
+          description: Loop the down button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_down_long_max_loop_repeats:
+          name: (Optional) Down button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_right_long_loop:
+          name: (Optional) Right button long press - loop until release
+          description: Loop the right button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_right_long_max_loop_repeats:
+          name: (Optional) Right button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_left_long_loop:
+          name: (Optional) Left button long press - loop until release
+          description: Loop the left button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_left_long_max_loop_repeats:
+          name: (Optional) Left button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_center_long_loop:
+          name: (Optional) Center button long press - loop until release
+          description: Loop the center button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_center_long_max_loop_repeats:
+          name: (Optional) Center button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_dots1_long_loop:
+          name: (Optional) Dots1 button long press - loop until release
+          description: Loop the dots1 button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_dots1_long_max_loop_repeats:
+          name: (Optional) Dots1 button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        button_dots2_long_loop:
+          name: (Optional) Dots2 button long press - loop until release
+          description: Loop the dots2 button action until the button is released.
+          default: false
+          selector:
+            boolean:
+        button_dots2_long_max_loop_repeats:
+          name: (Optional) Dots2 button long press - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 20
+          selector:
+            number:
+              min: 1.0
+              max: 1000.0
+              mode: slider
+              step: 1.0
+        helper_long_press_delay:
+          name: (Optional) Helper - Long Press delay
+          description: Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.
+          default: 250
+          selector:
+            number:
+              min: 100.0
+              max: 5000.0
+              unit_of_measurement: milliseconds
+              mode: box
+              step: 10.0
+#
+# Automation schema
+variables:
+  # Controller ID
+  controller_id: !input controller_device
+  # integration id used to select items in the action mapping
+  # integration type is set from trigger.id
+  integration_id: '{{ trigger.id.split("-")[0] }}'
+  # convert input tags to variables, to be used in templates
+  button_up_long_loop: !input button_up_long_loop
+  button_up_long_max_loop_repeats: !input button_up_long_max_loop_repeats
+  button_down_long_loop: !input button_down_long_loop
+  button_down_long_max_loop_repeats: !input button_down_long_max_loop_repeats
+  button_right_long_loop: !input button_right_long_loop
+  button_right_long_max_loop_repeats: !input button_right_long_max_loop_repeats
+  button_left_long_loop: !input button_left_long_loop
+  button_left_long_max_loop_repeats: !input button_left_long_max_loop_repeats
+  button_center_long_loop: !input button_center_long_loop
+  button_center_long_max_loop_repeats: !input button_center_long_max_loop_repeats
+  button_dots1_long_loop: !input button_dots1_long_loop
+  button_dots1_long_max_loop_repeats: !input button_dots1_long_max_loop_repeats
+  button_dots2_long_loop: !input button_dots2_long_loop
+  button_dots2_long_max_loop_repeats: !input button_dots2_long_max_loop_repeats
+  helper_long_press_delay: !input helper_long_press_delay
+  # mapping between actions and integrations
+  actions_mapping:
+    z2m:
+      # source: https://www.zigbee2mqtt.io/devices/E2123.html
+      button_up_short: [volume_up]
+      button_up_long: [volume_up_hold]
+      button_down_short: [volume_down]
+      button_down_long: [volume_down_hold]
+      button_right_short: [track_next]
+      button_left_short: [track_previous]
+      button_center_short: [play_pause]
+      button_dots1_short: [dots_1_short_release]
+      button_dots1_long: [dots_1_long_press]
+      button_dots1_release: [dots_1_long_release]
+      button_dots1_double: [dots_1_double_press]
+      button_dots2_short: [dots_2_short_release]
+      button_dots2_long: [dots_2_long_press]
+      button_dots2_release: [dots_2_long_release]
+      button_dots2_double: [2_double_press]
+    zha:
+      # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/symfonisk2.py
+      button_up_short: [move_on_off_8_1_0]
+      button_up_long: [move_8_1]
+      button_down_short: [move_on_off_8_1_1]
+      button_down_long: [move_8_1_1]
+      button_right_short: [step_8_1_0]
+      button_left_short: [step_8_1_1]
+      button_center_short: [toggle_6_1]
+      button_dots1_short: [short_release_2]
+      button_dots1_long: [long_press_2]
+      button_dots1_release: [long_release_2]
+      button_dots1_double: [multi_press_complete_2]
+      button_dots2_short: [short_release_3]
+      button_dots2_long: [long_press_3]
+      button_dots2_release: [long_release_3]
+      button_dots2_double: [multi_press_complete_3]
+    dcz:
+      # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/master/devices/ikea/symfonisk_sound_remote_gen2.json
+      button_up_short: ['2001']
+      button_up_long: ['2002']
+      button_down_short: ['3001']
+      button_down_long: ['3002']
+      button_right_short: ['5002']
+      button_left_short: ['4002']
+      button_center_short: ['1002']
+      button_dots1_short: ['6003']
+      button_dots1_long: ['6002']
+      button_dots1_release: ['6004']
+      button_dots1_double: ['6006']
+      button_dots2_short: ['7003']
+      button_dots2_long: ['7002']
+      button_dots2_release: ['7004']
+      button_dots2_double: ['7006']
+  # pre-choose actions for buttons based on configured integration
+  # mainly used to pass to hooks through ahb_controller_event
+  button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
+  button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
+  button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
+  button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
+  button_right_short: '{{ actions_mapping[integration_id]["button_right_short"] }}'
+  button_left_short: '{{ actions_mapping[integration_id]["button_left_short"] }}'
+  button_center_short: '{{ actions_mapping[integration_id]["button_center_short"] }}'
+  button_dots1_short: '{{ actions_mapping[integration_id]["button_dots1_short"] }}'
+  button_dots1_long: '{{ actions_mapping[integration_id]["button_dots1_long"] }}'
+  button_dots1_release: '{{ actions_mapping[integration_id]["button_dots1_release"] }}'
+  button_dots1_double: '{{ actions_mapping[integration_id]["button_dots1_double"] }}'
+  button_dots2_short: '{{ actions_mapping[integration_id]["button_dots2_short"] }}'
+  button_dots2_long: '{{ actions_mapping[integration_id]["button_dots2_long"] }}'
+  button_dots2_release: '{{ actions_mapping[integration_id]["button_dots2_release"] }}'
+  button_dots2_double: '{{ actions_mapping[integration_id]["button_dots2_double"] }}'
+#
+# Mode Block
+mode: single
+max_exceeded: silent
+#
+# Triggers Block
+triggers:
+  # triggers for zigbee2mqtt
+  - trigger: device
+    id: z2m-button-up-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: volume_up
+  - trigger: device
+    id: z2m-button-up-long
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: volume_up_hold
+  - trigger: device
+    id: z2m-button-down-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: volume_down
+  - trigger: device
+    id: z2m-button-down-long
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: volume_down_hold
+  - trigger: device
+    id: z2m-button-right-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: track_next
+  - trigger: device
+    id: z2m-button-left-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: track_previous
+  - trigger: device
+    id: z2m-button-center-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: play_pause
+  - trigger: device
+    id: z2m-button-dots1-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_1_short_release
+  - trigger: device
+    id: z2m-button-dots1-long
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_1_long_press
+  - trigger: device
+    id: z2m-button-dots1-release
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_1_long_release
+  - trigger: device
+    id: z2m-button-dots1-double
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_1_double_press
+  - trigger: device
+    id: z2m-button-dots2-short
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_2_short_release
+  - trigger: device
+    id: z2m-button-dots2-long
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_2_long_press
+  - trigger: device
+    id: z2m-button-dots2-release
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: dots_2_long_release
+  - trigger: device
+    id: z2m-button-dots2-double
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: 2_double_press
+  # triggers for ZHA
+  - trigger: event
+    id: zha-button-up-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: move_on_off
+      endpoint_id: 1
+      cluster_id: 8
+      args: [0]
+  - trigger: event
+    id: zha-button-up-long
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: move
+      endpoint_id: 1
+      cluster_id: 8
+      args: [0]
+  - trigger: event
+    id: zha-button-down-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: move_on_off
+      endpoint_id: 1
+      cluster_id: 8
+      args: [1]
+  - trigger: event
+    id: zha-button-down-long
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: move
+      endpoint_id: 1
+      cluster_id: 8
+      args: [1]
+  - trigger: event
+    id: zha-button-right-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step
+      endpoint_id: 1
+      cluster_id: 8
+      args: [0]
+  - trigger: event
+    id: zha-button-left-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step
+      endpoint_id: 1
+      cluster_id: 8
+      args: [1]
+  - trigger: event
+    id: zha-button-center-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: toggle
+      endpoint_id: 1
+      cluster_id: 6
+  - trigger: event
+    id: zha-button-dots1-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: short_release
+      endpoint_id: 2
+  - trigger: event
+    id: zha-button-dots1-long
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: long_press
+      endpoint_id: 2
+  - trigger: event
+    id: zha-button-dots1-release
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: long_release
+      endpoint_id: 2
+  - trigger: event
+    id: zha-button-dots1-double
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: multi_press_complete
+      endpoint_id: 2
+  - trigger: event
+    id: zha-button-dots2-short
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: short_release
+      endpoint_id: 3
+  - trigger: event
+    id: zha-button-dots2-long
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: long_press
+      endpoint_id: 3
+  - trigger: event
+    id: zha-button-dots2-release
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: long_release
+      endpoint_id: 3
+  - trigger: event
+    id: zha-button-dots2-double
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: multi_press_complete
+      endpoint_id: 3
+  # triggers for deCONZ
+  - trigger: event
+    id: dcz-button-up-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '2001'
+  - trigger: event
+    id: dcz-button-up-long
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '2002'
+  - trigger: event
+    id: dcz-button-down-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '3001'
+  - trigger: event
+    id: dcz-button-down-long
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '3002'
+  - trigger: event
+    id: dcz-button-right-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '5002'
+  - trigger: event
+    id: dcz-button-left-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '4002'
+  - trigger: event
+    id: dcz-button-center-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '1002'
+  - trigger: event
+    id: dcz-button-dots1-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '6003'
+  - trigger: event
+    id: dcz-button-dots1-long
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '6002'
+  - trigger: event
+    id: dcz-button-dots1-release
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '6004'
+  - trigger: event
+    id: dcz-button-dots1-double
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '6006'
+  - trigger: event
+    id: dcz-button-dots2-short
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '7003'
+  - trigger: event
+    id: dcz-button-dots2-long
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '7002'
+  - trigger: event
+    id: dcz-button-dots2-release
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '7004'
+  - trigger: event
+    id: dcz-button-dots2-double
+    event_type:
+      - deconz_event
+    event_data:
+      device_id: !input controller_device
+      event: '7006'
+#
+# Conditions Block
+conditions:
+  - condition: and
+    conditions:
+      # check that the button event is not empty
+      - >-
+        {%- set trigger_action -%}
+        {%- if integration_id == "z2m" -%}
+        {{ trigger.payload }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- elif integration_id == "dcz" -%}
+        {{ trigger.event.data.event }}
+        {%- endif -%}
+        {%- endset -%}
+        {{ trigger_action not in ["","None","unknown"] }}
+#
+# Actions Block
+actions:
+  #
+  # choose the sequence to run based on the received button event
+  - choose:
+      #
+      # Actions for Up Button Long Press No Release
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-up-long
+              - zha-button-up-long
+              - dcz-button-up-long
+        sequence:
+          # fire the ahb hook event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_up_long
+          - choose:
+              # if looping is enabled, loop the custom action for a finite number of iterations
+              - conditions: '{{ button_up_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_up_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_up_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_up_long
+      #
+      # Actions for Down Button Long Press No Release
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-down-long
+              - zha-button-down-long
+              - dcz-button-down-long
+        sequence:
+          # fire the ahb hook event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_down_long
+          - choose:
+              # if looping is enabled, loop the custom action for a finite number of iterations
+              - conditions: '{{ button_down_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_down_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_down_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_down_long
+      #
+      # Actions for Dots1 Button Long Press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots1-long
+              - zha-button-dots1-long
+              - dcz-button-dots1-long
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots1_long
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots1_long
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ button_dots1_long_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input button_dots1_long_max_loop_repeats
+                      sequence:
+                        - parallel:
+                            - sequence: !input action_button_dots1_long
+                            - sequence:
+                                - choose:
+                                    - conditions:
+                                        - condition: trigger
+                                          id:
+                                            - z2m-button-dots1-long
+                                            - zha-button-dots1-long
+                                            - dcz-button-dots1-long
+                                      sequence:
+                                        - wait_for_trigger:
+                                            # z2m triggers
+                                            - trigger: device
+                                              domain: mqtt
+                                              device_id: !input controller_device
+                                              type: action
+                                              subtype: dots_1_long_release
+                                            # zha triggers
+                                            - trigger: event
+                                              event_type: zha_event
+                                              event_data:
+                                                device_id: !input controller_device
+                                                command: long_release
+                                                endpoint_id: 2
+                                            # dcz triggers
+                                            - trigger: event
+                                              event_type: deconz_event
+                                              event_data:
+                                                device_id: !input controller_device
+                                                event: '6004'
+                                          timeout:
+                                            milliseconds: !input helper_long_press_delay
+                                          continue_on_timeout: true
+                                        - if:
+                                            - condition: template
+                                              value_template: '{{ wait.trigger.idx is defined }}'
+                                          then:
+                                            - stop: button released
+      #
+      # Actions for Dots1 Button long press released
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots1-release
+              - zha-button-dots1-release
+              - dcz-button-dots1-release
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots1_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots1_release
+      #
+      # Actions for Dots1 Button single press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots1-short
+              - zha-button-dots1-short
+              - dcz-button-dots1-short
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots1_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots1_short
+      #
+      # Actions for Dots1 Button double press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots1-double
+              - zha-button-dots1-double
+              - dcz-button-dots1-double
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots1_double
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots1_double
+      #
+      # Actions for Dots2 Button Long Press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots2-long
+              - zha-button-dots2-long
+              - dcz-button-dots2-long
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots2_long
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots2_long
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ button_dots2_long_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input button_dots2_long_max_loop_repeats
+                      sequence:
+                        - parallel:
+                            - sequence: !input action_button_dots2_long
+                            - sequence:
+                                - choose:
+                                    - conditions:
+                                        - condition: trigger
+                                          id:
+                                            - z2m-button-dots2-long
+                                            - zha-button-dots2-long
+                                            - dcz-button-dots2-long
+                                      sequence:
+                                        - wait_for_trigger:
+                                            # z2m triggers
+                                            - trigger: device
+                                              domain: mqtt
+                                              device_id: !input controller_device
+                                              type: action
+                                              subtype: dots_2_long_release
+                                            # zha triggers
+                                            - trigger: event
+                                              event_type: zha_event
+                                              event_data:
+                                                device_id: !input controller_device
+                                                command: long_release
+                                                endpoint_id: 3
+                                            # dcz triggers
+                                            - trigger: event
+                                              event_type: deconz_event
+                                              event_data:
+                                                device_id: !input controller_device
+                                                event: '7004'
+                                          timeout:
+                                            milliseconds: !input helper_long_press_delay
+                                          continue_on_timeout: true
+                                        - if:
+                                            - condition: template
+                                              value_template: '{{ wait.trigger.idx is defined }}'
+                                          then:
+                                            - stop: button released
+      #
+      # Actions for Dots2 Button long press released
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots2-release
+              - zha-button-dots2-release
+              - dcz-button-dots2-release
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots2_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots2_release
+      #
+      # Actions for Dots2 Button single press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots2-short
+              - zha-button-dots2-short
+              - dcz-button-dots2-short
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots2_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots2_short
+      #
+      # Actions for Dots2 Button double press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots2-double
+              - zha-button-dots2-double
+              - dcz-button-dots2-double
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots2_double
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots2_double

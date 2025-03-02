@@ -6,21 +6,21 @@ blueprint:
 
     Hook automation which allows to control a media player. Supports volume setting, play/pause and track selection. Features may vary depending on the selected Controller.
 
-    An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
+    An automation created with this blueprint must be linked to a [Controller](https://yarafie.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
     Controllers are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them.
     They expose an abstract interface used by Hooks to create controller-based automations.
 
-    A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player#supported-controllers).
+    A list of controllers supported by this hook is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player#supported-controllers).
 
     ## More Info
 
-    ℹ️ Version 2025.02.16
-    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
-    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
+    ℹ️ Version 2025.03.02
+    📝 [Changelog](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://yarafie.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
+  source_url: https://github.com/yarafie/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:
     controller_device:
@@ -42,6 +42,7 @@ blueprint:
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
             - IKEA E2001/E2002 STYRBAR Remote control
+            - IKEA E2123 SYMFONISK sound remote, gen 2
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
@@ -130,6 +131,16 @@ variables:
       volume_down_repeat: button_down_long
       prev_track: button_left_short
       next_track: button_right_short
+    IKEA E2123 SYMFONISK sound remote, gen 2:
+      play_pause: button_center_short
+      volume_up: button_up_short
+      volume_up_repeat: button_up_long
+      volume_down: button_down_short
+      volume_down_repeat: button_down_long
+      next_track: button_right_short
+      prev_track: button_left_short
+      toggle: button_dots2_short
+      stop: button_dots1_short
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       volume_down_repeat: rotate_left
       volume_up_repeat: rotate_right
