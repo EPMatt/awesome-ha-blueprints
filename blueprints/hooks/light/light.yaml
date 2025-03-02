@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.16
+    ℹ️ Version 2025.03.02
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
 
@@ -51,6 +51,7 @@ blueprint:
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
             - SONOFF SNZB-01 Wireless Switch
+            - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
@@ -265,6 +266,12 @@ variables:
     SONOFF SNZB-01 Wireless Switch:
       toggle: button_short
       color_up: button_double
+    Tuya ERS-10TZBVK-AA Smart knob:
+      brightness_down: rotate_left
+      brightness_up: rotate_right
+      toggle: click_short
+      color_down: rotate_left_withpress
+      color_up: rotate_right_withpress
     Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
       turn_on: button_1_short
       brightness_up_repeat: button_1_long
@@ -456,9 +463,9 @@ actions:
                       entity_id: !input light
                   - delay:
                       milliseconds: !input light_transition
-          # else move on to the loop for increasing the light brightness
+          # else move on to the loop for increasing the light brightness until the maximum brightness is reached
           - repeat:
-              while: '{{ true }}'
+              while: '{{ state_attr(light,"brightness") < max_brightness }}'
               sequence:
                 - action: light.turn_on
                   data:
@@ -498,8 +505,8 @@ actions:
                                 milliseconds: 250
             default:
               - repeat:
-                  # continue lowering brightness until the light turns off
-                  while: '{{ states(light) != "off" }}'
+                  # continue lowering brightness until the light hits the minimum brightness
+                  while: '{{ state_attr(light,"brightness") > min_brightness }}'
                   sequence:
                     # lower the light's brightness. since smooth power off is disabled, never let the brightness move below the user-provided minimum
                     - action: light.turn_on
