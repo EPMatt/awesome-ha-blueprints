@@ -17,7 +17,8 @@ This blueprint is part of the **Controllers-Hooks Ecosystem**. You can read more
 
 This blueprint provides universal support for running any custom action when a button is pressed on the provided IKEA E2123 SYMFONISK sound remote, gen 2. Supports controllers integrated with Zigbee2MQTT, ZHA, deCONZ. The blueprint will automagically detect the integration type and take care of all the rest.
 
-The blueprint handles double button press events natively as it is supported by the controller device itself.
+The blueprint handles double button press events natively for the dots1/dots2 buttons as it is supported by the controller device itself.
+Long and Double press events can be enabled/disabled for each of the dots1/dots2 buttons to get extra speed in recognizing single press events.
 
 :::tip
 Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
@@ -112,6 +113,18 @@ Hooks allow to easily create controller-based automations for interacting with l
   name='Dots2 button double press'
   description='Action to run on double dots2 button press.'
   selector='action'
+/>
+<Input
+  name='Dots1 button Long/Double press - enable/disable'
+  description=''
+  description:'Enable the Dots1 button “Long Press” and “Double Press” actions. Disable to remove delay from “Single Press” actions.'
+  selector='boolean'
+/>
+<Input
+  name='Dots2 button Long/Double press - enable/disable'
+  description=''
+  description:'Enable the Dots2 button “Long Press” and “Double Press” actions. Disable to remove delay from “Single Press” actions.'
+  selector='boolean'
 />
 <Input
   name='Up button long press - loop until release'
@@ -250,6 +263,11 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 ## Additional Notes
 
+### Dots1 and Dots2 Long/Double press custom actions
+
+The blueprint handles double button press events natively for the dots1/dots2 buttons as it is supported by the controller device itself.
+Long and Double press events can be enabled/disabled for each of the dots1/dots2 buttons to get extra speed in recognizing single press events.
+
 ### Firmware compatability
 
 This blueprint is only compatible with firmwares 1.0.32 (20221219) and 1.0.35 (20230308) of the IKEA E2123 SYMFONISK sound remote, gen 2.
@@ -258,3 +276,4 @@ This blueprint is only compatible with firmwares 1.0.32 (20221219) and 1.0.35 (2
 
 - **2025-03-01**: Initial release. [Initial Release] ([@yarafie](https://github.com/yarafie)) :tada:
 - **2025-03-08**: Added missing short press actions and fixed some documentation mappings. [issue#66] ([@yarafie](https://github.com/yarafie))
+- **2025-03-16**: Added ability to enable/disable Long/Double Actions for dots buttons. [issue#70] ([@yarafie](https://github.com/yarafie))
