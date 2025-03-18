@@ -1,4 +1,5 @@
 import { Config } from "@docusaurus/types"
+import { themes as prismThemes } from 'prism-react-renderer';
 
 const config: Config = {
   title: 'Awesome HA Blueprints',
@@ -11,6 +12,10 @@ const config: Config = {
   organizationName: 'EPMatt',
   projectName: 'awesome-ha-blueprints',
   scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
   themeConfig: {
     announcementBar: {
       id: 'support_us',
@@ -59,6 +64,10 @@ const config: Config = {
     footer: {
       links: [],
       copyright: `Awesome HA Blueprints is maintained by <a href='https://github.com/EPMatt'>Matteo Agnoletto</a>.<br/>Licensed under the <a href='https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE'>GPL-3.0 License</a>`,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
     },
   },
   presets: [
