@@ -5,6 +5,7 @@
   "scripts": {
     "format": "prettier --write ."
   },
+  "packageManager": "pnpm@9.15.0",
   "devDependencies": {
     "prettier": "^3.5.0"
   }
