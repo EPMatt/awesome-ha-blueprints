@@ -1,4 +1,3 @@
-import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
 function ZHARequirement({ required, refers, children }) {

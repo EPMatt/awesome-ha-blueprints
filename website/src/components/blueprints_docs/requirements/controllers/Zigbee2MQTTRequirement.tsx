@@ -1,4 +1,3 @@
-import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
 function Zigbee2MQTTRequirement({ required, refers, children }) {

@@ -1,4 +1,3 @@
-import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
 function DeCONZRequirement({ required, refers, children }) {

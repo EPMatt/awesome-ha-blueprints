@@ -1,4 +1,3 @@
-import React from 'react'
 import Zigbee2MQTTRequirement from './requirements/controllers/Zigbee2MQTTRequirement'
 import ZHARequirement from './requirements/controllers/ZHARequirement'
 import DeCONZRequirement from './requirements/controllers/DeCONZRequirement'

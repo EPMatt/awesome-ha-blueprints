@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ClipboardPlus } from 'react-bootstrap-icons'
 
 const styles = {
