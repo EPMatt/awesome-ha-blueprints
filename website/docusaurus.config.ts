@@ -1,5 +1,6 @@
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+import { Config } from "@docusaurus/types"
+
+const config: Config = {
   title: 'Awesome HA Blueprints',
   tagline: 'A curated list of automation blueprints for Home Assistant.',
   url: 'https://epmatt.github.io',
@@ -65,13 +66,16 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/EPMatt/awesome-ha-blueprints/edit/main/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css'
         },
       },
     ],
   ],
 }
+
+
+export default config
