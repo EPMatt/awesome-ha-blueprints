@@ -8,9 +8,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for your feedback! 🎉  
+        Thanks for your feedback! 🎉
 
-        Please keep the template as is—it helps us review issues faster.  
+        Please keep the template as is—it helps us review issues faster.
 
         This template is for **documentation issues only**. For other issues, [pick a different template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). Got a question? [Start a discussion here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
   - type: input
