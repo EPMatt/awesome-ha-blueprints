@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "format": "prettier --write .",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "prepare": "husky"
   },
   "packageManager": "pnpm@9.15.0",
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "^3.5.0",
     "turbo": "^2.4.4"
   }
