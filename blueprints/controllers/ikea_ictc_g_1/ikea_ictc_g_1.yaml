@@ -75,6 +75,12 @@ blueprint:
       default: []
       selector:
         action:
+    action_rotate_left_quick:
+      name: (Optional) Rotate left quick (ZHA)
+      description: Action to run on rotate left quick.
+      default: []
+      selector:
+        action:
     action_rotate_right:
       name: (Optional) Rotate right
       description: Action to run on rotate right.
@@ -84,6 +90,12 @@ blueprint:
     action_rotate_right_stop:
       name: (Optional) Rotate right stop
       description: Action to run when stopping to rotate right the remote.
+      default: []
+      selector:
+        action:
+    action_rotate_right_quick:
+      name: (Optional) Rotate right quick (ZHA)
+      description: Action to run on rotate right quick.
       default: []
       selector:
         action:
@@ -154,22 +166,30 @@ variables:
   actions_mapping:
     deconz:
       rotate_left: ['3002']
+      rotate_left_quick: []
       rotate_stop: []
       rotate_right: ['2002']
+      rotate_right_quick: []
     zha:
-      rotate_left: [move_1_70, move_1_195]
-      rotate_stop: [stop]
-      rotate_right: [move_with_on_off_0_70, move_with_on_off_0_195]
+      rotate_left: [move_1_70, move_1_195, move_MoveMode.Down_195]
+      rotate_left_quick: [move_to_level_with_on_off_0_1]
+      rotate_stop: [stop, stop_with_on_off]
+      rotate_right: [move_with_on_off_0_70, move_with_on_off_0_195, move_with_on_off_MoveMode.Up_195]
+      rotate_right_quick: [move_to_level_with_on_off_255_1]
     zigbee2mqtt:
       # source: https://www.zigbee2mqtt.io/devices/ICTC-G-1.html#ikea-ictc-g-1
       rotate_left: [brightness_move_down]
+      rotate_left_quick: []
       rotate_stop: [brightness_stop]
       rotate_right: [brightness_move_up]
+      rotate_right_quick: []
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   rotate_left: '{{ actions_mapping[integration_id]["rotate_left"] }}'
+  rotate_left_quick: '{{ actions_mapping[integration_id]["rotate_left_quick"] }}'
   rotate_stop: '{{ actions_mapping[integration_id]["rotate_stop"] }}'
   rotate_right: '{{ actions_mapping[integration_id]["rotate_right"] }}'
+  rotate_right_quick: '{{ actions_mapping[integration_id]["rotate_right_quick"] }}'
   # build data to send within a controller event
   controller_id: !input controller_device
 mode: restart
@@ -269,6 +289,17 @@ actions:
           - choose:
               - conditions: []
                 sequence: !input action_rotate_left_stop
+      - conditions: '{{ trigger_action | string in rotate_left_quick }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left_quick
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_left_quick
       - conditions: '{{ trigger_action | string in rotate_right }}'
         sequence:
           # fire the event only once before looping the action
@@ -299,3 +330,14 @@ actions:
           - choose:
               - conditions: []
                 sequence: !input action_rotate_right_stop
+      - conditions: '{{ trigger_action | string in rotate_right_quick }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right_quick
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_right_quick
