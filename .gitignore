@@ -12,5 +12,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.pnpm-store
+
 # Temporary files
 /temp
+
+# Turborepo files
+.turbo

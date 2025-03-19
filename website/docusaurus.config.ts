@@ -1,5 +1,7 @@
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+import { Config } from '@docusaurus/types'
+import { themes as prismThemes } from 'prism-react-renderer'
+
+const config: Config = {
   title: 'Awesome HA Blueprints',
   tagline: 'A curated list of automation blueprints for Home Assistant.',
   url: 'https://epmatt.github.io',
@@ -10,6 +12,10 @@ module.exports = {
   organizationName: 'EPMatt',
   projectName: 'awesome-ha-blueprints',
   scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
   themeConfig: {
     announcementBar: {
       id: 'support_us',
@@ -59,19 +65,25 @@ module.exports = {
       links: [],
       copyright: `Awesome HA Blueprints is maintained by <a href='https://github.com/EPMatt'>Matteo Agnoletto</a>.<br/>Licensed under the <a href='https://github.com/EPMatt/awesome-ha-blueprints/blob/main/LICENSE'>GPL-3.0 License</a>`,
     },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
   },
   presets: [
     [
       '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/EPMatt/awesome-ha-blueprints/edit/main/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       },
     ],
   ],
 }
+
+export default config

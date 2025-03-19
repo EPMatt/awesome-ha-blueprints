@@ -1,7 +1,15 @@
 import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
-function ControllerRequirement({ required, children }) {
+interface ControllerRequirementProps {
+  required: boolean
+  children: React.ReactNode
+}
+
+const ControllerRequirement: React.FC<ControllerRequirementProps> = ({
+  required,
+  children,
+}) => {
   return (
     <CustomRequirement name='Controller Automation' required={required}>
       <p>

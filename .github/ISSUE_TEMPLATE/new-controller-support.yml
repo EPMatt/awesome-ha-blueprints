@@ -9,11 +9,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to report here! :tada:
+        Thanks for your input! 🎉
 
-        Please do not delete any part of the template, since keeping the provided structure will help maintainers to process your request more rapidly.
+        Please keep the template as is—it helps us process your request faster.
 
-        This template should only be used to propose support for a a new Controller blueprint. If this is not your case, you can [choose a different issue template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). If you have a question instead, please open a discussion [here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
+        This template is for **proposing support for a new Controller blueprint**. For other issues, [pick a different template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). Got a question? [Start a discussion here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
   - type: input
     attributes:
       label: Manufacturer

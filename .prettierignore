@@ -15,5 +15,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.husky/
+.prettierignore
+
 # Temporary files
 /temp
+
+# build output
+website/build
+
+# lockfile
+pnpm-lock.yaml
+
+# Turborepo files
+.turbo

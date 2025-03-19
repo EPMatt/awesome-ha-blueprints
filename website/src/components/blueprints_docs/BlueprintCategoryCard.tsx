@@ -1,8 +1,21 @@
-import React from 'react'
 import * as Icons from 'react-bootstrap-icons'
 import Link from '@docusaurus/Link'
 
-function BlueprintCategoryCard({ icon, color, name, description, id }) {
+interface BlueprintCategoryCardProps {
+  icon: string
+  color: string
+  name: string
+  description: string
+  id: string
+}
+
+const BlueprintCategoryCard: React.FC<BlueprintCategoryCardProps> = ({
+  icon,
+  color,
+  name,
+  description,
+  id,
+}: BlueprintCategoryCardProps) => {
   const Icon = Icons[icon]
   return (
     <div className='col col--4 padding-bottom--lg'>

@@ -1,7 +1,12 @@
-import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
-function ZHARequirement({ required, refers, children }) {
+interface ZHARequirementProps {
+  required: boolean
+  refers: string
+  children: React.ReactNode
+}
+
+function ZHARequirement({ required, refers, children }: ZHARequirementProps) {
   return (
     <CustomRequirement name='ZHA Integration' required={required}>
       <p>
