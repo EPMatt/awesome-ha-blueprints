@@ -14,7 +14,11 @@ blueprint:
 
     ## More Info
 
+<<<<<<< HEAD
     ℹ️ Version 2025.02.20
+=======
+    ℹ️ Version 2025.03.20
+>>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
