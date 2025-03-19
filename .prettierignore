@@ -23,3 +23,6 @@ website/build
 
 # lockfile
 pnpm-lock.yaml
+
+# Turborepo files
+.turbo

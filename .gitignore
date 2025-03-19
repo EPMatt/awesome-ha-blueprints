@@ -16,3 +16,6 @@ yarn-error.log*
 
 # Temporary files
 /temp
+
+# Turborepo files
+.turbo
