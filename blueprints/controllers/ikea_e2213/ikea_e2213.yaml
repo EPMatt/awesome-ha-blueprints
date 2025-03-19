@@ -17,7 +17,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.01
+    ℹ️ Version 2025.03.25
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2213/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2213).
 
@@ -414,6 +414,24 @@ actions:
   # choose the sequence to run based on the received button event
   - choose:
       #
+      # Actions for Dots1 Button single press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots1-short
+              - zha-button-dots1-short
+              - dcz-button-dots1-short
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots1_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots1_short
+      #
       # Actions for Dots1 Button Long Press
       - conditions:
           - condition: trigger
@@ -442,12 +460,7 @@ actions:
                             - sequence: !input action_button_dots1_long
                             - sequence:
                                 - choose:
-                                    - conditions:
-                                        - condition: trigger
-                                          id:
-                                            - z2m-button-dots1-long
-                                            - zha-button-dots1-long
-                                            - dcz-button-dots1-long
+                                    - conditions: []
                                       sequence:
                                         - wait_for_trigger:
                                             # z2m triggers
@@ -497,24 +510,6 @@ actions:
               - conditions: []
                 sequence: !input action_button_dots1_release
       #
-      # Actions for Dots1 Button single press
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-dots1-short
-              - zha-button-dots1-short
-              - dcz-button-dots1-short
-        sequence:
-          # fire the ahb hook event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_dots1_short
-          # run the custom action
-          - choose:
-              - conditions: []
-                sequence: !input action_button_dots1_short
-      #
       # Actions for Dots1 Button double press
       - conditions:
           - condition: trigger
@@ -532,6 +527,24 @@ actions:
           - choose:
               - conditions: []
                 sequence: !input action_button_dots1_double
+      #
+      # Actions for Dots2 Button single press
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-button-dots2-short
+              - zha-button-dots2-short
+              - dcz-button-dots2-short
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_dots2_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_dots2_short
       #
       # Actions for Dots2 Button Long Press
       - conditions:
@@ -561,12 +574,7 @@ actions:
                             - sequence: !input action_button_dots2_long
                             - sequence:
                                 - choose:
-                                    - conditions:
-                                        - condition: trigger
-                                          id:
-                                            - z2m-button-dots2-long
-                                            - zha-button-dots2-long
-                                            - dcz-button-dots2-long
+                                    - conditions: []
                                       sequence:
                                         - wait_for_trigger:
                                             # z2m triggers
@@ -615,24 +623,6 @@ actions:
           - choose:
               - conditions: []
                 sequence: !input action_button_dots2_release
-      #
-      # Actions for Dots2 Button single press
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-dots2-short
-              - zha-button-dots2-short
-              - dcz-button-dots2-short
-        sequence:
-          # fire the ahb hook event
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_dots2_short
-          # run the custom action
-          - choose:
-              - conditions: []
-                sequence: !input action_button_dots2_short
       #
       # Actions for Dots2 Button double press
       - conditions:
