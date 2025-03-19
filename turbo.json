@@ -1,10 +1,10 @@
 {
-    "tasks": {
-        "build": {
-            "cache": false
-        },
-        "lint": {
-            "cache": false
-        }
+  "tasks": {
+    "build": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
     }
+  }
 }

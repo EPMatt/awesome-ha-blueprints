@@ -11,12 +11,16 @@ const styles = {
 }
 
 interface CustomRequirementProps {
-  name: string;
-  required: boolean;
-  children: React.ReactNode;
+  name: string
+  required: boolean
+  children: React.ReactNode
 }
 
-const CustomRequirement: React.FC<CustomRequirementProps> = ({ name, required, children }) => {
+const CustomRequirement: React.FC<CustomRequirementProps> = ({
+  name,
+  required,
+  children,
+}) => {
   return (
     <div className='margin-bottom--lg'>
       <div style={styles.requirementNameContainer}>

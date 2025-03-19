@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 interface BadgeProps {
-  variant: string;
-  children: React.ReactNode;
+  variant: string
+  children: React.ReactNode
 }
 
 const Badge: React.FC<BadgeProps> = ({ variant, children }) => {

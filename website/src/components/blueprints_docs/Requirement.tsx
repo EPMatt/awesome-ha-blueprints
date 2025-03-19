@@ -12,14 +12,20 @@ const requirements = {
 }
 
 interface RequirementProps {
-  id: string;
-  required: boolean;
-  name: string;
-  refers: string;
-  children: React.ReactNode;
+  id: string
+  required: boolean
+  name: string
+  refers: string
+  children: React.ReactNode
 }
 
-const Requirement: React.FC<RequirementProps> = ({ id, required, name, refers, children }: RequirementProps) => {
+const Requirement: React.FC<RequirementProps> = ({
+  id,
+  required,
+  name,
+  refers,
+  children,
+}: RequirementProps) => {
   const Component = id ? requirements[id] : CustomRequirement
   return (
     <Component name={name} required={required} refers={refers}>

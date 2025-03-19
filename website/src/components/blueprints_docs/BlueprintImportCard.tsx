@@ -9,8 +9,8 @@ const styles = {
 }
 
 interface BlueprintImportCardProps {
-  category: string;
-  id: string;
+  category: string
+  id: string
 }
 
 function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {

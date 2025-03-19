@@ -1,9 +1,9 @@
 import CustomRequirement from '../CustomRequirement'
 
 interface ZHARequirementProps {
-  required: boolean;
-  refers: string;
-  children: React.ReactNode;
+  required: boolean
+  refers: string
+  children: React.ReactNode
 }
 
 function ZHARequirement({ required, refers, children }: ZHARequirementProps) {

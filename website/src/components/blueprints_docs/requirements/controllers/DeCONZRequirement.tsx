@@ -2,12 +2,16 @@ import CustomRequirement from '../CustomRequirement'
 import React from 'react'
 
 interface DeCONZRequirementProps {
-  required: boolean;
-  refers: string;
-  children: React.ReactNode;
+  required: boolean
+  refers: string
+  children: React.ReactNode
 }
 
-const DeCONZRequirement: React.FC<DeCONZRequirementProps> = ({ required, refers, children }) => {
+const DeCONZRequirement: React.FC<DeCONZRequirementProps> = ({
+  required,
+  refers,
+  children,
+}) => {
   return (
     <CustomRequirement name='deCONZ Integration' required={required}>
       <p>
