@@ -54,7 +54,16 @@ const styles = {
   },
 }
 
-function Input({ selector, required, name, description, deprecated, virtual }) {
+interface InputProps {
+  selector: string;
+  required: boolean;
+  name: string;
+  description: string;
+  deprecated: boolean;
+  virtual: boolean;
+}
+
+function Input({ selector, required, name, description, deprecated, virtual }: InputProps) {
   const selectorVal = selector ? selectors[selector] : selectors.none
   return (
     <div>

@@ -8,7 +8,12 @@ const styles = {
   },
 }
 
-function BlueprintImportCard({ category, id }) {
+interface BlueprintImportCardProps {
+  category: string;
+  id: string;
+}
+
+function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
   const [copy, setCopy] = useState(false)
   const url = `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${category}/${id}/${id}.yaml`
   const copyToClipboard = async () => {

@@ -1,7 +1,11 @@
-import { ReactNode } from 'react'
+import React from 'react';
 
-const ControllerImage: React.FC<{ children: ReactNode }> = ({ children }) => {
-  return <div style={{ width: 200 }}>{children}</div>
+interface ControllerImageProps {
+  children: React.ReactNode;
 }
 
-export default ControllerImage
+const ControllerImage: React.FC<ControllerImageProps> = ({ children }) => {
+  return <div style={{ width: 200 }}>{children}</div>;
+};
+
+export default ControllerImage;
