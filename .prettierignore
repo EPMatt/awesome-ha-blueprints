@@ -17,3 +17,9 @@ yarn-error.log*
 
 # Temporary files
 /temp
+
+# build output
+website/build
+
+# lockfile
+pnpm-lock.yaml

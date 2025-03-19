@@ -1,5 +1,5 @@
-import { Config } from "@docusaurus/types"
-import { themes as prismThemes } from 'prism-react-renderer';
+import { Config } from '@docusaurus/types'
+import { themes as prismThemes } from 'prism-react-renderer'
 
 const config: Config = {
   title: 'Awesome HA Blueprints',
@@ -79,12 +79,11 @@ const config: Config = {
           editUrl: 'https://github.com/EPMatt/awesome-ha-blueprints/edit/main/',
         },
         theme: {
-          customCss: './src/css/custom.css'
+          customCss: './src/css/custom.css',
         },
       },
     ],
   ],
 }
-
 
 export default config
