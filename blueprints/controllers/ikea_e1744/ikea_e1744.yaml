@@ -34,7 +34,7 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (Required) (deCONZ, ZHA, Zigbee2MQTT) Controller Device
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:

@@ -34,7 +34,7 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (deCONZ, ZHA, Zigbee2MQTT) Controller Device
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
@@ -83,7 +83,7 @@ blueprint:
       selector:
         action:
     action_button_on_double:
-      name: (Optional) On button double press
+      name: (Optional) (Virtual) On button double press
       description: Action to run on double on button press.
       default: []
       selector:
@@ -107,7 +107,7 @@ blueprint:
       selector:
         action:
     action_button_off_double:
-      name: (Optional) Off button double press
+      name: (Optional) (Virtual) Off button double press
       description: Action to run on double off button press.
       default: []
       selector:
@@ -131,7 +131,7 @@ blueprint:
       selector:
         action:
     action_button_up_double:
-      name: (Optional) Up button double press
+      name: (Optional) (Virtual) Up button double press
       description: Action to run on double up button press.
       default: []
       selector:
@@ -155,7 +155,7 @@ blueprint:
       selector:
         action:
     action_button_down_double:
-      name: (Optional) Down button double press
+      name: (Optional) (Virtual) Down button double press
       description: Action to run on double down button press.
       default: []
       selector:
