@@ -66,6 +66,9 @@ importers:
       '@eslint/js':
         specifier: ^9.22.0
         version: 9.22.0
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
       '@types/react':
         specifier: ^19.0.12
         version: 19.0.12
@@ -93,6 +96,9 @@ importers:
       typescript-eslint:
         specifier: ^8.26.1
         version: 8.26.1(eslint@9.22.0(jiti@1.21.7))(typescript@5.8.2)
+      yaml:
+        specifier: ^2.7.0
+        version: 2.7.0
 
 packages:
 
@@ -8129,7 +8135,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.13.10
 
   '@types/send@0.17.4':
     dependencies:

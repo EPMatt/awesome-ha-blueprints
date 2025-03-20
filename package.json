@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "docs:start": "pnpm --filter ./website start",
+    "docs:build": "pnpm --filter ./website build",
     "format": "prettier --write .",
     "lint": "turbo run lint",
     "prepare": "husky"

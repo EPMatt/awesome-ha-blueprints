@@ -15,7 +15,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.20b
+    ℹ️ Version 2025.03.20c
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201).
 
@@ -28,7 +28,7 @@ blueprint:
   # Device Selector
   input:
     controller_device:
-      name: (Required) (Zigbee2MQTT, ZHA, deCONZ) Controller Device
+      name: (Zigbee2MQTT, ZHA, deCONZ Required) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.
       default: ''
       selector:
@@ -72,7 +72,7 @@ blueprint:
       selector:
         action:
     action_button_up_double:
-      name: (Optional) Up button double press
+      name: (Optional) (Virtual) Up button double press
       description: Action to run on double up button press.
       default: []
       selector:
@@ -96,7 +96,7 @@ blueprint:
       selector:
         action:
     action_button_down_double:
-      name: (Optional) Down button double press
+      name: (Optional) (Virtual) Down button double press
       description: Action to run on double down button press.
       default: []
       selector:
