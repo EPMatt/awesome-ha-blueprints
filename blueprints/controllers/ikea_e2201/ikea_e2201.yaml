@@ -13,8 +13,6 @@ blueprint:
     Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201#available-hooks) for additional details.
 
-    A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
-
     ## More Info
 
     ℹ️ Version 2025.03.20
