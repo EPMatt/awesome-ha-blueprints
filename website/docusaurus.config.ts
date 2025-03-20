@@ -4,10 +4,10 @@ import path from 'path'
 
 // Create a custom plugin for webpack configuration
 // the purpose of this plugin is to allow the use of the @blueprints alias
-function webpackConfigPlugin(context, options) {
+function webpackConfigPlugin() {
   return {
     name: 'webpack-config-plugin',
-    configureWebpack(config, isServer, utils) {
+    configureWebpack() {
       return {
         resolve: {
           alias: {
