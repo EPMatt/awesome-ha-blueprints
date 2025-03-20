@@ -1,5 +1,32 @@
 import { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
+import path from 'path'
+
+// Create a custom plugin for webpack configuration
+// the purpose of this plugin is to allow the use of the @blueprints alias
+function webpackConfigPlugin(context, options) {
+  return {
+    name: 'webpack-config-plugin',
+    configureWebpack(config, isServer, utils) {
+      return {
+        resolve: {
+          alias: {
+            '@blueprints': path.resolve(__dirname, '../blueprints'),
+          },
+        },
+        module: {
+          rules: [
+            {
+              test: /\.ya?ml$/,
+              type: 'asset/source',
+              include: [path.resolve(__dirname, '../blueprints')],
+            },
+          ],
+        },
+      }
+    },
+  }
+}
 
 const config: Config = {
   title: 'Awesome HA Blueprints',
@@ -84,6 +111,7 @@ const config: Config = {
       },
     ],
   ],
+  plugins: [webpackConfigPlugin],
 }
 
 export default config
