@@ -34,6 +34,10 @@ const selectors = {
   target: {
     type: 'Target',
   },
+  input_text: {
+    type: 'Text',
+  },
+  // @deprecated
   text: {
     type: 'Text',
   },
@@ -56,7 +60,7 @@ const styles = {
 
 interface InputProps {
   selector: string
-  required: boolean
+  required?: string
   name: string
   description: string
   deprecated: boolean
