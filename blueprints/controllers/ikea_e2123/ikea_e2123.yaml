@@ -17,8 +17,6 @@ blueprint:
 
     This blueprint is only compatible with firmwares 1.0.32 (20221219) and 1.0.35 (20230308) of the IKEA E2123 SYMFONISK sound remote, gen 2.
 
-    A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
-
     ## More Info
 
     ℹ️ Version 2025.03.20
