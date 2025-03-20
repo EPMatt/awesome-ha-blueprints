@@ -3,7 +3,12 @@ title: Hook - Light
 description: This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights.
 ---
 
-import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+import {
+  Input,
+  Inputs,
+  Requirement,
+  ImportCard,
+} from '/src/components/blueprints_docs'
 
 <ImportCard id='light' category='hooks' />
 
@@ -35,74 +40,7 @@ This integration provides the entity which represents a light in Home Assistant.
 
 ## Inputs
 
-<Input
-  name='Controller Device'
-  description='The controller device which will control the Light. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as a Device. This value should match the one specified in the corresponding Controller automation.'
-  selector='device'
-  required
-/>
-<Input
-  name='Controller model'
-  description='The model for the controller used in this automation. Choose a value from the list of supported controllers.'
-  selector='select'
-  required
-/>
-<Input
-  name='Light'
-  description='Light which will be controlled with this automation.'
-  selector='entity'
-  required
-/>
-<Input
-  name='Light color mode'
-  description='Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.'
-  selector='select'
-/>
-<Input
-  name='Light Transition'
-  description='Number that represents the time (in milliseconds) the light should take turn on or off, if the light supports it.'
-  selector='number'
-/>
-<Input
-  name='Light minimum brightness'
-  description='The minimum brightness the light can be set with this automation.'
-  selector='number'
-/>
-<Input
-  name='Light maximum brightness'
-  description='The maximum brightness the light can be set with this automation.'
-  selector='number'
-/>
-<Input
-  name='Light brightness steps - short actions'
-  description='Number of steps from min to max brightness when controlling brightness with short actions (eg. button press).'
-  selector='number'
-/>
-<Input
-  name='Light brightness steps - long actions'
-  description='Number of steps from min to max brightness when controlling brightness with long actions (eg. button hold or controller rotation).'
-  selector='number'
-/>
-<Input
-  name='Force brightness value at turn on'
-  description='Force brightness to the "On brightness" input value, when the light is being turned on.'
-  selector='boolean'
-/>
-<Input
-  name='On brightness'
-  description='Brightness value to force when turning on the light'
-  selector='number'
-/>
-<Input
-  name='Smooth power on'
-  description='Force the light to turn on at minimum brightness when a brightness up command (single or continuous) is triggered and light is off.'
-  selector='boolean'
-/>
-<Input
-  name='Smooth power off'
-  description='Allow a brightness down command (single or continuous) to turn off the light when at minimum brightness. Disabling this will prevent the light from being turned off by brightness down commands.'
-  selector='boolean'
-/>
+<Inputs category='hooks' id='light' />
 
 ## Supported Controllers
 
