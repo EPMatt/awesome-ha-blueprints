@@ -6,39 +6,22 @@ blueprint:
 
     Controller automation for executing any kind of action triggered by the provided IKEA E2201 RODRET Dimmer.
     Allows to optionally loop an action on a button long press.
-<<<<<<< HEAD
-    The blueprint also adds support for virtual double button press events, which are not exposed by the controller device itself. However, It needs to be enabled in the blueprint.
-    Supports Zigbee2MQTT, ZHA, deCONZ.
-
-    Automations created with this blueprint can be connected with one or more [Hooks](https://EPMatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
-    Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
-    See the list of [Hooks available for this controller](https://EPMatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201#available-hooks) for additional details.
-=======
     Allows for Virtual Double Presses. Needs to be enabled in blueprint.
     Supports Zigbee2MQTT, ZHA, deCONZ.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201#available-hooks) for additional details.
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
 
     A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
 
     ## More Info
 
-<<<<<<< HEAD
-    ℹ️ Version 2025.02.20
-    📝 [Changelog](https://EPMatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201/#changelog)
-    📕 Full documentation regarding this blueprint is available [here](https://EPMatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201).
-
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://EPMatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
-=======
     ℹ️ Version 2025.03.20
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2201).
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
 
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/ikea_e2201/ikea_e2201.yaml
   domain: automation
@@ -126,15 +109,6 @@ blueprint:
       icon: mdi:remote
       collapsed: true
       input:
-<<<<<<< HEAD
-        button_up_long_loop:
-          name: (Optional) Up button long press - loop until release
-          description: Loop the up button action until the button is released.
-          default: false
-          selector:
-            boolean:
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
         button_up_long_max_loop_repeats:
           name: (Optional) Up button long press - Maximum loop repeats
           description: >-
@@ -147,15 +121,6 @@ blueprint:
               max: 1000.0
               mode: slider
               step: 1.0
-<<<<<<< HEAD
-        button_down_long_loop:
-          name: (Optional) Down button long press - loop until release
-          description: Loop the down button action until the button is released.
-          default: false
-          selector:
-            boolean:
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
         button_down_long_max_loop_repeats:
           name: (Optional) Down button long press - Maximum loop repeats
           description: >-
@@ -218,16 +183,6 @@ variables:
   # integration type is set from trigger.id
   integration_id: '{{ trigger.id.split("-")[0] }}'
   # convert input tags to variables, to be used in templates
-<<<<<<< HEAD
-  button_up_long_loop: !input button_up_long_loop
-  button_up_long_max_loop_repeats: !input button_up_long_max_loop_repeats
-  button_up_double_press_exposed: !input button_up_double_press_exposed
-  button_down_long_loop: !input button_down_long_loop
-  button_down_long_max_loop_repeats: !input button_down_long_max_loop_repeats
-  button_down_double_press_exposed: !input button_down_double_press_exposed
-  helper_long_press_delay: !input helper_long_press_delay
-  helper_double_press_delay: !input helper_double_press_delay
-=======
   # Button Inputs For Loop
   helper_long_press_delay: !input helper_long_press_delay
   button_up_long_max_loop_repeats: !input button_up_long_max_loop_repeats
@@ -236,7 +191,6 @@ variables:
   helper_double_press_delay: !input helper_double_press_delay
   button_up_double_press_exposed: !input button_up_double_press_exposed
   button_down_double_press_exposed: !input button_down_double_press_exposed
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   # mapping between actions and integrations
   actions_mapping:
     z2m:
@@ -263,13 +217,8 @@ variables:
       button_down_short: ['2002']
       button_down_long: ['2001']
       button_down_release: ['2003']
-<<<<<<< HEAD
-  # pre-choose actions for buttons based on configured integration
-  # mainly used to pass to hooks through ahb_controller_event
-=======
       # pre-choose actions for buttons based on configured integration
       # mainly used to pass to hooks through ahb_controller_event
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   button_up_short: '{{ actions_mapping[integration_id]["button_up_short"] }}'
   button_up_long: '{{ actions_mapping[integration_id]["button_up_long"] }}'
   button_up_release: '{{ actions_mapping[integration_id]["button_up_release"] }}'
@@ -297,15 +246,6 @@ triggers:
     type: action
     subtype: brightness_move_up
   - trigger: device
-<<<<<<< HEAD
-    id: z2m-button-up-release
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: brightness_stop
-  - trigger: device
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     id: z2m-button-down-short
     domain: mqtt
     device_id: !input controller_device
@@ -318,11 +258,7 @@ triggers:
     type: action
     subtype: brightness_move_down
   - trigger: device
-<<<<<<< HEAD
-    id: z2m-button-down-release
-=======
     id: z2m-button-release
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     domain: mqtt
     device_id: !input controller_device
     type: action
@@ -334,86 +270,50 @@ triggers:
     event_data:
       device_id: !input controller_device
       command: 'on'
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 6
-=======
       cluster_id: 6
       endpoint_id: 1
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   - trigger: event
     id: zha-button-up-long
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: move_with_on_off
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 8
-      args: [0, 83]
-  - trigger: event
-    id: zha-button-up-release
-=======
       cluster_id: 8
       endpoint_id: 1
       args: [0, 83]
   - trigger: event
     id: zha-button-release
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: stop_with_on_off
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 8
-=======
       cluster_id: 8
       endpoint_id: 1
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   - trigger: event
     id: zha-button-down-short
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: 'off'
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 6
-=======
       cluster_id: 6
       endpoint_id: 1
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   - trigger: event
     id: zha-button-down-long
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: move
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 8
-      args: [1, 83, 0, 0]
-  - trigger: event
-    id: zha-button-down-release
-=======
       cluster_id: 8
       endpoint_id: 1
       args: [1, 83, 0, 0]
   - trigger: event
     id: zha-button-release
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     event_type: zha_event
     event_data:
       device_id: !input controller_device
       command: stop
-<<<<<<< HEAD
-      endpoint_id: 1
-      cluster_id: 8
-=======
       cluster_id: 8
       endpoint_id: 1
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
   # triggers for deCONZ
   - trigger: event
     id: dcz-button-up-short
@@ -430,16 +330,6 @@ triggers:
       device_id: !input controller_device
       event: '1001'
   - trigger: event
-<<<<<<< HEAD
-    id: dcz-button-up-release
-    event_type:
-      - deconz_event
-    event_data:
-      device_id: !input controller_device
-      event: '1003'
-  - trigger: event
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     id: dcz-button-down-short
     event_type:
       - deconz_event
@@ -454,9 +344,6 @@ triggers:
       device_id: !input controller_device
       event: '2001'
   - trigger: event
-<<<<<<< HEAD
-    id: dcz-button-down-release
-=======
     id: dcz-button-release
     event_type:
       - deconz_event
@@ -465,7 +352,6 @@ triggers:
       event: '1003'
   - trigger: event
     id: dcz-button-release
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
     event_type:
       - deconz_event
     event_data:
@@ -495,11 +381,7 @@ actions:
   # choose the sequence to run based on the received button event
   - choose:
       #
-<<<<<<< HEAD
-      # Actions for Up Button Single Press / Double Press Virtual
-=======
       # Actions for Button Up Single Press / Double Press Virtual
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
       - conditions:
           - condition: trigger
             id:
@@ -507,24 +389,6 @@ actions:
               - zha-button-up-short
               - dcz-button-up-short
         sequence:
-<<<<<<< HEAD
-          - if:
-              - condition: template
-                value_template: '{{ button_up_double_press_exposed }}'
-            # Handle Up Double Press Event
-            then:
-              - choose:
-                  # wait for z2m/zha/dcz triggers for double press
-                  - conditions:
-                      - condition: trigger
-                        id:
-                          - z2m-button-up-short
-                          - zha-button-up-short
-                          - dcz-button-up-short
-                    sequence:
-                      - wait_for_trigger:
-                          # z2m trigger
-=======
           # Check If Double Press is Exposed
           - if:
               - condition: template
@@ -535,16 +399,11 @@ actions:
                   # Wait for z2m/zha/dcz triggers for second Button Press to treat as a Double Press
                   - sequence:
                       - wait_for_trigger:
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
                           - trigger: device
                             domain: mqtt
                             device_id: !input controller_device
                             type: action
                             subtype: 'on'
-<<<<<<< HEAD
-                          # zha trigger
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
                           - trigger: event
                             event_type: zha_event
                             event_data:
@@ -552,10 +411,6 @@ actions:
                               command: 'on'
                               cluster_id: 6
                               endpoint_id: 1
-<<<<<<< HEAD
-                          # dcz trigger
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
                           - trigger: event
                             event_type: deconz_event
                             event_data:
@@ -564,83 +419,38 @@ actions:
                         timeout:
                           milliseconds: '{{ helper_double_press_delay }}'
                         continue_on_timeout: true
-<<<<<<< HEAD
-                      - if:
-                          - condition: template
-                            value_template: '{{ wait.trigger.idx is defined }}'
-                        then:
-                          # fire the ahb hook event
-=======
                       # If a second button short press is triggered wait.trigger.idx will be defined
                       - if:
                           - condition: template
                             value_template: '{{ wait.trigger.idx is defined }}'
                         # Second short press trigger was received send Hook and Custom Actions as a Double Press
                         then:
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
                           - event: ahb_controller_event
                             event_data:
                               controller: '{{ controller_id }}'
                               action: button_up_double
-<<<<<<< HEAD
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_up_double
-                        else:
-                          # fire the ahb hook event
-=======
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_up_double
                         # Second short press trigger was not received send Hook and Custom Actions as a Single Press
                         else:
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
                           - event: ahb_controller_event
                             event_data:
                               controller: '{{ controller_id }}'
                               action: button_up_short
-<<<<<<< HEAD
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_up_short
-                # Not Up Double Handle Up Single Press Event
-                default:
-                  # fire the ahb hook event
-                  - event: ahb_controller_event
-                    event_data:
-                      controller: '{{ controller_id }}'
-                      action: button_up_short
-                  # run the custom action
-                  - choose:
-                      - conditions: []
-                        sequence: !input action_button_up_short
-            # Not Up Double Handle Up Single Press Event
-            else:
-              # fire the ahb hook event
-=======
                           - choose:
                               - conditions: []
                                 sequence: !input action_button_up_short
             # Double Press is Not Exposed So send Hook and Custom Actions as a Single Press
             else:
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
               - event: ahb_controller_event
                 event_data:
                   controller: '{{ controller_id }}'
                   action: button_up_short
-<<<<<<< HEAD
-              # run the custom action
-=======
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
               - choose:
                   - conditions: []
                     sequence: !input action_button_up_short
       #
-<<<<<<< HEAD
-      # Actions for Up Button Long Press
-=======
       # Actions for Button Down Single Press / Double Press Virtual
       - conditions:
           - condition: trigger
@@ -712,7 +522,6 @@ actions:
                     sequence: !input action_button_down_short
       #
       # Actions for Button Up Long Press
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
       - conditions:
           - condition: trigger
             id:
@@ -720,74 +529,6 @@ actions:
               - zha-button-up-long
               - dcz-button-up-long
         sequence:
-<<<<<<< HEAD
-          # fire the ahb event only once, the ahb hook will take care of looping
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_up_long
-          # run the custom action only once before entering repeat
-          - choose:
-              - conditions: []
-                sequence: !input action_button_up_long
-          # handle custom action looping if looping is enabled
-          - choose:
-              - conditions: '{{ button_up_long_loop }}'
-                sequence:
-                  - repeat:
-                      count: !input button_up_long_max_loop_repeats
-                      sequence:
-                        - parallel:
-                            - sequence: !input action_button_up_long
-                            - sequence:
-                                - choose:
-                                    - conditions:
-                                        - condition: trigger
-                                          id:
-                                            - z2m-button-up-long
-                                            - zha-button-up-long
-                                            - dcz-button-up-long
-                                      sequence:
-                                        - wait_for_trigger:
-                                            # z2m triggers
-                                            - trigger: device
-                                              domain: mqtt
-                                              device_id: !input controller_device
-                                              type: action
-                                              subtype: brightness_stop
-                                            # zha triggers
-                                            - trigger: event
-                                              event_type: zha_event
-                                              event_data:
-                                                device_id: !input controller_device
-                                                command: stop_with_on_off
-                                                endpoint_id: 1
-                                                cluster_id: 8
-                                            # dcz triggers
-                                            - trigger: event
-                                              event_type: deconz_event
-                                              event_data:
-                                                device_id: !input controller_device
-                                                event: '1003'
-                                          timeout:
-                                            milliseconds: !input helper_long_press_delay
-                                          continue_on_timeout: true
-                                        - if:
-                                            - condition: template
-                                              value_template: '{{ wait.trigger.idx is defined }}'
-                                          then:
-                                            - stop: button released
-      #
-      # Actions for Up Button long press released
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-up-release
-              - zha-button-up-release
-              - dcz-button-up-release
-        sequence:
-          # fire the ahb hook event
-=======
           # Repeat the Long Press Actions for the set number of loops
           - repeat:
               count: !input button_up_long_max_loop_repeats
@@ -826,7 +567,7 @@ actions:
                                   timeout:
                                     milliseconds: !input helper_long_press_delay
                                   continue_on_timeout: true
-                                # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats 
+                                # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats
                                 - if:
                                     - condition: template
                                       value_template: '{{ wait.trigger.idx is defined }}'
@@ -889,7 +630,7 @@ actions:
                                   timeout:
                                     milliseconds: !input helper_long_press_delay
                                   continue_on_timeout: true
-                                # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats 
+                                # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats
                                 - if:
                                     - condition: template
                                       value_template: '{{ wait.trigger.idx is defined }}'
@@ -915,7 +656,6 @@ actions:
               - dcz-button-release
         sequence:
           # fire the event
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
@@ -925,174 +665,6 @@ actions:
               - conditions: []
                 sequence: !input action_button_up_release
       #
-<<<<<<< HEAD
-      # Actions for Down Button Single Press / Double Press Virtual
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-down-short
-              - zha-button-down-short
-              - dcz-button-down-short
-        sequence:
-          - if:
-              - condition: template
-                value_template: '{{ button_down_double_press_exposed }}'
-            # Handle Down Double Press Event
-            then:
-              - choose:
-                  # wait for z2m/zha/dcz triggers for double press
-                  - conditions:
-                      - condition: trigger
-                        id:
-                          - z2m-button-down-short
-                          - zha-button-down-short
-                          - dcz-button-down-short
-                    sequence:
-                      - wait_for_trigger:
-                          # z2m trigger
-                          - trigger: device
-                            domain: mqtt
-                            device_id: !input controller_device
-                            type: action
-                            subtype: 'off'
-                          # zha trigger
-                          - trigger: event
-                            event_type: zha_event
-                            event_data:
-                              device_id: !input controller_device
-                              command: 'off'
-                              cluster_id: 6
-                              endpoint_id: 1
-                          # dcz trigger
-                          - trigger: event
-                            event_type: deconz_event
-                            event_data:
-                              device_id: !input controller_device
-                              event: '2002'
-                        timeout:
-                          milliseconds: '{{ helper_double_press_delay }}'
-                        continue_on_timeout: true
-                      - if:
-                          - condition: template
-                            value_template: '{{ wait.trigger.idx is defined }}'
-                        then:
-                          # fire the ahb hook event
-                          - event: ahb_controller_event
-                            event_data:
-                              controller: '{{ controller_id }}'
-                              action: button_down_double
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_down_double
-                        else:
-                          # fire the ahb hook event
-                          - event: ahb_controller_event
-                            event_data:
-                              controller: '{{ controller_id }}'
-                              action: button_down_short
-                          # run the custom action
-                          - choose:
-                              - conditions: []
-                                sequence: !input action_button_down_short
-                # Not Down Double Handle Down Single Press Event
-                default:
-                  # fire the ahb hook event
-                  - event: ahb_controller_event
-                    event_data:
-                      controller: '{{ controller_id }}'
-                      action: button_down_short
-                  # run the custom action
-                  - choose:
-                      - conditions: []
-                        sequence: !input action_button_down_short
-            # Not Down Double Handle Down Single Press Event
-            else:
-              # fire the ahb hook event
-              - event: ahb_controller_event
-                event_data:
-                  controller: '{{ controller_id }}'
-                  action: button_down_short
-              # run the custom action
-              - choose:
-                  - conditions: []
-                    sequence: !input action_button_down_short
-      #
-      # Actions for Down Button Long Press
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-down-long
-              - zha-button-down-long
-              - dcz-button-down-long
-        sequence:
-          # fire the ahb event only once, the ahb hook will take care of looping
-          - event: ahb_controller_event
-            event_data:
-              controller: '{{ controller_id }}'
-              action: button_down_long
-          # run the custom action only once before entering repeat
-          - choose:
-              - conditions: []
-                sequence: !input action_button_down_long
-          # handle custom action looping if looping is enabled
-          - choose:
-              - conditions: '{{ button_down_long_loop }}'
-                sequence:
-                  - repeat:
-                      count: !input button_down_long_max_loop_repeats
-                      sequence:
-                        - parallel:
-                            - sequence: !input action_button_down_long
-                            - sequence:
-                                - choose:
-                                    - conditions:
-                                        - condition: trigger
-                                          id:
-                                            - z2m-button-down-long
-                                            - zha-button-down-long
-                                            - dcz-button-down-long
-                                      sequence:
-                                        - wait_for_trigger:
-                                            # z2m triggers
-                                            - trigger: device
-                                              domain: mqtt
-                                              device_id: !input controller_device
-                                              type: action
-                                              subtype: brightness_stop
-                                            # zha triggers
-                                            - trigger: event
-                                              event_type: zha_event
-                                              event_data:
-                                                device_id: !input controller_device
-                                                command: stop
-                                                endpoint_id: 1
-                                                cluster_id: 8
-                                            # dcz triggers
-                                            - trigger: event
-                                              event_type: deconz_event
-                                              event_data:
-                                                device_id: !input controller_device
-                                                event: '2003'
-                                          timeout:
-                                            milliseconds: !input helper_long_press_delay
-                                          continue_on_timeout: true
-                                        - if:
-                                            - condition: template
-                                              value_template: '{{ wait.trigger.idx is defined }}'
-                                          then:
-                                            - stop: button released
-      #
-      # Actions for Down Button long press released
-      - conditions:
-          - condition: trigger
-            id:
-              - z2m-button-down-release
-              - zha-button-down-release
-              - dcz-button-down-release
-        sequence:
-          # fire the ahb hook event
-=======
       # Actions for down button long release
       - conditions:
           - condition: trigger
@@ -1102,7 +674,6 @@ actions:
               - dcz-button-release
         sequence:
           # fire the event
->>>>>>> f55144d8 (Added support for IKEA E2201 RODRET Dimmer.)
           - event: ahb_controller_event
             event_data:
               controller: '{{ controller_id }}'
