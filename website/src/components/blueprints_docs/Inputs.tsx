@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { blueprintsContext } from '../../utils'
 import yaml from 'yaml'
-import Input from './Input'
+import Input, { BlueprintInput } from './Input'
 import InputSection from './InputSection'
 
 interface InputsProps {
@@ -9,16 +9,9 @@ interface InputsProps {
   id: string
 }
 
-interface BlueprintInput {
-  name: string
-  description: string
-  default?: any
-  selector?: any
-}
-
 interface InputSection {
   name: string
-  icon?: string
+  description?: string
   collapsed?: boolean
   input: Record<string, BlueprintInput>
 }
@@ -55,7 +48,7 @@ const Inputs: React.FC<InputsProps> = ({ category, id }) => {
             <InputSection
               key={key}
               name={input.name}
-              icon={input.icon}
+              description={input.description}
               collapsed={input.collapsed}
               input={input.input}
             />
@@ -63,24 +56,7 @@ const Inputs: React.FC<InputsProps> = ({ category, id }) => {
         }
 
         // Handle regular input
-        const requiredMatch = input.name.match(/\(([^)]*\s+)?Required\)/)
-
-        const props = {
-          name: input.name
-            .replace('(Optional) ', '')
-            .replace('(Required) ', '')
-            .replace('(Deprecated) ', '')
-            .replace('(Virtual) ', '')
-            .replace(requiredMatch?.[0] || '', '')
-            .trim(),
-          description: input.description,
-          selector: Object.keys(input.selector || {})[0] || 'none',
-          required: requiredMatch ? (requiredMatch[1] ?? ' ') : undefined,
-          deprecated: input.name.includes('(Deprecated)'),
-          virtual: input.name.includes('(Virtual)'),
-        }
-
-        return <Input key={key} {...props} />
+        return <Input key={key} inputData={input} />
       })}
     </div>
   )
