@@ -3,6 +3,8 @@ title: Hooks
 description: Provide common functionality to any of the supported controllers. Build controller-based automations for lights, media players, covers and much more in just a few clicks.
 ---
 
+import { BlueprintsList } from '@site/src/components/blueprints_docs'
+
 :::tip
 Hooks are part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
 :::
@@ -11,8 +13,4 @@ Hooks are part of the **Controllers-Hooks Ecosystem**. You can read more about t
 
 While Controllers are responsible for integrating the hardware and exposing an abstract interface to the user, Hooks can link to this interface and listen for events fired by a controller, taking care of providing the actual control functionality for common use cases.
 
-| Name                                                | Description                                                                                                                                                            |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Cover](/docs/blueprints/hooks/cover)               | This Hook blueprint allows to build a controller-based automation to control a cover. Supports opening, closing and tilting the cover.                                 |
-| [Light](/docs/blueprints/hooks/light)               | This Hook blueprint allows to build a controller-based automation to control a light. Supports brightness and color control both for white temperature and rgb lights. |
-| [Media Player](/docs/blueprints/hooks/media_player) | This Hook blueprint allows to build a controller-based automation to control a media player. Supports volume setting, play/pause and track selection.                  |
+<BlueprintsList category='hooks' />
