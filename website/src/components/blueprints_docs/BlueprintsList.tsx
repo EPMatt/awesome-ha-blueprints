@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Link from '@docusaurus/Link'
 import { docsContext } from '../../utils'
 import BlueprintItem from './BlueprintItem'
 
@@ -79,26 +78,25 @@ const BlueprintsList: React.FC<BlueprintsListProps> = ({ category }) => {
     return <div>No blueprints found in this category.</div>
   }
 
+  const listStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    margin: '20px 0',
+  }
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {blueprints.map((blueprint) => (
-          <BlueprintItem
-            key={blueprint.id}
-            id={blueprint.id}
-            title={blueprint.title}
-            description={blueprint.description}
-            category={category}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div style={listStyle}>
+      {blueprints.map((blueprint) => (
+        <BlueprintItem
+          key={blueprint.id}
+          id={blueprint.id}
+          title={blueprint.title}
+          description={blueprint.description}
+          category={category}
+        />
+      ))}
+    </div>
   )
 }
 
