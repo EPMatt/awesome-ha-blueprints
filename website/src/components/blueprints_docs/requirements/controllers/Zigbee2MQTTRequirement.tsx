@@ -1,7 +1,16 @@
-import React from 'react'
 import CustomRequirement from '../CustomRequirement'
 
-function Zigbee2MQTTRequirement({ required, refers, children }) {
+interface Zigbee2MQTTRequirementProps {
+  required: boolean
+  refers: string
+  children: React.ReactNode
+}
+
+function Zigbee2MQTTRequirement({
+  required,
+  refers,
+  children,
+}: Zigbee2MQTTRequirementProps) {
   return (
     <CustomRequirement name='Zigbee2MQTT Integration' required={required}>
       <p>

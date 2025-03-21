@@ -1,5 +1,5 @@
-import React from 'react'
 import Badge from '../../Badge'
+import React from 'react'
 
 const styles = {
   requirementNameContainer: {
@@ -10,7 +10,17 @@ const styles = {
   },
 }
 
-function Requirement({ name, required, children }) {
+interface CustomRequirementProps {
+  name: string
+  required: boolean
+  children: React.ReactNode
+}
+
+const CustomRequirement: React.FC<CustomRequirementProps> = ({
+  name,
+  required,
+  children,
+}) => {
   return (
     <div className='margin-bottom--lg'>
       <div style={styles.requirementNameContainer}>
@@ -26,4 +36,4 @@ function Requirement({ name, required, children }) {
   )
 }
 
-export default Requirement
+export default CustomRequirement
