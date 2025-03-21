@@ -26,7 +26,7 @@ const BlueprintsList: React.FC<BlueprintsListProps> = ({ category }) => {
       const blueprintKeys = keys.filter((key: string) => {
         return (
           key.startsWith(categoryPath) &&
-          !key.includes('/_example.mdx') &&
+          !key.includes('/example.mdx') &&
           !key.endsWith(`/${category}.mdx`)
         ) // Exclude the category index file
       })
