@@ -17,7 +17,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.25
+    ℹ️ Version 2025.03.21
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2213/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2213).
 
@@ -453,6 +453,7 @@ actions:
           - choose:
               - conditions: '{{ button_dots1_long_loop }}'
                 sequence:
+                  # Repeat the Long Press Actions for the set number of loops
                   - repeat:
                       count: !input button_dots1_long_max_loop_repeats
                       sequence:
@@ -462,6 +463,7 @@ actions:
                                 - choose:
                                     - conditions: []
                                       sequence:
+                                        # Wait for z2m/zha/dcz triggers for Button Long Press Release to stop looping
                                         - wait_for_trigger:
                                             # z2m triggers
                                             - trigger: device
@@ -486,11 +488,22 @@ actions:
                                           timeout:
                                             milliseconds: !input helper_long_press_delay
                                           continue_on_timeout: true
+                                        # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats
                                         - if:
                                             - condition: template
                                               value_template: '{{ wait.trigger.idx is defined }}'
                                           then:
-                                            - stop: button released
+                                            # fire the event
+                                            - event: ahb_controller_event
+                                              event_data:
+                                                controller: '{{ controller_id }}'
+                                                action: button_dots1_release
+                                            # run the custom action
+                                            - choose:
+                                                - conditions: []
+                                                  sequence: !input action_button_dots1_release
+                                            # Stop the repeat loop
+                                            - stop: button_dots1_released
       #
       # Actions for Dots1 Button long press released
       - conditions:
@@ -567,6 +580,7 @@ actions:
           - choose:
               - conditions: '{{ button_dots2_long_loop }}'
                 sequence:
+                  # Repeat the Long Press Actions for the set number of loops
                   - repeat:
                       count: !input button_dots2_long_max_loop_repeats
                       sequence:
@@ -576,6 +590,7 @@ actions:
                                 - choose:
                                     - conditions: []
                                       sequence:
+                                        # Wait for z2m/zha/dcz triggers for Button Long Press Release to stop looping
                                         - wait_for_trigger:
                                             # z2m triggers
                                             - trigger: device
@@ -600,11 +615,22 @@ actions:
                                           timeout:
                                             milliseconds: !input helper_long_press_delay
                                           continue_on_timeout: true
+                                        # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats
                                         - if:
                                             - condition: template
                                               value_template: '{{ wait.trigger.idx is defined }}'
                                           then:
-                                            - stop: button released
+                                            # fire the event
+                                            - event: ahb_controller_event
+                                              event_data:
+                                                controller: '{{ controller_id }}'
+                                                action: button_dots2_release
+                                            # run the custom action
+                                            - choose:
+                                                - conditions: []
+                                                  sequence: !input action_button_dots2_release
+                                            # Stop the repeat loop
+                                            - stop: button_dots2_released
       #
       # Actions for Dots2 Button long press released
       - conditions:
