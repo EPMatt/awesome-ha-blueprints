@@ -42,7 +42,7 @@
     "@docusaurus/module-type-aliases": "^3.7.0",
     "@docusaurus/tsconfig": "^3.7.0",
     "@docusaurus/types": "^3.7.0",
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^9.23.0",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.12",
     "eslint": "^9.22.0",
