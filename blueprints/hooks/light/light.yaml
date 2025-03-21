@@ -6,21 +6,21 @@ blueprint:
 
     Hook automation which allows to control a light. Supports brightness and color control both for white temperature and rgb lights. Features may vary depending on the selected Controller.
 
-    An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
+    An automation created with this blueprint must be linked to a [Controller](https://yarafie.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
     Controllers are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them.
     They expose an abstract interface used by Hooks to create controller-based automations.
 
-    A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light#supported-controllers).
+    A list of controllers supported by this hook is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light#supported-controllers).
 
     ## More Info
 
-    ℹ️ Version 2025.03.02
-    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
-    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
+    ℹ️ Version 2025.03.22
+    📝 [Changelog](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://yarafie.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/light/light.yaml
+  source_url: https://github.com/yarafie/awesome-ha-blueprints/blob/main/blueprints/hooks/light/light.yaml
   domain: automation
   input:
     controller_device:
@@ -46,6 +46,10 @@ blueprint:
             - IKEA E2001/E2002 STYRBAR Remote control
             - IKEA E2001/E2002 STYRBAR Remote control (#2)
             - IKEA E2123 SYMFONISK sound remote, gen 2
+            - IKEA E2201 RODRET Dimmer
+            - IKEA E2201 RODRET Dimmer (#2)
+            - IKEA E2213 SOMRIG shortcut button
+            - IKEA E2213 SOMRIG shortcut button (#2)
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
@@ -244,6 +248,34 @@ variables:
       turn_on: button_dots2_short
       color_down_repeat: button_dots1_long
       color_up_repeat: button_dots2_long
+    IKEA E2201 RODRET Dimmer:
+      turn_on: button_up_short
+      brightness_up_repeat: button_up_long
+      color_up: button_up_double
+      turn_off: button_down_short
+      brightness_down_repeat: button_down_long
+      color_down: button_down_double
+    IKEA E2201 RODRET Dimmer (#2):
+      brightness_up: button_up_short
+      brightness_up_repeat: button_up_long
+      turn_on: button_up_double
+      brightness_down: button_down_short
+      brightness_down_repeat: button_down_long
+      turn_off: button_down_double
+    IKEA E2213 SOMRIG shortcut button:
+      turn_on: button_dots1_short
+      brightness_up_repeat: button_dots1_long
+      color_up: button_dots1_double
+      turn_off: button_dots2_short
+      brightness_down_repeat: button_dots2_long
+      color_down: button_dots2_double
+    IKEA E2213 SOMRIG shortcut button (#2):
+      brightness_up: button_dots1_short
+      brightness_up_repeat: button_dots1_long
+      turn_on: button_dots1_double
+      brightness_down: button_dots2_short
+      brightness_down_repeat: button_dots2_long
+      turn_off: button_dots2_double
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       brightness_down_repeat: rotate_left
       brightness_up_repeat: rotate_right
