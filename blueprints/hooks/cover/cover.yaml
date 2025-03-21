@@ -6,11 +6,11 @@ blueprint:
 
     Hook automation which allows to control a cover. Supports opening, closing and tilting the cover. Features may vary depending on the selected cover. Features may vary depending on the selected Controller.
 
-    An automation created with this blueprint must be linked to a [Controller](https://epmatt.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
+    An automation created with this blueprint must be linked to a [Controller](https://yarafie.github.io/awesome-ha-blueprints/blueprints/controllers) automation.
     Controllers are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them.
     They expose an abstract interface used by Hooks to create controller-based automations.
 
-    A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover#supported-controllers).
+    A list of controllers supported by this hook is available [here](https://yarafie.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover#supported-controllers).
 
     ## More Info
 
@@ -18,9 +18,9 @@ blueprint:
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://yarafie.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
+  source_url: https://github.com/yarafie/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
     controller_device:
