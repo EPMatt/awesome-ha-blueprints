@@ -14,7 +14,7 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download changes analysis
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v9
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
@@ -61,7 +61,7 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Download failure reports
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v9
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
