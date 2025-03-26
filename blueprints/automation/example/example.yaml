@@ -5,7 +5,7 @@ blueprint:
     A description for the blueprint
 
     Version: yyyy.mm.dd
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/_example/_example.yaml
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/example/example.yaml
   domain: automation
   input:
     example_input_boolean:
@@ -23,7 +23,7 @@ blueprint:
       # we want the user to provide a line of text, so we can skip the selector here
       # this is the only situation which doesn't require a proper input selector
     example_device:
-      name: (MQTT Integration) Example Input Device
+      name: (MQTT Integration Required) Example Input Device
       description: A device input which demonstrates how to document an input with a specific requirement. As a bare example, this input is required only if using the MQTT Integration.
       # wherever possible provide a default value for your inputs
       default: ''

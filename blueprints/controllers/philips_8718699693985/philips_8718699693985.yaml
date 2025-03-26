@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.13
+    ℹ️ Version 2025.03.20
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_8718699693985/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_8718699693985).
 
@@ -34,7 +34,7 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (Required)(deCONZ, ZHA, Zigbee2MQTT) Controller Device
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
@@ -83,7 +83,7 @@ blueprint:
       selector:
         action:
     action_button_double:
-      name: (Optional) Button double press
+      name: (Optional) (Virtual) Button double press
       description: Action to run on double button press.
       default: []
       selector:
