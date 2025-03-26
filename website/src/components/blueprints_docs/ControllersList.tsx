@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { docsContext } from '../../utils'
 import ControllerItem from './ControllerItem'
+import { Search } from 'react-bootstrap-icons'
 
 interface Controller {
   id: string
@@ -12,9 +13,15 @@ interface Controller {
 
 const ControllersList: React.FC = () => {
   const [controllers, setControllers] = useState<Controller[]>([])
+  const [filteredControllers, setFilteredControllers] = useState<Controller[]>(
+    [],
+  )
   const [error, setError] = useState<string | null>(null)
   const [uniqueManufacturers, setUniqueManufacturers] = useState<string[]>([])
   const [totalControllers, setTotalControllers] = useState<number>(0)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [selectedManufacturer, setSelectedManufacturer] =
+    useState<string>('All Manufacturers')
 
   useEffect(() => {
     try {
@@ -74,6 +81,7 @@ const ControllersList: React.FC = () => {
       })
 
       setControllers(controllersData)
+      setFilteredControllers(controllersData)
       setTotalControllers(controllersData.length)
       setUniqueManufacturers(Array.from(manufacturerSet))
       setError(null)
@@ -85,6 +93,74 @@ const ControllersList: React.FC = () => {
       )
     }
   }, [])
+
+  // Filter controllers when search query or manufacturer selection changes
+  useEffect(() => {
+    let results = controllers
+
+    // Apply manufacturer filter if not "All Manufacturers"
+    if (selectedManufacturer !== 'All Manufacturers') {
+      results = results.filter((controller) => {
+        if (Array.isArray(controller.manufacturer)) {
+          return controller.manufacturer.some(
+            (mfr) =>
+              typeof mfr === 'string' &&
+              mfr.toLowerCase().includes(selectedManufacturer.toLowerCase()),
+          )
+        }
+        return (
+          typeof controller.manufacturer === 'string' &&
+          controller.manufacturer
+            .toLowerCase()
+            .includes(selectedManufacturer.toLowerCase())
+        )
+      })
+    }
+
+    // Apply search query filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      results = results.filter((controller) => {
+        // Check model_name (safely)
+        const modelNameMatch =
+          typeof controller.model_name === 'string' &&
+          controller.model_name.toLowerCase().includes(query)
+
+        // Check model (safely)
+        const modelMatch =
+          typeof controller.model === 'string' &&
+          controller.model.toLowerCase().includes(query)
+
+        // Check manufacturer (safely)
+        let manufacturerMatch = false
+        if (Array.isArray(controller.manufacturer)) {
+          manufacturerMatch = controller.manufacturer.some(
+            (mfr) =>
+              typeof mfr === 'string' && mfr.toLowerCase().includes(query),
+          )
+        } else if (typeof controller.manufacturer === 'string') {
+          manufacturerMatch = controller.manufacturer
+            .toLowerCase()
+            .includes(query)
+        }
+
+        // Check integrations (safely)
+        const integrationsMatch =
+          Array.isArray(controller.integrations) &&
+          controller.integrations.some(
+            (integration) =>
+              typeof integration === 'string' &&
+              integration.toLowerCase().includes(query),
+          )
+
+        return (
+          modelNameMatch || modelMatch || manufacturerMatch || integrationsMatch
+        )
+      })
+    }
+
+    setFilteredControllers(results)
+  }, [searchQuery, selectedManufacturer, controllers])
 
   if (error) {
     return (
@@ -120,17 +196,90 @@ const ControllersList: React.FC = () => {
     flexWrap: 'wrap',
   }
 
+  const searchContainerStyle: React.CSSProperties = {
+    display: 'flex',
+    gap: '16px',
+    marginBottom: '20px',
+    flexWrap: 'wrap',
+  }
+
+  const searchInputContainerStyle: React.CSSProperties = {
+    position: 'relative',
+    flex: '2',
+    minWidth: '200px',
+  }
+
+  const searchIconStyle: React.CSSProperties = {
+    position: 'absolute',
+    left: '12px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: 'var(--ifm-color-emphasis-500)',
+  }
+
+  const searchInputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '8px 8px 8px 36px',
+    borderRadius: '4px',
+    border: '1px solid var(--ifm-color-emphasis-300)',
+    fontSize: '16px',
+  }
+
+  const selectStyle: React.CSSProperties = {
+    flex: '1',
+    minWidth: '150px',
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid var(--ifm-color-emphasis-300)',
+    fontSize: '16px',
+  }
+
   return (
     <>
       <div style={statsStyle}>
         <div>
-          Currently {totalControllers} devices from {uniqueManufacturers.length}{' '}
-          different vendors are supported.
+          {filteredControllers.length === controllers.length ? (
+            <>
+              Currently {totalControllers} devices from{' '}
+              {uniqueManufacturers.length} different vendors are supported.
+            </>
+          ) : (
+            <>
+              Showing {filteredControllers.length} of {totalControllers}{' '}
+              devices.
+            </>
+          )}
         </div>
       </div>
 
+      <div style={searchContainerStyle}>
+        <div style={searchInputContainerStyle}>
+          <Search style={searchIconStyle} size={16} />
+          <input
+            type='text'
+            placeholder='Search controllers...'
+            style={searchInputStyle}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <select
+          style={selectStyle}
+          value={selectedManufacturer}
+          onChange={(e) => setSelectedManufacturer(e.target.value)}
+        >
+          <option>All Manufacturers</option>
+          {uniqueManufacturers.sort().map((manufacturer) => (
+            <option key={manufacturer} value={manufacturer}>
+              {manufacturer}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div style={listStyle}>
-        {controllers.map((controller) => {
+        {filteredControllers.map((controller) => {
           const imagePath = `/awesome-ha-blueprints/img/controllers/${controller.id}.png`
 
           return (
