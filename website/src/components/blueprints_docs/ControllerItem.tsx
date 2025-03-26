@@ -5,7 +5,7 @@ import { ChevronRight } from 'react-bootstrap-icons'
 interface ControllerItemProps {
   id: string
   model: string
-  manufacturer: string
+  manufacturer: string | string[]
   integrations: string[]
   image: string
   model_name: string
@@ -20,6 +20,10 @@ const ControllerItem: React.FC<ControllerItemProps> = ({
   model_name,
 }) => {
   const [isHovered, setIsHovered] = useState(false)
+
+  const formattedManufacturer = Array.isArray(manufacturer)
+    ? manufacturer.join(', ')
+    : manufacturer
 
   const cardStyle: React.CSSProperties = {
     width: '100%',
@@ -81,7 +85,7 @@ const ControllerItem: React.FC<ControllerItemProps> = ({
             <strong>Model:</strong> {model}
           </p>
           <p style={{ margin: '0' }}>
-            <strong>Manufacturer:</strong> {manufacturer}
+            <strong>Manufacturer:</strong> {formattedManufacturer}
           </p>
           <p style={{ margin: '0' }}>
             <strong>Integrations:</strong> {integrations.join(', ')}

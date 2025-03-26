@@ -5,7 +5,7 @@ import ControllerItem from './ControllerItem'
 interface Controller {
   id: string
   model: string
-  manufacturer: string
+  manufacturer: string | string[]
   integrations: string[]
   model_name: string
 }
@@ -13,6 +13,8 @@ interface Controller {
 const ControllersList: React.FC = () => {
   const [controllers, setControllers] = useState<Controller[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [uniqueManufacturers, setUniqueManufacturers] = useState<string[]>([])
+  const [totalControllers, setTotalControllers] = useState<number>(0)
 
   useEffect(() => {
     try {
@@ -44,9 +46,7 @@ const ControllersList: React.FC = () => {
           title: title || id,
           description: description || '',
           model: Array.isArray(model) ? model.join(', ') : model || '',
-          manufacturer: Array.isArray(manufacturer)
-            ? manufacturer.join(', ')
-            : manufacturer || '',
+          manufacturer: manufacturer || '',
           integrations: integrations || [],
           model_name: Array.isArray(model_name)
             ? model_name.join(', ')
@@ -56,7 +56,26 @@ const ControllersList: React.FC = () => {
 
       controllersData.sort((a, b) => a.title.localeCompare(b.title))
 
+      const manufacturerSet = new Set<string>()
+
+      controllersData.forEach((controller) => {
+        if (Array.isArray(controller.manufacturer)) {
+          controller.manufacturer.forEach((mfr) => {
+            if (mfr && typeof mfr === 'string' && mfr.trim() !== '') {
+              manufacturerSet.add(mfr.trim())
+            }
+          })
+        } else if (
+          controller.manufacturer &&
+          typeof controller.manufacturer === 'string'
+        ) {
+          manufacturerSet.add(controller.manufacturer.trim())
+        }
+      })
+
       setControllers(controllersData)
+      setTotalControllers(controllersData.length)
+      setUniqueManufacturers(Array.from(manufacturerSet))
       setError(null)
     } catch (e) {
       console.error('Error loading controllers:', e)
@@ -91,25 +110,43 @@ const ControllersList: React.FC = () => {
     margin: '20px 0',
   }
 
-  return (
-    <div style={listStyle}>
-      {controllers.map((controller) => {
-        // Construct the image path using the id
-        const imagePath = `/awesome-ha-blueprints/img/controllers/${controller.id}.png`
+  const statsStyle: React.CSSProperties = {
+    marginBottom: '20px',
+    padding: '12px 16px',
+    backgroundColor: 'var(--ifm-color-emphasis-100)',
+    borderRadius: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  }
 
-        return (
-          <ControllerItem
-            key={controller.id}
-            id={controller.id}
-            model={controller.model}
-            model_name={controller.model_name}
-            manufacturer={controller.manufacturer}
-            integrations={controller.integrations}
-            image={imagePath} // Pass the image path to ControllerItem
-          />
-        )
-      })}
-    </div>
+  return (
+    <>
+      <div style={statsStyle}>
+        <div>
+          Currently {totalControllers} devices from {uniqueManufacturers.length}{' '}
+          different vendors are supported.
+        </div>
+      </div>
+
+      <div style={listStyle}>
+        {controllers.map((controller) => {
+          const imagePath = `/awesome-ha-blueprints/img/controllers/${controller.id}.png`
+
+          return (
+            <ControllerItem
+              key={controller.id}
+              id={controller.id}
+              model={controller.model}
+              model_name={controller.model_name}
+              manufacturer={controller.manufacturer}
+              integrations={controller.integrations}
+              image={imagePath}
+            />
+          )
+        })}
+      </div>
+    </>
   )
 }
 
