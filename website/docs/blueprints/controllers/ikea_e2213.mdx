@@ -34,82 +34,7 @@ Hooks allow to easily create controller-based automations for interacting with l
 
 ## Inputs
 
-<Input
-  name='Controller Device'
-  description='The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA, deCONZ.'
-  selector='device'
-  required='Zigbee2MQTT, ZHA, deCONZ'
-/>
-<Input
-  name='Dots1 button short press'
-  description='Action to run on short dots1 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots1 button long press'
-  description='Action to run on long dots1 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots1 button release'
-  description='Action to run on dots1 button release after long press.'
-  selector='action'
-/>
-<Input
-  name='Dots1 button double press'
-  description='Action to run on double dots1 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots2 button short press'
-  description='Action to run on short dots2 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots2 button long press'
-  description='Action to run on long dots2 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots2 button release'
-  description='Action to run on dots2 button release after long press.'
-  selector='action'
-/>
-<Input
-  name='Dots2 button double press'
-  description='Action to run on double dots2 button press.'
-  selector='action'
-/>
-<Input
-  name='Dots1 button long press - loop until release'
-  description='Loop the dots1 button action until the button is released.'
-  selector='boolean'
-/>
-<Input
-  name='Dots1 button long press - Maximum loop repeats'
-  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
-  selector='number'
-/>
-<Input
-  name='Dots2 button long press - loop until release'
-  description='Loop the dots2 button action until the button is released.'
-  selector='boolean'
-/>
-<Input
-  name='Dots2 button long press - Maximum loop repeats'
-  description='Maximum number of repeats for the custom action, when looping is enabled. Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.'
-  selector='number'
-/>
-<Input
-  name='Helper - Long Press Delay'
-  description='Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.'
-  selector='number'
-/>
-<Input
-  name='Helper - Double Press delay'
-  description='Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.'
-  selector='number'
-/>
+<Inputs category='controllers' id='ikea_e2213' />
 
 ## Available Hooks
 
@@ -168,4 +93,4 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 ## Changelog
 
-- **2025-03-21**: Initial release. ([@yarafie](https://github.com/yarafie)) :tada:
+- **2025-03-26**: Initial release. ([@yarafie](https://github.com/yarafie)) :tada:
