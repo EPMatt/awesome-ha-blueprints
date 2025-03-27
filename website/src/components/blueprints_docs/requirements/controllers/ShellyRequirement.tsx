@@ -21,7 +21,7 @@ function ShellyRequirement({
       </p>
       <p>{children}</p>
       <a href='https://www.home-assistant.io/integrations/shelly/'>
-        Shelly Docs
+        Shelly Integration Docs
       </a>
     </CustomRequirement>
   )
