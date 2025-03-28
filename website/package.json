@@ -23,7 +23,7 @@
     "react": "^19.0.0",
     "react-bootstrap-icons": "^1.11.5",
     "react-cookie-consent": "^9.0.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.1.0",
     "react-json-view-lite": "^2.3.0"
   },
   "browserslist": {
