@@ -43,7 +43,7 @@
     "@docusaurus/tsconfig": "^3.7.0",
     "@docusaurus/types": "^3.7.0",
     "@eslint/js": "^9.23.0",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "@types/react": "^19.0.12",
     "eslint": "^9.23.0",
     "eslint-config-airbnb-base": "^15.0.0",
