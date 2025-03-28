@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.26
+    ℹ️ Version 2025.03.28
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
@@ -40,6 +40,7 @@ blueprint:
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
+            - IKEA E2123 SYMFONISK sound remote, gen 2
             - IKEA E2201 RODRET Dimmer
             - IKEA E2213 SOMRIG shortcut button
             - SONOFF SNZB-01 Wireless Switch
@@ -86,6 +87,12 @@ variables:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
+    IKEA E2123 SYMFONISK sound remote, gen 2:
+      open_cover: button_up_short
+      close_cover: button_down_short
+      open_cover_tilt: button_right_short
+      close_cover_tilt: button_left_short
+      stop_cover_all: button_center_short
     IKEA E2201 RODRET Dimmer:
       open_cover: button_up_short
       open_cover_tilt: button_up_long
