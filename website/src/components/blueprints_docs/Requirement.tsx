@@ -1,6 +1,7 @@
 import Zigbee2MQTTRequirement from './requirements/controllers/Zigbee2MQTTRequirement'
 import ZHARequirement from './requirements/controllers/ZHARequirement'
 import DeCONZRequirement from './requirements/controllers/DeCONZRequirement'
+import ShellyRequirement from './requirements/controllers/ShellyRequirement'
 import CustomRequirement from './requirements/CustomRequirement'
 import ControllerRequirement from './requirements/hooks/ControllerRequirement'
 
@@ -8,6 +9,7 @@ const requirements = {
   zigbee2mqtt: Zigbee2MQTTRequirement,
   zha: ZHARequirement,
   deconz: DeCONZRequirement,
+  shelly: ShellyRequirement,
   controller: ControllerRequirement,
 }
 
