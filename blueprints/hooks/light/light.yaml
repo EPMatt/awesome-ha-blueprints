@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.28
+    ℹ️ Version 2025.03.29
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
 
@@ -56,6 +56,7 @@ blueprint:
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
             - SONOFF SNZB-01 Wireless Switch
+            - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
@@ -310,6 +311,12 @@ variables:
     SONOFF SNZB-01 Wireless Switch:
       toggle: button_short
       color_up: button_double
+    Tuya ERS-10TZBVK-AA Smart knob:
+      brightness_down: rotate_left
+      brightness_up: rotate_right
+      toggle: click_short
+      color_down: rotate_left_withpress
+      color_up: rotate_right_withpress
     Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
       turn_on: button_1_short
       brightness_up_repeat: button_1_long

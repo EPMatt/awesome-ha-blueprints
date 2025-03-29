@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.28
+    ℹ️ Version 2025.03.29
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
@@ -51,6 +51,7 @@ blueprint:
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
             - SONOFF SNZB-01 Wireless Switch
+            - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
@@ -193,6 +194,12 @@ variables:
       play_pause: button_short
       stop: button_long
       next_track: button_double
+    Tuya ERS-10TZBVK-AA Smart knob:
+      volume_up: rotate_right
+      volume_down: rotate_left
+      play_pause: click_short
+      next_track: click_double
+      prev_track: click_long
     Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
       volume_up: button_1_short
       volume_up_repeat: button_1_long
