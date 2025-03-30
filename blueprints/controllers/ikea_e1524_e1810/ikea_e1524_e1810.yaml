@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.02.13
+    ℹ️ Version 2025.03.20
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1524_e1810/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e1524_e1810).
 
@@ -34,7 +34,7 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (Required) (deCONZ, ZHA, Zigbee2MQTT) Controller Device
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
       description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
@@ -83,7 +83,7 @@ blueprint:
       selector:
         action:
     action_button_left_double:
-      name: (Optional) Left button double press
+      name: (Optional) (Virtual) Left button double press
       description: Action to run on double left button press.
       default: []
       selector:
@@ -107,7 +107,7 @@ blueprint:
       selector:
         action:
     action_button_right_double:
-      name: (Optional) Right button double press
+      name: (Optional) (Virtual) Right button double press
       description: Action to run on double right button press.
       default: []
       selector:
@@ -131,7 +131,7 @@ blueprint:
       selector:
         action:
     action_button_up_double:
-      name: (Optional) Up button double press
+      name: (Optional) (Virtual) Up button double press
       description: Action to run on double up button press.
       default: []
       selector:
@@ -155,7 +155,7 @@ blueprint:
       selector:
         action:
     action_button_down_double:
-      name: (Optional) Down button double press
+      name: (Optional) (Virtual) Down button double press
       description: Action to run on double down button press.
       default: []
       selector:

@@ -14,10 +14,3 @@ updates:
     commit-message:
       prefix: 'npm'
     open-pull-requests-limit: 10
-  - package-ecosystem: 'npm'
-    directory: '/website'
-    schedule:
-      interval: 'daily'
-    commit-message:
-      prefix: 'npm-website'
-    open-pull-requests-limit: 10
