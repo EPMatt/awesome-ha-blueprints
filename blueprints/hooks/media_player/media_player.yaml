@@ -12,11 +12,14 @@ blueprint:
 
     A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player#supported-controllers).
 
+    ## More Info
+
+    ℹ️ Version 2025.03.29
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-    ℹ️ Version 2022.07.30
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/media_player/media_player.yaml
   domain: automation
   input:
@@ -26,38 +29,36 @@ blueprint:
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Required) Controller Entity
-      description: The controller entity which will control the Media Player. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
     controller_model:
       name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
       selector:
         select:
           options:
+            - Aqara WXKG11LM Wireless Mini Switch
             - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1744 SYMFONISK Rotary Remote
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
             - IKEA E2001/E2002 STYRBAR Remote control
+            - IKEA E2123 SYMFONISK sound remote, gen 2
+            - IKEA E2201 RODRET Dimmer
+            - IKEA E2213 SOMRIG shortcut button
             - IKEA ICTC-G-1 TRÅDFRI wireless dimmer
             - OSRAM AC025XX00NJ SMART+ Switch Mini
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
             - SONOFF SNZB-01 Wireless Switch
+            - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
-            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+            - Xiaomi WXKG01LM Mi Wireless Switch
     media_player:
       name: (Required) Media Player
       description: Media player which will be controlled with this automation.
@@ -92,6 +93,10 @@ variables:
   controller_model: !input controller_model
   # supported controllers and mappings
   controller_mapping:
+    Aqara WXKG11LM Wireless Mini Switch:
+      play_pause: button_short
+      stop: button_long
+      next_track: button_double
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       volume_up: button_up_short
       volume_up_repeat: button_up_long
@@ -129,6 +134,29 @@ variables:
       volume_down_repeat: button_down_long
       prev_track: button_left_short
       next_track: button_right_short
+    IKEA E2123 SYMFONISK sound remote, gen 2:
+      play_pause: button_center_short
+      volume_up: button_up_short
+      volume_up_repeat: button_up_long
+      volume_down: button_down_short
+      volume_down_repeat: button_down_long
+      next_track: button_right_short
+      prev_track: button_left_short
+      toggle: button_dots2_short
+      stop: button_dots1_short
+    IKEA E2201 RODRET Dimmer:
+      volume_up: button_up_short
+      volume_up_repeat: button_up_long
+      next_track: button_up_double
+      volume_down: button_down_long
+      play_pause: button_down_double
+    IKEA E2213 SOMRIG shortcut button:
+      volume_up: button_dots1_short
+      volume_up_repeat: button_dots1_long
+      next_track: button_dots1_double
+      volume_down: button_dots2_short
+      volume_down_repeat: button_dots2_long
+      play_pause: button_dots2_double
     IKEA ICTC-G-1 TRÅDFRI wireless dimmer:
       volume_down_repeat: rotate_left
       volume_up_repeat: rotate_right
@@ -166,6 +194,12 @@ variables:
       play_pause: button_short
       stop: button_long
       next_track: button_double
+    Tuya ERS-10TZBVK-AA Smart knob:
+      volume_up: rotate_right
+      volume_down: rotate_left
+      play_pause: click_short
+      next_track: click_double
+      prev_track: click_long
     Xiaomi WXCJKG11LM Aqara Opple 2 button remote:
       volume_up: button_1_short
       volume_up_repeat: button_1_long
@@ -202,7 +236,7 @@ variables:
       next_track: button_5_double
       volume_down: button_6_long
       play_pause: button_6_double
-    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+    Xiaomi WXKG01LM Mi Wireless Switch:
       play_pause: button_short
       stop: button_long
       next_track: button_double
@@ -224,39 +258,35 @@ variables:
   volume_step_value_long: '{{ 1/volume_steps_long }}'
 mode: restart
 max_exceeded: silent
-trigger:
-  - platform: event
+triggers:
+  - trigger: event
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_device
-  - platform: event
-    event_type: ahb_controller_event
-    event_data:
-      controller: !input controller_entity
 condition: []
-action:
+actions:
   - variables:
       action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == play_pause }}'
         sequence:
-          - service: media_player.media_play_pause
+          - action: media_player.media_play_pause
             entity_id: !input media_player
       - conditions: '{{ action == stop }}'
         sequence:
-          - service: media_player.media_stop
+          - action: media_player.media_stop
             entity_id: !input media_player
       - conditions: '{{ action == next_track }}'
         sequence:
-          - service: media_player.media_next_track
+          - action: media_player.media_next_track
             entity_id: !input media_player
       - conditions: '{{ action == prev_track }}'
         sequence:
-          - service: media_player.media_previous_track
+          - action: media_player.media_previous_track
             entity_id: !input media_player
       - conditions: '{{ action == toggle }}'
         sequence:
-          - service: media_player.toggle
+          - action: media_player.toggle
             entity_id: !input media_player
       - conditions: '{{ action == volume_up }}'
         sequence:
@@ -264,13 +294,13 @@ action:
               # if the volume level can be read from the media player, increase the volume by the custom step value
               - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                 sequence:
-                  - service: media_player.volume_set
+                  - action: media_player.volume_set
                     entity_id: !input media_player
                     data:
                       volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_short, 1 ] | min  }}'
             # if the volume level is not available, fallback to the media_player.volume_up service
             default:
-              - service: media_player.volume_up
+              - action: media_player.volume_up
                 entity_id: !input media_player
       - conditions: '{{ action == volume_down }}'
         sequence:
@@ -278,13 +308,13 @@ action:
               # if the volume level can be read from the media player, decrease the volume by the custom step value
               - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                 sequence:
-                  - service: media_player.volume_set
+                  - action: media_player.volume_set
                     entity_id: !input media_player
                     data:
                       volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_short, 0 ] | max }}'
             # if the volume level is not available, fallback to the media_player.volume_down service
             default:
-              - service: media_player.volume_down
+              - action: media_player.volume_down
                 entity_id: !input media_player
       - conditions: '{{ action == volume_up_repeat }}'
         sequence:
@@ -295,13 +325,13 @@ action:
                     # if the volume level can be read from the media player, increase the volume by the custom step value
                     - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                       sequence:
-                        - service: media_player.volume_set
+                        - action: media_player.volume_set
                           entity_id: !input media_player
                           data:
                             volume_level: '{{ [ state_attr(media_player, "volume_level")+volume_step_value_long, 1 ] | min  }}'
                   # if the volume level is not available, fallback to the media_player.volume_up service
                   default:
-                    - service: media_player.volume_up
+                    - action: media_player.volume_up
                       entity_id: !input media_player
                 - delay:
                     milliseconds: 250
@@ -314,13 +344,13 @@ action:
                     # if the volume level can be read from the media player, decrease the volume by the custom step value
                     - conditions: '{{ state_attr(media_player, "volume_level") != None }}'
                       sequence:
-                        - service: media_player.volume_set
+                        - action: media_player.volume_set
                           entity_id: !input media_player
                           data:
                             volume_level: '{{ [ state_attr(media_player, "volume_level")-volume_step_value_long, 0 ] | max }}'
                   # if the volume level is not available, fallback to the media_player.volume_down service
                   default:
-                    - service: media_player.volume_down
+                    - action: media_player.volume_down
                       entity_id: !input media_player
                 - delay:
                     milliseconds: 250

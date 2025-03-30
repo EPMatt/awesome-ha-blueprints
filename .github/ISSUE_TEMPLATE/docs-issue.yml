@@ -8,11 +8,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to report here! :tada:
+        Thanks for your feedback! 🎉
 
-        Please do not delete any part of the template, since keeping the provided structure will help maintainers to process your request more rapidly.
+        Please keep the template as is—it helps us review issues faster.
 
-        This template should only be used to report an issue with the project's documentation. If this is not your case, you can [choose a different issue template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). If you have a question instead, please open a discussion [here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
+        This template is for **documentation issues only**. For other issues, [pick a different template](https://github.com/EPMatt/awesome-ha-blueprints/issues/new/choose). Got a question? [Start a discussion here](https://github.com/EPMatt/awesome-ha-blueprints/discussions/new).
   - type: input
     attributes:
       label: Documentation URL
@@ -24,14 +24,14 @@ body:
   - type: textarea
     attributes:
       label: Description
-      description: A clear and concise description of what the problem is.
+      description: A concise description of what the problem is.
       placeholder: e.g. Documentation for blueprint X is not properly stating requirement Y, the Z web page is not displaying correctly on mobile, etc.
     validations:
       required: true
   - type: textarea
     attributes:
       label: Suggested changes
-      description: A clear and concise description of which changes you'd suggest.
+      description: A concise description of which changes you'd suggest.
     validations:
       required: true
   - type: checkboxes

@@ -1,0 +1,777 @@
+# Blueprint Metadata
+blueprint:
+  name: Controller - Tuya ERS-10TZBVK-AA Smart knob
+  description: |
+    # Controller - Tuya ERS-10TZBVK-AA Smart knob
+
+    Controller automation for executing any kind of action triggered by the provided Tuya ERS-10TZBVK-AA Smart knob.
+    Allows to optionally loop an action on a button long press.
+    The blueprint also adds support for virtual double button press events, which are not exposed by the controller device itself. However, It needs to be enabled in the blueprint.
+    Supports Zigbee2MQTT, ZHA.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/tuya_ERS-10TZBVK-AA#available-hooks) for additional details.
+
+    A small note, avoid using both custom actions and Hooks in the same blueprint, otherwise strange things may occur.
+
+    ## More Info
+
+    ℹ️ Version 2025.03.29
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/tuya_ERS-10TZBVK-AA/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/tuya_ERS-10TZBVK-AA).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/tuya_ERS-10TZBVK-AA/tuya_ERS-10TZBVK-AA.yaml
+  domain: automation
+  homeassistant:
+    min_version: 2024.10.0
+  # Device Selector
+  input:
+    controller_device:
+      name: (Required) (Zigbee2MQTT, ZHA) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT, ZHA.
+      default: ''
+      selector:
+        # source: https://zigbee.blakadder.com/Eardatek_ERS-10TZBVK-AA.html
+        device:
+          filter:
+            # source: https://www.zigbee2mqtt.io/devices/ERS-10TZBVK-AA.html#tuya-ers-10tzbvk-aa
+            - integration: mqtt
+              manufacturer: Tuya
+              model: Smart knob
+            # For backwards compatibility with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Tuya
+              model: Smart knob (ERS-10TZBVK-AA)
+            # source: https://github.com/zigpy/zha-device-handlers/blob/b87ac8907765303c915b19d915a1ca5ea9a8bdae/zhaquirks/tuya/ts004f.py#L69
+            - integration: zha
+              manufacturer: _TZ3000_4fjiwweb
+              model: TS004F
+            - integration: zha
+              manufacturer: _TZ3000_qja6nq5z
+              model: TS004F
+            - integration: zha
+              manufacturer: _TZ3000_ixla93vd
+              model: TS004F
+          multiple: false
+    # inputs for custom actions
+    action_rotate_left:
+      name: (Optional) Rotate left
+      description: Action to run on rotate left.
+      default: []
+      selector:
+        action:
+    action_rotate_right:
+      name: (Optional) Rotate right
+      description: Action to run on rotate right.
+      default: []
+      selector:
+        action:
+    action_rotate_left_withpress:
+      name: (Optional) Rotate left_withpress
+      description: Action to run on rotate left_withpress.
+      default: []
+      selector:
+        action:
+    action_rotate_right_withpress:
+      name: (Optional) Rotate right_withpress
+      description: Action to run on rotate right_withpress.
+      default: []
+      selector:
+        action:
+    action_click_short:
+      name: (Optional) Remote short press
+      description: Action to run on short remote press.
+      default: []
+      selector:
+        action:
+    action_click_double:
+      name: (Optional) Remote double press
+      description: Action to run on double remote press.
+      default: []
+      selector:
+        action:
+    action_click_long:
+      name: (Optional) Remote long press
+      description: Action to run on long remote press.
+      default: []
+      selector:
+        action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
+    long_press_options_section:
+      name: Long Press options
+      icon: mdi:remote
+      collapsed: true
+      input:
+        click_long_loop:
+          name: (Optional) Click long - loop until stop
+          description: Loop the click long action until the rotation is stopped.
+          default: false
+          selector:
+            boolean:
+        click_long_max_loop_repeats:
+          name: (Optional) Click long - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 500
+          selector:
+            number:
+              min: 1
+              max: 5000
+              mode: slider
+              step: 1
+        rotate_left_loop:
+          name: (Optional) Rotate left - loop until stop
+          description: Loop the rotate left action until the rotation is stopped.
+          default: false
+          selector:
+            boolean:
+        rotate_left_max_loop_repeats:
+          name: (Optional) Rotate left - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 500
+          selector:
+            number:
+              min: 1
+              max: 5000
+              mode: slider
+              step: 1
+        rotate_right_loop:
+          name: (Optional) Rotate right - loop until stop
+          description: Loop the rotate right action until the rotation is stopped.
+          default: false
+          selector:
+            boolean:
+        rotate_right_max_loop_repeats:
+          name: (Optional) Rotate right - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 500
+          selector:
+            number:
+              min: 1
+              max: 5000
+              mode: slider
+              step: 1
+        rotate_left_withpress_loop:
+          name: (Optional) Rotate left_withpress - loop until stop
+          description: Loop the rotate left_withpress action until the rotation is stopped.
+          default: false
+          selector:
+            boolean:
+        rotate_left_withpress_max_loop_repeats:
+          name: (Optional) Rotate left_withpress - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 500
+          selector:
+            number:
+              min: 1
+              max: 5000
+              mode: slider
+              step: 1
+        rotate_right_withpress_loop:
+          name: (Optional) Rotate right_withpress - loop until stop
+          description: Loop the rotate right_withpress action until the rotation is stopped.
+          default: false
+          selector:
+            boolean:
+        rotate_right_withpress_max_loop_repeats:
+          name: (Optional) Rotate right_withpress - Maximum loop repeats
+          description: >-
+            Maximum number of repeats for the custom action, when looping is enabled.
+            Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+          default: 500
+          selector:
+            number:
+              min: 1
+              max: 5000
+              mode: slider
+              step: 1
+        helper_long_press_delay:
+          name: (Optional) Helper - Long Press delay
+          description: Max delay between the pushing and releasing of a button long press event. Increase this value if you notice that the long press action is not triggered properly.
+          default: 250
+          selector:
+            number:
+              min: 100.0
+              max: 5000.0
+              unit_of_measurement: milliseconds
+              mode: box
+              step: 10.0
+    # inputs for enabling double press events
+    double_press_options_section:
+      name: Double Press options
+      icon: mdi:remote
+      collapsed: true
+      input:
+        # helper used to properly adjust the remote button double press events
+        click_double_press_exposed:
+          name: (Optional) Expose up button double press event
+          description: Choose whether or not to expose the virtual double press event for the up button. Turn this on if you are providing an action for the up button double press event.
+          default: false
+          selector:
+            boolean:
+        helper_double_press_delay:
+          name: (Optional) Helper - Double Press delay
+          description: Max delay between the first and the second button press for the double press event. Provide a value only if you are using a double press action. Increase this value if you notice that the double press action is not triggered properly.
+          default: 250
+          selector:
+            number:
+              min: 100.0
+              max: 5000.0
+              unit_of_measurement: milliseconds
+              mode: box
+              step: 10.0
+#
+# Automation schema
+variables:
+  # Controller ID
+  controller_id: !input controller_device
+  # integration id used to select items in the action mapping
+  # integration type is set from trigger.id
+  integration_id: '{{ trigger.id.split("-")[0] }}'
+  # convert input tags to variables, to be used in templates
+  click_long_loop: !input click_long_loop
+  click_long_max_loop_repeats: !input click_long_max_loop_repeats
+  rotate_left_loop: !input rotate_left_loop
+  rotate_left_max_loop_repeats: !input rotate_left_max_loop_repeats
+  rotate_right_loop: !input rotate_right_loop
+  rotate_right_max_loop_repeats: !input rotate_right_max_loop_repeats
+  rotate_left_withpress_loop: !input rotate_left_withpress_loop
+  rotate_left_withpress_max_loop_repeats: !input rotate_left_withpress_max_loop_repeats
+  rotate_right_withpress_loop: !input rotate_right_withpress_loop
+  rotate_right_withpress_max_loop_repeats: !input rotate_right_withpress_max_loop_repeats
+  helper_long_press_delay: !input helper_long_press_delay
+  click_double_press_exposed: !input click_double_press_exposed
+  helper_double_press_delay: !input helper_double_press_delay
+  # mapping between actions and integrations
+  actions_mapping:
+    z2m:
+      # source: https://www.zigbee2mqtt.io/devices/ERS-10TZBVK-AA.html#tuya-ers-10tzbvk-aa
+      # EVENT MODE
+      rotate_left_evnt: [rotate_left]
+      rotate_right_evnt: [rotate_right]
+      click_short_evnt: [single]
+      click_double_evnt: [double]
+      click_long_evnt: [hold]
+      # COMMAND MODE
+      rotate_left_cmnd: [brightness_step_down]
+      rotate_right_cmnd: [brightness_step_up]
+      rotate_left_withpress_cmnd: [color_temperature_step_down]
+      rotate_right_withpress_cmnd: [color_temperature_step_up]
+      click_short_cmnd: [toggle]
+      click_long_cmnd: [hue_move]
+      click_release_cmnd: [hue_stop]
+    zha:
+      # source: https://github.com/zigpy/zha-device-handlers/blob/b87ac8907765303c915b19d915a1ca5ea9a8bdae/zhaquirks/tuya/ts004f.py#L69
+      # EVENT MODE
+      rotate_left_evnt: [left]
+      rotate_right_evnt: [right]
+      click_short_evnt: [remote_button_short_press]
+      click_double_evnt: [remote_button_double_press]
+      click_long_evnt: [remote_button_long_press]
+      # COMMAND MODE
+      rotate_left_cmnd: [step]
+      rotate_right_cmnd: [step]
+      rotate_left_withpress_cmnd: [step_color_temp]
+      rotate_right_withpress_cmnd: [step_color_temp]
+      click_short_cmnd: [toggle]
+      click_long_cmnd: [move_hue]
+      click_release_cmnd: [stop_move_step]
+  # pre-choose actions for buttons based on configured integration
+  # mainly used to pass to hooks through ahb_controller_event
+  # EVENT MODE
+  rotate_left_evnt: '{{ actions_mapping[integration_id]["rotate_left_evnt"] }}'
+  rotate_right_evnt: '{{ actions_mapping[integration_id]["rotate_right_evnt"] }}'
+  click_short_evnt: '{{ actions_mapping[integration_id]["click_short_evnt"] }}'
+  click_double_evnt: '{{ actions_mapping[integration_id]["click_double_evnt"] }}'
+  click_long_evnt: '{{ actions_mapping[integration_id]["click_long_evnt"] }}'
+  # COMMAND MODE
+  rotate_left_cmnd: '{{ actions_mapping[integration_id]["rotate_left_cmnd"] }}'
+  rotate_right_cmnd: '{{ actions_mapping[integration_id]["rotate_right_cmnd"] }}'
+  rotate_left_withpress_cmnd: '{{ actions_mapping[integration_id]["rotate_left_withpress_cmnd"] }}'
+  rotate_right_withpress_cmnd: '{{ actions_mapping[integration_id]["rotate_right_withpress_cmnd"] }}'
+  click_short_cmnd: '{{ actions_mapping[integration_id]["click_short_cmnd"] }}'
+  click_long_cmnd: '{{ actions_mapping[integration_id]["click_long_cmnd"] }}'
+  click_release_cmnd: '{{ actions_mapping[integration_id]["click_release_cmnd"] }}'
+#
+# Mode Block
+mode: single
+max_exceeded: silent
+#
+# Triggers Block
+triggers:
+  # triggers for zigbee2mqtt
+  # event mode
+  - trigger: device
+    id: z2m-rotate-left-evnt
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: rotate_left
+  - trigger: device
+    id: z2m-rotate-right-evnt
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: rotate_right
+  - trigger: device
+    id: z2m-click-short-evnt
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: single
+  - trigger: device
+    id: z2m-click-double-evnt
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: double
+  - trigger: device
+    id: z2m-click-long-evnt
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: hold
+  # command mode
+  - trigger: device
+    id: z2m-rotate-left-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_step_down
+  - trigger: device
+    id: z2m-rotate-right-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: brightness_step_up
+  - trigger: device
+    id: z2m-rotate-left-withpress-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: color_temperature_step_down
+  - trigger: device
+    id: z2m-rotate-right-withpress-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: color_temperature_step_up
+  - trigger: device
+    id: z2m-click-short-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: toggle
+  - trigger: device
+    id: z2m-click-long-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: hue_move
+  - trigger: device
+    id: z2m-click-long-stop-cmnd
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: hue_stop
+  # triggers for ZHA
+  # event mode
+  - trigger: event
+    id: zha-rotate-left-evnt
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: left
+  - trigger: event
+    id: zha-rotate-right-evnt
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: right
+  - trigger: event
+    id: zha-click-short-evnt
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: remote_button_short_press
+  - trigger: event
+    id: zha-click-double-evnt
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: remote_button_double_press
+  - trigger: event
+    id: zha-click-long-evnt
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: remote_button_long_press
+  # command mode
+  - trigger: event
+    id: zha-rotate-left-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step
+      endpoint_id: 1
+      cluster_id: 8
+      args: [1]
+  - trigger: event
+    id: zha-rotate-right-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step
+      endpoint_id: 1
+      cluster_id: 8
+      args: [0]
+  - trigger: event
+    id: zha-rotate-left-withpress-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step_color_temp
+      endpoint_id: 1
+      cluster_id: 768
+      args: [3]
+  - trigger: event
+    id: zha-rotate-right-withpress-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: step_color_temp
+      endpoint_id: 1
+      cluster_id: 768
+      args: [1]
+  - trigger: event
+    id: zha-click-short-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: toggle
+      endpoint_id: 1
+      cluster_id: 6
+  - trigger: event
+    id: zha-click-long-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: move_hue
+      endpoint_id: 1
+      cluster_id: 768
+  - trigger: event
+    id: zha-click-long-stop-cmnd
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: stop_move_step
+      endpoint_id: 1
+      cluster_id: 768
+#
+# Conditions Block
+conditions:
+  - condition: and
+    conditions:
+      # check that the button event is not empty
+      - >-
+        {%- set trigger_action -%}
+        {%- if integration_id == "z2m" -%}
+        {{ trigger.payload }}
+        {%- elif integration_id == "zha" -%}
+        {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
+        {%- endif -%}
+        {%- endset -%}
+        {{ trigger_action not in ["","None","unknown"] }}
+#
+# Actions Block
+actions:
+  #
+  # choose the sequence to run based on the received button event
+  - choose:
+      #
+      # Actions for Left Rotate [Event and Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-rotate-left-evnt
+              - zha-rotate-left-evnt
+              - z2m-rotate-left-cmnd
+              - zha-rotate-left-cmnd
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_left
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ rotate_left_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input rotate_left_max_loop_repeats
+                      sequence: !input action_rotate_left
+      #
+      # Actions for Right Rotate [Event and Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-rotate-right-evnt
+              - zha-rotate-right-evnt
+              - z2m-rotate-right-cmnd
+              - zha-rotate-right-cmnd
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_right
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ rotate_right_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input rotate_right_max_loop_repeats
+                      sequence: !input action_rotate_right
+      #
+      # Actions for Left With Press Rotate [Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-rotate-left-withpress-cmnd
+              - zha-rotate-left-withpress-cmnd
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_left_withpress
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_left_withpress
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ rotate_left_withpress_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input rotate_left_withpress_max_loop_repeats
+                      sequence: !input action_rotate_left_withpress
+      #
+      # Actions for Right With Press Rotate [Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-rotate-right-withpress-cmnd
+              - zha-rotate-right-withpress-cmnd
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: rotate_right_withpress
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_rotate_right_withpress
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ rotate_right_withpress_loop }}'
+                sequence:
+                  - repeat:
+                      count: !input rotate_right_withpress_max_loop_repeats
+                      sequence: !input action_rotate_right_withpress
+      #
+      # Actions for Click Short press [Event Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-click-short-evnt
+              - zha-click-short-evnt
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: click_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_click_short
+      #
+      # Actions for Click Double press [Event Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-click-double-evnt
+              - zha-click-double-evnt
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: click_double
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_click_double
+      #
+      # Actions for Click Short Press / Double Press Virtual [Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-click-short-cmnd
+              - zha-click-short-cmnd
+        sequence:
+          - if:
+              - condition: template
+                value_template: '{{ click_double_press_exposed }}'
+            # Handle Click Double Press Event
+            then:
+              - choose:
+                  # wait for z2m/zha/dcz triggers for double press
+                  - conditions: []
+                    sequence:
+                      - wait_for_trigger:
+                          # z2m trigger
+                          - trigger: device
+                            domain: mqtt
+                            device_id: !input controller_device
+                            type: action
+                            subtype: toggle
+                          # zha trigger
+                          - trigger: event
+                            event_type: zha_event
+                            event_data:
+                              device_id: !input controller_device
+                              command: toggle
+                              cluster_id: 6
+                              endpoint_id: 1
+                        timeout:
+                          milliseconds: '{{ helper_double_press_delay }}'
+                        continue_on_timeout: true
+                      - if:
+                          - condition: template
+                            value_template: '{{ wait.trigger.idx is defined }}'
+                        then:
+                          # fire the ahb hook event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: click_double
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_click_double
+                        else:
+                          # fire the ahb hook event
+                          - event: ahb_controller_event
+                            event_data:
+                              controller: '{{ controller_id }}'
+                              action: click_short
+                          # run the custom action
+                          - choose:
+                              - conditions: []
+                                sequence: !input action_click_short
+            # Not Up Double Handle Up Single Press Event
+            else:
+              # fire the ahb hook event
+              - event: ahb_controller_event
+                event_data:
+                  controller: '{{ controller_id }}'
+                  action: click_short
+              # run the custom action
+              - choose:
+                  - conditions: []
+                    sequence: !input action_click_short
+      #
+      # Actions for Click Long press [Event Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-click-long-evnt
+              - zha-click-long-evnt
+        sequence:
+          # fire the ahb hook event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: click_long
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_click_long
+      #
+      # Actions for Click Long Press [Command Mode]
+      - conditions:
+          - condition: trigger
+            id:
+              - z2m-click-long-cmnd
+              - zha-click-long-cmnd
+        sequence:
+          # fire the ahb event only once, the ahb hook will take care of looping
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: click_long
+          # run the custom action only once before entering repeat
+          - choose:
+              - conditions: []
+                sequence: !input action_click_long
+          # handle custom action looping if looping is enabled
+          - choose:
+              - conditions: '{{ click_long_loop }}'
+                sequence:
+                  # Repeat the Long Press Actions for the set number of loops
+                  - repeat:
+                      count: !input click_long_max_loop_repeats
+                      sequence:
+                        - parallel:
+                            - sequence: !input action_click_long
+                            - sequence:
+                                - choose:
+                                    - conditions: []
+                                      # Wait for triggers for Button Long Press Release to stop looping
+                                      sequence:
+                                        - wait_for_trigger:
+                                            # z2m triggers
+                                            - trigger: device
+                                              domain: mqtt
+                                              device_id: !input controller_device
+                                              type: action
+                                              subtype: hue_stop
+                                            # zha triggers
+                                            - trigger: event
+                                              event_type: zha_event
+                                              event_data:
+                                                device_id: !input controller_device
+                                                command: stop_move_step
+                                                endpoint_id: 1
+                                                cluster_id: 768
+                                          timeout:
+                                            milliseconds: !input helper_long_press_delay
+                                          continue_on_timeout: true
+                                        # If a Button Long Release is triggered wait.trigger.idx will be defined stop the loop before long_max_loop_repeats
+                                        - if:
+                                            - condition: template
+                                              value_template: '{{ wait.trigger.idx is defined }}'
+                                          then:
+                                            # Stop the repeat loop
+                                            - stop: click_long_stopped
