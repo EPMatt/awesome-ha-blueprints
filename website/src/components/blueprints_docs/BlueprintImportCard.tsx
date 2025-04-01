@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { ClipboardPlus } from 'react-bootstrap-icons'
-
+import Link from '@docusaurus/Link'
 const styles = {
   myHomeAssistantImage: {
     width: '100%',
@@ -14,14 +12,9 @@ interface BlueprintImportCardProps {
 }
 
 function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
-  const [copy, setCopy] = useState(false)
   // New custom URL format that will redirect to the GitHub URL
-  const blueprintUrl = `https://epmatt.github.io/awesome-ha-blueprints/blueprints/${category}/${id}?version=latest`
+  const blueprintUrl = `/blueprints/${category}/${id}?version=latest`
 
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(blueprintUrl)
-    setCopy(true)
-  }
   return (
     <div className='card item shadow--md'>
       <div className='card__header margin-bottom--md'>
@@ -29,38 +22,18 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
       </div>
       <div className='card__body'>
         <div className='row row--no-gutters'>
-          <div className='col col--6'>
+          <div className='col col--12'>
             <h5>My Home Assistant</h5>
             <p>
-              <a
-                href={`https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=${escape(
-                  blueprintUrl,
-                )}`}
-                target='_blank'
-                rel='noreferrer'
-              >
+              <Link to={blueprintUrl} target='_blank' rel='noreferrer'>
                 <img
                   src='https://my.home-assistant.io/badges/blueprint_import.svg'
                   alt='Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.'
                   style={styles.myHomeAssistantImage}
                 />
-              </a>
+              </Link>
               <br />
-              <small>(Home Assistant 2024.10.0 or higher)</small>
             </p>
-          </div>
-          <div className='col col--6'>
-            <h5>Direct Link</h5>
-            <button
-              type='button'
-              className={`button button--${copy ? 'success' : 'primary'}`}
-              onClick={copyToClipboard}
-            >
-              <span>
-                <ClipboardPlus size={16} />
-                <span> {copy ? 'Link Copied!' : 'Copy Link'}</span>
-              </span>
-            </button>
           </div>
         </div>
       </div>
