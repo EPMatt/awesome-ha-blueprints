@@ -1,9 +1,11 @@
 import { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
 import path from 'path'
+import blueprintDownloaderPlugin from './src/plugins/blueprint-downloader-plugin/blueprint-downloader-plugin.js'
 
 // Create a custom plugin for webpack configuration
 // the purpose of this plugin is to allow the use of the @blueprints alias
+// and to copy blueprint files as static assets
 function webpackConfigPlugin() {
   return {
     name: 'webpack-config-plugin',
@@ -111,7 +113,7 @@ const config: Config = {
       },
     ],
   ],
-  plugins: [webpackConfigPlugin],
+  plugins: [webpackConfigPlugin, blueprintDownloaderPlugin],
 }
 
 export default config

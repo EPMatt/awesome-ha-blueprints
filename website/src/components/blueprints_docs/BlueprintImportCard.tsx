@@ -15,9 +15,11 @@ interface BlueprintImportCardProps {
 
 function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
   const [copy, setCopy] = useState(false)
-  const url = `https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/${category}/${id}/${id}.yaml`
+  // New custom URL format that will redirect to the GitHub URL
+  const blueprintUrl = `https://epmatt.github.io/awesome-ha-blueprints/blueprints/${category}/${id}?version=latest`
+
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(url)
+    await navigator.clipboard.writeText(blueprintUrl)
     setCopy(true)
   }
   return (
@@ -32,7 +34,7 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
             <p>
               <a
                 href={`https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=${escape(
-                  url,
+                  blueprintUrl,
                 )}`}
                 target='_blank'
                 rel='noreferrer'
