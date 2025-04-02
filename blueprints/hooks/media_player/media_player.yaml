@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.29
+    ℹ️ Version 2025.04.03
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/media_player).
 
@@ -50,6 +50,7 @@ blueprint:
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
+            - Shelly SHBTN-2 Button 1
             - SONOFF SNZB-01 Wireless Switch
             - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
@@ -190,6 +191,12 @@ variables:
       volume_up_repeat: button_up_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
+    Shelly SHBTN-2 Button 1:
+      play_pause: button_button_short
+      stop: button_button_long
+      next_track: button_button_double
+      prev_track: button_button_triple
+      play_pause: button_button4_double
     SONOFF SNZB-01 Wireless Switch:
       play_pause: button_short
       stop: button_long
