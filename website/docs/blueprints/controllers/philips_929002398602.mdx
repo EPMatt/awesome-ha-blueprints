@@ -1,6 +1,10 @@
 ---
 title: Controller - Philips 929002398602 Hue Dimmer switch v2
 description: Controller automation for executing any kind of action triggered by the provided Philips 929002398602 Hue Dimmer switch v2. Supports Zigbee2MQTT, ZHA.
+model: 929002398602
+manufacturer: Philips
+integrations: [Zigbee2MQTT, ZHA]
+model_name: Philips 929002398602 Hue Dimmer switch v2
 ---
 
 import {
@@ -114,3 +118,4 @@ It's also important to note that the controller doesn't natively support double 
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
 
 - **2025-03-20**: Standardized input naming format for controller devices and virtual button actions. No functionality changes.
+- **2025-04-02**: Fix trigger_delta regex, with optional whitespacing. ([@TTvanWillegen](https://github.com/TTvanWillegen))

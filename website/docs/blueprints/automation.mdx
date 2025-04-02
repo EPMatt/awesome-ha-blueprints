@@ -3,11 +3,8 @@ title: Automations
 description: Generic automation blueprints which cover different use-cases.
 ---
 
+import { BlueprintsList } from '@site/src/components/blueprints_docs'
+
 This category groups generic automation blueprints covering a wide range of different use-cases, not part of the [Controllers](controllers)-[Hooks](hooks) ecosystem.
 
-| Name                                                                                                                    | Description                                                                                                                                                                                              |
-| ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Send a mobile notification when add-on update is available](/docs/blueprints/automation/addon_update_notification)     | Send a notification to the provided mobile devices whenever an update for the given Home Assistant add-on is available.                                                                                  |
-| [On-Off schedule with state persistence](/docs/blueprints/automation/on_off_schedule_state_persistence)                 | A simple on-off schedule, with the addition of state persistence across disruptive events, making sure the target device is always in the expected state.                                                |
-| [Send Web UI persistent notifications to Mobile Devices](/docs/blueprints/automation/persistent_notification_to_mobile) | Send Web UI persistent notifications with the provided ID to the specified Mobile Devices.                                                                                                               |
-| [Simple Safe Scheduler](/docs/blueprints/automation/simple_safe_scheduler)                                              | A simple scheduler which executes a certain action at a given time, checking and eventually re-executing the action if the automation did not run at the expected time (e.g. due to a disruptive event). |
+<BlueprintsList category='automation' />

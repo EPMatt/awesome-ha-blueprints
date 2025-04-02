@@ -1,6 +1,10 @@
 ---
 title: Controller - SONOFF SNZB-01 Wireless Switch
 description: Controller automation for executing any kind of action triggered by the provided SONOFF SNZB-01 Wireless Switch. Supports Zigbee2MQTT, ZHA, deCONZ.
+model: SNZB-01
+manufacturer: SONOFF
+integrations: [Zigbee2MQTT, ZHA, deCONZ]
+model_name: SONOFF SNZB-01 Wireless Switch
 ---
 
 import {
@@ -102,7 +106,4 @@ Please note that the long press action for this controller is triggered after th
   Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
 
   The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
-  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
-  To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
-
-- **2025-03-20**: Standardized input naming format for controller devices and virtual button actions. No functionality changes.
+  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity`

@@ -1,6 +1,10 @@
 ---
 title: Controller - IKEA E2001/E2002 STYRBAR Remote control
 description: Controller automation for executing any kind of action triggered by the provided IKEA E2001/E2002 STYRBAR Remote control. Supports Zigbee2MQTT, ZHA, deCONZ.
+model: E2001/E2002
+manufacturer: IKEA
+integrations: [Zigbee2MQTT, ZHA, deCONZ]
+model_name: IKEA E2001/E2002 STYRBAR Remote control
 ---
 
 import {
@@ -137,3 +141,4 @@ If you notice your controller is not behaving as expected please reset the devic
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
 
 - **2025-03-20**: Standardized input naming format for controller devices and virtual button actions. No functionality changes.
+- **2025-04-01**: Fix double-click detection logic. ([@danleongjy](https://github.com/danleongjy))

@@ -1,9 +1,11 @@
 import { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
 import path from 'path'
+import blueprintDownloaderPlugin from './src/plugins/blueprint-downloader-plugin/blueprint-downloader-plugin.js'
 
 // Create a custom plugin for webpack configuration
 // the purpose of this plugin is to allow the use of the @blueprints alias
+// and to copy blueprint files as static assets
 function webpackConfigPlugin() {
   return {
     name: 'webpack-config-plugin',
@@ -38,7 +40,8 @@ const config: Config = {
   favicon: 'img/favicon.ico',
   organizationName: 'EPMatt',
   projectName: 'awesome-ha-blueprints',
-  scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
+  // Removed the GTM script as we're now using react-ga4 for a more stable implementation
+  // scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -111,7 +114,7 @@ const config: Config = {
       },
     ],
   ],
-  plugins: [webpackConfigPlugin],
+  plugins: [webpackConfigPlugin, blueprintDownloaderPlugin],
 }
 
 export default config

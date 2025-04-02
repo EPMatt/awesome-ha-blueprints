@@ -1,6 +1,10 @@
 ---
 title: Controller - IKEA E1766 TRÅDFRI Open/Close Remote
 description: Controller automation for executing any kind of action triggered by the provided IKEA E1766 TRÅDFRI Open/Close Remote. Supports Zigbee2MQTT, ZHA, deCONZ.
+model: E1766
+manufacturer: IKEA
+integrations: [Zigbee2MQTT, ZHA, deCONZ]
+model_name: IKEA E1766 TRÅDFRI Open/Close Remote
 ---
 
 import {
@@ -127,3 +131,4 @@ Due to the controller not exposing long press events but only short and release 
   To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
 
 - **2025-03-20**: Standardized input naming format for controller devices and virtual button actions. No functionality changes.
+- **2025-04-01**: Fix double-click detection logic. ([@danleongjy](https://github.com/danleongjy))

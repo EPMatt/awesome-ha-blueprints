@@ -5,7 +5,7 @@ blueprint:
     A description for the blueprint
 
     Version: yyyy.mm.dd
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/_example/_example.yaml
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/example/example.yaml
   domain: automation
   input:
     example_input_boolean:
