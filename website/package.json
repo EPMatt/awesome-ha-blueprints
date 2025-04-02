@@ -18,12 +18,15 @@
     "@docusaurus/core": "3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
     "@mdx-js/react": "^3.1.0",
+    "@types/js-cookie": "^3.0.6",
     "clsx": "^2.1.1",
+    "js-cookie": "^3.0.5",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-bootstrap-icons": "^1.11.5",
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^19.0.0",
+    "react-ga4": "^2.1.0",
     "react-json-view-lite": "^2.3.0"
   },
   "browserslist": {

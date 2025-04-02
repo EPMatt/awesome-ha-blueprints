@@ -1,3 +1,5 @@
+import Link from '@docusaurus/Link'
+
 const styles = {
   myHomeAssistantImage: {
     width: '100%',
@@ -12,7 +14,7 @@ interface BlueprintImportCardProps {
 
 function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
   // New custom URL format that will redirect to the GitHub URL
-  const blueprintUrl = `https://epmatt.github.io/awesome-ha-blueprints/blueprints/${category}/${id}?version=latest`
+  const blueprintUrl = `/awesome-ha-blueprints/blueprints/${category}/${id}?version=latest`
 
   return (
     <div className='card item shadow--md'>
@@ -24,13 +26,13 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
           <div className='col col--12'>
             <h5>My Home Assistant</h5>
             <p>
-              <a href={blueprintUrl} target='_blank' rel='noreferrer'>
+              <Link to={blueprintUrl}>
                 <img
                   src='https://my.home-assistant.io/badges/blueprint_import.svg'
                   alt='Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.'
                   style={styles.myHomeAssistantImage}
                 />
-              </a>
+              </Link>
               <br />
             </p>
           </div>

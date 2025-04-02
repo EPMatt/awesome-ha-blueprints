@@ -40,7 +40,8 @@ const config: Config = {
   favicon: 'img/favicon.ico',
   organizationName: 'EPMatt',
   projectName: 'awesome-ha-blueprints',
-  scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
+  // Removed the GTM script as we're now using react-ga4 for a more stable implementation
+  // scripts: ['/awesome-ha-blueprints/js/google-tag-manager.js'],
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
