@@ -11,25 +11,16 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
-      - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: '16'
-      - name: Cache node modules
-        uses: actions/cache@v3.0.6
-        env:
-          cache-name: cache-node-modules
+          version: 9.15.0
+      - uses: actions/setup-node@v4
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Website - Install dependencies
-        run: cd website && npm ci
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - id: yamllint
         name: Yamllint
         uses: reviewdog/action-yamllint@v1
@@ -37,28 +28,28 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
           yamllint_flags: '.'
-          fail_on_error: true
+          fail_level: error
           filter_mode: nofilter
         continue-on-error: true
       - id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1.17
+        uses: reviewdog/action-eslint@v1.33
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
           eslint_flags: --ext js,jsx .
-          fail_on_error: true
+          fail_level: error
           filter_mode: nofilter
           workdir: website
         continue-on-error: true
       - if: ${{ steps.yamllint.outcome == 'failure' }}
-        run: echo "yamllint" >> results.txt
+        run: mkdir -p lint && echo "yamllint" >> lint/results.txt
       - if: ${{ steps.eslint.outcome == 'failure' }}
-        run: echo "eslint" >> results.txt
-      - uses: actions/upload-artifact@v3
+        run: mkdir -p lint && echo "eslint" >> lint/results.txt
+      - uses: actions/upload-artifact@v4
         with:
           name: lint
-          path: results.txt
+          path: lint/results.txt
           retention-days: 5
           if-no-files-found: ignore
       - name: Report linters error
@@ -71,42 +62,32 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
-      - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: '16'
-      - name: Cache node modules
-        uses: actions/cache@v3.0.6
-        env:
-          cache-name: cache-node-modules
+          version: 9.15.0
+      - uses: actions/setup-node@v4
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          node-version: '22'
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
-      - name: Website - Install dependencies
-        run: cd website && npm ci
+        run: pnpm install --frozen-lockfile
       - id: prettier
         name: Prettier Check
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           dry: true
           prettier_options: --write .
+          prettier_version: 3.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
-        run: echo "prettier" >> results.txt
+        run: mkdir -p format-lint && echo "prettier" >> format-lint/results.txt
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: format-lint
-          path: results.txt
+          path: format-lint/results.txt
           if-no-files-found: ignore
 
   build:
@@ -115,29 +96,18 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
-      - name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: '16'
-      - name: Cache node modules
-        uses: actions/cache@v3.0.6
-        env:
-          cache-name: cache-node-modules
+          version: 9.15.0
+      - uses: actions/setup-node@v4
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          node-version: '22'
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
-      - name: Website - Install dependencies
-        run: cd website && npm ci
+        run: pnpm install --frozen-lockfile
       - name: Website - Build
-        run: cd website && npm run build
+        run: cd website && pnpm build
 
   changes:
     name: Analyze changes
@@ -145,8 +115,8 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: changes
         with:
           list-files: json
@@ -164,14 +134,14 @@ jobs:
       - env:
           PR_NUM: ${{ github.event.number }}
         run: echo $PR_NUM > pr_num.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: changes
+          name: changes_blueprints
           path: blueprints.txt
           retention-days: 5
           if-no-files-found: ignore
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: changes
+          name: changes_pr_num
           path: pr_num.txt
           retention-days: 5

@@ -3,7 +3,12 @@ title: Send a mobile notification when add-on update is available
 description: Send a notification to the provided mobile devices whenever an update for the given Home Assistant add-on is available.
 ---
 
-import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+import {
+  Input,
+  Inputs,
+  Requirement,
+  ImportCard,
+} from '/src/components/blueprints_docs'
 
 <ImportCard id='addon_update_notification' category='automation' />
 
@@ -65,97 +70,7 @@ If you want to simultaneously send the notification to multiple devices, you can
 
 ## Inputs
 
-<Input
-  name='Add-on'
-  description='The add-on to monitor for updates.'
-  selector='addon'
-  required
-/>
-<Input
-  name='Add-on name'
-  description='The add-on name to be displayed in notifications.'
-  selector='text'
-  required
-/>
-<Input
-  name='Add-on version sensor'
-  description='The add-on current version sensor, exposed by the Supervisor.'
-  selector='entity'
-  required
-/>
-<Input
-  name='Add-on newest version sensor'
-  description='The add-on newest version sensor, exposed by the Supervisor.'
-  selector='entity'
-  required
-/>
-<Input
-  name='Add-on update available sensor'
-  description='The add-on update available sensor, exposed by the Supervisor.'
-  selector='entity'
-  required
-/>
-<Input
-  name='Mobile devices notification service'
-  description='The notification service for mobile devices (eg. service.mobile_app_<your_device_id_here>). You can provide both a notify group or a single notify device here.'
-  selector='text'
-  required
-/>
-<Input
-  name='Notification title'
-  description='Title for the update notification. You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.'
-  selector='text'
-/>
-<Input
-  name='Notification message'
-  description='Message for the update notification. You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.'
-  selector='text'
-/>
-<Input
-  name='Tap action'
-  description='URL you will navigate to when tapping on the notification. Default to the add-on info page.'
-  selector='text'
-/>
-<Input
-  name='(Android only) Notification color'
-  description='Color for the notifications. You can both type a friendly color name or an hex value.'
-  selector='text'
-/>
-<Input
-  name='(Android only) Notification channel'
-  description='Android notification channel. Allows to group notifications to then apply custom settings for sound, vibration, etc. Leave blank if you do not want to use this feature.'
-  selector='text'
-/>
-<Input
-  name='(Android only) Notification Channel importance'
-  description='Android notification channel importance. Allows to define different priority levels for your notifications.'
-  selector='select'
-/>
-<Input
-  name='Notification group'
-  description='Notification group for the notifications sent with this automation. Use this to group notifications in the notification tray. Leave blank if you do not want to use this feature.'
-  selector='text'
-/>
-<Input
-  name='Notification Update Button'
-  description='Add a button to the notification for updating the add-on.'
-  selector='boolean'
-/>
-<Input
-  name='Update success notification'
-  description='Send a notification after the add-on update triggered by the update button succeed. The notification will use the same settings for group, channel, importance and color from the update available notification.'
-  selector='boolean'
-/>
-<Input
-  name='Update success notification title'
-  description='Title for the update success notification. You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.'
-  selector='text'
-/>
-<Input
-  name='Update success notification message'
-  description='Message for the update success notification. You can use {{ version }}, {{ newest_version }}, and {{ addon_name }} templates to include add-on current version, newest version and name respectively.'
-  selector='text'
-/>
+<Inputs category='automation' id='addon_update_notification' />
 
 ## Additional Notes
 
