@@ -196,7 +196,6 @@ variables:
       stop: button_button_long
       next_track: button_button_double
       prev_track: button_button_triple
-      play_pause: button_button4_double
     SONOFF SNZB-01 Wireless Switch:
       play_pause: button_short
       stop: button_long
