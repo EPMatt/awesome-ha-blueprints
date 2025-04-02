@@ -12,7 +12,7 @@ const initializeAnalytics = (): void => {
   })
 }
 
-// Track a page view event
+// Manually track a page view event
 const trackPageView = (): void => {
   ReactGA4.send({
     hitType: 'pageview',
