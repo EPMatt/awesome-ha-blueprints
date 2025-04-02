@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.03.28
+    ℹ️ Version 2025.04.03
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
@@ -43,6 +43,7 @@ blueprint:
             - IKEA E2123 SYMFONISK sound remote, gen 2
             - IKEA E2201 RODRET Dimmer
             - IKEA E2213 SOMRIG shortcut button
+            - Shelly SHBTN-2 Button 1
             - SONOFF SNZB-01 Wireless Switch
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
@@ -105,6 +106,10 @@ variables:
       close_cover: button_dots2_short
       close_cover_tilt: button_dots2_long
       stop_cover_all: button_dots2_double
+    Shelly SHBTN-2 Button 1:
+      open_cover: button_button_short
+      close_cover: button_button_double
+      stop_cover_all: button_button_long
     SONOFF SNZB-01 Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
