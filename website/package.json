@@ -48,7 +48,7 @@
     "@eslint/js": "^9.24.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.12",
-    "eslint": "^9.23.0",
+    "eslint": "^9.24.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-react": "^7.37.5",
