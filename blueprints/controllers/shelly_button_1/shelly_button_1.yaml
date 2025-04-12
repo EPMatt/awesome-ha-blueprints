@@ -1,26 +1,26 @@
 # Blueprint Metadata
 blueprint:
-  name: Controller - Shelly SHBTN-2 Button 1
+  name: Controller - Shelly Button 1
   description: |
-    # Controller - Shelly SHBTN-2 Button 1
+    # Controller - Shelly Button 1
 
-    Controller automation for executing any kind of action triggered by the provided Shelly SHBTN-2 Button 1.
+    Controller automation for executing any kind of action triggered by the provided Shelly Button 1.
     Allows to optionally loop an action on a button long press.
     Supports Shelly Integration.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with lights, covers, media players, and potentially more.
-    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_shbtn_2#available-hooks) for additional details.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_button_1#available-hooks) for additional details.
 
     ## More Info
 
-    ℹ️ Version 2025.04.03
-    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_shbtn_2/#changelog)
-    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_shbtn_2).
+    ℹ️ Version 2025.04.12
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_button_1/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/shelly_button_1).
 
     🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/shelly_shbtn_2/shelly_shbtn_2.yaml
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/shelly_button_1/shelly_button_1.yaml
   domain: automation
   homeassistant:
     min_version: 2024.10.0

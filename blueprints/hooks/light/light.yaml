@@ -14,7 +14,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.04.03
+    ℹ️ Version 2025.04.12
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/light).
 
@@ -55,7 +55,7 @@ blueprint:
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
-            - Shelly SHBTN-2 Button 1
+            - Shelly Button 1
             - SONOFF SNZB-01 Wireless Switch
             - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
@@ -309,7 +309,7 @@ variables:
       brightness_up_repeat: button_up_long
       brightness_down: button_down_short
       brightness_down_repeat: button_down_long
-    Shelly SHBTN-2 Button 1:
+    Shelly Button 1:
       toggle: button_button_short
       brightness_up_repeat: button_button_long
       brightness_up: button_button_double
