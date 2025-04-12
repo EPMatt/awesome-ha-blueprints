@@ -28,8 +28,6 @@ This blueprint provides universal support for running any custom action when a b
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
-The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
-
 :::tip
 Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
 Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more. See the list of [Hooks available for this controller](/docs/blueprints/controllers/ikea_e1812#available-hooks) for additional details.
@@ -37,27 +35,15 @@ Hooks allow to easily create controller-based automations for interacting with m
 
 ## Requirements
 
-<Requirement id='zigbee2mqtt'/>
-<Requirement id='zha'/>
-<Requirement id='deconz'/>
-<Requirement name='Input Text Integration' required>
-
-This integration provides the entity which must be provided to the blueprint in the **Helper - Last Controller Event** input. Learn more about this helper by reading the dedicated section in the [Additional Notes](#helper---last-controller-event).
-
-[Input Text Integration Docs](https://www.home-assistant.io/integrations/input_text/)
-
-</Requirement>
+<Requirement id='zigbee2mqtt' />
+<Requirement id='zha' />
+<Requirement id='deconz' />
 
 ## Inputs
 
 <Inputs category='controllers' id='ikea_e1812' />
 
 ## Available Hooks
-
-:::note Virtual double press actions
-Some of the following mappings might include actions for virtual double press events, which are disabled by default.
-If you are using a hook mapping which provides an action for a virtual double press event, please make sure to enable support for virtual double press on the corresponding buttons with the corresponding blueprint input.
-:::
 
 ### Light
 
@@ -66,7 +52,7 @@ This Hook blueprint allows to build a controller-based automation to control a l
 #### Default Mapping
 
 - Button short press -> Toggle
-- Button double press `Virtual` -> Color up
+- Button double press -> Color up
 
 [Light Hook docs](/docs/blueprints/hooks/light)
 
@@ -78,7 +64,7 @@ This Hook blueprint allows to build a controller-based automation to control a m
 
 - Button short press -> Play/Pause
 - Button long press -> Stop
-- Button double press `Virtual` -> Next track
+- Button double press -> Next track
 
 [Media Player Hook docs](/docs/blueprints/hooks/media_player)
 
@@ -90,19 +76,11 @@ This Hook blueprint allows to build a controller-based automation to control a c
 
 - Button short press -> Open cover
 - Button long press -> Stop cover and cover tilt
-- Button double press `Virtual` -> Close cover
+- Button double press -> Close cover
 
 [Cover Hook docs](/docs/blueprints/hooks/cover)
 
 ## Additional Notes
-
-### Helper - Last Controller Event
-
-The `helper_last_controller_event` (Helper - Last Controller Event) input serves as a permanent storage area for the automation. The stored info is used to implement the blueprint's core functionality. To learn more about the helper, how it's used and why it's required, you can read the dedicated section in the [Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#helper---last-controller-event-input).
-
-### Virtual double press events
-
-It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).
 
 ## Changelog
 
@@ -146,3 +124,19 @@ It's also important to note that the controller doesn't natively support double 
 
 - **2025-03-20**: Standardized input naming format for controller devices and virtual button actions. No functionality changes.
 - **2025-04-06**: Fix double-click detection logic. ([@danleongjy](https://github.com/danleongjy))
+- **2025-04-12**:
+
+  :warning: **Breaking Change**:
+
+  Updated to add new double press to triggers and refactored blueprint to use triggers and trigger-id. ([@yarafie](https://github.com/yarafie))
+
+  The blueprint needs to be re-downloaded and automations using the blueprint needs to be set-up again.
+
+  This is due to the changes below:
+
+  - The need for selection of `integration` type has been removed from the inputs, the blueprint/automation will detect it automatically.
+  - The `helper_last_controller_event` text input is no longer needed and has been removed from the inputs.
+
+  **Other changes:**
+
+  Double press events are now natively supported.
