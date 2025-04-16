@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.04.01
+    ℹ️ Version 2025.04.16
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2001_e2002/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/ikea_e2001_e2002).
 
@@ -336,7 +336,7 @@ variables:
       button_down_short: ['off']
       button_down_long: [move_1_83, move_MoveMode.Down_83_0_0]
       # Kept first parameter for potential backwards compatibility of previous firmware versions
-      button_down_release: [stop, stop_with_on_off]
+      button_down_release: [stop, stop_with_on_off, stop_0_0]
     zigbee2mqtt:
       # source: https://www.zigbee2mqtt.io/devices/E2001_E2002.html#ikea-e2001-e2002
       button_left_short: [arrow_left_click]
