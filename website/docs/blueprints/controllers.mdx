@@ -3,39 +3,19 @@ title: Controllers
 description: Integrate a wide set of controllers in Home Assistant and provide an easy to use interface to run custom actions on a controller event.
 ---
 
+import { ControllersList } from '@site/src/components/blueprints_docs'
+import Image from '/src/components/ControllerImage'
+
 :::tip
 Controllers are part of the **Controllers-Hooks Ecosystem**. You can read more about this topic [here](/docs/controllers-hooks-ecosystem).
 :::
 
-import Image from '/src/components/ControllerImage'
-
-**Controllers** are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them. They consist in a practical abstraction layer for easily building controlled-based automations without worrying about the handling of RAW controller events, and the integration used to connect controllers to Home Assistant (Zigbee2MQTT, ZHA, etc.).
+**Controllers** are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them. They consist in a practical abstraction layer for easily building controlled-based automations without worrying about the handling of RAW controller events, and the integration used to connect controllers to Home Assistant (Zigbee2MQTT, ZHA, deCONZ, etc.).
 
 You can integrate Controllers with [Hooks](hooks) and create controller-based automations to control lights, media players and much more, without having to write a single line of code.
 
 ### Supported Controllers
 
-Currently **16** devices are supported from **5** different vendors.
-
 _Can't find the controller you're looking for in this list? [Submit a new blueprint proposal for your controller here.](https://github.com/EPMatt/awesome-ha-blueprints/issues/new?assignees=&labels=blueprint%2Cnew%2Ccontroller&template=new-controller-support.md&title=New+Controller+-+)_
 
-| Manufacturer | Model                                                               | Description                                       | Integrations           | Picture                                                                             |
-| ------------ | ------------------------------------------------------------------- | ------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------- |
-| IKEA         | [E1524/E1810](/docs/blueprints/controllers/ikea_e1524_e1810)        | IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e1524_e1810](/img/controllers/ikea_e1524_e1810.png)</Image>           |
-| IKEA         | [E1743](/docs/blueprints/controllers/ikea_e1743)                    | IKEA E1743 TRÅDFRI On/Off Switch & Dimmer         | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e1743](/img/controllers/ikea_e1743.png)</Image>                       |
-| IKEA         | [E1744](/docs/blueprints/controllers/ikea_e1744)                    | IKEA E1744 SYMFONISK Rotary Remote                | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e1744](/img/controllers/ikea_e1744.png)</Image>                       |
-| IKEA         | [E1766](/docs/blueprints/controllers/ikea_e1766)                    | IKEA E1766 TRÅDFRI Open/Close Remote              | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e1766](/img/controllers/ikea_e1766.png)</Image>                       |
-| IKEA         | [E1812](/docs/blueprints/controllers/ikea_e1812)                    | IKEA E1812 TRÅDFRI Shortcut button                | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e1812](/img/controllers/ikea_e1812.png)</Image>                       |
-| IKEA         | [E2001/E2002](/docs/blueprints/controllers/ikea_e2001_e2002)        | IKEA E2001/E2002 STYRBAR Remote control           | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_e2001_e2002](/img/controllers/ikea_e2001_e2002.png)</Image>           |
-| IKEA         | [ICTC-G-1](/docs/blueprints/controllers/ikea_ictc_g_1)              | IKEA ICTC-G-1 TRÅDFRI wireless dimmer             | deCONZ,ZHA,Zigbee2MQTT | <Image>![ikea_ictc_g_1](/img/controllers/ikea_ictc_g_1.png)</Image>                 |
-| OSRAM        | [AC025XX00NJ](/docs/blueprints/controllers/osram_ac025xx00nj)       | OSRAM AC025XX00NJ SMART+ Switch Mini              | deCONZ,ZHA,Zigbee2MQTT | <Image>![osram_ac025xx00nj](/img/controllers/osram_ac025xx00nj.png)</Image>         |
-| Philips      | [324131092621](/docs/blueprints/controllers/philips_324131092621)   | Philips 324131092621 Hue Dimmer switch            | deCONZ,ZHA,Zigbee2MQTT | <Image>![philips_324131092621](/img/controllers/philips_324131092621.png)</Image>   |
-| Philips      | [8718699693985](/docs/blueprints/controllers/philips_8718699693985) | Philips 8718699693985 Hue Smart Button            | deCONZ,ZHA             | <Image>![philips_8718699693985](/img/controllers/philips_8718699693985.png)</Image> |
-| Philips      | [929002398602](/docs/blueprints/controllers/philips_929002398602)   | Philips 929002398602 Hue Dimmer switch v2         | ZHA,Zigbee2MQTT        | <Image>![philips_929002398602](/img/controllers/philips_929002398602.png)</Image>   |
-| SONOFF       | [SNZB-01](/docs/blueprints/controllers/sonoff_snzb01)               | SONOFF SNZB-01 Wireless Switch                    | deCONZ,ZHA,Zigbee2MQTT | <Image>![sonoff_snzb01](/img/controllers/sonoff_snzb01.png)</Image>                 |
-| Xiaomi       | [WXCJKG11LM](/docs/blueprints/controllers/xiaomi_wxcjkg11lm)        | Xiaomi WXCJKG11LM Aqara Opple 2 button remote     | deCONZ,ZHA,Zigbee2MQTT | <Image>![xiaomi_wxcjkg11lm](/img/controllers/xiaomi_wxcjkg11lm.png)</Image>         |
-| Xiaomi       | [WXCJKG12LM](/docs/blueprints/controllers/xiaomi_wxcjkg12lm)        | Xiaomi WXCJKG12LM Aqara Opple 4 button remote     | deCONZ,ZHA,Zigbee2MQTT | <Image>![xiaomi_wxcjkg12lm](/img/controllers/xiaomi_wxcjkg12lm.png)</Image>         |
-| Xiaomi       | [WXCJKG13LM](/docs/blueprints/controllers/xiaomi_wxcjkg13lm)        | Xiaomi WXCJKG13LM Aqara Opple 6 button remote     | deCONZ,ZHA,Zigbee2MQTT | <Image>![xiaomi_wxcjkg13lm](/img/controllers/xiaomi_wxcjkg13lm.png)</Image>         |
-| Xiaomi       | [WXKG11LM](/docs/blueprints/controllers/xiaomi_wxkg11lm)            | Xiaomi WXKG11LM Aqara Wireless Switch Mini        | deCONZ,ZHA,Zigbee2MQTT | <Image>![xiaomi_wxkg11lm](/img/controllers/xiaomi_wxkg11lm.png)</Image>             |
-
-_Can't find the controller you're looking for in this list? [Submit a new blueprint proposal for your controller here.](https://github.com/EPMatt/awesome-ha-blueprints/issues/new?assignees=&labels=blueprint%2Cnew%2Ccontroller&template=new-controller-support.md&title=New+Controller+-+)_
+<ControllersList />

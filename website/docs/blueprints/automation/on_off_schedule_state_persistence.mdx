@@ -3,7 +3,12 @@ title: On-Off schedule with state persistence
 description: A simple on-off schedule, with the addition of state persistence across disruptive events, making sure the target device is always in the expected state.
 ---
 
-import { Input, Requirement, ImportCard } from '/src/components/blueprints_docs'
+import {
+  Input,
+  Inputs,
+  Requirement,
+  ImportCard,
+} from '/src/components/blueprints_docs'
 
 <ImportCard id='on_off_schedule_state_persistence' category='automation' />
 
@@ -31,34 +36,7 @@ If you optionally want to supply a custom event type to the blueprint, you shoul
 
 ## Inputs
 
-<Input
-  name='Automation target'
-  description='The target which the automation will turn on and off based on the provided schedule.'
-  selector='target'
-  required
-/>
-<Input
-  name='On Time'
-  description='Time when the target should be placed in the on state.'
-  selector='time'
-  required
-/>
-<Input
-  name='Off Time'
-  description='Time when the target should be placed in the off state.'
-  selector='time'
-  required
-/>
-<Input
-  name='Custom Trigger Event'
-  description='A custom event which can trigger the state check (eg. a powercut event reported by external integrations).'
-  selector='text'
-/>
-<Input
-  name='Trigger at Home Assistant startup'
-  description='Trigger the target state check and enforcement at Home Assistant startup.'
-  selector='boolean'
-/>
+<Inputs category='automation' id='on_off_schedule_state_persistence' />
 
 ## Additional Notes
 
