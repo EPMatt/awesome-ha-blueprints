@@ -48,10 +48,10 @@ export const ConsentProvider: React.FC<{ children: ReactNode }> = ({
   )
 }
 
-// Hook for using the consent context
+// Custom hook to use the consent context
 export const useConsent = (): ConsentContextType => {
   const context = useContext(ConsentContext)
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useConsent must be used within a ConsentProvider')
   }
   return context
