@@ -55,6 +55,8 @@ blueprint:
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
+            - Smarthjemmet.dk QUAD-ZIG-SW 4 button remote
+            - Smarthjemmet.dk QUAD-ZIG-SW 4 button remote (#2)
             - SONOFF SNZB-01 Wireless Switch
             - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
@@ -308,6 +310,20 @@ variables:
       brightness_up_repeat: button_up_long
       brightness_down: button_down_short
       brightness_down_repeat: button_down_long
+    Smarthjemmet.dk QUAD-ZIG-SW 4 button remote:
+      turn_on: button_1_short
+      brightness_up_repeat: button_1_long
+      color_up: button_1_double
+      turn_off: button_2_short
+      brightness_down_repeat: button_2_long
+      color_down: button_2_double
+    Smarthjemmet.dk QUAD-ZIG-SW 4 button remote (#2):
+      turn_on: button_3_short
+      brightness_up_repeat: button_3_long
+      color_up: button_3_double
+      turn_off: button_4_short
+      brightness_down_repeat: button_4_long
+      color_down: button_4_double
     SONOFF SNZB-01 Wireless Switch:
       toggle: button_short
       color_up: button_double
