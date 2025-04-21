@@ -1,0 +1,45 @@
+---
+title: Example Automation Blueprint
+description: A description for the blueprint
+---
+
+import {
+  Input,
+  Inputs,
+  Requirement,
+  ImportCard,
+} from '/src/components/blueprints_docs'
+
+<ImportCard id='example' category='automation' />
+
+## Description
+
+_Describe here which goals your blueprint is trying to achieve. Provide also a brief description of how it works internally._
+
+This example automation blueprint creates a persistent notification whenever the provided input boolean goes on.
+
+## Requirements
+
+_List here integrations, platforms, addons or any additional service which is strictly required to run this integration. Provide links for documentation about the requirement._
+
+<Requirement
+ name='Persistent Notification Integration'
+ required>
+
+_Add here what this requirement is used for within the blueprint, as well as reference on how it should be configured to correctly integrate with the blueprint. It's advised to link to official documentation for the requirement here._
+
+You must have this integration enabled on your system to run the automation. This should be activated by default so unless you tweaked the default configuration you're good to go.
+
+[Persistent Notification Integration Docs](https://www.home-assistant.io/integrations/persistent_notification/)
+
+</Requirement>
+
+## Inputs
+
+<Inputs category='automation' id='example' />
+
+## Additional Notes
+
+_Add here additional information about the blueprint (screenshots, tests, known limitations or issues)._
+
+This blueprint describes a task which, as tested on my system, should execute quickly. If for some reason the automation is quite slow and it gets triggered another time, it just gets restarted.

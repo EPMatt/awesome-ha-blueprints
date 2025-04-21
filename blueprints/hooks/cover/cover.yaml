@@ -12,11 +12,14 @@ blueprint:
 
     A list of controllers supported by this hook is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover#supported-controllers).
 
+    ## More Info
+
+    ℹ️ Version 2025.03.28
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks/cover).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-    ℹ️ Version 2022.07.30
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/hooks/cover/cover.yaml
   domain: automation
   input:
@@ -26,23 +29,20 @@ blueprint:
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Required) Controller Entity
-      description: The controller entity which will control the Cover. Choose a value only if the integration used to connect the controller to Home Assistant exposes it as an Entity. This value should match the one specified in the corresponding Controller automation.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
     controller_model:
       name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
       selector:
         select:
           options:
+            - Aqara WXKG11LM Wireless Mini Switch
             - IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote
             - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
             - IKEA E1766 TRÅDFRI Open/Close Remote
             - IKEA E1812 TRÅDFRI Shortcut button
+            - IKEA E2123 SYMFONISK sound remote, gen 2
+            - IKEA E2201 RODRET Dimmer
+            - IKEA E2213 SOMRIG shortcut button
             - SONOFF SNZB-01 Wireless Switch
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
@@ -50,7 +50,7 @@ blueprint:
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#2)
             - Xiaomi WXCJKG13LM Aqara Opple 6 button remote (#3)
-            - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+            - Xiaomi WXKG01LM Mi Wireless Switch
     cover:
       name: (Required) Cover
       description: Cover which will be controlled with this automation.
@@ -63,6 +63,10 @@ variables:
   controller_model: !input controller_model
   # supported controllers and mappings
   controller_mapping:
+    Aqara WXKG11LM Wireless Mini Switch:
+      open_cover: button_short
+      stop_cover_all: button_long
+      close_cover: button_double
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       open_cover: button_up_short
       close_cover: button_down_short
@@ -83,6 +87,24 @@ variables:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
+    IKEA E2123 SYMFONISK sound remote, gen 2:
+      open_cover: button_up_short
+      close_cover: button_down_short
+      open_cover_tilt: button_right_short
+      close_cover_tilt: button_left_short
+      stop_cover_all: button_center_short
+    IKEA E2201 RODRET Dimmer:
+      open_cover: button_up_short
+      open_cover_tilt: button_up_long
+      close_cover: button_down_short
+      close_cover_tilt: button_down_long
+      stop_cover_all: button_down_double
+    IKEA E2213 SOMRIG shortcut button:
+      open_cover: button_dots1_short
+      open_cover_tilt: button_dots1_long
+      close_cover: button_dots2_short
+      close_cover_tilt: button_dots2_long
+      stop_cover_all: button_dots2_double
     SONOFF SNZB-01 Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
@@ -123,7 +145,7 @@ variables:
       close_cover: button_6_short
       close_cover_tilt: button_6_long
       stop_cover_all: button_6_double
-    Xiaomi WXKG11LM Aqara Wireless Switch Mini:
+    Xiaomi WXKG01LM Mi Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
       close_cover: button_double
@@ -136,47 +158,43 @@ variables:
   stop_cover_all: '{{ controller_mapping[controller_model]["stop_cover_all"] | default(None) }}'
 mode: restart
 max_exceeded: silent
-trigger:
-  - platform: event
+triggers:
+  - trigger: event
     event_type: ahb_controller_event
     event_data:
       controller: !input controller_device
-  - platform: event
-    event_type: ahb_controller_event
-    event_data:
-      controller: !input controller_entity
-condition: []
-action:
+conditions: []
+actions:
   - variables:
       action: '{{ trigger.event.data.action }}'
   - choose:
       - conditions: '{{ action == open_cover }}'
         sequence:
-          - service: cover.open_cover
+          - action: cover.open_cover
             entity_id: !input cover
       - conditions: '{{ action == close_cover }}'
         sequence:
-          - service: cover.close_cover
+          - action: cover.close_cover
             entity_id: !input cover
       - conditions: '{{ action == stop_cover }}'
         sequence:
-          - service: cover.stop_cover
+          - action: cover.stop_cover
             entity_id: !input cover
       - conditions: '{{ action == open_cover_tilt }}'
         sequence:
-          - service: cover.open_cover_tilt
+          - action: cover.open_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == close_cover_tilt }}'
         sequence:
-          - service: cover.close_cover_tilt
+          - action: cover.close_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == stop_cover_tilt }}'
         sequence:
-          - service: cover.stop_cover_tilt
+          - action: cover.stop_cover_tilt
             entity_id: !input cover
       - conditions: '{{ action == stop_cover_all }}'
         sequence:
-          - service: cover.stop_cover
+          - action: cover.stop_cover
             entity_id: !input cover
-          - service: cover.stop_cover_tilt
+          - action: cover.stop_cover_tilt
             entity_id: !input cover

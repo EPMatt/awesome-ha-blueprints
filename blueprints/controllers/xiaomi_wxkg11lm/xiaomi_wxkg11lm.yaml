@@ -1,23 +1,28 @@
 # Blueprint metadata
 blueprint:
-  name: Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+  name: Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
   description: |
-    # Controller - Xiaomi WXKG11LM Aqara Wireless Switch Mini
+    # Controller - Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch
 
-    Controller automation for executing any kind of action triggered by the provided Xiaomi WXKG11LM Aqara Wireless Switch Mini. Allows to optionally loop an action on a button long press.
+    Controller automation for executing any kind of action triggered by the provided Aqara WXKG11LM Wireless Mini Switch / Xiaomi WXKG01LM Mi Wireless Switch. Allows to optionally loop an action on a button long press.
     Supports deCONZ, ZHA, Zigbee2MQTT.
 
     Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm#available-hooks) for additional details.
 
+    ## More Info
+
+    ℹ️ Version 2025.04,16
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/xiaomi_wxkg11lm).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-    ℹ️ Version 2022.08.08
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/xiaomi_wxkg11lm/xiaomi_wxkg11lm.yaml
   domain: automation
+  homeassistant:
+    min_version: 2024.10.0
   input:
     integration:
       name: (Required) Integration
@@ -29,18 +34,38 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (deCONZ, ZHA) Controller Device
-      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA.
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
+          filter:
+            # source: https://www.zigbee2mqtt.io/devices/WXKG01LM.html#xiaomi-wxkg01lm
+            # Xiaomi WXKG01LM
+            - integration: mqtt
+              manufacturer: Xiaomi
+              model: Mi wireless switch
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Xiaomi
+              model: Mi wireless switch (WXKG01LM)
+            # source: https://www.zigbee2mqtt.io/devices/WXKG11LM.html#aqara-wxkg11lm
+            # Aqara WXKG11LM
+            - integration: mqtt
+              manufacturer: Aqara
+              model: Wireless mini switch
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Aqara
+              model: Wireless mini switch (WXKG11LM)
+            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
+            - integration: zha
+            # **TBConfirmed** manufacturer: Xiaomi
+            # **TBConfirmed**  model: Mi round smart wireless switch
+            - integration: deconz
+            # **TBConfirmed** manufacturer: Xiaomi
+            # **TBConfirmed** model: Mi round smart wireless switch
+          multiple: false
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
@@ -129,6 +154,8 @@ variables:
       button_release: [release_value]
       button_double: [double_value]
     zigbee2mqtt:
+      # source: https://www.zigbee2mqtt.io/devices/WXKG01LM.html#xiaomi-wxkg01lm
+      # source: https://www.zigbee2mqtt.io/devices/WXKG11LM.html#aqara-wxkg11lm
       button_short: [single]
       button_long: [hold]
       button_release: [release]
@@ -140,32 +167,46 @@ variables:
   button_release: '{{ actions_mapping[integration_id]["button_release"] }}'
   button_double: '{{ actions_mapping[integration_id]["button_double"] }}'
   # build data to send within a controller event
-  controller_entity: !input controller_entity
-  controller_device: !input controller_device
-  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
+  controller_id: !input controller_device
 mode: restart
 max_exceeded: silent
-trigger:
-  # trigger for zigbee2mqtt
-  - platform: event
-    event_type: state_changed
-    event_data:
-      entity_id: !input controller_entity
-  # trigger for other integrations
-  - platform: event
+triggers:
+  # triggers for zigbee2mqtt mqtt device action
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: single
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: double
+  # triggers for other integrations
+  - trigger: event
     event_type:
       - deconz_event
       - zha_event
     event_data:
       device_id: !input controller_device
-condition:
+conditions:
   - condition: and
     conditions:
       # check that the button event is not empty
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
@@ -173,10 +214,7 @@ condition:
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
-      # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
-      # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
-      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
-action:
+actions:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
   # if the delay expires and the automation is still running it means it's the last run and execution can continue
@@ -187,15 +225,16 @@ action:
   - variables:
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
+      deserialized_state: '{{ (states(helper_last_controller_event) | from_json) if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{\s*?((\"a\":\s*?\".*\"|\"t\":\s*?\d+\.\d+)(,\s*?)?){2}\s*?\}$")) else {} }}'
+      trigger_delta: '{{ (as_timestamp(now()) - (deserialized_state.t | default(0))) * 1000 }}'
   # update helper
-  - service: input_text.set_value
+  - action: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
       value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'

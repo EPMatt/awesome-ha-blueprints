@@ -11,13 +11,18 @@ blueprint:
     Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
     See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929002398602#available-hooks) for additional details.
 
+    ## More Info
+
+    ℹ️ Version 2025.04.19
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929002398602/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929002398602).
 
-    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**.
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
 
-    ℹ️ Version 2022.08.08
   source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/philips_929002398602/philips_929002398602.yaml
   domain: automation
+  homeassistant:
+    min_version: 2024.10.0
   input:
     integration:
       name: (Required) Integration
@@ -28,18 +33,28 @@ blueprint:
             - ZHA
             - Zigbee2MQTT
     controller_device:
-      name: (ZHA) Controller Device
-      description: The controller device to use for the automation. Choose a value only if the remote is integrated with ZHA.
+      name: (ZHA, Zigbee2MQTT Required) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
       default: ''
       selector:
         device:
-    controller_entity:
-      name: (Zigbee2MQTT) Controller Entity
-      description: The action sensor of the controller to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
-      default: ''
-      selector:
-        entity:
-          domain: sensor
+          filter:
+            # source: https://www.zigbee2mqtt.io/devices/929002398602.html#philips-929002398602
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue dimmer switch
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue dimmer switch (929002398602)
+            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
+            - integration: zha
+              manufacturer: Philips
+              # **TBConfirmed** model:
+            - integration: deconz
+              manufacturer: Philips
+              # **TBConfirmed** model:
+          multiple: false
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
       description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
@@ -67,7 +82,7 @@ blueprint:
       selector:
         action:
     action_button_on_double:
-      name: (Optional) On button double press
+      name: (Optional) (Virtual) On button double press
       description: Action to run on double on button press.
       default: []
       selector:
@@ -91,7 +106,7 @@ blueprint:
       selector:
         action:
     action_button_off_double:
-      name: (Optional) Off button double press
+      name: (Optional) (Virtual) Off button double press
       description: Action to run on double off button press.
       default: []
       selector:
@@ -115,7 +130,7 @@ blueprint:
       selector:
         action:
     action_button_up_double:
-      name: (Optional) Up button double press
+      name: (Optional) (Virtual) Up button double press
       description: Action to run on double up button press.
       default: []
       selector:
@@ -139,7 +154,7 @@ blueprint:
       selector:
         action:
     action_button_down_double:
-      name: (Optional) Down button double press
+      name: (Optional) (Virtual) Down button double press
       description: Action to run on double down button press.
       default: []
       selector:
@@ -307,6 +322,7 @@ variables:
       button_down_long: [down_hold]
       button_down_release: [down_long_release]
     zigbee2mqtt:
+      # source: https://www.zigbee2mqtt.io/devices/929002398602.html#philips-929002398602
       button_on_short: [on_press, on_press_release]
       button_on_long: [on_hold]
       button_on_release: [on_hold_release]
@@ -334,31 +350,95 @@ variables:
   button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
   # build data to send within a controller event
-  controller_entity: !input controller_entity
-  controller_device: !input controller_device
-  controller_id: '{% if integration_id=="zigbee2mqtt" %}{{controller_entity}}{% else %}{{controller_device}}{% endif %}'
+  controller_id: !input controller_device
 mode: restart
 max_exceeded: silent
-trigger:
-  # trigger for zigbee2mqtt
-  - platform: event
-    event_type: state_changed
-    event_data:
-      entity_id: !input controller_entity
-  # trigger for other integrations
-  - platform: event
+triggers:
+  # triggers for zigbee2mqtt mqtt device action
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: on_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: on_press_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: on_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: on_hold_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: off_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: off_press_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: off_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: off_hold_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_hold_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_hold_release
+  # triggers for other integrations
+  - trigger: event
     event_type:
       - zha_event
     event_data:
       device_id: !input controller_device
-condition:
+conditions:
   - condition: and
     conditions:
       # check that the button event is not empty
       - >-
         {%- set trigger_action -%}
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
@@ -366,10 +446,7 @@ condition:
         {%- endif -%}
         {%- endset -%}
         {{ trigger_action not in ["","None"] }}
-      # only for zigbee2mqtt, check if the event is relative to a real state change, and not only some minor changes in the sensor attributes
-      # this is required since multiple state_changed events are fired for a single button press, with the result of the automation being triggered multiple times
-      - '{{ integration_id != "zigbee2mqtt" or trigger.event.data.new_state.state != trigger.event.data.old_state.state }}'
-action:
+actions:
   # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
   # therefore previous runs must wait for the debounce delay before executing any other action
   # if the delay expires and the automation is still running it means it's the last run and execution can continue
@@ -380,15 +457,16 @@ action:
   - variables:
       trigger_action: >-
         {%- if integration_id == "zigbee2mqtt" -%}
-        {{ trigger.event.data.new_state.state }}
+        {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
         {{ trigger.event.data.event }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}
         {%- endif -%}
-      trigger_delta: '{{ (as_timestamp(now()) - ((states(helper_last_controller_event) | from_json).t if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{((\"a\": \".*\"|\"t\": \d+\.\d+)(, )?){2}\}$")) else as_timestamp("1970-01-01 00:00:00"))) * 1000 }}'
+      deserialized_state: '{{ (states(helper_last_controller_event) | from_json) if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{\s*?((\"a\":\s*?\".*\"|\"t\":\s*?\d+\.\d+)(,\s*?)?){2}\s*?\}$")) else {} }}'
+      trigger_delta: '{{ (as_timestamp(now()) - (deserialized_state.t | default(0))) * 1000 }}'
   # update helper
-  - service: input_text.set_value
+  - action: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
       value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
@@ -402,13 +480,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_on","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -482,13 +560,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_off","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -562,13 +640,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_up","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
@@ -642,13 +720,13 @@ action:
                 sequence:
                   - choose:
                       # if previous event was a short press
-                      - conditions: '{{ trigger_action | string in states(helper_last_controller_event) and trigger_delta | int <= helper_double_press_delay | int }}'
+                      - conditions: '{{ trigger_action | string == last_controller_event and trigger_delta | int <= helper_double_press_delay | int }}'
                         sequence:
                           # store the double press event in the last controller event helper
-                          - service: input_text.set_value
+                          - action: input_text.set_value
                             data:
                               entity_id: !input helper_last_controller_event
-                              value: '{{ {"a":"double_press","t":as_timestamp(now())} | to_json }}'
+                              value: '{{ {"a":"double_press_down","t":as_timestamp(now())} | to_json }}'
                           # run the double press action
                           # fire the event
                           - event: ahb_controller_event
