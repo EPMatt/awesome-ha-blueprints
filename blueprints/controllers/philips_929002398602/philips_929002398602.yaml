@@ -51,6 +51,8 @@ blueprint:
             - integration: zha
               manufacturer: Philips
               # **TBConfirmed** model:
+            - integration: zha
+              model: RWL022
             - integration: deconz
               manufacturer: Philips
               # **TBConfirmed** model:
