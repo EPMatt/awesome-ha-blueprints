@@ -253,7 +253,7 @@ conditions:
         {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
+        {{ trigger.event.data.event | string }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
@@ -272,7 +272,7 @@ actions:
         {%- if integration_id == "zigbee2mqtt" -%}
         {{ trigger.payload }}
         {%- elif integration_id == "deconz" -%}
-        {{ trigger.event.data.event }}
+        {{ trigger.event.data.event | string }}
         {%- elif integration_id == "zha" -%}
         {{ trigger.event.data.command }}{{"_" if trigger.event.data.args|length > 0}}{{ trigger.event.data.args|join("_") }}
         {%- endif -%}
@@ -283,7 +283,7 @@ actions:
   - action: input_text.set_value
     data:
       entity_id: !input helper_last_controller_event
-      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
+      value: '{{ {"a":(trigger_action | string),"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in rotate_left }}'
