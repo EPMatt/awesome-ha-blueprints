@@ -71,6 +71,7 @@ condition:
   - condition: template
     value_template: '{{ trigger.platform!="homeassistant" or trigger_at_homeassistant_startup }}'
 action:
+  - delay: '{{ 10 if trigger.platform == "homeassistant" else 0 }}'
   - choose:
       # if current time is in the range first_event...second_event the target must be in the first_event state
       - conditions:
