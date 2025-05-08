@@ -74,7 +74,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - id: prettier
         name: Prettier Check
-        uses: creyD/prettier_action@v4.3
+        uses: creyD/prettier_action@v4.5
         with:
           dry: true
           prettier_options: --write .
