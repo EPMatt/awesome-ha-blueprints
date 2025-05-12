@@ -23,7 +23,7 @@
     "js-cookie": "^3.0.5",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
-    "react-bootstrap-icons": "^1.11.5",
+    "react-bootstrap-icons": "^1.11.6",
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^19.0.0",
     "react-ga4": "^2.1.0",
