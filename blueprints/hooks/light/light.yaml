@@ -513,6 +513,10 @@ actions:
                       entity_id: !input light
                   - delay:
                       milliseconds: !input light_transition
+                  - wait_template: '{{ is_number(state_attr(light,"brightness")) }}'
+                    timeout:
+                      seconds: 1
+                    continue_on_timeout: false
               # if light is off and smooth power on is enabled, turn it on at minimum brightness
               - conditions: '{{ states(light) == "off" and smooth_power_on}}'
                 sequence:
@@ -523,6 +527,10 @@ actions:
                       entity_id: !input light
                   - delay:
                       milliseconds: !input light_transition
+                  - wait_template: '{{ is_number(state_attr(light,"brightness")) }}'
+                    timeout:
+                      seconds: 1
+                    continue_on_timeout: false
           # else move on to the loop for increasing the light brightness until the maximum brightness is reached
           - repeat:
               while: '{{ state_attr(light,"brightness") < max_brightness }}'
