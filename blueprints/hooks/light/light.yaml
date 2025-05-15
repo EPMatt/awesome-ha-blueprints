@@ -153,6 +153,12 @@ blueprint:
           step: 1
           unit_of_measurement: brightness
           mode: slider
+    allow_brightness_power_on:
+      name: (Optional) Allow brightness up command to power on
+      description: Turn on the light when a brightness up command (single or continuous) is triggered and light is off.
+      default: true
+      selector:
+        boolean:
     smooth_power_on:
       name: (Optional) Smooth power on
       description: Force the light to turn on at minimum brightness when a brightness up command (single or continuous) is triggered and light is off.
@@ -384,6 +390,7 @@ variables:
   brightness_steps_long: !input brightness_steps_long
   force_brightness: !input force_brightness
   on_brightness: !input on_brightness
+  allow_brightness_power_on: !input allow_brightness_power_on
   smooth_power_on: !input smooth_power_on
   smooth_power_off: !input smooth_power_off
   color_modes:
@@ -448,21 +455,27 @@ actions:
       - conditions: '{{ action == brightness_up }}'
         sequence:
           - choose:
-              # if light is off and smooth power on is disabled, turn it on at the previously saved brightness
-              - conditions: '{{ states(light) == "off" and not smooth_power_on}}'
+              # handle situation when light is off
+              - conditions: '{{ states(light) == "off"}}'
                 sequence:
-                  - action: light.turn_on
-                    data:
-                      transition: '{{ light_transition / 1000 }}'
-                      entity_id: !input light
-              # if light is off and smooth power on is enabled, turn it on at minimum brightness
-              - conditions: '{{ states(light) == "off" and smooth_power_on}}'
-                sequence:
-                  - action: light.turn_on
-                    data:
-                      brightness: '{{ min_brightness }}'
-                      transition: '{{ light_transition / 1000 }}'
-                      entity_id: !input light
+                  # only contiue if brightnes up is allowed to power on, otherwise do nothing
+                  - condition: '{{ allow_brightness_power_on }}'
+                  - choose:
+                      # if smooth power on is disabled, turn it on at the previously saved brightness
+                      - conditions: '{{ not smooth_power_on}}'
+                        sequence:
+                          - action: light.turn_on
+                            data:
+                              transition: '{{ light_transition / 1000 }}'
+                              entity_id: !input light
+                      # if smooth power on is enabled, turn it on at minimum brightness
+                      - conditions: '{{ smooth_power_on}}'
+                        sequence:
+                          - action: light.turn_on
+                            data:
+                              brightness: '{{ min_brightness }}'
+                              transition: '{{ light_transition / 1000 }}'
+                              entity_id: !input light
             # else the light is on, hence increase its brightness
             default:
               - action: light.turn_on
@@ -487,6 +500,8 @@ actions:
                   entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
+          # only contiue if lights are alreay on or brightnes up is allowed to power on
+          - condition: '{{ states(light) == "on" or allow_brightness_power_on}}'
           # first step for the smooth power on feature: subsequent steps can skip this check since light will be already on
           - choose:
               # if light is off and smooth power on is disabled, turn it on at the previously saved brightness
