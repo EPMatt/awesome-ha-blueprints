@@ -309,10 +309,10 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     zha:
-      button_on_short: [on_press, on_press_release]
+      button_on_short: [on_press_release]
       button_on_long: [on_hold]
       button_on_release: [on_long_release]
-      button_off_short: [off_press, off_press_release]
+      button_off_short: [off_press_release]
       button_off_long: [off_hold]
       button_off_release: [off_long_release]
       button_up_short: [up_press]
@@ -323,10 +323,10 @@ variables:
       button_down_release: [down_long_release]
     zigbee2mqtt:
       # source: https://www.zigbee2mqtt.io/devices/929002398602.html#philips-929002398602
-      button_on_short: [on_press, on_press_release]
+      button_on_short: [on_press_release]
       button_on_long: [on_hold]
       button_on_release: [on_hold_release]
-      button_off_short: [off_press, off_press_release]
+      button_off_short: [off_press_release]
       button_off_long: [off_hold]
       button_off_release: [off_hold_release]
       button_up_short: [up_press]
