@@ -403,7 +403,7 @@ triggers:
     domain: mqtt
     device_id: !input controller_device
     type: action
-    subtype: up_press
+    subtype: up_press_release
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
@@ -418,7 +418,7 @@ triggers:
     domain: mqtt
     device_id: !input controller_device
     type: action
-    subtype: down_press
+    subtype: down_press_release
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
