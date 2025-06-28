@@ -539,8 +539,10 @@ actions:
                   - repeat:
                       while: '{{ repeat.index < button_on_long_max_loop_repeats | int }}'
                       sequence: !input action_button_on_long
-            # if looping is not enabled run the custom action only once
-            default: !input action_button_on_long
+              # if looping is not enabled run the custom action only once
+              # Don't run custom action again if the controller sends more than one button_on_long requests
+              - conditions: '{{ deserialized_state.a != "on_hold" }}'
+                sequence: !input action_button_on_long
       - conditions: '{{ trigger_action | string in button_on_release }}'
         sequence:
           # fire the event
@@ -619,8 +621,10 @@ actions:
                   - repeat:
                       while: '{{ repeat.index < button_off_long_max_loop_repeats | int }}'
                       sequence: !input action_button_off_long
-            # if looping is not enabled run the custom action only once
-            default: !input action_button_off_long
+              # if looping is not enabled run the custom action only once
+              # Don't run custom action again if the controller sends more than one button_off_long requests
+              - conditions: '{{ deserialized_state.a != "off_hold" }}'
+                sequence: !input action_button_off_long
       - conditions: '{{ trigger_action | string in button_off_release }}'
         sequence:
           # fire the event
@@ -699,8 +703,10 @@ actions:
                   - repeat:
                       while: '{{ repeat.index < button_up_long_max_loop_repeats | int }}'
                       sequence: !input action_button_up_long
-            # if looping is not enabled run the custom action only once
-            default: !input action_button_up_long
+              # if looping is not enabled run the custom action only once
+              # Don't run custom action again if the controller sends more than one button_up_long requests
+              - conditions: '{{ deserialized_state.a != "up_hold" }}'
+                sequence: !input action_button_up_long
       - conditions: '{{ trigger_action | string in button_up_release }}'
         sequence:
           # fire the event
@@ -779,8 +785,10 @@ actions:
                   - repeat:
                       while: '{{ repeat.index < button_down_long_max_loop_repeats | int }}'
                       sequence: !input action_button_down_long
-            # if looping is not enabled run the custom action only once
-            default: !input action_button_down_long
+              # if looping is not enabled run the custom action only once
+              # Don't run custom action again if the controller sends more than one button_down_long requests
+              - conditions: '{{ deserialized_state.a != "down_hold" }}'
+                sequence: !input action_button_down_long
       - conditions: '{{ trigger_action | string in button_down_release }}'
         sequence:
           # fire the event
