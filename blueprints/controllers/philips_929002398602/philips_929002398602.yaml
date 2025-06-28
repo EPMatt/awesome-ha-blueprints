@@ -359,11 +359,6 @@ triggers:
     domain: mqtt
     device_id: !input controller_device
     type: action
-    subtype: on_press
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
     subtype: on_press_release
   - trigger: device
     domain: mqtt
@@ -375,11 +370,6 @@ triggers:
     device_id: !input controller_device
     type: action
     subtype: on_hold_release
-  - trigger: device
-    domain: mqtt
-    device_id: !input controller_device
-    type: action
-    subtype: off_press
   - trigger: device
     domain: mqtt
     device_id: !input controller_device
