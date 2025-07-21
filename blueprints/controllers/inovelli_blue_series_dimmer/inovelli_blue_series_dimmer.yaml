@@ -1,0 +1,433 @@
+# Blueprint metadata
+blueprint:
+  name: Controller - Inovelli Blue Series Dimmer Switch
+  description: |
+    # Controller - Inovelli Blue Series Dimmer Switch
+
+    Controller automation for executing any kind of action triggered by the provided Inovelli Blue Series Dimmer Switch.
+    Supports Zigbee2MQTT currently, but could easily support ZHA and deCONZ if event names can be provided/tested by others.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/inovelli_blue_series_dimmer#available-hooks) for additional details.
+
+    ## More Info
+
+    ℹ️ Version 2025.07.05
+    > TODO: update!
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/inovelli_blue_series_dimmer/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/inovelli_blue_series_dimmer).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+
+  source_url: https://github.com/epmatt/awesome-ha-blueprints/blob/main/blueprints/controllers/inovelli_blue_series_dimmer/inovelli_blue_series_dimmer.yaml
+  domain: automation
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    integration:
+      name: (Required) Integration
+      description:
+        Integration used for connecting the remote with Home Assistant.
+        Select one of the available values.
+      selector:
+        select:
+          options:
+            # - deCONZ
+            # - ZHA
+            - Zigbee2MQTT
+          sort: false
+          custom_value: false
+          multiple: false
+    controller_device:
+      name: (deCONZ, ZHA, Zigbee2MQTT Required) Controller Device
+      description:
+        The controller device to use for the automation. Choose a value
+        only if the remote is integrated with deCONZ, ZHA, Zigbee2MQTT.
+      default: ''
+      selector:
+        device:
+          filter:
+            - integration: mqtt
+              manufacturer: Inovelli
+              model_id: VZM31-SN
+          # - integration: zha
+          # To Be Confirmed by others with zha
+          # - integration: deconz
+          # To Be Confirmed by others with deconz
+          multiple: false
+    action_up_single:
+      name: (Optional) Up Button single press
+      description: Action to run on single up button press.
+      default: []
+      selector:
+        action: {}
+    action_up_double:
+      name: (Optional) Up Button double press
+      description: Action to run on double up button press.
+      default: []
+      selector:
+        action: {}
+    action_up_triple:
+      name: (Optional) Up Button triple press
+      description: Action to run on triple up button press.
+      default: []
+      selector:
+        action: {}
+    action_up_quadruple:
+      name: (Optional) Up Button quadruple press
+      description: Action to run on quadruple up button press.
+      default: []
+      selector:
+        action: {}
+    action_up_quintruple:
+      name: (Optional) Up Button quintruple press
+      description: Action to run on quintruple up button press.
+      default: []
+      selector:
+        action: {}
+    action_down_single:
+      name: (Optional) Down Button single press
+      description: Action to run on single down button press.
+      default: []
+      selector:
+        action: {}
+    action_down_double:
+      name: (Optional) Down Button double press
+      description: Action to run on double down button press.
+      default: []
+      selector:
+        action: {}
+    action_down_triple:
+      name: (Optional) Down Button triple press
+      description: Action to run on triple down button press.
+      default: []
+      selector:
+        action: {}
+    action_down_quadruple:
+      name: (Optional) Down Button quadruple press
+      description: Action to run on quadruple down button press.
+      default: []
+      selector:
+        action: {}
+    action_down_quintuple:
+      name: (Optional) Down Button quintuple press
+      description: Action to run on quintuple down button press.
+      default: []
+      selector:
+        action: {}
+    action_config_single:
+      name: (Optional) Config Button single press
+      description: Action to run on single config button press.
+      default: []
+      selector:
+        action: {}
+    action_config_double:
+      name: (Optional) Config Button double press
+      description: Action to run on double config button press.
+      default: []
+      selector:
+        action: {}
+    action_config_triple:
+      name: (Optional) Config Button triple press
+      description: Action to run on triple config button press.
+      default: []
+      selector:
+        action: {}
+    action_config_quadruple:
+      name: (Optional) Config Button quadruple press
+      description: Action to run on quadruple config button press.
+      default: []
+      selector:
+        action: {}
+    action_config_quintuple:
+      name: (Optional) Config Button quintuple press
+      description: Action to run on quintuple config button press.
+      default: []
+      selector:
+        action: {}
+variables:
+  integration: !input integration
+  integration_id: '{{ integration | lower }}'
+  actions_mapping:
+    zigbee2mqtt:
+      up_single:
+        - up_single
+      up_double:
+        - up_double
+      up_triple:
+        - up_triple
+      up_quadruple:
+        - up_quadruple
+      up_quintruple:
+        - up_quintruple
+      down_single:
+        - down_single
+      down_double:
+        - down_double
+      down_triple:
+        - down_triple
+      down_quadruple:
+        - down_quadruple
+      down_quintuple:
+        - down_quintuple
+      config_single:
+        - config_single
+      config_double:
+        - config_double
+      config_triple:
+        - config_triple
+      config_quadruple:
+        - config_quadruple
+      config_quintuple:
+        - config_quintuple
+  up_single: '{{ actions_mapping[integration_id]["up_single"] }}'
+  up_double: '{{ actions_mapping[integration_id]["up_double"] }}'
+  up_triple: '{{ actions_mapping[integration_id]["up_triple"] }}'
+  up_quadruple: '{{ actions_mapping[integration_id]["up_quadruple"] }}'
+  up_quintruple: '{{ actions_mapping[integration_id]["up_quintruple"] }}'
+  down_single: '{{ actions_mapping[integration_id]["down_single"] }}'
+  down_double: '{{ actions_mapping[integration_id]["down_double"] }}'
+  down_triple: '{{ actions_mapping[integration_id]["down_triple"] }}'
+  down_quadruple: '{{ actions_mapping[integration_id]["down_quadruple"] }}'
+  down_quintuple: '{{ actions_mapping[integration_id]["down_quintuple"] }}'
+  config_single: '{{ actions_mapping[integration_id]["config_single"] }}'
+  config_double: '{{ actions_mapping[integration_id]["config_double"] }}'
+  config_triple: '{{ actions_mapping[integration_id]["config_triple"] }}'
+  config_quadruple: '{{ actions_mapping[integration_id]["config_quadruple"] }}'
+  config_quintuple: '{{ actions_mapping[integration_id]["config_quintuple"] }}'
+  controller_id: !input controller_device
+mode: restart
+max_exceeded: silent
+triggers:
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_single
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_double
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_triple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_quadruple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: up_quintruple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_single
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_double
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_triple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_quadruple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: down_quintuple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: config_single
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: config_double
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: config_triple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: config_quadruple
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: config_quintuple
+  - trigger: event
+    event_type:
+      - deconz_event
+      - zha_event
+    event_data:
+      device_id: !input controller_device
+conditions:
+  - condition: and
+    conditions:
+      - '{%- set trigger_action -%} {%- if integration_id == "zigbee2mqtt" -%} {{ trigger.payload
+        }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
+        elif integration_id == "zha" -%} {{ trigger.event.data.command }} {%- endif -%}
+        {%- endset -%} {{ trigger_action not in ["","None"] }}'
+actions:
+  - variables:
+      trigger_action:
+        '{%- if integration_id == "zigbee2mqtt" -%} {{ trigger.payload
+        }} {%- elif integration_id == "deconz" -%} {{ trigger.event.data.event }} {%-
+        elif integration_id == "zha" -%} {{ trigger.event.data.command }} {%- endif
+        -%}'
+  - choose:
+      - conditions: '{{ trigger_action | string in up_single }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: up_single
+          - choose:
+              - conditions: []
+                sequence: !input action_up_single
+      - conditions: '{{ trigger_action | string in up_double }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: up_double
+          - choose:
+              - conditions: []
+                sequence: !input action_up_double
+      - conditions: '{{ trigger_action | string in up_triple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: up_triple
+          - choose:
+              - conditions: []
+                sequence: !input action_up_triple
+      - conditions: '{{ trigger_action | string in up_quadruple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: up_quadruple
+          - choose:
+              - conditions: []
+                sequence: !input action_up_quadruple
+      - conditions: '{{ trigger_action | string in up_quintruple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: up_quintruple
+          - choose:
+              - conditions: []
+                sequence: !input action_up_quintruple
+      - conditions: '{{ trigger_action | string in down_single }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: down_single
+          - choose:
+              - conditions: []
+                sequence: !input action_down_single
+      - conditions: '{{ trigger_action | string in down_double }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: down_double
+          - choose:
+              - conditions: []
+                sequence: !input action_down_double
+      - conditions: '{{ trigger_action | string in down_triple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: down_triple
+          - choose:
+              - conditions: []
+                sequence: !input action_down_triple
+      - conditions: '{{ trigger_action | string in down_quadruple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: down_quadruple
+          - choose:
+              - conditions: []
+                sequence: !input action_down_quadruple
+      - conditions: '{{ trigger_action | string in down_quintuple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: down_quintuple
+          - choose:
+              - conditions: []
+                sequence: !input action_down_quintuple
+      - conditions: '{{ trigger_action | string in config_single }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: config_single
+          - choose:
+              - conditions: []
+                sequence: !input action_config_single
+      - conditions: '{{ trigger_action | string in config_double }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: config_double
+          - choose:
+              - conditions: []
+                sequence: !input action_config_double
+      - conditions: '{{ trigger_action | string in config_triple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: config_triple
+          - choose:
+              - conditions: []
+                sequence: !input action_config_triple
+      - conditions: '{{ trigger_action | string in config_quadruple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: config_quadruple
+          - choose:
+              - conditions: []
+                sequence: !input action_config_quadruple
+      - conditions: '{{ trigger_action | string in config_quintuple }}'
+        sequence:
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: config_quintuple
+          - choose:
+              - conditions: []
+                sequence: !input action_config_quintuple
