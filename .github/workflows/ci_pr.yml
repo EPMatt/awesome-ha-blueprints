@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
         with:
           version: 9.15.0
@@ -62,7 +62,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
         with:
           version: 9.15.0
@@ -96,7 +96,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
         with:
           version: 9.15.0
@@ -115,7 +115,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: dorny/paths-filter@v3
         id: changes
         with:
