@@ -8,7 +8,7 @@ The Controllers-Hooks ecosystem includes a set of blueprints which allow to easi
 
 ## Controllers
 
-**Controllers** are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them. They consist in a practical abstraction layer for building controlled-based automations without worrying about the handling of RAW controller events and the integration used to connect controllers to Home Assistant (Zigbee2MQTT, ZHA, deCONZ, ZWave, proprietary hubs, etc.).
+**Controllers** are blueprints which allow to easily integrate a wide range of controllers (wall switches, remotes, dimmers, etc.) and use them to run a set of actions when interacting with them. They consist in a practical abstraction layer for building controlled-based automations without worrying about the handling of RAW controller events and the integration used to connect controllers to Home Assistant (Zigbee2MQTT, ZHA, deCONZ, ZWave, Shelly, proprietary hubs, etc.).
 
 :::info
 The type of exposed events depends on the controller model. Some controllers can also expose virtual events. You can read more about them [here](#virtual-events).
@@ -56,7 +56,7 @@ Such events can introduce some delay in the automation, therefore they can be di
 
 ## Hooks
 
-**Hooks** are blueprints which seamlessly integrate with [Controllers](#controllers) to enable control of lights, media players and much more, without you ever writing a single line of code.
+**Hooks** are blueprints which seamlessly integrate with [Controllers](#controllers) to enable control of lights, media players, covers and much more, without you ever writing a single line of code.
 
 While Controllers are responsible for integrating the hardware and exposing an abstract interface to the user, Hooks can, as the name suggests, link to this interface and listen for events fired by a Controller. With the received events, Hooks take care of providing the actual control functionality for common use cases (eg. controlling a Media Player).
 
@@ -68,7 +68,7 @@ While Controllers are responsible for integrating the hardware and exposing an a
 
 The simplest use case for such blueprints consists in creating an entirely custom controller-based automation, which can be done by using only a Controller blueprint.
 
-When setting up an automation with a Controller blueprint, you'll be asked to select the integration used to connect the controller to Home Assistant, and the `device` or `entity` (depending on the integration) representing the Controller. You can then specify a sequence of actions for each of the events the controller exposes.
+When setting up an automation with a Controller blueprint, you may be asked to select the integration used to connect the controller to Home Assistant, and the `device` (depending on the integration) representing the Controller. You can then specify a sequence of actions for each of the events the controller exposes.
 
 Each time an event is fired by the controller (eg. button press) the automation will run the provided custom action corresponding to that specific event.
 
@@ -80,10 +80,10 @@ Even in this simple scenario, you can still benefit from most of the features of
 
 ![Controller and Hook](/img/awesome-ha-blueprints-01.svg)
 
-If you want to build a controller-based automation with Hooks, first create an automation with a Controller blueprint. You can then build an automation with the desired Hook blueprint, **making sure that you provide the same controller `device` or `entity` used in the corresponding Controller blueprint**. This key step will link the two automations and ensure the Hook will respond to events fired by the Controller.
+If you want to build a controller-based automation with Hooks, first create an automation with a Controller blueprint. You can then build an automation with the desired Hook blueprint, **making sure that you provide the same controller `device` used in the corresponding Controller blueprint**. This key step will link the two automations and ensure the Hook will respond to events fired by the Controller.
 
 :::info
-Please note that not all controllers might be used with each of the available Hooks. Check out the Hook documentation for the list of supported controllers for that specific Hook.  
+Please note that not all controllers might be used with each of the available Hooks. Check out the Hook documentation for the list of supported controllers for that specific Hook.
 :::
 
 ### Controller and Hook + Custom actions
@@ -112,7 +112,7 @@ This might be useful when you'd like to control multiple devices with the same c
     path: EPMatt/ikea_e1743.yaml
     input:
       integration: Zigbee2MQTT
-      controller_entity: sensor.ikea_e1743_action
+      controller_device: IKEA E1743 Kitchen
       helper_last_controller_event: input_text.ikea_e1743_helper
       button_up_double_press: true
       button_down_double_press: true
@@ -125,7 +125,7 @@ This might be useful when you'd like to control multiple devices with the same c
     input:
       # Provide the same value used in the Controller automation
       # This ensures this automation will catch events fired by the E1743
-      controller_entity: sensor.ikea_e1743_action
+      controller_device: IKEA E1743 Kitchen
       controller_model: IKEA E1743 On/Off Switch
       media_player: media_player.kitchen
 ```
@@ -140,7 +140,7 @@ This might be useful when you'd like to control multiple devices with the same c
     path: EPMatt/ikea_e1524_e1810.yaml
     input:
       integration: Zigbee2MQTT
-      controller_entity: sensor.ikea_e1810_action
+      controller_device: IKEA E1810 Living Room
       # Example of custom action
       # activate a scene when double clicking the center button
       action_button_center_double:
@@ -155,7 +155,7 @@ This might be useful when you'd like to control multiple devices with the same c
       light_color_mode: RGB
       # Provide the same value used in the Controller automation
       # This ensures this automation will catch events fired by the E1810
-      controller_entity: sensor.ikea_e1810_action
+      controller_device: IKEA E1810 Living Room
       controller_model: IKEA E1524/E1810 5-Button remote
       light: light.livingroom_ceiling
 ```

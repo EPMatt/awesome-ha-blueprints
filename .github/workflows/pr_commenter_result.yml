@@ -14,14 +14,13 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download changes analysis
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v8
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
-          name: changes
-          path: changes
+          allow_forks: true
       - id: pr_info
-        run: echo "::set-output name=num::$(cat changes/pr_num.txt)"
+        run: echo "::set-output name=num::$(cat changes_pr_num/pr_num.txt)"
       - uses: hasura/comment-progress@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -35,13 +34,13 @@ jobs:
             A maintainer will soon review your submission and provide additional feedback regarding your changes.
 
             Thanks again for dedicating your precious time to this project. 🔥
-      - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
+      - if: ${{ hashFiles('changes_blueprints/blueprints.txt') != '' }}
         id: blueprints
         run: |
-          myblueprints=$(< changes/blueprints.txt)
+          myblueprints=$(< changes_blueprints/blueprints.txt)
           urls=$(printf '%s' "$myblueprints" | jq --raw-input --slurp '.')
           echo "::set-output name=urls::$urls"
-      - if: ${{ hashFiles('changes/blueprints.txt') != '' }}
+      - if: ${{ hashFiles('changes_blueprints/blueprints.txt') != '' }}
         uses: hasura/comment-progress@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -62,13 +61,14 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' && github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Download failure reports
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v8
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           workflow: ci_pr.yml
           workflow_conclusion: failure
+          allow_forks: true
       - id: pr_info
-        run: echo "::set-output name=num::$(cat changes/pr_num.txt)"
+        run: echo "::set-output name=num::$(cat changes_pr_num/pr_num.txt)"
       - name: Create comment to report failure
         uses: hasura/comment-progress@v2
         with:

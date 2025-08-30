@@ -19,7 +19,7 @@ jobs:
   action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v3
+      - uses: dessant/lock-threads@v5
         with:
           # 30 days of inactivity both for closed issues and PRs
           issue-inactive-days: 30

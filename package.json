@@ -3,9 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "prettier --write ."
+    "docs:start": "pnpm --filter ./website start",
+    "docs:build": "pnpm --filter ./website build",
+    "format": "prettier --write .",
+    "lint": "turbo run lint",
+    "prepare": "husky"
   },
+  "packageManager": "pnpm@9.15.0",
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.0",
+    "turbo": "^2.5.0"
   }
 }
