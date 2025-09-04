@@ -33,7 +33,7 @@ jobs:
         continue-on-error: true
       - id: eslint
         name: ESLint
-        uses: reviewdog/action-eslint@v1.33
+        uses: reviewdog/action-eslint@v1.34
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
