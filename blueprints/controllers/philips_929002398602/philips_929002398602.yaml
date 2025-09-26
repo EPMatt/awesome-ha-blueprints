@@ -54,6 +54,8 @@ blueprint:
             - integration: deconz
               manufacturer: Philips
               # **TBConfirmed** model:
+            - integration: zha
+              manufacturer: "Signify Netherlands B.V."
           multiple: false
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
