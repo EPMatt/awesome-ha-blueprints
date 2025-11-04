@@ -56,7 +56,7 @@
     "date": "2021-03-18",
     "changes": [
       {
-        "description": "Add example for fully controlling an RGB light (Thanks [@kks36](https://github.com/kks36))!).",
+        "description": "Add example for fully controlling an RGB light (Thanks [@kks36](https://github.com/kks36)!).",
         "breaking": false
       }
     ]
