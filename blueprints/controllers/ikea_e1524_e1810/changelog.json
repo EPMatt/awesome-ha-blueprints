@@ -27,15 +27,6 @@
     ]
   },
   {
-    "date": "2021-03-18",
-    "changes": [
-      {
-        "description": "Add example for fully controlling an RGB light (Thanks [@kks36](https://github.com/kks36))!).",
-        "breaking": false
-      }
-    ]
-  },
-  {
     "date": "2021-02-21",
     "changes": [
       {
@@ -57,6 +48,15 @@
     "changes": [
       {
         "description": "Move the blueprint into the Controllers-Hooks Ecosystem.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-03-18",
+    "changes": [
+      {
+        "description": "Add example for fully controlling an RGB light (Thanks [@kks36](https://github.com/kks36))!).",
         "breaking": false
       }
     ]
