@@ -46,7 +46,7 @@ jobs:
         run: mkdir -p lint && echo "yamllint" >> lint/results.txt
       - if: ${{ steps.eslint.outcome == 'failure' }}
         run: mkdir -p lint && echo "eslint" >> lint/results.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: lint
           path: lint/results.txt
@@ -84,7 +84,7 @@ jobs:
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
         run: mkdir -p format-lint && echo "prettier" >> format-lint/results.txt
       - if: ${{ always() && steps.prettier.outcome == 'failure' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: format-lint
           path: format-lint/results.txt
@@ -137,13 +137,13 @@ jobs:
       - env:
           PR_NUM: ${{ github.event.number }}
         run: echo $PR_NUM > pr_num.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: changes_blueprints
           path: blueprints.txt
           retention-days: 5
           if-no-files-found: ignore
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: changes_pr_num
           path: pr_num.txt
