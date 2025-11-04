@@ -147,7 +147,7 @@ blueprint:
 # Automation schema
 variables:
   ahb_version: 2025.11.04
-  ahb_author: EPMatt
+  ahb_maintainers: [EPMatt]
   # convert blueprint inputs to variables to be used in templates
   notification_title: !input notification_title
   notification_message: !input notification_message

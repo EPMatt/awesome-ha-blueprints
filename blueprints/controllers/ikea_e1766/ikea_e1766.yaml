@@ -141,7 +141,7 @@ blueprint:
 # Automation schema
 variables:
   ahb_version: 2025.11.04
-  ahb_author: EPMatt
+  ahb_maintainers: [EPMatt]
   # convert input tags to variables, to be used in templates
   integration: !input integration
   button_up_double_press: !input button_up_double_press

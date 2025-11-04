@@ -168,7 +168,7 @@ blueprint:
 # Automation schema
 variables:
   ahb_version: 2025.11.04
-  ahb_author: EPMatt
+  ahb_maintainers: [EPMatt]
   # convert blueprint inputs into variables to be used in templates
   controller_model: !input controller_model
   # supported controllers and mappings
