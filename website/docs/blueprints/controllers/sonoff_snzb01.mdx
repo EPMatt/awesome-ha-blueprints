@@ -12,6 +12,7 @@ import {
   Inputs,
   Requirement,
   ImportCard,
+  Changelog,
 } from '/src/components/blueprints_docs'
 
 <ImportCard id='sonoff_snzb01' category='controllers' />
@@ -97,15 +98,4 @@ Please note that the long press action for this controller is triggered after th
 
 ## Changelog
 
-- **2022-07-30**: first blueprint version :tada:
-- **2022-08-08**: Optimize characters usage for the `helper_last_controller_event` text input.
-- **2025-02-13**:
-
-  :warning: **Breaking Change**:
-
-  Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
-
-  The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
-  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity`
-
-- **2025-04-19**: Improve Last Controller Event Helper JSON Regex with more lenient matching.
+<Changelog category='controllers' id='sonoff_snzb01' />

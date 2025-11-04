@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2021-02-01",
+    "changes": [
+      {
+        "description": "First blueprint version 🎉",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-10-26",
+    "changes": [
+      {
+        "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. Remove default values from required inputs. No functionality change.",
+        "breaking": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,126 @@
+[
+  {
+    "date": "2021-03-27",
+    "changes": [
+      {
+        "description": "First blueprint version 🎉",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-04-19",
+    "changes": [
+      {
+        "description": "Fix double press events not being detected with deCONZ.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-04-23",
+    "changes": [
+      {
+        "description": "Fix deCONZ events not being recognized.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-05-26",
+    "changes": [
+      {
+        "description": "Make `helper_last_controller_event` a mandatory input to simplify setup and enable future advanced features. When updating, provide a dedicated input_text entity for this input.",
+        "breaking": true
+      },
+      {
+        "description": "🎉 Add Debouncing support to avoid duplicate action runs.",
+        "breaking": false
+      },
+      {
+        "description": "Prevent undesired endless loops by running loop actions a finite number of times, configurable through four new blueprint inputs.",
+        "breaking": false
+      },
+      {
+        "description": "Fix inputs wrongly marked as required.",
+        "breaking": false
+      },
+      {
+        "description": "Fix Zigbee2MQTT reporting null state changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-08-02",
+    "changes": [
+      {
+        "description": "Improve inputs documentation and organization.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-10-26",
+    "changes": [
+      {
+        "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. No functionality change.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-11-19",
+    "changes": [
+      {
+        "description": "Fix controller events not being recognized when using ZHA.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2022-08-08",
+    "changes": [
+      {
+        "description": "Optimize characters usage for the `helper_last_controller_event` text input.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-02-13",
+    "changes": [
+      {
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2025-03-20",
+    "changes": [
+      {
+        "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-06",
+    "changes": [
+      {
+        "description": "Fix double-click detection logic. (Thanks [@danleongjy](https://github.com/danleongjy))",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-19",
+    "changes": [
+      {
+        "description": "Improve Last Controller Event Helper JSON Regex with more lenient matching.",
+        "breaking": false
+      }
+    ]
+  }
+]

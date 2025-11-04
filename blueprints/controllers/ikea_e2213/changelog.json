@@ -1,0 +1,11 @@
+[
+  {
+    "date": "2025-03-26",
+    "changes": [
+      {
+        "description": "Initial release. (Thanks [@yarafie](https://github.com/yarafie)) 🎉",
+        "breaking": false
+      }
+    ]
+  }
+]
