@@ -44,9 +44,10 @@ export default function DownloadBlueprint(props: {
       .catch((error) => {
         console.error('Error recording blueprint download:', error)
       })
-
-    // Redirect to HA to download the blueprint
-    window.location.href = myHomeAssistantURL
+      .finally(() => {
+        // Redirect to HA to download the blueprint
+        window.location.href = myHomeAssistantURL
+      })
   }, [consent, category, id, version, myHomeAssistantURL])
 
   return (
