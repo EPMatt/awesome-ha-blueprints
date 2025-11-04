@@ -32,6 +32,9 @@ blueprint:
         device:
 
 # Automation schema
+variables:
+  ahb_version: 2025.11.04
+  ahb_author: EPMatt
 mode: restart
 
 trigger:

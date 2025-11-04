@@ -136,6 +136,8 @@ blueprint:
           mode: slider
 # Automation schema
 variables:
+  ahb_version: 2025.11.04
+  ahb_author: EPMatt
   # convert input tags to variables, to be used in templates
   day_monday: !input day_monday
   day_tuesday: !input day_tuesday

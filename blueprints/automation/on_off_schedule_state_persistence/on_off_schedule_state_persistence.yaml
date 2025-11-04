@@ -43,6 +43,8 @@ blueprint:
         boolean:
 # Automation schema
 variables:
+  ahb_version: 2025.11.04
+  ahb_author: EPMatt
   # convert input tags to variables, to be used in templates
   off_time: !input off_time
   on_time: !input on_time

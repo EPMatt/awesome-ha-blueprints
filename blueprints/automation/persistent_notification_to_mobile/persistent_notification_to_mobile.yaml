@@ -53,6 +53,8 @@ blueprint:
         text:
 # Automation schema
 variables:
+  ahb_version: 2025.11.04
+  ahb_author: EPMatt
   # convert input tags to variables, to be used in templates
   notification_id: !input notification_id
   replace_notifications: !input replace_notifications
