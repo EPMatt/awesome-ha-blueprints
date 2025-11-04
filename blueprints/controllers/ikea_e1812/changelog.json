@@ -3,7 +3,7 @@
     "date": "2021-03-14",
     "changes": [
       {
-        "description": "First blueprint version :tada:",
+        "description": "First blueprint version 🎉",
         "breaking": false
       }
     ]
@@ -12,7 +12,7 @@
     "date": "2021-03-25",
     "changes": [
       {
-        "description": "Standardize input names across all the Controller blueprints. If you plan to update this blueprint, please update the inputs in your automations as follows:\n- remote -> controller_device\n- zigbee2mqtt_remote -> controller_entity\n- helper_last_loop_event_input -> helper_last_controller_event",
+        "description": "Standardize input names across all the Controller blueprints. If you plan to update this blueprint, please update the inputs in your automations as follows:\n- `remote` -> `controller_device`\n- `zigbee2mqtt_remote` -> `controller_entity`\n- `helper_last_loop_event_input` -> `helper_last_controller_event`",
         "breaking": true
       }
     ]
@@ -48,11 +48,11 @@
     "date": "2021-05-15",
     "changes": [
       {
-        "description": "Make helper_last_controller_event a mandatory input to simplify setup and enable future advanced features. Provide a dedicated input_text entity for this input when updating.",
+        "description": "Make `helper_last_controller_event` a mandatory input to simplify setup and enable future advanced features. Provide a dedicated input_text entity for this input when updating.",
         "breaking": true
       },
       {
-        "description": ":tada: Add Debouncing support to avoid duplicate action runs.",
+        "description": "🎉 Add Debouncing support to avoid duplicate action runs.",
         "breaking": false
       },
       {
@@ -96,7 +96,7 @@
     "date": "2022-08-08",
     "changes": [
       {
-        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "description": "Optimize characters usage for the `helper_last_controller_event` text input.",
         "breaking": false
       }
     ]
@@ -114,7 +114,7 @@
     "date": "2025-02-13",
     "changes": [
       {
-        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": true
       }
     ]
@@ -132,7 +132,7 @@
     "date": "2025-04-06",
     "changes": [
       {
-        "description": "Fix double-click detection logic. (Thanks @danleongjy)",
+        "description": "Fix double-click detection logic. (Thanks [@danleongjy](https://github.com/danleongjy))",
         "breaking": false
       }
     ]
@@ -141,7 +141,7 @@
     "date": "2025-04-12",
     "changes": [
       {
-        "description": "Add native double press triggers and refactor the blueprint to use triggers and trigger IDs. The integration selector input is removed, and helper_last_controller_event is no longer required. Re-download the blueprint and reconfigure existing automations to apply the changes. (Thanks @yarafie)",
+        "description": "Add native double press triggers and refactor the blueprint to use triggers and trigger IDs. The integration selector input is removed, and `helper_last_controller_event` is no longer required. Re-download the blueprint and reconfigure existing automations to apply the changes. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": true
       },
       {

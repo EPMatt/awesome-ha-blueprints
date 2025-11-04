@@ -3,7 +3,7 @@
     "date": "2022-07-22",
     "changes": [
       {
-        "description": "First blueprint version :tada:",
+        "description": "First blueprint version 🎉",
         "breaking": false
       }
     ]
@@ -12,7 +12,7 @@
     "date": "2022-08-08",
     "changes": [
       {
-        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "description": "Optimize characters usage for the `helper_last_controller_event` text input.",
         "breaking": false
       }
     ]
@@ -21,7 +21,7 @@
     "date": "2025-02-13",
     "changes": [
       {
-        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": true
       }
     ]
@@ -30,7 +30,7 @@
     "date": "2025-02-16",
     "changes": [
       {
-        "description": "Add support for Xiaomi WXKG01LM Mi Wireless Switch and rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch. (Thanks @yarafie)",
+        "description": "Add support for Xiaomi WXKG01LM Mi Wireless Switch and rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       }
     ]

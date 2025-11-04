@@ -3,11 +3,11 @@
     "date": "2025-03-20",
     "changes": [
       {
-        "description": "Initial release. (Thanks @yarafie) :tada:",
+        "description": "Initial release. (Thanks [@yarafie](https://github.com/yarafie)) 🎉",
         "breaking": false
       },
       {
-        "description": "Fix automation triggers. (Thanks @yarafie)",
+        "description": "Fix automation triggers. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       },
       {

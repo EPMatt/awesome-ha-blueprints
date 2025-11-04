@@ -3,7 +3,7 @@
     "date": "2021-03-04",
     "changes": [
       {
-        "description": "First blueprint version :tada:",
+        "description": "First blueprint version 🎉",
         "breaking": false
       }
     ]
@@ -135,7 +135,7 @@
         "breaking": false
       },
       {
-        "description": ":tada: Add support for alternate mappings.",
+        "description": "🎉 Add support for alternate mappings.",
         "breaking": false
       },
       {
@@ -227,7 +227,7 @@
     "date": "2025-02-13",
     "changes": [
       {
-        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": true
       }
     ]
@@ -236,7 +236,7 @@
     "date": "2025-02-16",
     "changes": [
       {
-        "description": "Add support for Xiaomi WXKG01LM Mi Wireless Switch and rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch. Update the controller_model input accordingly if needed.",
+        "description": "Add support for Xiaomi WXKG01LM Mi Wireless Switch and rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch. Update the `controller_model` input accordingly if needed.",
         "breaking": true
       }
     ]
@@ -245,7 +245,7 @@
     "date": "2025-03-18",
     "changes": [
       {
-        "description": "Use min_brightness and max_brightness as conditions instead of \"while true\" loops. (Thanks @Nicolai-)",
+        "description": "Use min_brightness and max_brightness as conditions instead of \"while true\" loops. (Thanks [@Nicolai-](https://github.com/Nicolai-))",
         "breaking": false
       }
     ]
@@ -254,7 +254,7 @@
     "date": "2025-03-20",
     "changes": [
       {
-        "description": "Add support for IKEA E2201 RODRET Dimmer. (Thanks @yarafie)",
+        "description": "Add support for IKEA E2201 RODRET Dimmer. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       }
     ]
@@ -263,7 +263,7 @@
     "date": "2025-03-26",
     "changes": [
       {
-        "description": "Add support for IKEA E2213 SOMRIG shortcut button. (Thanks @yarafie)",
+        "description": "Add support for IKEA E2213 SOMRIG shortcut button. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       }
     ]
@@ -272,7 +272,7 @@
     "date": "2025-03-28",
     "changes": [
       {
-        "description": "Add support for IKEA E2123 SYMFONISK sound remote, gen 2. (Thanks @yarafie)",
+        "description": "Add support for IKEA E2123 SYMFONISK sound remote, gen 2. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       }
     ]
@@ -281,7 +281,7 @@
     "date": "2025-03-29",
     "changes": [
       {
-        "description": "Add support for Tuya ERS-10TZBVK-AA Smart knob. (Thanks @yarafie)",
+        "description": "Add support for Tuya ERS-10TZBVK-AA Smart knob. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": false
       }
     ]

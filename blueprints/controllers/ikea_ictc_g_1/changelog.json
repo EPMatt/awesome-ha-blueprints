@@ -3,7 +3,7 @@
     "date": "2021-03-26",
     "changes": [
       {
-        "description": "First blueprint version :tada:",
+        "description": "First blueprint version 🎉",
         "breaking": false
       }
     ]
@@ -30,11 +30,11 @@
     "date": "2021-05-26",
     "changes": [
       {
-        "description": "Make helper_last_controller_event a mandatory input to simplify setup and enable future advanced features. When updating, provide a dedicated input_text entity for this input.",
+        "description": "Make `helper_last_controller_event` a mandatory input to simplify setup and enable future advanced features. When updating, provide a dedicated input_text entity for this input.",
         "breaking": true
       },
       {
-        "description": ":tada: Add Debouncing support to avoid duplicate action runs.",
+        "description": "🎉 Add Debouncing support to avoid duplicate action runs.",
         "breaking": false
       },
       {
@@ -86,7 +86,7 @@
     "date": "2022-08-08",
     "changes": [
       {
-        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "description": "Optimize characters usage for the `helper_last_controller_event` text input.",
         "breaking": false
       }
     ]
@@ -95,7 +95,7 @@
     "date": "2025-02-13",
     "changes": [
       {
-        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
         "breaking": true
       }
     ]

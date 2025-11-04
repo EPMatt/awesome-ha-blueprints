@@ -60,7 +60,12 @@ marked.setOptions({
 })
 
 const markdownToHtml = (markdown: string): string => {
-  return marked.parse(markdown) as string
+  // Use parse() to handle line breaks properly, then strip <p> wrapper tags
+  // to avoid extra spacing in inline contexts
+  let html = marked.parse(markdown) as string
+  // Remove leading/trailing <p> tags and their content wrappers
+  html = html.replace(/^<p>/, '').replace(/<\/p>\s*$/, '')
+  return html.trim()
 }
 
 const renderDescription = (description: string): React.ReactNode => (
