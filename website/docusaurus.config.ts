@@ -30,6 +30,12 @@ function webpackConfigPlugin() {
   }
 }
 
+// Environment variables that should be available to the client
+const clientEnv = {
+  SUPABASE_URL: process.env.SUPABASE_URL || '',
+  SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || '',
+}
+
 const config: Config = {
   title: 'Awesome HA Blueprints',
   tagline: 'A curated list of automation blueprints for Home Assistant.',
@@ -45,6 +51,10 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+  // Make environment variables available to client-side code
+  customFields: {
+    env: clientEnv,
   },
   themeConfig: {
     announcementBar: {
@@ -114,7 +124,26 @@ const config: Config = {
       },
     ],
   ],
-  plugins: [webpackConfigPlugin, blueprintDownloaderPlugin],
+  plugins: [
+    webpackConfigPlugin,
+    blueprintDownloaderPlugin,
+    // Make environment variables available to the client
+    function () {
+      return {
+        name: 'docusaurus-env-plugin',
+        injectHtmlTags() {
+          return {
+            headTags: [
+              {
+                tagName: 'script',
+                innerHTML: `window.env = ${JSON.stringify(clientEnv)};`,
+              },
+            ],
+          }
+        },
+      }
+    },
+  ],
 }
 
 export default config
