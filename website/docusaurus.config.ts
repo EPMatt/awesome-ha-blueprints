@@ -1,4 +1,6 @@
 import { Config } from '@docusaurus/types'
+import dotenv from 'dotenv'
+dotenv.config({ path: path.resolve(__dirname, '.env') })
 import { themes as prismThemes } from 'prism-react-renderer'
 import path from 'path'
 import blueprintDownloaderPlugin from './src/plugins/blueprint-downloader-plugin/blueprint-downloader-plugin.js'
