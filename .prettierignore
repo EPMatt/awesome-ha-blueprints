@@ -26,6 +26,7 @@ yarn-error.log*
 
 # build output
 website/build
+website/.docusaurus
 
 # lockfile
 pnpm-lock.yaml
