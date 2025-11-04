@@ -28,7 +28,7 @@ This blueprint provides universal support for running any custom action when a b
 
 In addition of being able to provide custom actions for every kind of button press supported by the remote, the blueprint allows to loop the long press actions while the corresponding button is being held. Once released, the loop stops. This is useful when holding down a button should result in a continuous action (such as lowering the volume of a media player, or controlling a light brightness).
 
-The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself.
+The blueprint also adds support for virtual double button press events, which are not exposed by the controller itself on HW revisions RWL020 and RWL021.
 
 :::tip
 Automations created with this blueprint can be connected with one or more [Hooks](/docs/blueprints/hooks) supported by this controller.
@@ -121,3 +121,4 @@ It's also important to note that the controller doesn't natively support double 
 - **2025-04-02**: Fix trigger_delta regex, with optional whitespacing. ([@TTvanWillegen](https://github.com/TTvanWillegen))
 - **2025-04-06**: Fix double-click detection logic. ([@danleongjy](https://github.com/danleongjy))
 - **2025-04-19**: Improve Last Controller Event Helper JSON Regex with more lenient matching.
+- **2025-07-15**: Add support for Native double events for RWL022.
