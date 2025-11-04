@@ -108,6 +108,9 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Website - Build
         run: cd website && pnpm build
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
   changes:
     name: Analyze changes

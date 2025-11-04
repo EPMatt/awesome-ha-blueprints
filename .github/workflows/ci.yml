@@ -89,6 +89,9 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Website - Build
         run: cd website && pnpm build
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
       - name: Create .nojekyll file
         run: touch website/build/.nojekyll
       - name: Deploy to GitHub Pages
