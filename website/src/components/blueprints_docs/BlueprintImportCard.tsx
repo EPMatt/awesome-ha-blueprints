@@ -1,4 +1,6 @@
 import Link from '@docusaurus/Link'
+import { useEffect, useState } from 'react'
+import { getBlueprintDownloads } from '../../services/supabase'
 
 const styles = {
   myHomeAssistantImage: {
@@ -13,6 +15,26 @@ interface BlueprintImportCardProps {
 }
 
 function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
+  const [downloadCount, setDownloadCount] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    let isCancelled = false
+    setIsLoading(true)
+    getBlueprintDownloads(category, id)
+      .then((count) => {
+        if (!isCancelled) setDownloadCount(count)
+      })
+      .catch(() => {
+        if (!isCancelled) setDownloadCount(null)
+      })
+      .finally(() => {
+        if (!isCancelled) setIsLoading(false)
+      })
+    return () => {
+      isCancelled = true
+    }
+  }, [category, id])
   // New custom URL format that will redirect to the GitHub URL
   const blueprintUrl = `/awesome-ha-blueprints/blueprints/${category}/${id}?version=latest`
 
@@ -20,6 +42,9 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
     <div className='card item shadow--md'>
       <div className='card__header margin-bottom--md'>
         <h3>Import this blueprint</h3>
+        <p className='margin-top--sm'>
+          Total downloads: {isLoading ? '…' : (downloadCount ?? '–')}
+        </p>
       </div>
       <div className='card__body'>
         <div className='row row--no-gutters'>

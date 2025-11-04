@@ -1,17 +1,22 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
-
-// Extend Window interface to include our env variables
-declare global {
-  interface Window {
-    env?: {
-      SUPABASE_URL: string
-      SUPABASE_ANON_KEY: string
-    }
-  }
-}
+// @ts-expect-error: Generated at build time by Docusaurus
+import siteConfig from '@generated/docusaurus.config'
 
 // Initialize Supabase client
 let supabase: SupabaseClient | null = null
+
+const ensureClient = (): SupabaseClient | null => {
+  if (supabase) return supabase
+  // Prefer values from customFields.env
+  const customFields: any = (siteConfig as any)?.customFields || {}
+  const envFromConfig = customFields.env || {}
+  const supabaseUrl = envFromConfig.SUPABASE_URL
+  const supabaseKey = envFromConfig.SUPABASE_ANON_KEY
+  if (supabaseUrl && supabaseKey) {
+    initializeSupabase({ supabaseUrl, supabaseKey })
+  }
+  return supabase
+}
 
 /**
  * Initialize the Supabase client (called once when app starts)
@@ -40,20 +45,22 @@ export const recordBlueprintDownload = async (
   id: string,
   version: string = 'latest',
 ): Promise<boolean> => {
-  if (!supabase) {
+  if (!ensureClient()) {
     console.error('Supabase client not initialized')
     return false
   }
 
   try {
-    const { error } = await supabase.from('blueprint_downloads').insert([
-      {
-        blueprint_category: category,
-        blueprint_id: id,
-        blueprint_version: version,
-        download_date: new Date().toISOString(),
-      },
-    ])
+    const { error } = await (supabase as SupabaseClient)
+      .from('blueprint_downloads')
+      .insert([
+        {
+          blueprint_category: category,
+          blueprint_id: id,
+          blueprint_version: version,
+          download_date: new Date().toISOString(),
+        },
+      ])
 
     if (error) {
       console.error('Error recording blueprint download:', error)
@@ -78,24 +85,21 @@ export const getBlueprintDownloads = async (
   category: string,
   id: string,
 ): Promise<number> => {
-  if (!supabase) {
+  if (!ensureClient()) {
     console.error('Supabase client not initialized')
     return 0
   }
 
   try {
-    const { count, error } = await supabase
-      .from('blueprint_downloads')
-      .select('*', { count: 'exact' })
-      .eq('blueprint_category', category)
-      .eq('blueprint_id', id)
-
-    if (error || count === null) {
-      console.error('Error getting blueprint downloads:', error)
+    const { data, error } = await (supabase as SupabaseClient).rpc(
+      'get_blueprint_downloads',
+      { p_category: category, p_id: id },
+    )
+    if (error) {
+      console.error('Error getting blueprint downloads via RPC:', error)
       return 0
     }
-
-    return count
+    return typeof data === 'number' ? data : 0
   } catch (error) {
     console.error('Exception getting blueprint downloads:', error)
     return 0
