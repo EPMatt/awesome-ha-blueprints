@@ -8,6 +8,7 @@ import {
   Inputs,
   Requirement,
   ImportCard,
+  Changelog,
 } from '/src/components/blueprints_docs'
 
 <ImportCard id='media_player' category='hooks' />
@@ -72,48 +73,4 @@ Not all media players support the customization of the number of steps for volum
 
 ## Changelog
 
-- **2021-03-04**: first blueprint version :tada:
-- **2021-03-07**: add support for IKEA E1744 SYMFONISK rotary remote
-- **2021-03-14**: add support for IKEA E1812 Shortcut button, fix E1743 naming
-- **2021-03-25**: update action mapping for IKEA E1744. If you're using this Hook with an IKEA E1744, please update also the corresponding Controller blueprint
-- **2021-03-26**: add the ability to specify number of steps from min to max volume, both for short and long actions, when controlling the media player
-- **2021-03-27**: Add support for Philips Hue dimmer switch
-- **2021-04-19**: remove unused variable, fix warnings for undefined variables in Home Assistant Core >=2021.4.0
-- **2021-05-16**: Add support for Osram SMART+ Switch Mini
-- **2021-07-03**: Add support for Philips Hue Smart Button
-- **2021-08-02**: Improve inputs documentation and organization
-- **2021-10-26**:
-  - Standardize blueprints structure and inputs naming across the whole collection.
-  - Improve blueprint documentation.
-  - :tada: Add support for alternate mappings. Additional mappings for currently supported controllers will be added from now on. Refer to the documentation of your controller for more details.
-  - :warning: **Breaking Change**: update controller names in the `Controller Model` input, to match the full name of controllers, prevent ambiguities and enable support for alternate mappings. After updating this blueprint, please reconfigure your automations by selecting again the value for the `Controller Model` input, matching the full name of the controller you're using with this hook.
-  - Fix typo for IKEA E1524/E1810 center button long press action in mapping definition.
-- **2021-10-29**: Add support for IKEA E1766 TRÅDFRI Open/Close Remote.
-- **2021-11-07**: Add support for IKEA E2001/E2002 STYRBAR Remote control.
-- **2021-11-21**: Add support for Philips 929002398602 Hue Dimmer switch v2.
-- **2021-12-03**: Add support for Xiaomi WXCJKG11LM, WXCJKG12LM, WXCJKG13LM.
-- **2022-07-22**: Add support for Xiaomi WXKG11LM.
-- **2022-07-30**: Add support for SONOFF SNZB-01.
-- **2025-02-13**:
-
-  :warning: **Breaking Change**:
-
-  Migrate to Zigbee2MQTT MQTT Device Triggers. ([@yarafie](https://github.com/yarafie))
-
-  The `controller_entity` input has been deprecated, and `controller_device` is now mandatory.
-  If you are a Zigbee2MQTT user and plan to update this blueprint, please make sure to remove the `controller_entity` input from your automation config and add the device ID of your controller to the `controller_device` input.
-  To obtain the device ID from your controller, configure the automation from the UI and use the device selector dropdown on the `controller_device` input to select your controller.
-
-- **2025-02-16**:
-
-  :warning: **Breaking Change**:
-
-  Add support for Xiaomi WXKG01LM Mi Wireless Switch, rename Xiaomi WXKG11LM Aqara Wireless Switch Mini to Aqara WXKG11LM Wireless Mini Switch
-
-  If you had configured the `controller_model` input to `Xiaomi WXKG11LM Aqara Wireless Switch Mini`, please change it to `Aqara WXKG11LM Wireless Mini Switch`.
-  The change has been implemented to match the controller with the correct manufacturer name (Aqara).
-
-- **2025-03-20**: Added support for IKEA E2201 RODRET Dimmer. ([@yarafie](https://github.com/yarafie))
-- **2025-03-26**: Added support for IKEA E2213 SOMRIG shortcut button. ([@yarafie](https://github.com/yarafie))
-- **2025-03-28**: Added support for IKEA E2123 SYMFONISK sound remote, gen 2. ([@yarafie](https://github.com/yarafie))
-- **2025-03-29**: Added support for Tuya ERS-10TZBVK-AA Smart knob. ([@yarafie](https://github.com/yarafie))
+<Changelog category='hooks' id='media_player' />

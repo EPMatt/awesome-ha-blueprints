@@ -7,6 +7,15 @@ export const blueprintsContext = require.context(
   /\.ya?ml$/,
 )
 
+/**
+ * Context for accessing blueprint changelog JSON files
+ */
+export const changelogsContext = require.context(
+  '@blueprints',
+  true,
+  /changelog\.json$/,
+)
+
 interface DocusaurusFrontMatter {
   title: string
   description: string

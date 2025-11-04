@@ -1,0 +1,144 @@
+[
+  {
+    "date": "2021-03-07",
+    "changes": [
+      {
+        "description": "First blueprint version :tada:",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-03-25",
+    "changes": [
+      {
+        "description": "Standardize input names across all the Controller blueprints. Update your automation inputs as follows:\n- remote -> controller_device\n- zigbee2mqtt_remote -> controller_entity\n- action_click -> action_click_short",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2021-04-19",
+    "changes": [
+      {
+        "description": "Align action mapping format for deCONZ across all the Controller blueprints.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-04-23",
+    "changes": [
+      {
+        "description": "Fix deCONZ events not being recognized.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-05-14",
+    "changes": [
+      {
+        "description": "Make helper_last_controller_event a mandatory input to simplify setup and enable future advanced features. When updating, provide a dedicated input_text entity for this input.",
+        "breaking": true
+      },
+      {
+        "description": ":tada: Add Debouncing support to avoid duplicate action runs.",
+        "breaking": false
+      },
+      {
+        "description": "Prevent undesired endless loops by running loop actions a finite number of times, configurable through two new blueprint inputs.",
+        "breaking": false
+      },
+      {
+        "description": "Use any RAW stop event (left/right) to identify the stop event corresponding to the current remote rotation.",
+        "breaking": false
+      },
+      {
+        "description": "Fix inputs wrongly marked as required.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-05-26",
+    "changes": [
+      {
+        "description": "Fix Zigbee2MQTT reporting null state changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-07-04",
+    "changes": [
+      {
+        "description": "Fix deCONZ rotation stop events not being properly recognized.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-08-02",
+    "changes": [
+      {
+        "description": "Improve inputs documentation and organization.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-10-26",
+    "changes": [
+      {
+        "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. No functionality change.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2022-08-08",
+    "changes": [
+      {
+        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-01-05",
+    "changes": [
+      {
+        "description": "Update ZHA event data to match what ZHA provides in Home Assistant 2024.03.01. (Thanks @ogajduse)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-02-13",
+    "changes": [
+      {
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2025-03-20",
+    "changes": [
+      {
+        "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-19",
+    "changes": [
+      {
+        "description": "Improve Last Controller Event Helper JSON Regex with more lenient matching.",
+        "breaking": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "date": "2025-03-20",
+    "changes": [
+      {
+        "description": "Initial release. (Thanks @yarafie) :tada:",
+        "breaking": false
+      },
+      {
+        "description": "Fix automation triggers. (Thanks @yarafie)",
+        "breaking": false
+      },
+      {
+        "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      }
+    ]
+  }
+]

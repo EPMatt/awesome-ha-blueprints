@@ -1,0 +1,87 @@
+[
+  {
+    "date": "2021-11-07",
+    "changes": [
+      {
+        "description": "First blueprint version :tada:",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2022-08-08",
+    "changes": [
+      {
+        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-01-02",
+    "changes": [
+      {
+        "description": "(ZHA) Fix a bug preventing long press actions from being triggered. (Thanks @Ivarvdb)",
+        "breaking": false
+      },
+      {
+        "description": "(Zigbee2MQTT) Handle \"unknown\" state. (Thanks @beardhatcode)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-01-03",
+    "changes": [
+      {
+        "description": "Remove spaces to match the new helper format in Home Assistant 2023.5.x. (Thanks @LordSushiPhoenix)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-02-13",
+    "changes": [
+      {
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2025-03-20",
+    "changes": [
+      {
+        "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-01",
+    "changes": [
+      {
+        "description": "Fix double-click detection logic. (Thanks @danleongjy)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-16",
+    "changes": [
+      {
+        "description": "Fix long press down not releasing. (Thanks @kkthxbye-code)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-19",
+    "changes": [
+      {
+        "description": "Improve Last Controller Event Helper JSON Regex with more lenient matching.",
+        "breaking": false
+      }
+    ]
+  }
+]

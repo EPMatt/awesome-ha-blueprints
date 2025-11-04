@@ -1,0 +1,153 @@
+[
+  {
+    "date": "2021-03-14",
+    "changes": [
+      {
+        "description": "First blueprint version :tada:",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-03-25",
+    "changes": [
+      {
+        "description": "Standardize input names across all the Controller blueprints. If you plan to update this blueprint, please update the inputs in your automations as follows:\n- remote -> controller_device\n- zigbee2mqtt_remote -> controller_entity\n- helper_last_loop_event_input -> helper_last_controller_event",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2021-03-26",
+    "changes": [
+      {
+        "description": "Add support for the Cover Hook.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-04-19",
+    "changes": [
+      {
+        "description": "Fix double press events not being detected with deCONZ.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-04-23",
+    "changes": [
+      {
+        "description": "Fix deCONZ events not being recognized.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-05-15",
+    "changes": [
+      {
+        "description": "Make helper_last_controller_event a mandatory input to simplify setup and enable future advanced features. Provide a dedicated input_text entity for this input when updating.",
+        "breaking": true
+      },
+      {
+        "description": ":tada: Add Debouncing support to avoid duplicate action runs.",
+        "breaking": false
+      },
+      {
+        "description": "Prevent undesired endless loops by running loop actions a finite number of times, configurable through a new blueprint input.",
+        "breaking": false
+      },
+      {
+        "description": "Fix inputs wrongly marked as required.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-05-26",
+    "changes": [
+      {
+        "description": "Fix Zigbee2MQTT reporting null state changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-08-02",
+    "changes": [
+      {
+        "description": "Improve inputs documentation and organization.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2021-10-26",
+    "changes": [
+      {
+        "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. No functionality change.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2022-08-08",
+    "changes": [
+      {
+        "description": "Optimize characters usage for the helper_last_controller_event text input.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-01-03",
+    "changes": [
+      {
+        "description": "Fix double press events not triggered due to changes in Home Assistant 2023.5.x.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-02-13",
+    "changes": [
+      {
+        "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The controller_entity input is deprecated and controller_device is now mandatory. Remove controller_entity from your automation and configure controller_device with your controller device ID. (Thanks @yarafie)",
+        "breaking": true
+      }
+    ]
+  },
+  {
+    "date": "2025-03-20",
+    "changes": [
+      {
+        "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-06",
+    "changes": [
+      {
+        "description": "Fix double-click detection logic. (Thanks @danleongjy)",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2025-04-12",
+    "changes": [
+      {
+        "description": "Add native double press triggers and refactor the blueprint to use triggers and trigger IDs. The integration selector input is removed, and helper_last_controller_event is no longer required. Re-download the blueprint and reconfigure existing automations to apply the changes. (Thanks @yarafie)",
+        "breaking": true
+      },
+      {
+        "description": "Double press events are now natively supported.",
+        "breaking": false
+      }
+    ]
+  }
+]

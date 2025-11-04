@@ -4,6 +4,7 @@ import Requirement from './Requirement'
 import ImportCard from './BlueprintImportCard'
 import BlueprintsList from './BlueprintsList'
 import ControllersList from './ControllersList'
+import Changelog from './Changelog'
 
 export {
   Input,
@@ -12,4 +13,5 @@ export {
   ImportCard,
   BlueprintsList,
   ControllersList,
+  Changelog,
 }
