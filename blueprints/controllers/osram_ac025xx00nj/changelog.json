@@ -1,6 +1,6 @@
 [
   {
-    "date": "2021-05-18",
+    "date": "2021.05.18",
     "changes": [
       {
         "description": "First blueprint version 🎉",
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "date": "2021-05-26",
+    "date": "2021.05.26",
     "changes": [
       {
         "description": "Fix Zigbee2MQTT reporting null state changes.",
@@ -18,7 +18,7 @@
     ]
   },
   {
-    "date": "2021-08-02",
+    "date": "2021.08.02",
     "changes": [
       {
         "description": "Improve inputs documentation and organization.",
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "date": "2021-10-26",
+    "date": "2021.10.26",
     "changes": [
       {
         "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. No functionality change.",
@@ -36,7 +36,7 @@
     ]
   },
   {
-    "date": "2022-08-08",
+    "date": "2022.08.08",
     "changes": [
       {
         "description": "Optimize characters usage for the `helper_last_controller_event` text input.",
@@ -45,7 +45,7 @@
     ]
   },
   {
-    "date": "2025-01-05",
+    "date": "2025.01.05",
     "changes": [
       {
         "description": "Update actions mapping to align with the latest Zigbee2MQTT documentation for the device. (Thanks [@alexdelprete](https://github.com/alexdelprete))",
@@ -58,7 +58,7 @@
     ]
   },
   {
-    "date": "2025-02-13",
+    "date": "2025.02.13",
     "changes": [
       {
         "description": "Migrate to Zigbee2MQTT MQTT Device Triggers. The `controller_entity` input is deprecated and `controller_device` is now mandatory. Remove `controller_entity` from your automation and configure `controller_device` with your controller device ID. (Thanks [@yarafie](https://github.com/yarafie))",
@@ -67,7 +67,7 @@
     ]
   },
   {
-    "date": "2025-03-20",
+    "date": "2025.03.20",
     "changes": [
       {
         "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
@@ -76,7 +76,7 @@
     ]
   },
   {
-    "date": "2025-04-06",
+    "date": "2025.04.06",
     "changes": [
       {
         "description": "Fix double-click detection logic. (Thanks [@danleongjy](https://github.com/danleongjy))",
@@ -85,7 +85,7 @@
     ]
   },
   {
-    "date": "2025-04-19",
+    "date": "2025.04.19",
     "changes": [
       {
         "description": "Improve Last Controller Event Helper JSON Regex with more lenient matching.",

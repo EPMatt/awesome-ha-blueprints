@@ -1,6 +1,6 @@
 [
   {
-    "date": "2021-04-25",
+    "date": "2021.04.25",
     "changes": [
       {
         "description": "First blueprint version 🎉",
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "date": "2021-10-26",
+    "date": "2021.10.26",
     "changes": [
       {
         "description": "Standardize blueprint structure and input naming across the collection. Improve blueprint documentation. No functionality change.",

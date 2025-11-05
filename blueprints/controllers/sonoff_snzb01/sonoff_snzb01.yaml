@@ -98,6 +98,8 @@ blueprint:
           step: 10
 # Automation schema
 variables:
+  ahb_version: 2025.11.04
+  ahb_maintainers: [EPMatt]
   # convert input tags to variables, to be used in templates
   integration: !input integration
   helper_last_controller_event: !input helper_last_controller_event

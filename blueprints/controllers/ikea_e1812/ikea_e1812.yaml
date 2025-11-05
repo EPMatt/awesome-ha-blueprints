@@ -114,6 +114,8 @@ blueprint:
 #
 # Automation schema
 variables:
+  ahb_version: 2025.11.04
+  ahb_maintainers: [EPMatt]
   # Controller ID
   controller_id: !input controller_device
   # integration id used to select items in the action mapping

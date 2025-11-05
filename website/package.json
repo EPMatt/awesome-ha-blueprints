@@ -30,7 +30,8 @@
     "react-dom": "^19.0.0",
     "react-ga4": "^2.1.0",
     "react-json-view-lite": "^2.3.0",
-    "marked": "^12.0.0"
+    "marked": "^12.0.0",
+    "react-select": "^5.8.0"
   },
   "browserslist": {
     "production": [
