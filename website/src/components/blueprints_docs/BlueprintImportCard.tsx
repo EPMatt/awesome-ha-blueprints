@@ -205,7 +205,9 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
 
     if (result) {
       setVersions(result.versions)
-      setSelectedVersion(result.latestVersion)
+      // disabled for now. only show latest version
+      // setSelectedVersion(result.latestVersion)
+      setSelectedVersion('latest')
     } else {
       setVersions([])
       setSelectedVersion('latest')
@@ -256,16 +258,18 @@ function BlueprintImportCard({ category, id }: BlueprintImportCardProps) {
   const blueprintUrl = `/awesome-ha-blueprints/blueprints/${category}/${id}?version=${selectedVersion}`
 
   // Get the latest version (first in sorted array, which is newest)
-  const latestVersion = versions.length > 0 ? versions[0] : null
+  // const latestVersion = versions.length > 0 ? versions[0] : null
 
   // Prepare options for react-select
-  const versionOptions: VersionOption[] =
-    versions.length > 0
-      ? versions.map((version) => ({
-          value: version,
-          label: version === latestVersion ? `${version} (latest)` : version,
-        }))
-      : [{ value: 'latest', label: 'latest' }]
+  // disabled for now. only show latest version
+  // const versionOptions: VersionOption[] =
+  //   versions.length > 0
+  //     ? versions.map((version) => ({
+  //         value: version,
+  //         label: version === latestVersion ? `${version} (latest)` : version,
+  //       }))
+  //     : [{ value: 'latest', label: 'latest' }]
+  const versionOptions: VersionOption[] = [{ value: 'latest', label: 'latest' }]
 
   // Custom styles for react-select
   const selectStyles: StylesConfig<VersionOption, false> = {
