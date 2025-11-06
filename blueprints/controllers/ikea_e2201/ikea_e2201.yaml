@@ -46,7 +46,7 @@ blueprint:
             # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/twobtnremote.py#L206
             - integration: zha
               manufacturer: IKEA of Sweden
-              model: RODRET Dimmer
+              model: RODRET wireless dimmer
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L236
             - integration: deconz
               manufacturer: IKEA of Sweden
@@ -317,7 +317,7 @@ triggers:
     event_type: zha_event
     event_data:
       device_id: !input controller_device
-      command: stop
+      command: stop_with_on_off
       endpoint_id: 1
       cluster_id: 8
   # triggers for deCONZ
@@ -647,7 +647,7 @@ actions:
                                       event_type: zha_event
                                       event_data:
                                         device_id: !input controller_device
-                                        command: stop
+                                        command: stop_with_on_off
                                         cluster_id: 8
                                         endpoint_id: 1
                                     - trigger: event
