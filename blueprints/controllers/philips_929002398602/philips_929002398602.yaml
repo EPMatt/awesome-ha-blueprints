@@ -311,10 +311,10 @@ variables:
   # mapping between actions and integrations
   actions_mapping:
     zha:
-      button_on_short: [on_press, on_press_release]
+      button_on_short: [on_press_release]
       button_on_long: [on_hold]
       button_on_release: [on_long_release]
-      button_off_short: [off_press, off_press_release]
+      button_off_short: [off_press_release]
       button_off_long: [off_hold]
       button_off_release: [off_long_release]
       button_up_short: [up_press]
@@ -323,12 +323,13 @@ variables:
       button_down_short: [down_press]
       button_down_long: [down_hold]
       button_down_release: [down_long_release]
+      button_event_ignored: [on_press, off_press]
     zigbee2mqtt:
       # source: https://www.zigbee2mqtt.io/devices/929002398602.html#philips-929002398602
-      button_on_short: [on_press, on_press_release]
+      button_on_short: [on_press_release]
       button_on_long: [on_hold]
       button_on_release: [on_hold_release]
-      button_off_short: [off_press, off_press_release]
+      button_off_short: [off_press_release]
       button_off_long: [off_hold]
       button_off_release: [off_hold_release]
       button_up_short: [up_press]
@@ -337,6 +338,7 @@ variables:
       button_down_short: [down_press]
       button_down_long: [down_hold]
       button_down_release: [down_hold_release]
+      button_event_ignored: [on_press, off_press]
   # pre-choose actions for buttons based on configured integration
   # no need to perform this task at automation runtime
   button_on_short: '{{ actions_mapping[integration_id]["button_on_short"] }}'
@@ -351,6 +353,7 @@ variables:
   button_down_short: '{{ actions_mapping[integration_id]["button_down_short"] }}'
   button_down_long: '{{ actions_mapping[integration_id]["button_down_long"] }}'
   button_down_release: '{{ actions_mapping[integration_id]["button_down_release"] }}'
+  button_event_ignored: '{{ actions_mapping[integration_id]["button_event_ignored"] }}'
   # build data to send within a controller event
   controller_id: !input controller_device
 mode: restart
@@ -466,12 +469,16 @@ actions:
         {{ trigger.event.data.command }}
         {%- endif -%}
       deserialized_state: '{{ (states(helper_last_controller_event) | from_json) if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{\s*?((\"a\":\s*?\".*\"|\"t\":\s*?\d+\.\d+)(,\s*?)?){2}\s*?\}$")) else {} }}'
+      last_controller_event: "{{ deserialized_state.a | default('') }}"
       trigger_delta: '{{ (as_timestamp(now()) - (deserialized_state.t | default(0))) * 1000 }}'
-  # update helper
-  - action: input_text.set_value
-    data:
-      entity_id: !input helper_last_controller_event
-      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
+  # update helper if event not ignored
+  - choose:
+      - conditions: '{{ trigger_action | string not in button_event_ignored }}'
+        sequence:
+        - action: input_text.set_value
+          data:
+            entity_id: !input helper_last_controller_event
+            value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
   # choose the sequence to run based on the received button event
   - choose:
       - conditions: '{{ trigger_action | string in button_on_short }}'
