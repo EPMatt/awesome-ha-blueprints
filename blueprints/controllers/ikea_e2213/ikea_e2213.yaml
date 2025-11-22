@@ -48,11 +48,11 @@ blueprint:
             # source: https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/ikea/somrigsmartbtn.py#L149
             - integration: zha
               manufacturer: IKEA of Sweden
-              model: SOMRIG Shortcut Button
+              model: SOMRIG shortcut button
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L343
             - integration: deconz
               manufacturer: IKEA of Sweden
-              model: SOMRIG Shortcut Button
+              model: SOMRIG shortcut button
           multiple: false
     # inputs for custom actions
     action_button_dots1_short:
