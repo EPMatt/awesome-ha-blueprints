@@ -691,6 +691,8 @@ actions:
                             sequence: !input action_button_up_short
             # if double press event is disabled run the action for the single short press
             default:
+              # check if last event was release_0 to avoid triggering on during long press
+              - condition: '{{ last_controller_event != "release_0" }}'
               # fire the event
               - event: ahb_controller_event
                 event_data:
