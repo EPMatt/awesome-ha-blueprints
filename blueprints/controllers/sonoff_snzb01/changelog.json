@@ -34,5 +34,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2025.12.03",
+    "changes": [
+      {
+        "description": "Added support for Sonoff SNZB-01P button.",
+        "breaking": false
+      }
+    ]
   }
 ]

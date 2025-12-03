@@ -44,6 +44,10 @@ blueprint:
             - integration: mqtt
               manufacturer: eWeLink
               model: Wireless button
+            # source: https://www.zigbee2mqtt.io/devices/SNZB-01P.html
+            - integration: mqtt
+              manufacturer: SONOFF
+              model: Wireless button
             # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
             - integration: mqtt
               manufacturer: eWeLink
