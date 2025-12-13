@@ -55,6 +55,8 @@ blueprint:
             - integration: zha
               manufacturer: _TZ3000_ixla93vd
               model: TS004F
+            - manufacturer: _TZ3000_gwkzibhs
+              model: TS004F
           multiple: false
     # inputs for custom actions
     action_rotate_left:
