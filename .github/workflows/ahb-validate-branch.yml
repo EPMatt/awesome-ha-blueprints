@@ -1,0 +1,32 @@
+name: AHB Branch Scope Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-branch-scope:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute changed files vs main
+        run: |
+          git fetch origin main
+          git diff --name-only origin/main...HEAD > changed_files.txt
+          echo "Changed files:"
+          cat changed_files.txt
+
+      - name: Validate branch name and filesystem scope
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          node .github/scripts/ahb-validate-branch-scope.mjs "$BRANCH_NAME" changed_files.txt
