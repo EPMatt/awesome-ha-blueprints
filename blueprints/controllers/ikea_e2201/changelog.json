@@ -1,6 +1,6 @@
 [
   {
-    "date": "2025.03.20",
+    "date": "2026.01.01",
     "changes": [
       {
         "description": "Initial release. (Thanks [@yarafie](https://github.com/yarafie)) 🎉",
@@ -12,6 +12,10 @@
       },
       {
         "description": "Standardize input naming format for controller devices and virtual button actions. No functionality changes.",
+        "breaking": false
+      },
+      {
+        "description": "Support new model name variant.",
         "breaking": false
       }
     ]
