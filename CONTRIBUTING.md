@@ -49,7 +49,7 @@ Awesome! Follow these steps to contribute your new blueprint to this project:
      cp website/docs/blueprints/automation/example.mdx website/docs/blueprints/automation/my-new-blueprint.mdx
      ```
    - Add relevant documentation for your blueprint.
-   - Make sure to add an entry to the **Changelog** at the bottom of the page.
+   - Make sure to also create a **Changelog** json file in the same directory as the new blueprint, with an initial entry.
 
 8. **Commit your changes** with a clear message:
 
@@ -92,7 +92,7 @@ Awesome! Follow these steps to contribute your improvements to this project:
    git checkout -b my-blueprint-update
    ```
 5. **Make your changes to the blueprint**, ensuring you follow the [Blueprint Guidelines](#blueprint-guidelines).
-6. **Update the blueprint docs**, in the `website/docs/blueprints` section, according to your changes. Make sure to add an entry to the **Changelog** at the bottom of the page.
+6. **Update the blueprint docs**, in the `website/docs/blueprints` section, according to your changes. Make sure to add an entry to the **Changelog** json file located alongside the blueprint.
 7. **Commit your changes** with a clear message:
    ```sh
    git add .
