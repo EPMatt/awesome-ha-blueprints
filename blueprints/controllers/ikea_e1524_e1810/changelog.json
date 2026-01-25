@@ -211,5 +211,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2026.01.25",
+    "changes": [
+      {
+        "description": "Fixed issue ikea-e1524_e1810 fix zha button up/down values #434 by adding handling for special events sent by E1810 TRÅDFRI.",
+        "breaking": false
+      }
+    ]
   }
 ]
