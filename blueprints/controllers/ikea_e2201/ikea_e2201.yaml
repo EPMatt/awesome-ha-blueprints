@@ -47,6 +47,9 @@ blueprint:
             - integration: zha
               manufacturer: IKEA of Sweden
               model: RODRET Dimmer
+            - integration: zha
+              manufacturer: IKEA of Sweden
+              model: RODRET wireless dimmer
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L236
             - integration: deconz
               manufacturer: IKEA of Sweden
