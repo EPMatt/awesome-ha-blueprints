@@ -15,5 +15,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2026.03.06",
+    "changes": [
+      {
+        "description": "Add ZHA selector for new model name. (Thanks [@markbradley27](https://github.com/markbradley27))",
+        "breaking": false
+      }
+    ]
   }
 ]
