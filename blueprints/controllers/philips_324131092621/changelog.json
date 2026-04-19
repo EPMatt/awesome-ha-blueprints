@@ -122,5 +122,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2026.04.18",
+    "changes": [
+      {
+        "description": "Update filter model.",
+        "breaking": false
+      }
+    ]
   }
 ]

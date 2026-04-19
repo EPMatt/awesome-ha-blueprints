@@ -48,6 +48,9 @@ blueprint:
             - integration: mqtt
               manufacturer: Philips
               model: Hue dimmer switch (324131092621)
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue dimmer switch gen 1
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
             - integration: zha
               manufacturer: Philips
