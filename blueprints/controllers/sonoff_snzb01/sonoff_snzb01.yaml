@@ -55,6 +55,21 @@ blueprint:
             - integration: deconz
               manufacturer: eWeLink
               model: WB01
+            # source: https://www.zigbee2mqtt.io/devices/SNZB-01.html
+            - integration: mqtt
+              manufacturer: SONOFF
+              model: Wireless button
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: SONOFF
+              model: Wireless button (SNZB-01)
+            # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
+            - integration: zha
+              manufacturer: SONOFF
+              model: WB01
+            - integration: deconz
+              manufacturer: SONOFF
+              model: WB01
           multiple: false
     helper_last_controller_event:
       name: (Required) Helper - Last Controller Event
