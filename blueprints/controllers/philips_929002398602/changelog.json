@@ -70,5 +70,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2026.08.03",
+    "changes": [
+      {
+        "description": "Fix device not selectable in the Controller Device dropdown for Zigbee2MQTT 2.x, which registers the remote with model `Hue dimmer switch gen 2`.",
+        "breaking": false
+      }
+    ]
   }
 ]

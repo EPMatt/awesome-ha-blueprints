@@ -13,7 +13,7 @@ blueprint:
 
     ## More Info
 
-    ℹ️ Version 2025.04.19
+    ℹ️ Version 2026.08.03
     📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929002398602/#changelog)
     📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929002398602).
 
@@ -47,6 +47,10 @@ blueprint:
             - integration: mqtt
               manufacturer: Philips
               model: Hue dimmer switch (929002398602)
+            # source: https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/devices/philips.ts (RWL022 description)
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue dimmer switch gen 2
             # source: https://github.com/dresden-elektronik/deconz-rest-plugin/wiki/Supported-Devices
             - integration: zha
               manufacturer: Philips
