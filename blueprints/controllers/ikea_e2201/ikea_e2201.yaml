@@ -208,7 +208,8 @@ variables:
       button_up_release: [stop_with_on_off]
       button_down_short: ['off']
       button_down_long: [move]
-      button_down_release: [stop_with_on_off]
+      # Kept first parameter for potential backwards compatibility of previous firmware versions
+      button_down_release: [stop, stop_with_on_off]
     dcz:
       # source: https://github.com/dresden-elektronik/deconz-rest-plugin/blob/8ae69a976bca13f22e8002a13ebe798d1e26c086/button_maps.json#L236
       button_up_short: ['1002']
@@ -312,6 +313,15 @@ triggers:
       endpoint_id: 1
       cluster_id: 8
       args: [1, 83, 0, 0]
+  # Kept for potential backwards compatibility of previous firmware versions
+  - trigger: event
+    id: zha-button-down-release
+    event_type: zha_event
+    event_data:
+      device_id: !input controller_device
+      command: stop
+      endpoint_id: 1
+      cluster_id: 8
   - trigger: event
     id: zha-button-down-release
     event_type: zha_event
@@ -643,6 +653,13 @@ actions:
                                       device_id: !input controller_device
                                       type: action
                                       subtype: brightness_stop
+                                    - trigger: event
+                                      event_type: zha_event
+                                      event_data:
+                                        device_id: !input controller_device
+                                        command: stop
+                                        cluster_id: 8
+                                        endpoint_id: 1
                                     - trigger: event
                                       event_type: zha_event
                                       event_data:

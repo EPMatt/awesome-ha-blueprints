@@ -15,5 +15,14 @@
         "breaking": false
       }
     ]
+  },
+  {
+    "date": "2026.08.09",
+    "changes": [
+      {
+        "description": "Fix down button long press release not being detected on ZHA, which made dimming keep looping after the button was released. Both `stop` and `stop_with_on_off` are now accepted, since firmware revisions differ in which one they send.",
+        "breaking": false
+      }
+    ]
   }
 ]
