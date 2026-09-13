@@ -1,0 +1,76 @@
+---
+title: Washing Machine Finished Notification
+description: Notify only after a real washing cycle has been detected from power consumption
+---
+
+import {
+  Inputs,
+  Requirement,
+  ImportCard,
+} from '/src/components/blueprints_docs'
+
+<ImportCard id='washing-machine-finished' category='automation' />
+
+## Description
+
+This automation monitors a washing machine's power consumption and sends a mobile notification when a real wash cycle has finished.
+
+It avoids a common false-positive pattern: a machine that is sitting in standby below the "finished" threshold should not continuously be treated as finished.
+
+The blueprint uses an `input_boolean` as a small memory:
+
+1. Power rises above the configured running threshold.
+2. The helper is turned on.
+3. Later, power stays below the finished threshold for the configured confirmation time.
+4. A notification is sent only if the helper confirms that a real cycle was previously detected.
+5. The helper is reset for the next cycle.
+
+The default values of 10 W for running, 3 W for finished, and 120 seconds for confirmation are only starting points. Every washing machine has a different power profile.
+
+## Requirements
+
+<Requirement
+ name='Power sensor'
+ required>
+
+A sensor that reports the washing machine's current power consumption in watts.
+
+Smart plugs with power monitoring are a common way to provide this sensor. Check the device history first and adjust the two power thresholds to match the real machine.
+
+</Requirement>
+
+<Requirement
+ name='Input Boolean helper'
+ required>
+
+Create one `input_boolean` helper in Home Assistant. The blueprint uses it to remember that the machine genuinely entered a running state before it can send a finished notification.
+
+[Home Assistant helper documentation](https://www.home-assistant.io/integrations/input_boolean/)
+
+</Requirement>
+
+<Requirement
+ name='Home Assistant Companion App'
+ required>
+
+A mobile device registered through the Home Assistant Companion App is required for the notification device action.
+
+[Home Assistant Companion App](https://companion.home-assistant.io/)
+
+</Requirement>
+
+## Inputs
+
+<Inputs category='automation' id='washing-machine-finished' />
+
+## Additional Notes
+
+Before enabling the automation for normal use, watch one or two complete wash cycles in Home Assistant history and note the machine's typical running and standby values.
+
+A short confirmation time may trigger during pauses in some programs. Increase the finished confirmation time if the machine temporarily drops below the finished threshold during a wash cycle.
+
+The blueprint intentionally keeps the logic small and understandable. It does not try to identify individual washing program phases or diagnose appliance faults.
+
+## Changelog
+
+- **2026.09.13**: Initial version.

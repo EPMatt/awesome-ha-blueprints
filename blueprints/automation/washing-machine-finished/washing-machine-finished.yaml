@@ -1,0 +1,133 @@
+# Blueprint metadata
+blueprint:
+  name: Washing Machine Finished Notification
+  description: |
+    Detects a real washing cycle from power consumption and sends a notification
+    only after the machine has actually been running.
+
+    An input_boolean helper stores whether a real cycle was detected, preventing
+    false "finished" notifications while the machine is only in standby.
+
+    Version: 2026.09.13
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/automation/washing-machine-finished/washing-machine-finished.yaml
+  domain: automation
+  input:
+    power_sensor:
+      name: Washing machine power sensor
+      description: Sensor reporting the washing machine's current power consumption in watts.
+      selector:
+        entity:
+          domain: sensor
+
+    running_helper:
+      name: Washing machine running helper
+      description: An input_boolean used to remember that a real wash cycle has started.
+      selector:
+        entity:
+          domain: input_boolean
+
+    running_above:
+      name: Running threshold
+      description: Power above this value marks the washing machine as running.
+      default: 10
+      selector:
+        number:
+          min: 0.1
+          max: 5000
+          step: 0.1
+          unit_of_measurement: W
+          mode: box
+
+    finished_below:
+      name: Finished threshold
+      description: Power below this value may indicate that the wash cycle has finished.
+      default: 3
+      selector:
+        number:
+          min: 0
+          max: 500
+          step: 0.1
+          unit_of_measurement: W
+          mode: box
+
+    finished_wait:
+      name: Finished confirmation time
+      description: How long power must remain below the finished threshold before notifying.
+      default: 120
+      selector:
+        number:
+          min: 10
+          max: 7200
+          unit_of_measurement: seconds
+          mode: box
+
+    notify_device:
+      name: Mobile device
+      description: Device running the Home Assistant Companion App that should receive the notification.
+      selector:
+        device:
+          integration: mobile_app
+
+    notification_title:
+      name: Notification title
+      default: Washing machine finished
+      selector:
+        text:
+
+    notification_message:
+      name: Notification message
+      default: The washing machine has finished.
+      selector:
+        text:
+
+# Automation schema
+variables:
+  ahb_version: 2025.11.04
+  ahb_maintainers: [123trs]
+
+mode: restart
+
+trigger:
+  - platform: numeric_state
+    entity_id: !input power_sensor
+    above: !input running_above
+    id: running
+
+  - platform: numeric_state
+    entity_id: !input power_sensor
+    below: !input finished_below
+    for:
+      seconds: !input finished_wait
+    id: finished
+
+condition: []
+
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: running
+        sequence:
+          - alias: Remember that a real wash cycle started
+            service: input_boolean.turn_on
+            target:
+              entity_id: !input running_helper
+
+      - conditions:
+          - condition: trigger
+            id: finished
+          - condition: state
+            entity_id: !input running_helper
+            state: 'on'
+        sequence:
+          - alias: Send finished notification
+            device_id: !input notify_device
+            domain: mobile_app
+            type: notify
+            title: !input notification_title
+            message: !input notification_message
+
+          - alias: Reset the running helper
+            service: input_boolean.turn_off
+            target:
+              entity_id: !input running_helper
