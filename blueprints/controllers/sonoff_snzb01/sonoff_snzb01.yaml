@@ -40,6 +40,10 @@ blueprint:
       selector:
         device:
           filter:
+            # source: https://www.zigbee2mqtt.io/devices/SNZB-01P.html
+            - integration: mqtt
+              manufacturer: SONOFF
+              model: Wireless button
             # source: https://www.zigbee2mqtt.io/devices/SNZB-01.html#ewelink-snzb-01
             - integration: mqtt
               manufacturer: eWeLink
