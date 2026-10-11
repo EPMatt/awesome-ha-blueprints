@@ -113,6 +113,18 @@ The `helper_last_controller_event` (Helper - Last Controller Event) input serves
 
 The helper is used to determine button release events when the controller is integrated with Zigbee2MQTT, ZHA, because of the actions mapping for the controller with these integrations. Natively, the controller doesn't allow to distinguish between different button release events, so the blueprint must store the previous clicked button.
 
+### Unwanted Up short presses after Left/Right holds (ZHA)
+
+Some STYRBAR firmware sends an `on` event immediately after a Left/Right
+`release_0` event. **Helper - ZHA release/on suppression window** defaults to
+500 milliseconds and suppresses this event. A genuine Up press within that
+interval is indistinguishable and is also suppressed. Later Up presses work
+normally, with no added delay. Set the window to 0 to disable suppression.
+
+Unmapped Zigbee events are ignored so they cannot interrupt running actions
+or overwrite the hold needed to identify a release. deCONZ and Zigbee2MQTT
+Up presses are unaffected by the ZHA suppression window.
+
 ### Virtual double press events
 
 It's also important to note that the controller doesn't natively support double press events. Instead , this blueprint provides virtual double press events. You can read more about them in the [general Controllers-Hooks Ecosystem documentation](/docs/controllers-hooks-ecosystem#virtual-events).

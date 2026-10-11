@@ -3,7 +3,7 @@
     "date": "2021.11.07",
     "changes": [
       {
-        "description": "First blueprint version 🎉",
+        "description": "First blueprint version \ud83c\udf89",
         "breaking": false
       }
     ]
@@ -80,6 +80,15 @@
     "changes": [
       {
         "description": "Improve Last Controller Event Helper JSON Regex with more lenient matching.",
+        "breaking": false
+      }
+    ]
+  },
+  {
+    "date": "2026.10.11",
+    "changes": [
+      {
+        "description": "Suppress unwanted ZHA Up short actions after Left/Right release_0 events within a configurable window, and ignore unmapped controller events.",
         "breaking": false
       }
     ]
